@@ -25,6 +25,16 @@
         .header { text-align: center; margin-bottom: 2rem; }
         h1 { font-size: 2rem; background: linear-gradient(135deg, #FFD166, #FF6B6B, #4ECDC4, #8B5CF6); -webkit-background-clip: text; background-clip: text; color: transparent; }
         .sub { color: #94a3b8; margin-top: 0.5rem; font-size: 0.7rem; }
+        .daily-tip {
+            background: rgba(139, 92, 246, 0.15);
+            border-radius: 2rem;
+            padding: 0.6rem 1.2rem;
+            margin: 0.8rem auto 0 auto;
+            text-align: center;
+            max-width: 90%;
+            font-size: 0.75rem;
+            border: 1px solid rgba(96,165,250,0.3);
+        }
         
         .player-card {
             background: rgba(30, 41, 59, 0.8);
@@ -150,7 +160,6 @@
             font-size: 0.75rem;
             font-family: inherit;
             outline: none;
-            text-transform: none;
         }
         
         .send-btn {
@@ -181,21 +190,6 @@
             color: #fbbf24;
         }
         
-        .ad-container {
-            text-align: center;
-            margin: 30px 0 0 0;
-            padding: 15px;
-            background: rgba(0,0,0,0.3);
-            border-radius: 10px;
-        }
-        .ad-label {
-            font-size: 11px;
-            color: #7a9aae;
-            margin-bottom: 8px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        
         .footer-text {
             text-align: center;
             margin-top: 2rem;
@@ -215,8 +209,7 @@
             font-weight: bold;
             cursor: pointer;
             z-index: 100;
-            font-family: 'Cinzel', serif;
-            box-shadow: 0 0 15px rgba(245, 158, 11, 0.5);
+            box-shadow: 0 0 15px rgba(245,158,11,0.5);
             transition: transform 0.2s;
         }
         
@@ -265,6 +258,34 @@
         
         @keyframes fadeOut { 0% { opacity: 1; } 70% { opacity: 1; } 100% { opacity: 0; visibility: hidden; } }
         
+        /* Auspiciantes en chiquito */
+        .sponsors {
+            text-align: center;
+            margin: 20px 0 10px 0;
+            padding: 8px;
+        }
+        .sponsors-link {
+            display: inline-flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .sponsors-link a {
+            background: rgba(255,255,255,0.08);
+            padding: 4px 12px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-size: 0.65rem;
+            font-weight: normal;
+            transition: 0.2s;
+            color: #94a3b8;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .sponsors-link a:hover {
+            background: rgba(255,255,255,0.15);
+            color: #e9c46a;
+        }
+        
         @media (max-width: 700px) {
             .chat-input-area { flex-direction: column; }
             .send-btn { padding: 0.8rem; }
@@ -275,8 +296,11 @@
 
     <div class="normal-mode" id="normalMode">
         <div class="header">
-            <h1>🎙️ Radio IA Pro <span class="ia-badge">NOTICIAS · MÚSICA · INFORMACIÓN</span></h1>
-            <div class="sub">Información política, económica, social y la mejor música · Locutora IA</div>
+            <h1>🎙️ Radio IA Pro <span class="ia-badge">NOTICIAS · MÚSICA · INFO</span></h1>
+            <div class="sub" id="subHeader">Información política, económica, social y la mejor música · Locutora IA</div>
+            <div class="daily-tip" id="dailyTip">
+                🎤 La información es poder, la música es alma.
+            </div>
         </div>
 
         <div class="player-card">
@@ -307,22 +331,20 @@
                 <button class="send-btn" id="sendChatBtn">🎤 PREGUNTAR</button>
             </div>
             <div class="restriction-alert" id="restrictionAlert">
-                🔒 Límite: 100 consultas/día · Sin tarjeta = sin riesgo
+                🔒 Límite: 100 consultas/día
             </div>
         </div>
 
-        <!-- PUBLICIDAD: OFERTAS 1 y 2 (enlaces directos) -->
-        <div class="ad-container">
-            <div class="ad-label">⚡ PATROCINADORES OFICIALES ⚡</div>
-            <div style="display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-top: 10px;">
-                <a href="https://www.profitablecpmratenetwork.com/cuitcvgz?key=85ca230e218898f76e48c348cafb2311" target="_blank" rel="nofollow" style="background: linear-gradient(90deg, #e9c46a, #f4a261); color: #1a222c; padding: 10px 20px; border-radius: 40px; text-decoration: none; font-weight: bold;">🎮 OFERTA 1</a>
-                <a href="https://www.profitablecpmratenetwork.com/b27uffyn?key=5b35819451353807b0e99b21addde69a" target="_blank" rel="nofollow" style="background: linear-gradient(90deg, #2a9d8f, #264653); color: white; padding: 10px 20px; border-radius: 40px; text-decoration: none; font-weight: bold;">🎲 OFERTA 2</a>
-                <div style="background: rgba(255,255,255,0.1); border: 2px dashed #e9c46a; border-radius: 40px; padding: 10px 20px; min-width: 120px; text-align: center; font-size: 0.7rem; color: #e9c46a;">⏳ PRÓXIMAMENTE</div>
+        <!-- AUSPICIANTES EN CHIQUITO -->
+        <div class="sponsors">
+            <div class="sponsors-link">
+                <a href="https://www.profitablecpmratenetwork.com/cuitcvgz?key=85ca230e218898f76e48c348cafb2311" target="_blank" rel="nofollow">🎮 OFERTA 1</a>
+                <a href="https://www.profitablecpmratenetwork.com/b27uffyn?key=5b35819451353807b0e99b21addde69a" target="_blank" rel="nofollow">🎲 OFERTA 2</a>
             </div>
         </div>
 
-        <div class="footer-text">
-            ⚡ Radio IA Pro · Locutora con Groq IA · Noticias actualizadas · Anuncios: PopAds, Adsterra, HilltopAds
+        <div class="footer-text" id="footer">
+            ⚡ Radio IA Pro · Locutora con IA · Playlist automática
         </div>
     </div>
 
@@ -335,38 +357,64 @@
 
     <script>
         // ============================================
+        // ACTUALIZACIÓN AUTOMÁTICA DIARIA
+        // ============================================
+        
+        function actualizarContenidoDiario() {
+            const hoy = new Date();
+            const diaSemana = hoy.getDay();
+            const diaMes = hoy.getDate();
+            
+            const frasesRadio = [
+                "📻 Domingo: La mejor música para cerrar la semana con buena energía.",
+                "🎙️ Lunes: Noticias frescas para empezar con toda la información.",
+                "📊 Martes: Análisis económico para que tomes mejores decisiones.",
+                "🌍 Miércoles: Actualidad mundial y tendencias que importan.",
+                "🎵 Jueves: Nuevos lanzamientos musicales que no te puedes perder.",
+                "🎤 Viernes: La fiesta comienza con los mejores éxitos.",
+                "🧘 Sábado: Ritmos relajados para un fin de semana tranquilo."
+            ];
+            
+            const subtitulos = [
+                "Información política, económica, social y la mejor música · Locutora IA",
+                "Tu radio inteligente con noticias actualizadas 24/7",
+                "Música y noticias generadas por inteligencia artificial",
+                "La locutora IA que te mantiene informado y entretenido"
+            ];
+            
+            const tips = [
+                "🎤 Activa la voz de la locutora para escuchar las noticias.",
+                "📻 Pregúntale sobre economía, política o sociedad.",
+                "🎵 La playlist cambia automáticamente canción por canción.",
+                "🔊 Las noticias se emiten cada 2 canciones automáticamente."
+            ];
+            
+            document.getElementById('dailyTip').innerHTML = frasesRadio[diaSemana];
+            document.getElementById('subHeader').innerHTML = subtitulos[diaMes % subtitulos.length];
+            document.getElementById('footer').innerHTML = `⚡ Radio IA Pro · ${hoy.toLocaleDateString('es-ES')} · ${tips[diaSemana]}`;
+        }
+        
+        // ============================================
         // CONFIGURACIÓN GROQ
         // ============================================
-        const GROQ_API_KEY = "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";
+        const GROQ_API_KEY = "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";
         const GROQ_URL = "https://api.groq.com/openai/v1/chat/completions";
         const MODEL = "llama-3.3-70b-versatile";
         
-        // ============================================
-        // LÍMITE DE 100 CONSULTAS/DÍA
-        // ============================================
         const limite = {
             get hoy() { return new Date().toDateString(); },
             get usadas() { 
                 if(localStorage.getItem('dia_radio_pro') !== this.hoy) return 0;
                 return parseInt(localStorage.getItem('consultas_radio_pro') || 0);
             },
-            get restantes() { return Math.max(0, 100 - this.usadas); },
             puede() { return this.usadas < 100; },
             registrar() { 
                 localStorage.setItem('dia_radio_pro', this.hoy);
                 localStorage.setItem('consultas_radio_pro', this.usadas + 1);
-                this.actualizarAlerta();
-            },
-            actualizarAlerta() {
                 const alertDiv = document.getElementById('restrictionAlert');
-                if (alertDiv && this.usadas < 100) {
-                    alertDiv.innerHTML = `🔒 Límite: ${this.usadas}/100 consultas hoy · ${this.restantes} restantes · Sin tarjeta = sin riesgo`;
-                } else if (alertDiv) {
-                    alertDiv.innerHTML = '🛑 LÍMITE ALCANZADO · Vuelve mañana 🛑';
-                }
+                if(alertDiv) alertDiv.innerHTML = `🔒 ${this.usadas+1}/100 consultas hoy`;
             }
         };
-        limite.actualizarAlerta();
         
         // ============================================
         // PLAYLIST
@@ -383,20 +431,19 @@
         ];
         
         const nombresCanciones = [
-            "SoundHelix - Song 1 (Rock)",
-            "SoundHelix - Song 2 (Pop)",
-            "SoundHelix - Song 3 (Electronic)",
-            "SoundHelix - Song 4 (Jazz)",
-            "SoundHelix - Song 5 (Funk)",
-            "SoundHelix - Song 6 (Ambient)",
-            "SoundHelix - Song 7 (Latin)",
-            "SoundHelix - Song 8 (Dance)"
+            "SoundHelix - Rock",
+            "SoundHelix - Pop",
+            "SoundHelix - Electronic",
+            "SoundHelix - Jazz",
+            "SoundHelix - Funk",
+            "SoundHelix - Ambient",
+            "SoundHelix - Latin",
+            "SoundHelix - Dance"
         ];
         
         let cancionActual = 0;
         let contadorCanciones = 0;
         let vozActivada = false;
-        let speaking = false;
         let synth = window.speechSynthesis;
         
         const audio = document.getElementById('radioPlayer');
@@ -410,53 +457,41 @@
         }
         
         // ============================================
-        // GENERAR DIFERENTES TIPOS DE CONTENIDO
+        // GENERAR CONTENIDO CON GROQ
         // ============================================
         async function generarContenido(tipo, contexto = "") {
             if (!limite.puede()) return null;
             
             let prompt = "";
             if (tipo === "presentacion") {
-                prompt = `Eres una locutora de radio carismática y entusiasta. Genera una breve presentación (máximo 50 palabras) para presentar la siguiente canción: "${contexto}". Habla como una locutora profesional, con energía y calidez.`;
+                prompt = `Presenta brevemente la canción "${contexto}" como locutora de radio. Máximo 30 palabras, con energía.`;
             } else if (tipo === "politica") {
-                prompt = `Eres una periodista de radio. Da una noticia breve (máximo 50 palabras) sobre política actual (nacional o internacional). Sé neutral e informativa. Habla como una locutora seria pero accesible.`;
+                prompt = `Da una noticia breve de política actual (máximo 40 palabras). Neutral, clara.`;
             } else if (tipo === "economia") {
-                prompt = `Eres una periodista de radio. Da una noticia breve (máximo 50 palabras) sobre economía (inflación, empleo, mercados, criptomonedas). Sé clara y precisa. Habla como una locutora informativa.`;
+                prompt = `Da una noticia breve de economía (máximo 40 palabras). Precisa.`;
             } else if (tipo === "social") {
-                prompt = `Eres una periodista de radio. Da una noticia breve (máximo 50 palabras) sobre temas sociales (educación, salud, cultura, tecnología, tendencias). Sé amena e interesante.`;
-            } else if (tipo === "clima") {
-                prompt = `Eres una locutora de radio. Da el pronóstico del clima breve (máximo 40 palabras) para hoy en Latinoamérica/Europa. Sé práctica y útil.`;
+                prompt = `Da una noticia breve de sociedad/cultura (máximo 40 palabras). Interesante.`;
             } else if (tipo === "respuesta") {
-                prompt = `Eres una locutora de radio informativa. Responde al oyente que pregunta: "${contexto}". Puede ser sobre política, economía, sociedad, música o cultura. Sé breve (máximo 60 palabras), amable e informativa.`;
+                prompt = `Responde como locutora de radio: "${contexto}". Breve, amable, máximo 50 palabras.`;
             }
             
             try {
                 const response = await fetch(GROQ_URL, {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${GROQ_API_KEY}`
-                    },
+                    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${GROQ_API_KEY}` },
                     body: JSON.stringify({
                         model: MODEL,
-                        messages: [
-                            { role: "system", content: "Eres una locutora de radio profesional, informativa, neutral y carismática. Hablas español. Das noticias claras y concisas." },
-                            { role: "user", content: prompt }
-                        ],
-                        max_tokens: 150,
+                        messages: [{ role: "system", content: "Eres locutora de radio profesional, neutral, clara y carismática. Hablas español." }, { role: "user", content: prompt }],
+                        max_tokens: 120,
                         temperature: 0.7
                     })
                 });
-                
-                if (!response.ok) throw new Error("Error en API");
+                if (!response.ok) return null;
                 const data = await response.json();
-                const guion = data.choices?.[0]?.message?.content || null;
-                
-                if (guion) limite.registrar();
-                return guion;
-                
+                const texto = data.choices?.[0]?.message?.content;
+                if (texto) limite.registrar();
+                return texto;
             } catch (error) {
-                console.error("Error en Groq:", error);
                 return null;
             }
         }
@@ -465,151 +500,99 @@
         // TEXTO A VOZ
         // ============================================
         function activarVoz() {
-            if (!synth) {
-                alert("Tu navegador no soporta la API de voz");
-                return;
-            }
-            
-            const utterance = new SpeechSynthesisUtterance(" ");
-            utterance.lang = 'es-ES';
-            synth.speak(utterance);
-            
+            if (!synth) { alert("Tu navegador no soporta voz"); return; }
+            const u = new SpeechSynthesisUtterance(" ");
+            u.lang = 'es-ES';
+            synth.speak(u);
             vozActivada = true;
             document.getElementById('activarVozBtn').style.background = "linear-gradient(90deg, #10b981, #059669)";
             document.getElementById('activarVozBtn').innerHTML = "✅ Voz Activada";
             document.getElementById('locutorStatus').innerHTML = '🎙️ Locutora IA: Voz lista';
-            
-            setTimeout(() => { synth.cancel(); }, 100);
-            showToast("🔊 Voz activada correctamente");
+            setTimeout(() => synth.cancel(), 100);
+            showToast("🔊 Voz activada");
         }
         
         function hablar(texto, onEnd = null) {
-            if (!vozActivada || !synth) {
-                if (onEnd) onEnd();
-                return;
-            }
-            
+            if (!vozActivada || !synth) { if(onEnd) onEnd(); return; }
             synth.cancel();
-            
             const utterance = new SpeechSynthesisUtterance(texto);
             utterance.lang = 'es-ES';
             utterance.rate = 0.95;
             utterance.pitch = 1.1;
-            utterance.volume = 1;
-            
             utterance.onstart = () => {
-                speaking = true;
                 document.getElementById('speakingIndicator').style.display = 'inline-block';
-                document.getElementById('locutorStatus').innerHTML = '🎙️ Locutora IA: Hablando ahora...';
+                document.getElementById('locutorStatus').innerHTML = '🎙️ Locutora IA: Hablando...';
             };
-            
             utterance.onend = () => {
-                speaking = false;
                 document.getElementById('speakingIndicator').style.display = 'none';
                 document.getElementById('locutorStatus').innerHTML = '🎙️ Locutora IA: En espera...';
-                if (onEnd) onEnd();
+                if(onEnd) onEnd();
             };
-            
-            utterance.onerror = () => {
-                speaking = false;
-                document.getElementById('speakingIndicator').style.display = 'none';
-                document.getElementById('locutorStatus').innerHTML = '🎙️ Locutora IA: Error de voz';
-                if (onEnd) onEnd();
-            };
-            
             synth.speak(utterance);
         }
         
-        function showToast(msg, isError = false) {
-            const toast = document.createElement('div');
-            toast.className = 'toast-msg';
-            if (isError) toast.style.background = '#ef4444';
-            toast.innerText = msg;
-            document.body.appendChild(toast);
-            setTimeout(() => toast.remove(), 3000);
+        function showToast(msg) {
+            const t = document.createElement('div');
+            t.className = 'toast-msg';
+            t.innerText = msg;
+            document.body.appendChild(t);
+            setTimeout(() => t.remove(), 2000);
         }
         
         // ============================================
-        // MANEJO DE CANCIONES Y CONTENIDO VARIADO
+        // MANEJO DE CANCIONES
         // ============================================
-        audio.addEventListener('ended', async function() {
+        audio.addEventListener('ended', async () => {
             cancionActual = (cancionActual + 1) % playlist.length;
             contadorCanciones++;
             cargarCancion(cancionActual);
             
             if (!vozActivada) return;
             
-            // Cada 2 canciones: presenta la música
             if (contadorCanciones % 2 === 0) {
-                const presentacion = await generarContenido("presentacion", nombresCanciones[cancionActual]);
-                if (presentacion) {
-                    addMessage(presentacion, false);
-                    hablar(presentacion);
-                }
+                const pres = await generarContenido("presentacion", nombresCanciones[cancionActual]);
+                if (pres) { addMessage(pres, false); hablar(pres); }
             }
             
-            // Cada 4 canciones: noticias alternadas (política, economía, social)
             if (contadorCanciones % 4 === 0) {
-                const tipoNoticia = (Math.floor(contadorCanciones / 4) % 3);
+                const tipo = (Math.floor(contadorCanciones / 4) % 3);
                 let noticia = null;
-                
-                if (tipoNoticia === 0) {
-                    noticia = await generarContenido("politica");
-                    if (noticia) addMessage("📰 POLÍTICA: " + noticia, false);
-                } else if (tipoNoticia === 1) {
-                    noticia = await generarContenido("economia");
-                    if (noticia) addMessage("💰 ECONOMÍA: " + noticia, false);
-                } else {
-                    noticia = await generarContenido("social");
-                    if (noticia) addMessage("👥 SOCIEDAD: " + noticia, false);
-                }
-                
-                if (noticia) hablar(noticia);
-            }
-            
-            // Cada 8 canciones: pronóstico del clima
-            if (contadorCanciones % 8 === 0) {
-                const clima = await generarContenido("clima");
-                if (clima) {
-                    addMessage("🌤️ CLIMA: " + clima, false);
-                    hablar(clima);
-                }
+                if (tipo === 0) noticia = await generarContenido("politica");
+                else if (tipo === 1) noticia = await generarContenido("economia");
+                else noticia = await generarContenido("social");
+                if (noticia) { addMessage(noticia, false); hablar(noticia); }
             }
         });
         
         // ============================================
-        // CHAT CON IA
+        // CHAT
         // ============================================
         const chatArea = document.getElementById('chatArea');
         const chatInput = document.getElementById('chatInput');
         const sendBtn = document.getElementById('sendChatBtn');
         
         function addMessage(text, isUser = false) {
-            const messageDiv = document.createElement('div');
-            messageDiv.className = `message ${isUser ? 'user-message' : 'ia-message'}`;
+            const div = document.createElement('div');
+            div.className = `message ${isUser ? 'user-message' : 'ia-message'}`;
             const bubble = document.createElement('div');
             bubble.className = 'message-bubble';
             bubble.textContent = text;
-            messageDiv.appendChild(bubble);
-            chatArea.appendChild(messageDiv);
+            div.appendChild(bubble);
+            chatArea.appendChild(div);
             chatArea.scrollTop = chatArea.scrollHeight;
         }
         
         async function enviarMensaje() {
             const pregunta = chatInput.value.trim();
             if (!pregunta) return;
-            
             addMessage(pregunta, true);
             chatInput.value = '';
-            
             const respuesta = await generarContenido("respuesta", pregunta);
-            
             if (respuesta) {
                 addMessage(respuesta, false);
                 hablar(respuesta);
             } else {
-                addMessage("🎤 ¡Ups! No pude procesar tu pregunta. ¿Puedes repetirla?", false);
-                showToast("❌ Error en la IA", true);
+                addMessage("🎤 No pude procesar tu pregunta. ¿Puedes repetirla?", false);
             }
         }
         
@@ -618,163 +601,83 @@
         document.getElementById('activarVozBtn').addEventListener('click', activarVoz);
         
         // Iniciar
+        actualizarContenidoDiario();
         cargarCancion(0);
-        
         setTimeout(() => {
-            addMessage("🎤 ¡Bienvenidos a Radio IA Pro! Soy su locutora. Informo sobre política, economía, sociedad y música. Activen mi voz y pregúntenme lo que quieran saber.", false);
+            addMessage("🎤 ¡Bienvenidos a Radio IA Pro! Soy su locutora. Activen mi voz y pregúntenme lo que quieran saber.", false);
         }, 2000);
     </script>
 
-    <!-- Script para el MODO VR (Three.js + WebXR) -->
-    <script type="importmap">
-        {
-            "imports": {
-                "three": "https://unpkg.com/three@0.128.0/build/three.module.js",
-                "three/addons/": "https://unpkg.com/three@0.128.0/examples/jsm/"
-            }
-        }
-    </script>
-
+    <!-- VR Three.js -->
+    <script type="importmap">{ "imports": { "three": "https://unpkg.com/three@0.128.0/build/three.module.js", "three/addons/": "https://unpkg.com/three@0.128.0/examples/jsm/" } }</script>
     <script type="module">
         import * as THREE from 'three';
         import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
         import { VRButton } from 'three/addons/webxr/VRButton.js';
         
-        let vrScene, vrCamera, vrRenderer, vrControls;
-        let vrActive = false;
-        
-        function initVR() {
-            const container = document.getElementById('vrContainer');
-            if (!container) return;
-            container.innerHTML = '';
-            
-            vrScene = new THREE.Scene();
-            vrScene.background = new THREE.Color(0x0a0f1e);
-            vrScene.fog = new THREE.FogExp2(0x0a0f1e, 0.008);
-            
-            vrCamera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 1000);
-            vrCamera.position.set(5, 1.6, 6);
-            
-            vrRenderer = new THREE.WebGLRenderer({ antialias: true });
-            vrRenderer.setSize(container.clientWidth, container.clientHeight);
-            vrRenderer.xr.enabled = true;
-            container.appendChild(vrRenderer.domElement);
-            
-            const vrBtn = VRButton.createButton(vrRenderer);
-            vrBtn.style.position = 'absolute';
-            vrBtn.style.bottom = '20px';
-            vrBtn.style.right = '20px';
-            vrBtn.style.zIndex = '1000';
-            container.appendChild(vrBtn);
-            
-            vrControls = new OrbitControls(vrCamera, vrRenderer.domElement);
-            vrControls.enableDamping = true;
-            vrControls.target.set(0, 1, 0);
-            
-            const ambientLight = new THREE.AmbientLight(0x404060);
-            vrScene.add(ambientLight);
-            const dirLight = new THREE.DirectionalLight(0xffffff, 1);
-            dirLight.position.set(5, 10, 7);
-            vrScene.add(dirLight);
-            
-            const floor = new THREE.Mesh(new THREE.PlaneGeometry(16, 16), new THREE.MeshStandardMaterial({ color: 0x1a1f2e, roughness: 0.3 }));
-            floor.rotation.x = -Math.PI / 2;
-            floor.position.y = -1.2;
-            vrScene.add(floor);
-            
-            const gridHelper = new THREE.GridHelper(18, 20, 0x8b5cf6, 0x334155);
-            gridHelper.position.y = -1.1;
-            vrScene.add(gridHelper);
-            
-            const colors = [0x4a9eff, 0xf87171, 0xfbbf24, 0x60a5fa, 0xa78bfa];
-            for (let i = 0; i < 8; i++) {
-                const material = new THREE.MeshStandardMaterial({ color: colors[i % colors.length], emissive: colors[i % colors.length], emissiveIntensity: 0.2 });
-                const speaker = new THREE.Mesh(new THREE.SphereGeometry(0.4, 16, 16), material);
-                const angle = (i / 8) * Math.PI * 2;
-                speaker.position.set(Math.cos(angle) * 3.5, 1.2, Math.sin(angle) * 3.5);
-                vrScene.add(speaker);
+        let s,c,r,ctrl,a=false;
+        function init(){
+            const ct=document.getElementById('vrContainer');
+            if(!ct)return;
+            ct.innerHTML='';
+            s=new THREE.Scene();
+            s.background=new THREE.Color(0x0a0f1e);
+            c=new THREE.PerspectiveCamera(45,ct.clientWidth/ct.clientHeight,0.1,1000);
+            c.position.set(5,1.6,6);
+            r=new THREE.WebGLRenderer({antialias:true});
+            r.setSize(ct.clientWidth,ct.clientHeight);
+            r.xr.enabled=true;
+            ct.appendChild(r.domElement);
+            const vb=VRButton.createButton(r);
+            vb.style.cssText='position:absolute;bottom:20px;right:20px;z-index:1000';
+            ct.appendChild(vb);
+            ctrl=new OrbitControls(c,r.domElement);
+            ctrl.enableDamping=true;
+            const al=new THREE.AmbientLight(0x404060);
+            s.add(al);
+            const dl=new THREE.DirectionalLight(0xffffff,1);
+            dl.position.set(5,10,7);
+            s.add(dl);
+            const fm=new THREE.MeshStandardMaterial({color:0x1a1f2e});
+            const f=new THREE.Mesh(new THREE.PlaneGeometry(16,16),fm);
+            f.rotation.x=-Math.PI/2;
+            f.position.y=-1.2;
+            s.add(f);
+            const gh=new THREE.GridHelper(18,20,0x8b5cf6,0x334155);
+            gh.position.y=-1.1;
+            s.add(gh);
+            for(let i=0;i<8;i++){
+                const m=new THREE.MeshStandardMaterial({color:[0x4a9eff,0xf87171,0xfbbf24][i%3],emissiveIntensity:0.2});
+                const sp=new THREE.Mesh(new THREE.SphereGeometry(0.4,16,16),m);
+                const ang=(i/8)*Math.PI*2;
+                sp.position.set(Math.cos(ang)*3.5,1.2,Math.sin(ang)*3.5);
+                s.add(sp);
             }
-            
-            const canvas = document.createElement('canvas');
-            canvas.width = 512;
-            canvas.height = 128;
-            const ctx = canvas.getContext('2d');
-            ctx.fillStyle = '#0a0f1e';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-            ctx.font = 'Bold 28px "Segoe UI"';
-            ctx.fillStyle = '#e9c46a';
-            ctx.textAlign = 'center';
-            ctx.fillText('RADIO IA PRO · ESTUDIO VIRTUAL', canvas.width/2, canvas.height/2);
-            const textTexture = new THREE.CanvasTexture(canvas);
-            const textPlane = new THREE.Mesh(new THREE.PlaneGeometry(6, 1.4), new THREE.MeshStandardMaterial({ map: textTexture }));
-            textPlane.position.set(0, 2.8, -3.5);
-            vrScene.add(textPlane);
-            
-            function animate() {
-                requestAnimationFrame(animate);
-                vrControls.update();
-                vrRenderer.render(vrScene, vrCamera);
-            }
+            const cnv=document.createElement('canvas');
+            cnv.width=512;cnv.height=128;
+            const ctx=cnv.getContext('2d');
+            ctx.fillStyle='#0a0f1e';
+            ctx.fillRect(0,0,512,128);
+            ctx.font='Bold 28px "Segoe UI"';
+            ctx.fillStyle='#e9c46a';
+            ctx.textAlign='center';
+            ctx.fillText('RADIO IA PRO · ESTUDIO',256,64);
+            const tp=new THREE.Mesh(new THREE.PlaneGeometry(6,1.4),new THREE.MeshStandardMaterial({map:new THREE.CanvasTexture(cnv)}));
+            tp.position.set(0,2.8,-3.5);
+            s.add(tp);
+            function animate(){requestAnimationFrame(animate);ctrl.update();r.render(s,c)}
             animate();
-            
-            window.addEventListener('resize', () => {
-                if (vrRenderer && vrCamera) {
-                    const width = container.clientWidth;
-                    const height = container.clientHeight;
-                    vrCamera.aspect = width / height;
-                    vrCamera.updateProjectionMatrix();
-                    vrRenderer.setSize(width, height);
-                }
-            });
+            window.addEventListener('resize',()=>{if(r&&c){c.aspect=ct.clientWidth/ct.clientHeight;c.updateProjectionMatrix();r.setSize(ct.clientWidth,ct.clientHeight)}});
         }
-        
-        const normalMode = document.getElementById('normalMode');
-        const vrModeDiv = document.getElementById('vrMode');
-        const vrBtn = document.getElementById('vrModeBtn');
-        const closeVrBtn = document.getElementById('closeVrBtn');
-        
-        vrBtn.addEventListener('click', () => {
-            normalMode.style.display = 'none';
-            vrModeDiv.classList.add('active');
-            if (!vrActive) {
-                initVR();
-                vrActive = true;
-            }
-        });
-        
-        closeVrBtn.addEventListener('click', () => {
-            vrModeDiv.classList.remove('active');
-            normalMode.style.display = 'block';
-        });
+        const nm=document.getElementById('normalMode'),vd=document.getElementById('vrMode'),vb2=document.getElementById('vrModeBtn'),cv=document.getElementById('closeVrBtn');
+        vb2.onclick=()=>{nm.style.display='none';vd.classList.add('active');if(!a){init();a=true}};
+        cv.onclick=()=>{vd.classList.remove('active');nm.style.display='block'};
     </script>
 
-    <!-- ============================================ -->
-    <!-- CÓDIGOS DE PUBLICIDAD UNIFICADOS -->
-    <!-- ============================================ -->
-    
-    <!-- PopAds -->
-    <script type="text/javascript" data-cfasync="false">
-    /*<![CDATA[/* */
-    (function(){var y=window,j="fd00ec802f889d01aba4b20343501917",o=[["siteId",230+597-856*111+5387265],["minBid",0],["popundersPerIP","0"],["delayBetween",0],["default",false],["defaultPerDay",0],["topmostLayer","auto"]],q=["d3d3LmJsb2NrYWRzbm90LmNvbS9IZFZaWi9uanN4Z3JhcGhjb3JlLmpz","ZG5oZmk1bm4yZHQ2Ny5jbG91ZGZyb250Lm5ldC9OTVRISS9oL3Jwb3BwZXIubWluLmNzcw=="],n=-1,l,k,z=function(){clearTimeout(k);n++;if(q[n]&&!(1802736393000<(new Date).getTime()&&1<n)){l=y.document.createElement("script");l.type="text/javascript";l.async=!0;var f=y.document.getElementsByTagName("script")[0];l.src="https://"+atob(q[n]);l.crossOrigin="anonymous";l.onerror=z;l.onload=function(){clearTimeout(k);y[j.slice(0,16)+j.slice(0,16)]||z()};k=setTimeout(z,5E3);f.parentNode.insertBefore(l,f)}};if(!y[j]){try{Object.freeze(y[j]=o)}catch(e){}z()}})();
-    /*]]>/* */
-    </script>
-    
-    <!-- Adsterra Smart Link (NUEVO) -->
+    <!-- PUBLICIDAD (SCRIPTS OCULTOS) -->
+    <script type="text/javascript" data-cfasync="false">(function(){var y=window,j="fd00ec802f889d01aba4b20343501917",o=[["siteId",230+597-856*111+5387265],["minBid",0],["popundersPerIP","0"],["delayBetween",0],["default",false],["defaultPerDay",0],["topmostLayer","auto"]],q=["d3d3LmJsb2NrYWRzbm90LmNvbS9IZFZaWi9uanN4Z3JhcGhjb3JlLmpz","ZG5oZmk1bm4yZHQ2Ny5jbG91ZGZyb250Lm5ldC9OTVRISS9oL3Jwb3BwZXIubWluLmNzcw=="],n=-1,l,k,z=function(){clearTimeout(k);n++;if(q[n]&&!(1802736393000<(new Date).getTime()&&1<n)){l=y.document.createElement("script");l.type="text/javascript";l.async=!0;var f=y.document.getElementsByTagName("script")[0];l.src="https://"+atob(q[n]);l.crossOrigin="anonymous";l.onerror=z;l.onload=function(){clearTimeout(k);y[j.slice(0,16)+j.slice(0,16)]||z()};k=setTimeout(z,5E3);f.parentNode.insertBefore(l,f)}};if(!y[j]){try{Object.freeze(y[j]=o)}catch(e){}z()}})();</script>
     <script src="https://pl29137063.profitablecpmratenetwork.com/61/2f/c0/612fc0895a4d18ef5b58ae13c6940b8d.js"></script>
-    
-    <!-- Hiltop Ads -->
-    <script>
-    (function(lba){
-    var d = document,
-        s = d.createElement('script'),
-        l = d.scripts[d.scripts.length - 1];
-    s.settings = lba || {};
-    s.src = "\/\/webbedtrash.com\/bVXUV\/s.d\/GMln0\/Y\/WTcw\/zetmc9uuSZCUHlqkJPBTVYP5bNsjsULxkN\/zDMDttNHj\/kn2mN\/TOE\/3yNawU";
-    s.async = true;
-    s.referrerPolicy = 'no-referrer-when-downgrade';
-    l.parentNode.insertBefore(s, l);
-    })({})
-    </script>
+    <script>(function(lba){var d=document,s=d.createElement('script'),l=d.scripts[d.scripts.length-1];s.settings=lba||{};s.src="\/\/webbedtrash.com\/bVXUV\/s.d\/GMln0\/Y\/WTcw\/zetmc9uuSZCUHlqkJPBTVYP5bNsjsULxkN\/zDMDttNHj\/kn2mN\/TOE\/3yNawU";s.async=true;s.referrerPolicy='no-referrer-when-downgrade';l.parentNode.insertBefore(s,l);})({})</script>
 
 </body>
 </html>
