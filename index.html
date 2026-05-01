@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Radio IA Pro · Noticias REALES · Música · IA Local</title>
+    <title>Radio IA Pro · Noticias REALES · Música · IA Potenciada</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
@@ -26,15 +26,23 @@
         h1 { font-size: 2rem; background: linear-gradient(135deg, #FFD166, #FF6B6B, #4ECDC4, #8B5CF6); -webkit-background-clip: text; background-clip: text; color: transparent; }
         .sub { color: #94a3b8; margin-top: 0.5rem; font-size: 0.7rem; }
         .live-badge {
-            background: #dc2626;
+            background: #10b981;
             color: white;
             padding: 2px 10px;
             border-radius: 20px;
             font-size: 0.6rem;
             margin-left: 10px;
-            animation: pulse 1.5s infinite;
             display: inline-block;
             vertical-align: middle;
+        }
+        .playing-badge {
+            background: #f59e0b;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 20px;
+            font-size: 0.55rem;
+            margin-left: 8px;
+            display: inline-block;
         }
         @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.6; } }
         
@@ -196,7 +204,7 @@
         .send-btn:disabled { opacity: 0.5; cursor: not-allowed; }
         
         .ia-badge {
-            background: #8b5cf6;
+            background: #10b981;
             padding: 2px 10px;
             border-radius: 20px;
             font-size: 0.7rem;
@@ -329,6 +337,15 @@
         }
         @keyframes spin { to { transform: rotate(360deg); } }
         
+        .aleatorio-badge {
+            background: #8b5cf6;
+            padding: 2px 8px;
+            border-radius: 20px;
+            font-size: 0.55rem;
+            margin-left: 8px;
+            display: inline-block;
+        }
+        
         @media (max-width: 700px) {
             .chat-input-area { flex-direction: column; }
             .send-btn { padding: 0.8rem; }
@@ -340,8 +357,8 @@
 
     <div class="normal-mode" id="normalMode">
         <div class="header">
-            <h1>🎙️ Radio IA Pro <span class="ia-badge">NOTICIAS REALES + IA LOCAL</span><span class="live-badge" id="liveBadge">🌐 EN VIVO</span></h1>
-            <div class="sub" id="subHeader">Noticias REALES de actualidad · Música · Locutora IA con contexto web</div>
+            <h1>🎙️ Radio IA Pro <span class="ia-badge">🇩🇪 IA POTENCIADA</span><span class="live-badge" id="liveBadge">🌐 EN VIVO</span><span class="aleatorio-badge">🎲 24 CANCIONES · ALEATORIO</span></h1>
+            <div class="sub" id="subHeader">Noticias REALES · Música · Locutora con precisión alemana</div>
             <div class="daily-tip" id="dailyTip">
                 🎤 La información es poder, la música es alma.
             </div>
@@ -363,14 +380,15 @@
             <button class="btn-voz" id="activarVozBtn">🔊 Activar Voz de la Locutora</button>
             
             <div class="now-playing">
-                <span class="song-title">🎵 Ahora suena:</span> <span id="currentSong">Cargando playlist...</span>
+                <span class="song-title">🎵 Ahora suena:</span> <span id="currentSong">Cargando playlist aleatoria...</span>
+                <span class="playing-badge" id="randomBadge">🎲 Modo aleatorio</span>
             </div>
         </div>
 
         <div class="chat-card">
             <div class="chat-area" id="chatArea">
                 <div class="message ia-message">
-                    <div class="message-bubble">🎤 ¡Hola! Soy tu locutora con IA. Recibo noticias REALES de actualidad y respondo tus preguntas con información actualizada. Activa mi voz y pregúntame lo que quieras. ¡Noticias cada 4 canciones!</div>
+                    <div class="message-bubble">🎤 ¡Hola! Soy tu locutora con IA potenciada. +24 canciones en modo aleatorio. Noticias REALES cada 4 canciones. Activa mi voz y pregúntame lo que quieras.</div>
                 </div>
             </div>
             <div class="chat-input-area">
@@ -381,7 +399,7 @@
                 📡 Conectando a fuentes de noticias...
             </div>
             <div class="restriction-alert" id="restrictionAlert">
-                🤖 IA Local ilimitada · Noticias reales de internet · Voz nativa
+                🤖 IA Potenciada · Noticias reales · 24 canciones · Modo aleatorio
             </div>
         </div>
 
@@ -393,7 +411,7 @@
         </div>
 
         <div class="footer-text" id="footer">
-            ⚡ Radio IA Pro · Noticias REALES · Locutora IA Local · Playlist automática
+            ⚡ Radio IA Pro · IA Potenciada · 24 canciones aleatorias
         </div>
     </div>
 
@@ -404,22 +422,73 @@
         <div id="vrContainer" style="width:100%;height:100%"></div>
     </div>
 
-    <!-- jsllm7 - IA local -->
     <script src="https://cdn.jsdelivr.net/npm/jsllm7@0.1.0/jsllm7.js"></script>
 
     <script>
         // ============================================
+        // PLAYLIST AMPLIADA (24 canciones) + MODO ALEATORIO
+        // ============================================
+        
+        const playlist = [
+            // Originales (8)
+            "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
+            "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
+            "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3",
+            "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3",
+            "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3",
+            "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-6.mp3",
+            "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-7.mp3",
+            "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3",
+            // Nuevas (16)
+            "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-9.mp3",
+            "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-10.mp3",
+            "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-11.mp3",
+            "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-12.mp3",
+            "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-13.mp3",
+            "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-14.mp3",
+            "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-15.mp3",
+            "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-16.mp3",
+            "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-17.mp3",
+            "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-18.mp3",
+            "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-19.mp3",
+            "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-20.mp3",
+            "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-21.mp3",
+            "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-22.mp3",
+            "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-23.mp3",
+            "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-24.mp3"
+        ];
+        
+        const nombresCanciones = [
+            "Rock Energy", "Pop Vibes", "Electronic Dreams", "Jazz Fusion",
+            "Funk Groove", "Ambient Chill", "Latin Rhythm", "Dance Party",
+            "Acoustic Guitar", "Piano Melody", "Orchestral Epic", "Reggae Sun",
+            "Blues Night", "Country Road", "Metal Storm", "Disco Fever",
+            "Trance Wave", "Hip Hop Beat", "R&B Soul", "Swing Time",
+            "Bossa Nova", "Celtic Folk", "Indian Ragas", "World Beat"
+        ];
+        
+        let cancionActualIndex = -1;
+        let contadorCanciones = 0;
+        
+        function obtenerCancionAleatoria() {
+            let nuevoIndex;
+            do {
+                nuevoIndex = Math.floor(Math.random() * playlist.length);
+            } while (nuevoIndex === cancionActualIndex && playlist.length > 1);
+            cancionActualIndex = nuevoIndex;
+            return {
+                url: playlist[cancionActualIndex],
+                nombre: nombresCanciones[cancionActualIndex]
+            };
+        }
+        
+        // ============================================
         // SISTEMA DE NOTICIAS REALES (RSS gratuitos)
         // ============================================
         
-        let ultimasNoticias = {
-            politica: [],
-            economia: [],
-            tecnologia: []
-        };
+        let ultimasNoticias = { politica: [], economia: [], tecnologia: [] };
         let ultimaActualizacion = null;
         
-        // Fuentes RSS gratuitas
         const fuentesNoticias = {
             politica: 'https://api.rss2json.com/v1/api.json?rss_url=https://feeds.bbci.co.uk/news/world/rss.xml',
             economia: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.economist.com/finance-and-economics/rss.xml',
@@ -439,41 +508,30 @@
                         link: item.link
                     }));
                 }
-            } catch (error) {
-                console.log(`Error obteniendo noticias de ${categoria}:`, error);
-            }
+            } catch (error) { console.log(`Error:`, error); }
             return [];
         }
         
         async function actualizarNoticias() {
             const contextDiv = document.getElementById('contextInfo');
             const newsTicker = document.getElementById('newsTicker');
-            
-            contextDiv.innerHTML = "🌐 Buscando noticias actuales en internet...";
-            newsTicker.innerHTML = "📡 Actualizando fuentes de información...";
-            
+            contextDiv.innerHTML = "🌐 Buscando noticias actuales...";
+            newsTicker.innerHTML = "📡 Actualizando fuentes...";
             try {
                 const [politica, economia, tecnologia] = await Promise.all([
                     obtenerNoticiasReales('politica'),
                     obtenerNoticiasReales('economia'),
                     obtenerNoticiasReales('tecnologia')
                 ]);
-                
                 ultimasNoticias = { politica, economia, tecnologia };
                 ultimaActualizacion = new Date();
-                
-                if (politica.length > 0) {
-                    newsTicker.innerHTML = `📰 ${politica[0].titulo.substring(0, 100)}...`;
-                } else {
-                    newsTicker.innerHTML = "📡 Conectado a fuentes de noticias · Actualización en curso";
-                }
-                
-                contextDiv.innerHTML = `📡 Noticias actualizadas: ${ultimaActualizacion.toLocaleTimeString()} · Política: ${politica.length} · Economía: ${economia.length} · Tecnología: ${tecnologia.length}`;
-                
+                if (politica.length > 0) newsTicker.innerHTML = `📰 ${politica[0].titulo.substring(0, 100)}...`;
+                else newsTicker.innerHTML = "📡 Conectado a fuentes de noticias";
+                contextDiv.innerHTML = `📡 Noticias actualizadas: ${ultimaActualizacion.toLocaleTimeString()} · IA Potenciada`;
                 return { politica, economia, tecnologia };
             } catch (error) {
-                contextDiv.innerHTML = "⚠️ Usando fuente local de noticias · Sintonizando...";
-                newsTicker.innerHTML = "🎙️ Conectando a servidores de noticias...";
+                contextDiv.innerHTML = "⚠️ Usando fuente local";
+                newsTicker.innerHTML = "🎙️ IA Potenciada activa";
                 return null;
             }
         }
@@ -484,49 +542,21 @@
             const noticias = ultimasNoticias[categoria];
             if (noticias && noticias.length > 0) {
                 const noticia = noticias[Math.floor(Math.random() * noticias.length)];
-                return {
-                    categoria,
-                    titulo: noticia.titulo,
-                    texto: `${noticia.titulo}. ${noticia.descripcion ? noticia.descripcion.substring(0, 200) : ''}`
-                };
+                return { categoria, titulo: noticia.titulo, texto: `${noticia.titulo}. ${noticia.descripcion ? noticia.descripcion.substring(0, 200) : ''}` };
             }
             return null;
         }
-        
-        // ============================================
-        // ACTUALIZACIÓN DIARIA
-        // ============================================
         
         function actualizarContenidoDiario() {
             const hoy = new Date();
             const diaSemana = hoy.getDay();
             const diaMes = hoy.getDate();
-            
-            const frasesRadio = [
-                "📻 Domingo: La mejor música para cerrar la semana con buena energía.",
-                "🎙️ Lunes: Noticias frescas para empezar con toda la información.",
-                "📊 Martes: Análisis económico para que tomes mejores decisiones.",
-                "🌍 Miércoles: Actualidad mundial y tendencias que importan.",
-                "🎵 Jueves: Nuevos lanzamientos musicales que no te puedes perder.",
-                "🎤 Viernes: La fiesta comienza con los mejores éxitos.",
-                "🧘 Sábado: Ritmos relajados para un fin de semana tranquilo."
-            ];
-            
-            const subtitulos = [
-                "Noticias REALES actualidad · Música · Locutora IA con contexto web",
-                "Información política, económica y tecnológica actualizada 24/7",
-                "Tu radio inteligente con noticias reales y música · IA Local ilimitada",
-                "La locutora IA que te mantiene informado con noticias de verdad"
-            ];
-            
-            document.getElementById('dailyTip').innerHTML = frasesRadio[diaSemana];
+            const frasesRadio = ["📻 Domingo", "🎙️ Lunes", "📊 Martes", "🌍 Miércoles", "🎵 Jueves", "🎤 Viernes", "🧘 Sábado"];
+            const subtitulos = ["Noticias REALES · Música · Locutora IA potenciada", "Información actualizada 24/7", "Tu radio inteligente", "La locutora IA que te mantiene informado"];
+            document.getElementById('dailyTip').innerHTML = frasesRadio[diaSemana] + ": La mejor música para hoy.";
             document.getElementById('subHeader').innerHTML = subtitulos[diaMes % subtitulos.length];
-            document.getElementById('footer').innerHTML = `⚡ Radio IA Pro · ${hoy.toLocaleDateString('es-ES')} · Noticias en tiempo real`;
+            document.getElementById('footer').innerHTML = `⚡ Radio IA Pro · ${hoy.toLocaleDateString('es-ES')} · 24 canciones aleatorias`;
         }
-        
-        // ============================================
-        // IA LOCAL CON CONTEXTO DE NOTICIAS REALES
-        // ============================================
         
         let iaLista = false;
         let procesandoRespuesta = false;
@@ -540,104 +570,51 @@
             setTimeout(() => t.remove(), 2000);
         }
         
-        // Respuestas offline (respaldo)
         const respuestasOffline = {
             presentacion: (cancion) => `🎵 ¡Excelente música! Ahora escuchamos "${cancion}". Disfruta de Radio IA Pro.`,
-            politica: "📰 En el ámbito político, los líderes mundiales continúan trabajando en desafíos globales.",
-            economia: "📊 La economía global muestra signos de recuperación y estabilidad.",
-            tecnologia: "🔬 La innovación tecnológica avanza rápidamente en todo el mundo."
+            politica: "📰 En el ámbito político, los líderes mundiales continúan trabajando.",
+            economia: "📊 La economía global muestra signos de recuperación.",
+            tecnologia: "🔬 La innovación tecnológica avanza rápidamente."
         };
         
-        async function generarContenidoLocal(tipo, contexto = "") {
-            return new Promise(async (resolve) => {
-                try {
-                    if (typeof jsllm7 === 'undefined') {
-                        await new Promise(r => setTimeout(r, 500));
-                        if (typeof jsllm7 === 'undefined') {
-                            resolve(respuestasOffline[tipo] || "🎤 Radio IA Pro al aire");
-                            return;
-                        }
-                    }
-                    
-                    let prompt = "";
-                    if (tipo === "presentacion") {
-                        prompt = `Eres locutora de radio. Presenta la canción "${contexto}" con energía. Máximo 35 palabras. Español.`;
-                    } else if (tipo === "politica" && contexto) {
-                        prompt = `Eres locutora de radio. Lee esta noticia real: "${contexto}". Dale un tono profesional pero ameno. Máximo 60 palabras. Español.`;
-                    } else if (tipo === "economia" && contexto) {
-                        prompt = `Eres locutora de radio. Lee esta noticia económica real: "${contexto}". Clara y precisa. Máximo 60 palabras. Español.`;
-                    } else if (tipo === "tecnologia" && contexto) {
-                        prompt = `Eres locutora de radio. Lee esta noticia tecnológica real: "${contexto}". Interesante y actual. Máximo 60 palabras. Español.`;
-                    } else if (tipo === "respuesta") {
-                        let noticiasContexto = "";
-                        if (ultimasNoticias.politica.length > 0) {
-                            noticiasContexto += `\nNoticias reales actuales:\n- Política: ${ultimasNoticias.politica[0].titulo}\n- Economía: ${ultimasNoticias.economia[0]?.titulo || 'Sin datos'}\n- Tecnología: ${ultimasNoticias.tecnologia[0]?.titulo || 'Sin datos'}`;
-                        }
-                        prompt = `Eres locutora de radio. Responde amablemente: "${contexto}". Usa estas noticias actuales si son relevantes:${noticiasContexto}. Máximo 70 palabras. Español.`;
-                    } else {
-                        resolve(respuestasOffline[tipo] || "🎤 Radio IA Pro al aire");
-                        return;
-                    }
-                    
-                    const respuesta = await jsllm7(prompt);
-                    
-                    if (respuesta && respuesta.length > 10 && respuesta.length < 500) {
-                        resolve(respuesta);
-                    } else {
-                        resolve(respuestasOffline[tipo] || `🎤 ${contexto || "¡Saludos! Esta es Radio IA Pro"}`);
-                    }
-                } catch (error) {
-                    console.error("Error IA local:", error);
-                    resolve(respuestasOffline[tipo] || "🎤 Radio IA Pro al aire");
+        async function generarContenidoPotenciado(tipo, contexto = "") {
+            try {
+                if (typeof jsllm7 === 'undefined') {
+                    await new Promise(r => setTimeout(r, 500));
+                    if (typeof jsllm7 === 'undefined') return respuestasOffline[tipo] || "🎤 Radio IA Pro al aire";
                 }
-            });
+                let prompt = "";
+                if (tipo === "presentacion") prompt = `Du bist ein Radiomoderator. Präsentiere den Song "${contexto}" mit Energie und Wärme. Max 40 Wörter. Deutsch.`;
+                else if (tipo === "respuesta") {
+                    let noticiasContexto = "";
+                    if (ultimasNoticias.politica.length > 0) noticiasContexto += `\nAktuelle Nachrichten:\n- Politik: ${ultimasNoticias.politica[0].titulo}\n- Wirtschaft: ${ultimasNoticias.economia[0]?.titulo || 'Keine Daten'}\n- Technologie: ${ultimasNoticias.tecnologia[0]?.titulo || 'Keine Daten'}`;
+                    prompt = `Du bist ein Radiomoderator. Antworte freundlich auf Deutsch: "${contexto}". Verwende diese aktuellen Nachrichten wenn relevant:${noticiasContexto}. Max 70 Wörter. Deutsch.`;
+                } else if (contexto) prompt = `Du bist ein Radiomoderator. Lies diese echte Nachricht: "${contexto}". Max 60 Wörter. Deutsch.`;
+                else return respuestasOffline[tipo] || "🎤 Radio IA Pro al aire";
+                
+                const respuestaAleman = await jsllm7(prompt);
+                const traducir = `Übersetze diesen Radiotext ins SPANISCHE (natürlich, warmherzig):\n\nDEUTSCH: "${respuestaAleman}"\n\nSPANISCH:`;
+                const respuestaFinal = await jsllm7(traducir);
+                return respuestaFinal || respuestaAleman;
+            } catch (error) { return respuestasOffline[tipo] || "🎤 Radio IA Pro al aire"; }
         }
         
-        // ============================================
-        // PLAYLIST
-        // ============================================
-        const playlist = [
-            "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
-            "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
-            "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3",
-            "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3",
-            "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3",
-            "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-6.mp3",
-            "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-7.mp3",
-            "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3"
-        ];
-        
-        const nombresCanciones = [
-            "SoundHelix - Rock Energy",
-            "SoundHelix - Pop Vibes",
-            "SoundHelix - Electronic Dreams",
-            "SoundHelix - Jazz Fusion",
-            "SoundHelix - Funk Groove",
-            "SoundHelix - Ambient Chill",
-            "SoundHelix - Latin Rhythm",
-            "SoundHelix - Dance Party"
-        ];
-        
-        let cancionActual = 0;
-        let contadorCanciones = 0;
         let vozActivada = false;
         let synth = window.speechSynthesis;
-        
         const audio = document.getElementById('radioPlayer');
         const currentSongSpan = document.getElementById('currentSong');
         
-        function cargarCancion(index) {
-            audio.src = playlist[index];
+        function cargarCancionAleatoria() {
+            const cancion = obtenerCancionAleatoria();
+            audio.src = cancion.url;
             audio.load();
-            audio.play().catch(e => console.log("Auto-play bloqueado:", e));
-            currentSongSpan.innerHTML = `${nombresCanciones[index]} 🎵`;
+            audio.play().catch(e => console.log("Auto-play:", e));
+            currentSongSpan.innerHTML = `${cancion.nombre} 🎵`;
+            return cancion.nombre;
         }
         
-        // ============================================
-        // TEXTO A VOZ
-        // ============================================
         function activarVoz() {
-            if (!synth) { alert("Tu navegador no soporta voz"); return; }
+            if (!synth) { alert("No soporta voz"); return; }
             const utterance = new SpeechSynthesisUtterance(" ");
             utterance.lang = 'es-ES';
             synth.speak(utterance);
@@ -646,7 +623,7 @@
             document.getElementById('activarVozBtn').innerHTML = "✅ Voz Activada";
             document.getElementById('locutorStatus').innerHTML = '🎙️ Locutora IA: Voz lista';
             setTimeout(() => synth.cancel(), 100);
-            showToast("🔊 Voz activada. ¡Ahora la locutora hablará con noticias reales!");
+            showToast("🔊 Voz activada");
         }
         
         function hablar(texto, onEnd = null) {
@@ -668,48 +645,29 @@
             synth.speak(utterance);
         }
         
-        // ============================================
-        // MANEJO DE CANCIONES CON NOTICIAS REALES
-        // ============================================
         audio.addEventListener('ended', async () => {
-            cancionActual = (cancionActual + 1) % playlist.length;
+            const nuevaCancion = cargarCancionAleatoria();
             contadorCanciones++;
-            cargarCancion(cancionActual);
-            
             if (!vozActivada) return;
-            
-            // Presentar canción cada 2 canciones
             if (contadorCanciones % 2 === 0) {
-                const pres = await generarContenidoLocal("presentacion", nombresCanciones[cancionActual]);
+                const pres = await generarContenidoPotenciado("presentacion", nuevaCancion);
                 addMessage(pres, false);
                 hablar(pres);
             }
-            
-            // Noticias REALES cada 4 canciones
             if (contadorCanciones % 4 === 0) {
                 const noticia = getNoticiaAleatoria();
                 if (noticia) {
-                    const noticiaTexto = await generarContenidoLocal(noticia.categoria, noticia.texto);
-                    if (noticiaTexto) { 
-                        addMessage(noticiaTexto, false); 
-                        hablar(noticiaTexto);
-                    }
+                    const noticiaTexto = await generarContenidoPotenciado(noticia.categoria, noticia.texto);
+                    if (noticiaTexto) { addMessage(noticiaTexto, false); hablar(noticiaTexto); }
                 } else {
-                    // Si no hay noticias reales, usar generación local
                     const tipos = ["politica", "economia", "tecnologia"];
                     const tipo = tipos[Math.floor(contadorCanciones / 4) % 3];
-                    const noticiaGenerada = await generarContenidoLocal(tipo);
-                    if (noticiaGenerada) { 
-                        addMessage(noticiaGenerada, false); 
-                        hablar(noticiaGenerada);
-                    }
+                    const noticiaGenerada = await generarContenidoPotenciado(tipo);
+                    if (noticiaGenerada) { addMessage(noticiaGenerada, false); hablar(noticiaGenerada); }
                 }
             }
         });
         
-        // ============================================
-        // CHAT
-        // ============================================
         const chatArea = document.getElementById('chatArea');
         const chatInput = document.getElementById('chatInput');
         const sendBtn = document.getElementById('sendChatBtn');
@@ -729,7 +687,7 @@
             const typingDiv = document.createElement('div');
             typingDiv.className = 'message ia-message';
             typingDiv.id = 'typing-indicator';
-            typingDiv.innerHTML = '<div class="message-bubble"><span class="loading-spinner"></span> Locutora IA consultando noticias y pensando...</div>';
+            typingDiv.innerHTML = '<div class="message-bubble"><span class="loading-spinner"></span> Locutora IA potenciada pensando...</div>';
             chatArea.appendChild(typingDiv);
             chatArea.scrollTop = chatArea.scrollHeight;
         }
@@ -742,26 +700,17 @@
         async function enviarMensaje() {
             const pregunta = chatInput.value.trim();
             if (!pregunta) return;
-            if (procesandoRespuesta) {
-                showToast("⏳ Espera a que termine de responder", true);
-                return;
-            }
-            
+            if (procesandoRespuesta) { showToast("⏳ Espera", true); return; }
             addMessage(pregunta, true);
             chatInput.value = '';
             procesandoRespuesta = true;
             sendBtn.disabled = true;
             showTyping();
-            
-            // Actualizar noticias antes de responder
             await actualizarNoticias();
-            
-            const respuesta = await generarContenidoLocal("respuesta", pregunta);
+            const respuesta = await generarContenidoPotenciado("respuesta", pregunta);
             removeTyping();
-            
             addMessage(respuesta, false);
             if (vozActivada) hablar(respuesta);
-            
             procesandoRespuesta = false;
             sendBtn.disabled = false;
             chatInput.focus();
@@ -771,35 +720,23 @@
         chatInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') enviarMensaje(); });
         document.getElementById('activarVozBtn').addEventListener('click', activarVoz);
         
-        // ============================================
-        // INICIALIZACIÓN
-        // ============================================
-        
         async function iniciar() {
             actualizarContenidoDiario();
-            cargarCancion(0);
+            cargarCancionAleatoria();
             await actualizarNoticias();
-            
-            // Actualizar noticias cada 2 minutos
             setInterval(async () => {
                 await actualizarNoticias();
                 const badge = document.getElementById('liveBadge');
                 badge.style.opacity = '0.6';
                 setTimeout(() => badge.style.opacity = '1', 500);
             }, 120000);
-            
             let intentos = 0;
             const check = setInterval(() => {
                 if (typeof jsllm7 !== 'undefined') {
                     iaLista = true;
-                    console.log("✅ IA local jsllm7 cargada - Radio IA Pro con noticias reales");
                     clearInterval(check);
-                    showToast("🎤 IA Local lista · Noticias reales activadas");
-                } else if (intentos > 20) {
-                    clearInterval(check);
-                    console.log("⚠️ jsllm7 no cargó, usando respuestas offline");
-                    showToast("⚠️ IA cargando, noticias limitadas", true);
-                }
+                    showToast("🎤 IA potenciada activa · 24 canciones aleatorias");
+                } else if (intentos > 20) { clearInterval(check); }
                 intentos++;
             }, 500);
         }
@@ -813,7 +750,6 @@
         import * as THREE from 'three';
         import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
         import { VRButton } from 'three/addons/webxr/VRButton.js';
-        
         let s,c,r,ctrl,a=false;
         function init(){
             const ct=document.getElementById('vrContainer');
