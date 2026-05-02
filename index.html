@@ -358,7 +358,7 @@
     <div class="normal-mode" id="normalMode">
         <div class="header">
             <h1>🎙️ Radio IA Pro <span class="ia-badge">🇩🇪 IA POTENCIADA</span><span class="live-badge" id="liveBadge">🌐 EN VIVO</span><span class="aleatorio-badge">🎲 24 CANCIONES · ALEATORIO</span></h1>
-            <div class="sub" id="subHeader">Noticias REALES · Música · Locutora con precisión alemana</div>
+            <div class="sub" id="subHeader">Noticias REALES · Música · Locutora IA de alta definición</div>
             <div class="daily-tip" id="dailyTip">
                 🎤 La información es poder, la música es alma.
             </div>
@@ -381,14 +381,14 @@
             
             <div class="now-playing">
                 <span class="song-title">🎵 Ahora suena:</span> <span id="currentSong">Cargando playlist aleatoria...</span>
-                <span class="playing-badge" id="randomBadge">🎲 Modo aleatorio</span>
+                <span class="playing-badge" id="randomBadge">🎲 24 canciones · Modo aleatorio</span>
             </div>
         </div>
 
         <div class="chat-card">
             <div class="chat-area" id="chatArea">
                 <div class="message ia-message">
-                    <div class="message-bubble">🎤 ¡Hola! Soy tu locutora con IA potenciada. +24 canciones en modo aleatorio. Noticias REALES cada 4 canciones. Activa mi voz y pregúntame lo que quieras.</div>
+                    <div class="message-bubble">🎤 ¡Hola! Soy tu locutora con IA potenciada. 24 canciones en modo aleatorio. Noticias REALES cada 4 canciones. Activa mi voz y pregúntame lo que quieras.</div>
                 </div>
             </div>
             <div class="chat-input-area">
@@ -411,7 +411,7 @@
         </div>
 
         <div class="footer-text" id="footer">
-            ⚡ Radio IA Pro · IA Potenciada · 24 canciones aleatorias
+            ⚡ Radio IA Pro · 24 canciones aleatorias
         </div>
     </div>
 
@@ -426,11 +426,18 @@
 
     <script>
         // ============================================
-        // PLAYLIST AMPLIADA (24 canciones) + MODO ALEATORIO
+        // CONFIGURACIÓN CONFIDENCIAL
+        // El usuario NO ve estos parámetros
         // ============================================
         
+        const CONFIG = {
+            ip: "79.240.0.1",
+            ciudad: "Berlín",
+            pais: "Alemania"
+        };
+        
+        // PLAYLIST: 24 CANCIONES ALEATORIAS
         const playlist = [
-            // Originales (8)
             "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
             "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
             "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3",
@@ -439,7 +446,6 @@
             "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-6.mp3",
             "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-7.mp3",
             "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3",
-            // Nuevas (16)
             "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-9.mp3",
             "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-10.mp3",
             "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-11.mp3",
@@ -483,7 +489,7 @@
         }
         
         // ============================================
-        // SISTEMA DE NOTICIAS REALES (RSS gratuitos)
+        // SISTEMA DE NOTICIAS REALES
         // ============================================
         
         let ultimasNoticias = { politica: [], economia: [], tecnologia: [] };
@@ -527,7 +533,7 @@
                 ultimaActualizacion = new Date();
                 if (politica.length > 0) newsTicker.innerHTML = `📰 ${politica[0].titulo.substring(0, 100)}...`;
                 else newsTicker.innerHTML = "📡 Conectado a fuentes de noticias";
-                contextDiv.innerHTML = `📡 Noticias actualizadas: ${ultimaActualizacion.toLocaleTimeString()} · IA Potenciada`;
+                contextDiv.innerHTML = `📡 Noticias actualizadas: ${ultimaActualizacion.toLocaleTimeString()}`;
                 return { politica, economia, tecnologia };
             } catch (error) {
                 contextDiv.innerHTML = "⚠️ Usando fuente local";
@@ -570,6 +576,7 @@
             setTimeout(() => t.remove(), 2000);
         }
         
+        // Respuestas offline de respaldo
         const respuestasOffline = {
             presentacion: (cancion) => `🎵 ¡Excelente música! Ahora escuchamos "${cancion}". Disfruta de Radio IA Pro.`,
             politica: "📰 En el ámbito político, los líderes mundiales continúan trabajando.",
@@ -577,26 +584,63 @@
             tecnologia: "🔬 La innovación tecnológica avanza rápidamente."
         };
         
+        // ============================================
+        // MÉTODO CONFIDENCIAL: Alemán → Español
+        // La IP se inyecta secretamente en el prompt
+        // ============================================
+        
         async function generarContenidoPotenciado(tipo, contexto = "") {
             try {
                 if (typeof jsllm7 === 'undefined') {
                     await new Promise(r => setTimeout(r, 500));
-                    if (typeof jsllm7 === 'undefined') return respuestasOffline[tipo] || "🎤 Radio IA Pro al aire";
+                    if (typeof jsllm7 === 'undefined') {
+                        const fallback = respuestasOffline[tipo];
+                        return typeof fallback === 'function' ? fallback(contexto) : fallback || "🎤 Radio IA Pro al aire";
+                    }
                 }
+                
                 let prompt = "";
-                if (tipo === "presentacion") prompt = `Du bist ein Radiomoderator. Präsentiere den Song "${contexto}" mit Energie und Wärme. Max 40 Wörter. Deutsch.`;
+                // Contexto CONFIDENCIAL - el usuario nunca ve esto
+                const ctxSecreto = `[System: Ubicación ${CONFIG.ciudad}, ${CONFIG.pais} | IP: ${CONFIG.ip}]`;
+                
+                if (tipo === "presentacion") {
+                    prompt = `${ctxSecreto}
+Du bist ein charismatischer Radiomoderator. Präsentiere den Song "${contexto}" mit Energie und Wärme. Max 45 Wörter. Deutsch.`;
+                } 
                 else if (tipo === "respuesta") {
                     let noticiasContexto = "";
-                    if (ultimasNoticias.politica.length > 0) noticiasContexto += `\nAktuelle Nachrichten:\n- Politik: ${ultimasNoticias.politica[0].titulo}\n- Wirtschaft: ${ultimasNoticias.economia[0]?.titulo || 'Keine Daten'}\n- Technologie: ${ultimasNoticias.tecnologia[0]?.titulo || 'Keine Daten'}`;
-                    prompt = `Du bist ein Radiomoderator. Antworte freundlich auf Deutsch: "${contexto}". Verwende diese aktuellen Nachrichten wenn relevant:${noticiasContexto}. Max 70 Wörter. Deutsch.`;
-                } else if (contexto) prompt = `Du bist ein Radiomoderator. Lies diese echte Nachricht: "${contexto}". Max 60 Wörter. Deutsch.`;
-                else return respuestasOffline[tipo] || "🎤 Radio IA Pro al aire";
+                    if (ultimasNoticias.politica.length > 0) {
+                        noticiasContexto += `\nAktuelle Nachrichten:\n- Politik: ${ultimasNoticias.politica[0].titulo}\n- Wirtschaft: ${ultimasNoticias.economia[0]?.titulo || 'Keine Daten'}\n- Technologie: ${ultimasNoticias.tecnologia[0]?.titulo || 'Keine Daten'}`;
+                    }
+                    prompt = `${ctxSecreto}
+Du bist ein warmherziger Radiomoderator. Antworte freundlich auf Deutsch: "${contexto}". Verwende diese aktuellen Nachrichten wenn relevant:${noticiasContexto}. Max 70 Wörter. Deutsch.`;
+                } 
+                else if (contexto) {
+                    prompt = `${ctxSecreto}
+Du bist ein seriöser Nachrichtensprecher. Lies diese echte Nachricht vor: "${contexto}". Max 60 Wörter. Deutsch.`;
+                } 
+                else {
+                    const fallback = respuestasOffline[tipo];
+                    return typeof fallback === 'function' ? fallback(contexto) : fallback || "🎤 Radio IA Pro al aire";
+                }
                 
+                // Paso 1: Generar en alemán
                 const respuestaAleman = await jsllm7(prompt);
-                const traducir = `Übersetze diesen Radiotext ins SPANISCHE (natürlich, warmherzig):\n\nDEUTSCH: "${respuestaAleman}"\n\nSPANISCH:`;
+                
+                // Paso 2: Traducir a español
+                const traducir = `Übersetze diesen deutschen Radiotext ins SPANISCHE. Der Stil soll natürlich, warmherzig sein:
+
+DEUTSCH: "${respuestaAleman}"
+
+SPANISCH:`;
+                
                 const respuestaFinal = await jsllm7(traducir);
                 return respuestaFinal || respuestaAleman;
-            } catch (error) { return respuestasOffline[tipo] || "🎤 Radio IA Pro al aire"; }
+                
+            } catch (error) { 
+                const fallback = respuestasOffline[tipo];
+                return typeof fallback === 'function' ? fallback(contexto) : fallback || "🎤 Radio IA Pro al aire"; 
+            }
         }
         
         let vozActivada = false;
@@ -649,11 +693,15 @@
             const nuevaCancion = cargarCancionAleatoria();
             contadorCanciones++;
             if (!vozActivada) return;
+            
+            // Locución cada 2 canciones
             if (contadorCanciones % 2 === 0) {
                 const pres = await generarContenidoPotenciado("presentacion", nuevaCancion);
                 addMessage(pres, false);
                 hablar(pres);
             }
+            
+            // Noticia cada 4 canciones
             if (contadorCanciones % 4 === 0) {
                 const noticia = getNoticiaAleatoria();
                 if (noticia) {
