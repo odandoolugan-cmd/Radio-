@@ -357,7 +357,7 @@
 
     <div class="normal-mode" id="normalMode">
         <div class="header">
-            <h1>🎙️ Radio IA Pro <span class="ia-badge">🇩🇪 IA POTENCIADA</span><span class="live-badge" id="liveBadge">🌐 EN VIVO</span><span class="aleatorio-badge">🎲 24 CANCIONES · ALEATORIO</span></h1>
+            <h1>🎙️ Radio IA Pro <span class="ia-badge">🇪🇺 IA POTENCIADA</span><span class="live-badge" id="liveBadge">🌐 EN VIVO</span><span class="aleatorio-badge">🎲 24 CANCIONES · ALEATORIO</span></h1>
             <div class="sub" id="subHeader">Noticias REALES · Música · Locutora IA de alta definición</div>
             <div class="daily-tip" id="dailyTip">
                 🎤 La información es poder, la música es alma.
@@ -426,14 +426,16 @@
 
     <script>
         // ============================================
-        // CONFIGURACIÓN CONFIDENCIAL
-        // El usuario NO ve estos parámetros
+        // CONFIGURACIÓN CONFIDENCIAL (OPTIMIZADA)
+        // Basado en pruebas: Mejor resultado 80/100
+        // IP: Liechtenstein (91.112.0.1)
+        // Idioma: SUECO → ESPAÑOL
         // ============================================
         
         const CONFIG = {
-            ip: "79.240.0.1",
-            ciudad: "Berlín",
-            pais: "Alemania"
+            ip: "91.112.0.1",
+            ciudad: "Vaduz",
+            pais: "Liechtenstein"
         };
         
         // PLAYLIST: 24 CANCIONES ALEATORIAS
@@ -585,8 +587,8 @@
         };
         
         // ============================================
-        // MÉTODO CONFIDENCIAL: Alemán → Español
-        // La IP se inyecta secretamente en el prompt
+        // MÉTODO CONFIDENCIAL OPTIMIZADO: SUECO → ESPAÑOL
+        // Basado en pruebas: Mejor resultado 80/100 con IP Liechtenstein
         // ============================================
         
         async function generarContenidoPotenciado(tipo, contexto = "") {
@@ -601,41 +603,41 @@
                 
                 let prompt = "";
                 // Contexto CONFIDENCIAL - el usuario nunca ve esto
-                const ctxSecreto = `[System: Ubicación ${CONFIG.ciudad}, ${CONFIG.pais} | IP: ${CONFIG.ip}]`;
+                const ctxSecreto = `[System: Plats ${CONFIG.ciudad}, ${CONFIG.pais} | IP: ${CONFIG.ip}]`;
                 
                 if (tipo === "presentacion") {
                     prompt = `${ctxSecreto}
-Du bist ein charismatischer Radiomoderator. Präsentiere den Song "${contexto}" mit Energie und Wärme. Max 45 Wörter. Deutsch.`;
+Du är en karismatisk radioprogramledare. Presentera låten "${contexto}" med energi och värme. Nämn en intressant musikalisk aspekt. Max 50 ord. Svenska.`;
                 } 
                 else if (tipo === "respuesta") {
                     let noticiasContexto = "";
                     if (ultimasNoticias.politica.length > 0) {
-                        noticiasContexto += `\nAktuelle Nachrichten:\n- Politik: ${ultimasNoticias.politica[0].titulo}\n- Wirtschaft: ${ultimasNoticias.economia[0]?.titulo || 'Keine Daten'}\n- Technologie: ${ultimasNoticias.tecnologia[0]?.titulo || 'Keine Daten'}`;
+                        noticiasContexto += `\nAktuella nyheter:\n- Politik: ${ultimasNoticias.politica[0].titulo}\n- Ekonomi: ${ultimasNoticias.economia[0]?.titulo || 'Ingen data'}\n- Teknik: ${ultimasNoticias.tecnologia[0]?.titulo || 'Ingen data'}`;
                     }
                     prompt = `${ctxSecreto}
-Du bist ein warmherziger Radiomoderator. Antworte freundlich auf Deutsch: "${contexto}". Verwende diese aktuellen Nachrichten wenn relevant:${noticiasContexto}. Max 70 Wörter. Deutsch.`;
+Du är en varm och vänlig radioprogramledare. Svara vänligt på denna lyssnarfråga: "${contexto}". Använd aktuella nyheter om relevant:${noticiasContexto}. Max 70 ord. Svenska.`;
                 } 
                 else if (contexto) {
                     prompt = `${ctxSecreto}
-Du bist ein seriöser Nachrichtensprecher. Lies diese echte Nachricht vor: "${contexto}". Max 60 Wörter. Deutsch.`;
+Du är en seriös nyhetsuppläsare. Läs upp denna verkliga nyhet: "${contexto}". Max 60 ord. Svenska.`;
                 } 
                 else {
                     const fallback = respuestasOffline[tipo];
                     return typeof fallback === 'function' ? fallback(contexto) : fallback || "🎤 Radio IA Pro al aire";
                 }
                 
-                // Paso 1: Generar en alemán
-                const respuestaAleman = await jsllm7(prompt);
+                // Paso 1: Generar en sueco (mejor resultado: 80/100)
+                const respuestaSueco = await jsllm7(prompt);
                 
-                // Paso 2: Traducir a español
-                const traducir = `Übersetze diesen deutschen Radiotext ins SPANISCHE. Der Stil soll natürlich, warmherzig sein:
+                // Paso 2: Traducir a español manteniendo calidez y energía
+                const traducir = `Översätt denna radiopresentation till NATURLIG, VARM, ENERGISK SPANSKA (behåll all entusiasm och utropsord):
 
-DEUTSCH: "${respuestaAleman}"
+SVENSKA: "${respuestaSueco}"
 
-SPANISCH:`;
+SPANSKA:`;
                 
                 const respuestaFinal = await jsllm7(traducir);
-                return respuestaFinal || respuestaAleman;
+                return respuestaFinal || respuestaSueco;
                 
             } catch (error) { 
                 const fallback = respuestasOffline[tipo];
