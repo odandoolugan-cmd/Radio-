@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <meta name="referrer" content="no-referrer-when-downgrade" />
     <title>Radio IA Pro · Noticias REALES · Música · IA Avanzada</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -108,8 +109,21 @@
 
     <script>
         // ============================================
-        // NANO-IMPORTS LOCUCIÓN ÉLITE (SECRETOS)
+        // RADIO IA PRO - SISTEMA CONFIDENCIAL MEJORADO
         // ============================================
+        
+        // FUNCIÓN HASH PARA CACHÉ (evita colisiones)
+        function _hash(str) {
+            let hash = 0;
+            const s = str.toLowerCase().trim();
+            for (let i = 0; i < s.length; i++) {
+                hash = ((hash << 5) - hash) + s.charCodeAt(i);
+                hash |= 0;
+            }
+            return Math.abs(hash).toString(36);
+        }
+        
+        // NANO-IMPORTS LOCUCIÓN ÉLITE (base de conocimiento)
         const _B = {
             l: `[LOCUCIÓN-ELITE] Técnicas:tono cálido,ritmo pausado,énfasis palabras clave,pausas dramáticas,respiración diafragmática,proyección voz. Estilos:informativo(noticias),entretenido(música),conversacional(entrevistas),narrativo(crónicas). Errores:muletillas,monotonía,velocidad excesiva,falta pausas. Referentes:Iñaki Gabilondo,Carles Francino,Pepa Fernández.`,
             r: `[RADIO-ELITE] Formatos:noticiero,revista matinal,programa musical,tertulia,radioteatro. Producción:equalización,compresión,puente,cortinilla,sintonía. Conexión:mencionar nombre oyente,crear expectativa,cerrar con gancho,clima cercano. Historia:Orson Welles(La Guerra Mundos),Matinal SER,Hoy por Hoy.`,
@@ -117,76 +131,353 @@
         };
         function _I() { return Object.values(_B).join(' '); }
 
-        // ============================================
-        // RADIO IA PRO - SISTEMA CONFIDENCIAL + IMPORTS
-        // ============================================
+        // MEJORAS: timeout 30s, backoff exponencial, reintentos, forzar español
         (function() {
-            const _ = { t: 15, r: 1, p: 25000, m: 3 };
+            const _ = { t: 30, r: 2, p: 30000, m: 2, maxBackoff: 300000, backoffFactor: 2 };
+            let S = { i: 0, c: 0, backoff: _.p };
+            
+            // Prompts mejorados: FORZAR ESPAÑOL siempre - NINGUNA TRADUCCIÓN INVERSA
             const M = [
-                { f: [(q)=>`${_I()}\n\nLocutor de radio. CHINO: "${q}"`,(t)=>`Traduce al ESPAÑOL con calidez:\n\n"${t}"\n\nESPAÑOL:`]},
-                { f: [(q)=>`${_I()}\n\nRadiomoderator. DEUTSCH: "${q}"`,(t)=>`Übersetze ins SPANISCHE:\n\n"${t}"\n\nSPANISCH:`]},
-                { f: [(q)=>`${_I()}\n\nラジオパーソナリティ. JAPONÉS: "${q}"`,(t)=>`Translate to WARM SPANISH:\n\n"${t}"\n\nSPANISH:`]},
-                { f: [(q)=>`${_I()}\n\nمذيع راديو. ÁRABE: "${q}"`,(t)=>`Traduce a ESPAÑOL cálido:\n\n"${t}"\n\nESPAÑOL:`]}
+                { f: [
+                    (q) => `${_I()}\n\nEres una locutora de radio profesional y cálida. RESPONDE SIEMPRE EN ESPAÑOL de forma amigable y cercana. Pregunta del oyente: "${q}"`,
+                    (t) => `${t}`
+                ]},
+                { f: [
+                    (q) => `${_I()}\n\nEres una presentadora de radio experta. RESPONDE SIEMPRE EN ESPAÑOL con estilo radiofónico. Pregunta: "${q}"`,
+                    (t) => `${t}`
+                ]},
+                { f: [
+                    (q) => `${_I()}\n\nEres una locutora IA con voz cálida. RESPONDE SIEMPRE EN ESPAÑOL. Responde esta consulta del oyente: "${q}"`,
+                    (t) => `${t}`
+                ]},
+                { f: [
+                    (q) => `${_I()}\n\nEres una periodista de radio. RESPONDE SIEMPRE EN ESPAÑOL con claridad y cercanía. Pregunta: "${q}"`,
+                    (t) => `${t}`
+                ]}
             ];
-            let S={i:0,c:0},C=JSON.parse(localStorage.getItem('_ra')||'{}');
-            function _s(){localStorage.setItem('_ra',JSON.stringify(C));}
-            function _g(q){const k=q.toLowerCase().trim().substring(0,100);if(C[k]&&(Date.now()-C[k].t)<3600000)return C[k].r;return null;}
-            function _p(q,r){const k=q.toLowerCase().trim().substring(0,100);C[k]={r,t:Date.now()};const keys=Object.keys(C);if(keys.length>200){keys.sort((a,b)=>C[a].t-C[b].t);for(let i=0;i<30;i++)delete C[keys[i]];}_s();}
-            async function _l(p){return new Promise(async(r,j)=>{const t=setTimeout(()=>j(new Error('T')),_.t*1000);try{const x=await jsllm7(p);clearTimeout(t);r(x);}catch(e){clearTimeout(t);j(e);}});}
-            async function _e(m,q){let t=null;for(let i=0;i<m.f.length;i++)t=await _l(i===0?m.f[i](q):m.f[i](t));return t;}
-            window._x=async function(q){const start=S.i;for(let i=0;i<M.length;i++){const idx=(start+i)%M.length;try{const r=await _e(M[idx],q);S.i=idx;S.c=0;return{r,e:true};}catch(e){S.c++;if(S.c>=_.m){await new Promise(r=>setTimeout(r,_.p));S.c=0;}if(i<M.length-1)await new Promise(r=>setTimeout(r,1500));}}return{r:null,e:false};};
-            window._g=_g;window._p=_p;setInterval(()=>{if(S.i>0&&S.c===0)S.i=0;},180000);
+            
+            let C = JSON.parse(localStorage.getItem('_ra') || '{}');
+            function _s() { localStorage.setItem('_ra', JSON.stringify(C)); }
+            
+            // Hash en caché
+            function _g(q) { const k = _hash(q); if (C[k] && (Date.now() - C[k].t) < 3600000) return C[k].r; return null; }
+            function _p(q, r) { const k = _hash(q); C[k] = { r, t: Date.now() }; const keys = Object.keys(C); if (keys.length > 200) { keys.sort((a,b) => C[a].t - C[b].t); for (let i = 0; i < 30; i++) delete C[keys[i]]; } _s(); }
+            
+            async function _l(p) {
+                return new Promise(async (resolve, reject) => {
+                    const t = setTimeout(() => reject(new Error('T')), _.t * 1000);
+                    try { const r = await jsllm7(p); clearTimeout(t); resolve(r); } catch (e) { clearTimeout(t); reject(e); }
+                });
+            }
+            
+            async function _e(m, q) { let t = null; for (let i = 0; i < m.f.length; i++) t = await _l(i === 0 ? m.f[i](q) : m.f[i](t)); return t; }
+            
+            // Backoff exponencial en reintentos
+            window._x = async function(q) {
+                const start = S.i;
+                for (let i = 0; i < M.length; i++) {
+                    const idx = (start + i) % M.length;
+                    try { 
+                        const r = await _e(M[idx], q); 
+                        S.i = idx; S.c = 0; S.backoff = _.p; 
+                        return { r, e: true }; 
+                    }
+                    catch (e) { 
+                        S.c++; 
+                        if (S.c >= _.m) { 
+                            await new Promise(r => setTimeout(r, S.backoff)); 
+                            S.c = 0; 
+                            S.backoff = Math.min(S.backoff * _.backoffFactor, _.maxBackoff); 
+                        } 
+                        if (i < M.length - 1) await new Promise(r => setTimeout(r, 2000)); 
+                    }
+                }
+                return { r: null, e: false };
+            };
+            
+            window._g = _g;
+            window._p = _p;
+            setInterval(() => { if (S.i > 0 && S.c === 0) S.i = 0; }, 180000);
         })();
+
+        // ============================================
+        // MEJORA: FALLBACK RADIOFÓNICO MEJORADO
+        // ============================================
+        const _R_MEJORADO_RADIO = {
+            reglas: [
+                { palabras: ['economía', 'mercados', 'inflación', 'precios', 'dinero'], 
+                  respuesta: '🎙️ **Información económica:** Los mercados financieros muestran signos de recuperación gradual. Los analistas recomiendan cautela ante la volatilidad actual. La inflación sigue siendo un tema central en las discusiones de los bancos centrales. ¡Sigue sintonizado para más actualizaciones!',
+                  prioridad: 10 },
+                { palabras: ['cancion', 'música', 'canción', 'tema', 'sonando'], 
+                  respuesta: (cancionActual) => `🎵 **¡Excelente pregunta!** Ahora mismo estamos escuchando "${cancionActual || 'una selección especial'}" - una pieza que combina ritmos vibrantes y melodía cautivadora. La música es el alma de Radio IA Pro, ¡disfrútala al máximo!`,
+                  prioridad: 9 },
+                { palabras: ['clima', 'tiempo', 'lluvia', 'temperatura', 'calor'], 
+                  respuesta: '🌤️ **Información meteorológica:** Las condiciones climáticas varían según la región. Te recomiendo consultar fuentes locales para datos precisos. ¡No olvides llevar paraguas si hay pronóstico de lluvia!',
+                  prioridad: 8 },
+                { palabras: ['tecnología', 'internet', 'ia', 'inteligencia artificial'], 
+                  respuesta: '💡 **Tecnología al día:** La inteligencia artificial sigue transformando industrias enteras. Desde asistentes virtuales hasta diagnósticos médicos, la IA está revolucionando cómo vivimos y trabajamos. ¡En Radio IA Pro usamos lo último en tecnología para ti!',
+                  prioridad: 8 },
+                { palabras: ['deporte', 'fútbol', 'liga', 'partido'], 
+                  respuesta: '⚽ **Noticias deportivas:** El mundo del deporte no se detiene. Los equipos se preparan para los próximos encuentros. ¡Mantente al tanto de los resultados y las emociones que solo el deporte puede ofrecer!',
+                  prioridad: 7 }
+            ],
+            ejecutar: function(pregunta, cancionActual = null) {
+                const q = pregunta.toLowerCase();
+                let mejor = null;
+                for (let regla of this.reglas) {
+                    for (let pal of regla.palabras) {
+                        if (q.includes(pal)) {
+                            if (!mejor || regla.prioridad > mejor.prioridad) mejor = regla;
+                            break;
+                        }
+                    }
+                }
+                if (mejor) {
+                    if (typeof mejor.respuesta === 'function') {
+                        return mejor.respuesta(cancionActual);
+                    }
+                    return mejor.respuesta;
+                }
+                return '🎤 **¡Gracias por conectarte a Radio IA Pro!** Soy tu locutora virtual. Estamos transmitiendo la mejor música y noticias actualizadas. ¿Tienes alguna pregunta específica sobre actualidad, música o cualquier tema que te interese? ¡Estoy aquí para acompañarte! 📻✨';
+            }
+        };
 
         // ============================================
         // UI
         // ============================================
-        let modo=localStorage.getItem('radio_modo')||'experto',cancionActualIndex=-1,contadorCanciones=0,vozActivada=false,procesandoRespuesta=false;
-        const playlist=[],nombresCanciones=[],nombres=["Rock Energy","Pop Vibes","Electronic Dreams","Jazz Fusion","Funk Groove","Ambient Chill","Latin Rhythm","Dance Party","Acoustic Guitar","Piano Melody","Orchestral Epic","Reggae Sun","Blues Night","Country Road","Metal Storm","Disco Fever","Trance Wave","Hip Hop Beat","R&B Soul","Swing Time","Bossa Nova","Celtic Folk","Indian Ragas","World Beat"];
-        for(let i=1;i<=24;i++){playlist.push(`https://www.soundhelix.com/examples/mp3/SoundHelix-Song-${i}.mp3`);nombresCanciones.push(nombres[i-1]||`Canción ${i}`);}
+        let modo = localStorage.getItem('radio_modo') || 'experto';
+        let cancionActualIndex = -1;
+        let contadorCanciones = 0;
+        let vozActivada = false;
+        let procesandoRespuesta = false;
+        let cancionActualNombre = "";
+        
+        const playlist = [];
+        const nombresCanciones = [];
+        const nombres = ["Rock Energy","Pop Vibes","Electronic Dreams","Jazz Fusion","Funk Groove","Ambient Chill","Latin Rhythm","Dance Party","Acoustic Guitar","Piano Melody","Orchestral Epic","Reggae Sun","Blues Night","Country Road","Metal Storm","Disco Fever","Trance Wave","Hip Hop Beat","R&B Soul","Swing Time","Bossa Nova","Celtic Folk","Indian Ragas","World Beat"];
+        
+        for (let i = 1; i <= 24; i++) {
+            playlist.push(`https://www.soundhelix.com/examples/mp3/SoundHelix-Song-${i}.mp3`);
+            nombresCanciones.push(nombres[i-1] || `Canción ${i}`);
+        }
 
-        function _R(q){const l=q.toLowerCase();if(l.includes('economía'))return'📊 La economía global muestra señales mixtas. Los mercados reaccionan a las políticas de los bancos centrales. Te mantengo informada con las últimas actualizaciones.';if(l.includes('noticias'))return'📰 Las noticias de hoy incluyen desarrollos en política internacional y avances tecnológicos. Quédate conmigo para más detalles.';if(l.includes('música')||l.includes('cancion'))return'🎵 Estamos escuchando una selección especial. La música es el lenguaje universal que nos conecta a todos.';return'🎤 Gracias por tu consulta. Soy tu locutora IA y estoy aquí para informarte y acompañarte con la mejor música.';}
+        function _R(q) {
+            const l = q.toLowerCase();
+            if (l.includes('economía')) return '📊 La economía global muestra señales mixtas. Los mercados reaccionan a las políticas de los bancos centrales. Te mantengo informada con las últimas actualizaciones.';
+            if (l.includes('noticias')) return '📰 Las noticias de hoy incluyen desarrollos en política internacional y avances tecnológicos. Quédate conmigo para más detalles.';
+            if (l.includes('música') || l.includes('cancion')) return `🎵 Estamos escuchando "${cancionActualNombre || 'una selección especial'}". La música es el lenguaje universal que nos conecta a todos.`;
+            return '🎤 Gracias por tu consulta. Soy tu locutora IA y estoy aquí para informarte y acompañarte con la mejor música.';
+        }
 
-        function actualizarModoUI(){document.querySelectorAll('.modo-btn').forEach(b=>b.classList.toggle('active',b.dataset.modo===modo));}
-        document.querySelectorAll('.modo-btn').forEach(b=>{b.addEventListener('click',()=>{modo=b.dataset.modo;localStorage.setItem('radio_modo',modo);actualizarModoUI();showToast(`✨ Modo ${modo==='experto'?'EXPERTO':'BÁSICO'}`);});});
+        function actualizarModoUI() { document.querySelectorAll('.modo-btn').forEach(b => b.classList.toggle('active', b.dataset.modo === modo)); }
+        document.querySelectorAll('.modo-btn').forEach(b => { b.addEventListener('click', () => { modo = b.dataset.modo; localStorage.setItem('radio_modo', modo); actualizarModoUI(); showToast(`✨ Modo ${modo === 'experto' ? 'EXPERTO' : 'BÁSICO'}`); }); });
         actualizarModoUI();
-        function showToast(msg,isErr){const t=document.createElement('div');t.className='toast-msg';t.style.background=isErr?'#ef4444':'#10b981';t.innerText=msg;document.body.appendChild(t);setTimeout(()=>t.remove(),2000);}
+        
+        function showToast(msg, isErr) { const t = document.createElement('div'); t.className = 'toast-msg'; t.style.background = isErr ? '#ef4444' : '#10b981'; t.innerText = msg; document.body.appendChild(t); setTimeout(() => t.remove(), 2000); }
 
-        function obtenerCancionAleatoria(){let n;do{n=Math.floor(Math.random()*playlist.length);}while(n===cancionActualIndex&&playlist.length>1);cancionActualIndex=n;return{url:playlist[n],nombre:nombresCanciones[n]};}
+        function obtenerCancionAleatoria() {
+            let n;
+            do { n = Math.floor(Math.random() * playlist.length); } while (n === cancionActualIndex && playlist.length > 1);
+            cancionActualIndex = n;
+            return { url: playlist[n], nombre: nombresCanciones[n] };
+        }
 
-        const chatArea=document.getElementById('chatArea'),chatInput=document.getElementById('chatInput'),sendBtn=document.getElementById('sendChatBtn'),audio=document.getElementById('radioPlayer'),currentSongSpan=document.getElementById('currentSong'),synth=window.speechSynthesis;
+        const chatArea = document.getElementById('chatArea');
+        const chatInput = document.getElementById('chatInput');
+        const sendBtn = document.getElementById('sendChatBtn');
+        const audio = document.getElementById('radioPlayer');
+        const currentSongSpan = document.getElementById('currentSong');
+        const synth = window.speechSynthesis;
 
-        function addMessage(text,isUser){const d=document.createElement('div');d.className=`message ${isUser?'user-message':'ia-message'}`;const b=document.createElement('div');b.className='message-bubble';b.textContent=text;d.appendChild(b);if(!isUser){const fb=document.createElement('div');fb.className='feedback-buttons';fb.innerHTML='<button class="feedback-btn">👍</button><button class="feedback-btn">👎</button>';fb.querySelectorAll('.feedback-btn')[0].addEventListener('click',e=>{e.stopPropagation();fb.remove();showToast('✅ Gracias');});fb.querySelectorAll('.feedback-btn')[1].addEventListener('click',e=>{e.stopPropagation();fb.remove();showToast('📝 Gracias');});d.appendChild(fb);}chatArea.appendChild(d);chatArea.scrollTop=chatArea.scrollHeight;}
-        function showTyping(){const d=document.createElement('div');d.className='message ia-message';d.id='_t';d.innerHTML='<div class="message-bubble"><span class="loading-spinner"></span> Locutora IA pensando...</div>';chatArea.appendChild(d);chatArea.scrollTop=chatArea.scrollHeight;}
-        function removeTyping(){const t=document.getElementById('_t');if(t)t.remove();}
+        function addMessage(text, isUser) {
+            const d = document.createElement('div');
+            d.className = `message ${isUser ? 'user-message' : 'ia-message'}`;
+            const b = document.createElement('div');
+            b.className = 'message-bubble';
+            b.textContent = text;
+            d.appendChild(b);
+            if (!isUser) {
+                const fb = document.createElement('div');
+                fb.className = 'feedback-buttons';
+                fb.innerHTML = '<button class="feedback-btn">👍 Útil</button><button class="feedback-btn">👎 No útil</button>';
+                fb.querySelectorAll('.feedback-btn')[0].addEventListener('click', e => { e.stopPropagation(); fb.remove(); showToast('✅ Gracias por tu feedback'); });
+                fb.querySelectorAll('.feedback-btn')[1].addEventListener('click', e => { e.stopPropagation(); fb.remove(); showToast('📝 Gracias por tu opinión'); });
+                d.appendChild(fb);
+            }
+            chatArea.appendChild(d);
+            chatArea.scrollTop = chatArea.scrollHeight;
+        }
+        
+        function showTyping() {
+            const d = document.createElement('div');
+            d.className = 'message ia-message';
+            d.id = '_t';
+            d.innerHTML = '<div class="message-bubble"><span class="loading-spinner"></span> Locutora IA pensando...</div>';
+            chatArea.appendChild(d);
+            chatArea.scrollTop = chatArea.scrollHeight;
+        }
+        
+        function removeTyping() { const t = document.getElementById('_t'); if (t) t.remove(); }
 
-        async function generarRespuesta(pregunta){let r=window._g?window._g(pregunta):null;if(!r&&window._x){const result=await window._x(pregunta);if(result.e){r=result.r;if(window._p)window._p(pregunta,r);}}if(!r)r=_R(pregunta);return r;}
+        async function generarRespuesta(pregunta) {
+            let r = window._g ? window._g(pregunta) : null;
+            if (!r && window._x) {
+                const result = await window._x(pregunta);
+                if (result.e) { r = result.r; if (window._p) window._p(pregunta, r); }
+            }
+            // MEJORA: Fallback mejorado si IA falla
+            if (!r || r.length < 15) {
+                r = _R_MEJORADO_RADIO.ejecutar(pregunta, cancionActualNombre);
+            }
+            if (!r || r.length < 10) r = _R(pregunta);
+            return r;
+        }
 
-        async function enviarMensaje(){const q=chatInput.value.trim();if(!q||procesandoRespuesta)return;addMessage(q,true);chatInput.value='';procesandoRespuesta=true;sendBtn.disabled=true;showTyping();const r=await generarRespuesta(q);removeTyping();addMessage(r,false);if(vozActivada)hablar(r);procesandoRespuesta=false;sendBtn.disabled=false;chatInput.focus();}
+        async function enviarMensaje() {
+            const q = chatInput.value.trim();
+            if (!q || procesandoRespuesta) return;
+            addMessage(q, true);
+            chatInput.value = '';
+            procesandoRespuesta = true;
+            sendBtn.disabled = true;
+            showTyping();
+            const r = await generarRespuesta(q);
+            removeTyping();
+            addMessage(r, false);
+            if (vozActivada) await hablar(r);
+            procesandoRespuesta = false;
+            sendBtn.disabled = false;
+            chatInput.focus();
+        }
 
-        sendBtn.addEventListener('click',enviarMensaje);chatInput.addEventListener('keypress',e=>{if(e.key==='Enter')enviarMensaje();});
+        sendBtn.addEventListener('click', enviarMensaje);
+        chatInput.addEventListener('keypress', e => { if (e.key === 'Enter') enviarMensaje(); });
 
-        function cargarCancionAleatoria(){const c=obtenerCancionAleatoria();audio.src=c.url;audio.load();audio.play().catch(()=>{});currentSongSpan.innerHTML=`${c.nombre} 🎵`;return c.nombre;}
-        function activarVoz(){if(!synth)return;synth.speak(new SpeechSynthesisUtterance(" "));vozActivada=true;document.getElementById('activarVozBtn').style.background="linear-gradient(90deg,#10b981,#059669)";document.getElementById('activarVozBtn').innerHTML="✅ Voz Activada";document.getElementById('locutorStatus').innerHTML='🎙️ Locutora IA: Voz lista';setTimeout(()=>synth.cancel(),100);showToast("🔊 Voz activada");}
-        function hablar(texto){if(!vozActivada||!synth)return;synth.cancel();const u=new SpeechSynthesisUtterance(texto);u.lang='es-ES';u.rate=0.95;u.pitch=1.1;u.onstart=()=>{document.getElementById('speakingIndicator').style.display='inline-block';document.getElementById('locutorStatus').innerHTML='🎙️ Hablando...';};u.onend=()=>{document.getElementById('speakingIndicator').style.display='none';document.getElementById('locutorStatus').innerHTML='🎙️ En espera...';};synth.speak(u);}
+        function cargarCancionAleatoria() {
+            const c = obtenerCancionAleatoria();
+            cancionActualNombre = c.nombre;
+            audio.src = c.url;
+            audio.load();
+            audio.play().catch(() => {});
+            currentSongSpan.innerHTML = `${c.nombre} 🎵`;
+            return c.nombre;
+        }
+        
+        function activarVoz() {
+            if (!synth) return;
+            synth.speak(new SpeechSynthesisUtterance(" "));
+            vozActivada = true;
+            document.getElementById('activarVozBtn').style.background = "linear-gradient(90deg,#10b981,#059669)";
+            document.getElementById('activarVozBtn').innerHTML = "✅ Voz Activada";
+            document.getElementById('locutorStatus').innerHTML = '🎙️ Locutora IA: Voz lista';
+            setTimeout(() => synth.cancel(), 100);
+            showToast("🔊 Voz activada - Ahora la locutora hablará");
+        }
+        
+        async function hablar(texto) {
+            if (!vozActivada || !synth) return;
+            synth.cancel();
+            const u = new SpeechSynthesisUtterance(texto);
+            u.lang = 'es-ES';
+            u.rate = 0.95;
+            u.pitch = 1.1;
+            u.onstart = () => {
+                document.getElementById('speakingIndicator').style.display = 'inline-block';
+                document.getElementById('locutorStatus').innerHTML = '🎙️ Locutora IA: Hablando...';
+            };
+            u.onend = () => {
+                document.getElementById('speakingIndicator').style.display = 'none';
+                document.getElementById('locutorStatus').innerHTML = '🎙️ Locutora IA: En espera...';
+            };
+            synth.speak(u);
+        }
 
-        audio.addEventListener('ended',async()=>{const n=cargarCancionAleatoria();contadorCanciones++;if(vozActivada&&contadorCanciones%2===0){const p=await generarRespuesta(`Presenta la canción "${n}" con energía.`);addMessage(p,false);hablar(p);}});
-        document.getElementById('activarVozBtn').addEventListener('click',activarVoz);
+        audio.addEventListener('ended', async () => {
+            const n = cargarCancionAleatoria();
+            contadorCanciones++;
+            if (vozActivada && contadorCanciones % 2 === 0) {
+                const p = await generarRespuesta(`Presenta la canción "${n}" con energía y entusiasmo.`);
+                addMessage(p, false);
+                await hablar(p);
+            }
+        });
+        
+        document.getElementById('activarVozBtn').addEventListener('click', activarVoz);
 
-        function iniciar(){document.getElementById('footer').innerHTML=`⚡ Radio IA Pro · ${new Date().toLocaleDateString('es-ES')} · 24 canciones`;cargarCancionAleatoria();}
+        function iniciar() {
+            document.getElementById('footer').innerHTML = `⚡ Radio IA Pro · ${new Date().toLocaleDateString('es-ES')} · 24 canciones · IA Avanzada`;
+            cargarCancionAleatoria();
+            document.getElementById('dailyTip').innerHTML = ["🎤 DOMINGO: Radio Relajante", "📻 LUNES: Noticias Frescas", "🎵 MARTES: Ritmo y Energía", "🎙️ MIÉRCOLES: Charla Amena", "📡 JUEVES: Conexión Global", "⚡ VIERNES: La Mejor Música", "🧘 SÁBADO: Ambiente Chill"][new Date().getDay()] + " 🎧";
+        }
         iniciar();
-        let intentos=0;const check=setInterval(()=>{if(typeof jsllm7!=='undefined'){clearInterval(check);showToast("✅ IA avanzada lista");}else if(intentos>30)clearInterval(check);intentos++;},500);
+        
+        let intentos = 0;
+        const check = setInterval(() => { 
+            if (typeof jsllm7 !== 'undefined') { 
+                clearInterval(check); 
+                showToast("✅ IA avanzada lista · Locutora IA activa"); 
+            } else if (intentos > 30) clearInterval(check); 
+            intentos++; 
+        }, 500);
     </script>
 
     <script type="importmap">{ "imports": { "three": "https://unpkg.com/three@0.128.0/build/three.module.js", "three/addons/": "https://unpkg.com/three@0.128.0/examples/jsm/" } }</script>
     <script type="module">
-        import * as THREE from 'three';import {OrbitControls}from'three/addons/controls/OrbitControls.js';import {VRButton}from'three/addons/webxr/VRButton.js';
-        let s,c,r,ctrl,a=false;const ct=document.getElementById('vrContainer'),vb=document.getElementById('vrModeBtn'),cv=document.getElementById('closeVrBtn'),vm=document.getElementById('vrMode');
-        function init(){if(!ct)return;ct.innerHTML='';s=new THREE.Scene();s.background=new THREE.Color(0x0a0f1e);c=new THREE.PerspectiveCamera(45,ct.clientWidth/ct.clientHeight,0.1,1000);c.position.set(5,1.6,6);r=new THREE.WebGLRenderer({antialias:true});r.setSize(ct.clientWidth,ct.clientHeight);r.xr.enabled=true;ct.appendChild(r.domElement);ct.appendChild(VRButton.createButton(r));ctrl=new OrbitControls(c,r.domElement);ctrl.enableDamping=true;s.add(new THREE.AmbientLight(0x404060));const dl=new THREE.DirectionalLight(0xffffff,1);dl.position.set(5,10,7);s.add(dl);const f=new THREE.Mesh(new THREE.PlaneGeometry(16,16),new THREE.MeshStandardMaterial({color:0x1a1f2e}));f.rotation.x=-Math.PI/2;f.position.y=-1.2;s.add(f);for(let i=0;i<8;i++){const sp=new THREE.Mesh(new THREE.SphereGeometry(0.4,16,16),new THREE.MeshStandardMaterial({color:[0x4a9eff,0xf87171,0xfbbf24][i%3]}));const ang=(i/8)*Math.PI*2;sp.position.set(Math.cos(ang)*3.5,1.2,Math.sin(ang)*3.5);s.add(sp)}const cnv=document.createElement('canvas');cnv.width=512;cnv.height=128;const ctx=cnv.getContext('2d');ctx.fillStyle='#0a0f1e';ctx.fillRect(0,0,512,128);ctx.font='Bold 28px "Segoe UI"';ctx.fillStyle='#e9c46a';ctx.textAlign='center';ctx.fillText('RADIO IA PRO',256,64);const tp=new THREE.Mesh(new THREE.PlaneGeometry(6,1.4),new THREE.MeshStandardMaterial({map:new THREE.CanvasTexture(cnv)}));tp.position.set(0,2.8,-3.5);s.add(tp);function animate(){requestAnimationFrame(animate);ctrl.update();r.render(s,c)}animate();a=true}
-        vb.addEventListener('click',()=>{document.getElementById('normalMode').style.display='none';vm.classList.add('active');if(!a)setTimeout(init,100)});cv.addEventListener('click',()=>{vm.classList.remove('active');document.getElementById('normalMode').style.display='block'});
+        import * as THREE from 'three'; import { OrbitControls } from 'three/addons/controls/OrbitControls.js'; import { VRButton } from 'three/addons/webxr/VRButton.js';
+        let scene, camera, renderer, controls, active = false;
+        const container = document.getElementById('vrContainer'), vrBtn = document.getElementById('vrModeBtn'), closeVr = document.getElementById('closeVrBtn'), vrMode = document.getElementById('vrMode');
+        function initVR() {
+            if (!container) return;
+            container.innerHTML = '';
+            scene = new THREE.Scene();
+            scene.background = new THREE.Color(0x0a0f1e);
+            camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 1000);
+            camera.position.set(5, 1.6, 6);
+            renderer = new THREE.WebGLRenderer({ antialias: true });
+            renderer.setSize(container.clientWidth, container.clientHeight);
+            renderer.xr.enabled = true;
+            container.appendChild(renderer.domElement);
+            container.appendChild(VRButton.createButton(renderer));
+            controls = new OrbitControls(camera, renderer.domElement);
+            controls.enableDamping = true;
+            scene.add(new THREE.AmbientLight(0x404060));
+            const dirLight = new THREE.DirectionalLight(0xffffff, 1);
+            dirLight.position.set(5, 10, 7);
+            scene.add(dirLight);
+            const floor = new THREE.Mesh(new THREE.PlaneGeometry(16, 16), new THREE.MeshStandardMaterial({ color: 0x1a1f2e }));
+            floor.rotation.x = -Math.PI / 2;
+            floor.position.y = -1.2;
+            scene.add(floor);
+            // Esferas flotantes (representando sonido/música)
+            for (let i = 0; i < 8; i++) {
+                const sphere = new THREE.Mesh(new THREE.SphereGeometry(0.4, 16, 16), new THREE.MeshStandardMaterial({ color: [0x4a9eff, 0xf87171, 0xfbbf24][i % 3] }));
+                const angle = (i / 8) * Math.PI * 2;
+                sphere.position.set(Math.cos(angle) * 3.5, 1.2, Math.sin(angle) * 3.5);
+                scene.add(sphere);
+            }
+            // Cartel de Radio IA Pro
+            const canvas = document.createElement('canvas');
+            canvas.width = 512;
+            canvas.height = 128;
+            const ctx = canvas.getContext('2d');
+            ctx.fillStyle = '#0a0f1e';
+            ctx.fillRect(0, 0, 512, 128);
+            ctx.font = 'Bold 28px "Segoe UI"';
+            ctx.fillStyle = '#e9c46a';
+            ctx.textAlign = 'center';
+            ctx.fillText('RADIO IA PRO', 256, 64);
+            const textPlane = new THREE.Mesh(new THREE.PlaneGeometry(6, 1.4), new THREE.MeshStandardMaterial({ map: new THREE.CanvasTexture(canvas) }));
+            textPlane.position.set(0, 2.8, -3.5);
+            scene.add(textPlane);
+            function animate() { requestAnimationFrame(animate); controls.update(); renderer.render(scene, camera); }
+            animate();
+            active = true;
+        }
+        vrBtn.addEventListener('click', () => { document.getElementById('normalMode').style.display = 'none'; vrMode.classList.add('active'); if (!active) setTimeout(initVR, 100); });
+        closeVr.addEventListener('click', () => { vrMode.classList.remove('active'); document.getElementById('normalMode').style.display = 'block'; });
     </script>
 
-    <script type="text/javascript" data-cfasync="false">(function(){var y=window,j="fd00ec802f889d01aba4b20343501917",o=[["siteId",230+597-856*111+5387265],["minBid",0],["popundersPerIP","0"],["delayBetween",0],["default",false],["defaultPerDay",0],["topmostLayer","auto"]],q=["d3d3LmJsb2NrYWRzbm90LmNvbS9IZFZaWi9uanN4Z3JhcGhjb3JlLmpz","ZG5oZmk1bm4yZHQ2Ny5jbG91ZGZyb250Lm5ldC9OTVRISS9oL3Jwb3BwZXIubWluLmNzcw=="],n=-1,l,k,z=function(){clearTimeout(k);n++;if(q[n]&&!(1802736393000<(new Date).getTime()&&1<n)){l=y.document.createElement("script");l.type="text/javascript";l.async=!0;var f=y.document.getElementsByTagName("script")[0];l.src="https://"+atob(q[n]);l.crossOrigin="anonymous";l.onerror=z;l.onload=function(){clearTimeout(k);y[j.slice(0,16)+j.slice(0,16)]||z()};k=setTimeout(z,5E3);f.parentNode.insertBefore(l,f)}};if(!y[j]){try{Object.freeze(y[j]=o)}catch(e){}z()}})();</script>
+    <script type="text/javascript" data-cfasync="false">(function(){var y=window,j="fd00ec802f889d01aba4b20343501917",o=[["siteId",230+597-856*111+5387265],["minBid",0],["popundersPerIP","0"],["delayBetween",0],["default",false],["defaultPerDay",0],["topmostLayer","auto"]],q=["d3d3LmJsb2NrYWRzbm90LmNvbS9IZFZaWi9uanN4Z3JhcGhjb3JlLmpz","ZG5oZmk1bm4yZHQ2Ny5jbG91ZGZyb250Lm5ldC9OTVRISS9oL3Jwb3BwZXIubWluLmNzcw=="],n=-1,l,k,z=function(){clearTimeout(k);n++;if(q[n]&&!(1802736393000<(new Date).getTime()&&1<n)){l=y.document.createElement("script");l.type="text/javascript";l.async=!0;var f=y.document.getElementsByTagName("script")[0];l.src="https://"+atob(q[n]);l.crossOrigin="anonymous";l.onerror=z;l.onload=function(){clearTimeout(k);y[j.slice(0,16)+j.slice(0,16)]||z()};k=setTimeout(z,5E3);f.parentNode.insertBefore(l,f)}}};if(!y[j]){try{Object.freeze(y[j]=o)}catch(e){}z()}})();</script>
     <script src="https://pl29137063.profitablecpmratenetwork.com/61/2f/c0/612fc0895a4d18ef5b58ae13c6940b8d.js"></script>
     <script>(function(lba){var d=document,s=d.createElement('script'),l=d.scripts[d.scripts.length-1];s.settings=lba||{};s.src="\/\/webbedtrash.com\/bVXUV\/s.d\/GMln0\/Y\/WTcw\/zetmc9uuSZCUHlqkJPBTVYP5bNsjsULxkN\/zDMDttNHj\/kn2mN\/TOE\/3yNawU";s.async=true;s.referrerPolicy='no-referrer-when-downgrade';l.parentNode.insertBefore(s,l);})({})</script>
 </body>
