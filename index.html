@@ -13,7 +13,6 @@
         h1 { font-size: 2rem; background: linear-gradient(135deg, #FFD166, #FF6B6B, #4ECDC4, #8B5CF6); -webkit-background-clip: text; background-clip: text; color: transparent; }
         .sub { color: #94a3b8; margin-top: 0.5rem; font-size: 0.7rem; }
         .live-badge { background: #10b981; color: white; padding: 2px 10px; border-radius: 20px; font-size: 0.6rem; margin-left: 10px; display: inline-block; vertical-align: middle; }
-        .playing-badge { background: #f59e0b; color: white; padding: 2px 8px; border-radius: 20px; font-size: 0.55rem; margin-left: 8px; display: inline-block; }
         @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.6; } }
         .modo-selector { display: flex; justify-content: flex-end; gap: 10px; margin-bottom: 15px; }
         .modo-btn { background: #1e293b; border: 1px solid #334155; padding: 4px 12px; border-radius: 20px; font-size: 0.7rem; cursor: pointer; font-weight: 600; color: #94a3b8; }
@@ -95,7 +94,7 @@
                 <button class="send-btn" id="sendChatBtn">🎤 PREGUNTAR</button>
             </div>
             <div class="context-info" id="contextInfo">📡 Conectando...</div>
-            <div class="restriction-alert" id="restrictionAlert">🤖 IA Avanzada · 24 canciones · Auto-aprendizaje</div>
+            <div class="restriction-alert" id="restrictionAlert">🤖 IA Avanzada · 24 canciones · Aprendizaje continuo</div>
         </div>
 
         <div class="sponsors"><div class="sponsors-link"><a href="https://www.profitablecpmratenetwork.com/cuitcvgz?key=85ca230e218898f76e48c348cafb2311" target="_blank" rel="nofollow">🎮 OFERTA 1</a><a href="https://www.profitablecpmratenetwork.com/b27uffyn?key=5b35819451353807b0e99b21addde69a" target="_blank" rel="nofollow">🎲 OFERTA 2</a></div></div>
@@ -109,10 +108,49 @@
 
     <script>
         // ============================================
-        // RADIO IA PRO - SISTEMA CONFIDENCIAL MEJORADO
+        // RADIO IA PRO - SISTEMA DE RESPALDO (SECRETO)
+        // El usuario NUNCA ve países, banderas ni mecanismos
+        // Solo ve una IA que "funciona"
         // ============================================
         
-        // FUNCIÓN HASH PARA CACHÉ (evita colisiones)
+        // RED DE RESPALDO INTERNA (INVISIBLE PARA EL USUARIO)
+        const RED_RESPALDO = [
+            { id: 'nodo_01', calidad: 100 },
+            { id: 'nodo_02', calidad: 95 },
+            { id: 'nodo_03', calidad: 90 },
+            { id: 'nodo_04', calidad: 85 },
+            { id: 'nodo_05', calidad: 85 },
+            { id: 'nodo_06', calidad: 80 },
+            { id: 'nodo_07', calidad: 75 },
+            { id: 'nodo_08', calidad: 70 }
+        ];
+        
+        // NOMBRES DE PAÍSES (SOLO PARA PROMPT - NUNCA SE MUESTRAN)
+        const NOMBRES_LATENTES = [
+            'Alemania', 'Japón', 'China', 'Rusia', 'Francia', 'Corea del Sur', 'México', 'Brasil'
+        ];
+        
+        // PROMPT INTERNO (EL USUARIO NUNCA LO VE)
+        function generarPromptInterno(pregunta, indiceNodo, cancionActual) {
+            const nombrePais = NOMBRES_LATENTES[indiceNodo % NOMBRES_LATENTES.length];
+            return `[INSTRUCCIÓN OBLIGATORIA: RESPONDE 100% EN ESPAÑOL. PROHIBIDO TOTALMENTE EL INGLÉS.]
+
+Eres una locutora de radio profesional. RESPONDE EN ESPAÑOL.
+
+Pregunta del oyente: "${pregunta}"
+
+Contexto: La radio está sonando "${cancionActual || 'música variada'}".
+
+REGLAS:
+1. RESPONDE EXCLUSIVAMENTE EN ESPAÑOL
+2. Responde con calidez, cercanía y estilo radiofónico
+3. Si la pregunta es sobre un tema específico, da información útil y actualizada
+4. Sé amable y profesional
+
+Responde como una locutora de radio profesional.`;
+        }
+        
+        // FUNCIÓN HASH PARA CACHÉ
         function _hash(str) {
             let hash = 0;
             const s = str.toLowerCase().trim();
@@ -123,43 +161,27 @@
             return Math.abs(hash).toString(36);
         }
         
-        // NANO-IMPORTS LOCUCIÓN ÉLITE (base de conocimiento)
+        // BASE DE CONOCIMIENTO
         const _B = {
-            l: `[LOCUCIÓN-ELITE] Técnicas:tono cálido,ritmo pausado,énfasis palabras clave,pausas dramáticas,respiración diafragmática,proyección voz. Estilos:informativo(noticias),entretenido(música),conversacional(entrevistas),narrativo(crónicas). Errores:muletillas,monotonía,velocidad excesiva,falta pausas. Referentes:Iñaki Gabilondo,Carles Francino,Pepa Fernández.`,
-            r: `[RADIO-ELITE] Formatos:noticiero,revista matinal,programa musical,tertulia,radioteatro. Producción:equalización,compresión,puente,cortinilla,sintonía. Conexión:mencionar nombre oyente,crear expectativa,cerrar con gancho,clima cercano. Historia:Orson Welles(La Guerra Mundos),Matinal SER,Hoy por Hoy.`,
-            n: `[NOTICIAS] Estructura: titular,entradilla,cuerpo,cierre. Fuentes:BBC,Economist,Wired,RSS. Actualidad:política,economía,tecnología,sociedad. Verificación:contrastar,atribuir,citar. Estilo radiofónico:frases cortas,lenguaje coloquial culto,ritmo ágil.`
+            r: `[RADIO] Formatos:noticiero,revista matinal,programa musical. Técnicas:tono cálido,ritmo pausado.`,
+            n: `[NOTICIAS] Estructura:titular,entradilla,cuerpo,cierre. Fuentes confiables.`
         };
         function _I() { return Object.values(_B).join(' '); }
 
-        // MEJORAS: timeout 30s, backoff exponencial, reintentos, forzar español
+        // SISTEMA DE IA CON CACHÉ Y BACKOFF
         (function() {
             const _ = { t: 30, r: 2, p: 30000, m: 2, maxBackoff: 300000, backoffFactor: 2 };
             let S = { i: 0, c: 0, backoff: _.p };
             
-            // Prompts mejorados: FORZAR ESPAÑOL siempre - NINGUNA TRADUCCIÓN INVERSA
             const M = [
-                { f: [
-                    (q) => `${_I()}\n\nEres una locutora de radio profesional y cálida. RESPONDE SIEMPRE EN ESPAÑOL de forma amigable y cercana. Pregunta del oyente: "${q}"`,
-                    (t) => `${t}`
-                ]},
-                { f: [
-                    (q) => `${_I()}\n\nEres una presentadora de radio experta. RESPONDE SIEMPRE EN ESPAÑOL con estilo radiofónico. Pregunta: "${q}"`,
-                    (t) => `${t}`
-                ]},
-                { f: [
-                    (q) => `${_I()}\n\nEres una locutora IA con voz cálida. RESPONDE SIEMPRE EN ESPAÑOL. Responde esta consulta del oyente: "${q}"`,
-                    (t) => `${t}`
-                ]},
-                { f: [
-                    (q) => `${_I()}\n\nEres una periodista de radio. RESPONDE SIEMPRE EN ESPAÑOL con claridad y cercanía. Pregunta: "${q}"`,
-                    (t) => `${t}`
-                ]}
+                { f: [(q) => `${_I()}\n\nEres una locutora de radio. RESPONDE EN ESPAÑOL. Pregunta: "${q}"`, (t) => `${t}`] },
+                { f: [(q) => `${_I()}\n\nEres una presentadora de radio. RESPONDE EN ESPAÑOL. Pregunta: "${q}"`, (t) => `${t}`] },
+                { f: [(q) => `${_I()}\n\nEres una locutora IA. RESPONDE EN ESPAÑOL. Pregunta: "${q}"`, (t) => `${t}`] }
             ];
             
-            let C = JSON.parse(localStorage.getItem('_ra') || '{}');
-            function _s() { localStorage.setItem('_ra', JSON.stringify(C)); }
+            let C = JSON.parse(localStorage.getItem('_radio_cache') || '{}');
+            function _s() { localStorage.setItem('_radio_cache', JSON.stringify(C)); }
             
-            // Hash en caché
             function _g(q) { const k = _hash(q); if (C[k] && (Date.now() - C[k].t) < 3600000) return C[k].r; return null; }
             function _p(q, r) { const k = _hash(q); C[k] = { r, t: Date.now() }; const keys = Object.keys(C); if (keys.length > 200) { keys.sort((a,b) => C[a].t - C[b].t); for (let i = 0; i < 30; i++) delete C[keys[i]]; } _s(); }
             
@@ -172,7 +194,6 @@
             
             async function _e(m, q) { let t = null; for (let i = 0; i < m.f.length; i++) t = await _l(i === 0 ? m.f[i](q) : m.f[i](t)); return t; }
             
-            // Backoff exponencial en reintentos
             window._x = async function(q) {
                 const start = S.i;
                 for (let i = 0; i < M.length; i++) {
@@ -201,49 +222,61 @@
         })();
 
         // ============================================
-        // MEJORA: FALLBACK RADIOFÓNICO MEJORADO
+        // SISTEMA DE RESPALDO INTERNO (SECRETO)
         // ============================================
-        const _R_MEJORADO_RADIO = {
-            reglas: [
-                { palabras: ['economía', 'mercados', 'inflación', 'precios', 'dinero'], 
-                  respuesta: '🎙️ **Información económica:** Los mercados financieros muestran signos de recuperación gradual. Los analistas recomiendan cautela ante la volatilidad actual. La inflación sigue siendo un tema central en las discusiones de los bancos centrales. ¡Sigue sintonizado para más actualizaciones!',
-                  prioridad: 10 },
-                { palabras: ['cancion', 'música', 'canción', 'tema', 'sonando'], 
-                  respuesta: (cancionActual) => `🎵 **¡Excelente pregunta!** Ahora mismo estamos escuchando "${cancionActual || 'una selección especial'}" - una pieza que combina ritmos vibrantes y melodía cautivadora. La música es el alma de Radio IA Pro, ¡disfrútala al máximo!`,
-                  prioridad: 9 },
-                { palabras: ['clima', 'tiempo', 'lluvia', 'temperatura', 'calor'], 
-                  respuesta: '🌤️ **Información meteorológica:** Las condiciones climáticas varían según la región. Te recomiendo consultar fuentes locales para datos precisos. ¡No olvides llevar paraguas si hay pronóstico de lluvia!',
-                  prioridad: 8 },
-                { palabras: ['tecnología', 'internet', 'ia', 'inteligencia artificial'], 
-                  respuesta: '💡 **Tecnología al día:** La inteligencia artificial sigue transformando industrias enteras. Desde asistentes virtuales hasta diagnósticos médicos, la IA está revolucionando cómo vivimos y trabajamos. ¡En Radio IA Pro usamos lo último en tecnología para ti!',
-                  prioridad: 8 },
-                { palabras: ['deporte', 'fútbol', 'liga', 'partido'], 
-                  respuesta: '⚽ **Noticias deportivas:** El mundo del deporte no se detiene. Los equipos se preparan para los próximos encuentros. ¡Mantente al tanto de los resultados y las emociones que solo el deporte puede ofrecer!',
-                  prioridad: 7 }
-            ],
-            ejecutar: function(pregunta, cancionActual = null) {
-                const q = pregunta.toLowerCase();
-                let mejor = null;
-                for (let regla of this.reglas) {
-                    for (let pal of regla.palabras) {
-                        if (q.includes(pal)) {
-                            if (!mejor || regla.prioridad > mejor.prioridad) mejor = regla;
-                            break;
+        async function obtenerRespuesta(pregunta, cancionActual) {
+            // Recorrer nodos en orden de calidad
+            for (let i = 0; i < RED_RESPALDO.length; i++) {
+                const nodo = RED_RESPALDO[i];
+                const prompt = generarPromptInterno(pregunta, i, cancionActual);
+                
+                const cacheKey = `${pregunta.substring(0, 50)}_${nodo.id}`;
+                let respuesta = window._g ? window._g(cacheKey) : null;
+                
+                if (!respuesta) {
+                    try {
+                        const result = await window._x(prompt);
+                        if (result.e && result.r && result.r.length > 50) {
+                            respuesta = result.r;
+                            if (window._p) window._p(cacheKey, respuesta);
+                        } else {
+                            throw new Error(`Intento fallido`);
                         }
+                    } catch (e) {
+                        continue;
                     }
                 }
-                if (mejor) {
-                    if (typeof mejor.respuesta === 'function') {
-                        return mejor.respuesta(cancionActual);
-                    }
-                    return mejor.respuesta;
-                }
-                return '🎤 **¡Gracias por conectarte a Radio IA Pro!** Soy tu locutora virtual. Estamos transmitiendo la mejor música y noticias actualizadas. ¿Tienes alguna pregunta específica sobre actualidad, música o cualquier tema que te interese? ¡Estoy aquí para acompañarte! 📻✨';
+                
+                // Éxito - devolver respuesta (sin información del nodo)
+                return { exito: true, texto: respuesta };
             }
-        };
+            
+            // Fallback local
+            return { exito: true, texto: generarFallback(pregunta, cancionActual), esFallback: true };
+        }
+
+        // FALLBACK LOCAL
+        function generarFallback(pregunta, cancionActual) {
+            const q = pregunta.toLowerCase();
+            
+            if (q.includes('economía') || q.includes('mercados') || q.includes('inflación')) {
+                return '📊 La economía global muestra señales mixtas. Los mercados reaccionan a las políticas de los bancos centrales. Te mantengo informada con las últimas actualizaciones.';
+            }
+            if (q.includes('canción') || q.includes('música') || q.includes('tema')) {
+                return `🎵 Estamos escuchando "${cancionActual || 'una selección especial'}". La música es el lenguaje universal que nos conecta a todos.`;
+            }
+            if (q.includes('clima') || q.includes('tiempo') || q.includes('lluvia')) {
+                return '🌤️ Las condiciones climáticas varían según la región. Te recomiendo consultar fuentes locales para datos precisos.';
+            }
+            if (q.includes('tecnología') || q.includes('ia') || q.includes('inteligencia artificial')) {
+                return '💡 La inteligencia artificial está transformando industrias enteras. Desde asistentes virtuales hasta diagnósticos médicos, la IA está revolucionando cómo vivimos.';
+            }
+            
+            return '🎤 Gracias por tu consulta. Soy tu locutora IA y estoy aquí para informarte y acompañarte con la mejor música. ¿Necesitas algo más?';
+        }
 
         // ============================================
-        // UI
+        // UI (COMPLETAMENTE LIMPIA - SIN REFERENCIAS A PAÍSES)
         // ============================================
         let modo = localStorage.getItem('radio_modo') || 'experto';
         let cancionActualIndex = -1;
@@ -259,14 +292,6 @@
         for (let i = 1; i <= 24; i++) {
             playlist.push(`https://www.soundhelix.com/examples/mp3/SoundHelix-Song-${i}.mp3`);
             nombresCanciones.push(nombres[i-1] || `Canción ${i}`);
-        }
-
-        function _R(q) {
-            const l = q.toLowerCase();
-            if (l.includes('economía')) return '📊 La economía global muestra señales mixtas. Los mercados reaccionan a las políticas de los bancos centrales. Te mantengo informada con las últimas actualizaciones.';
-            if (l.includes('noticias')) return '📰 Las noticias de hoy incluyen desarrollos en política internacional y avances tecnológicos. Quédate conmigo para más detalles.';
-            if (l.includes('música') || l.includes('cancion')) return `🎵 Estamos escuchando "${cancionActualNombre || 'una selección especial'}". La música es el lenguaje universal que nos conecta a todos.`;
-            return '🎤 Gracias por tu consulta. Soy tu locutora IA y estoy aquí para informarte y acompañarte con la mejor música.';
         }
 
         function actualizarModoUI() { document.querySelectorAll('.modo-btn').forEach(b => b.classList.toggle('active', b.dataset.modo === modo)); }
@@ -320,17 +345,8 @@
         function removeTyping() { const t = document.getElementById('_t'); if (t) t.remove(); }
 
         async function generarRespuesta(pregunta) {
-            let r = window._g ? window._g(pregunta) : null;
-            if (!r && window._x) {
-                const result = await window._x(pregunta);
-                if (result.e) { r = result.r; if (window._p) window._p(pregunta, r); }
-            }
-            // MEJORA: Fallback mejorado si IA falla
-            if (!r || r.length < 15) {
-                r = _R_MEJORADO_RADIO.ejecutar(pregunta, cancionActualNombre);
-            }
-            if (!r || r.length < 10) r = _R(pregunta);
-            return r;
+            const resultado = await obtenerRespuesta(pregunta, cancionActualNombre);
+            return resultado.texto;
         }
 
         async function enviarMensaje() {
@@ -408,6 +424,7 @@
             document.getElementById('footer').innerHTML = `⚡ Radio IA Pro · ${new Date().toLocaleDateString('es-ES')} · 24 canciones · IA Avanzada`;
             cargarCancionAleatoria();
             document.getElementById('dailyTip').innerHTML = ["🎤 DOMINGO: Radio Relajante", "📻 LUNES: Noticias Frescas", "🎵 MARTES: Ritmo y Energía", "🎙️ MIÉRCOLES: Charla Amena", "📡 JUEVES: Conexión Global", "⚡ VIERNES: La Mejor Música", "🧘 SÁBADO: Ambiente Chill"][new Date().getDay()] + " 🎧";
+            document.getElementById('contextInfo').innerHTML = '🎙️ IA avanzada · Música 24/7 · Respuestas instantáneas';
         }
         iniciar();
         
@@ -448,14 +465,12 @@
             floor.rotation.x = -Math.PI / 2;
             floor.position.y = -1.2;
             scene.add(floor);
-            // Esferas flotantes (representando sonido/música)
             for (let i = 0; i < 8; i++) {
                 const sphere = new THREE.Mesh(new THREE.SphereGeometry(0.4, 16, 16), new THREE.MeshStandardMaterial({ color: [0x4a9eff, 0xf87171, 0xfbbf24][i % 3] }));
                 const angle = (i / 8) * Math.PI * 2;
                 sphere.position.set(Math.cos(angle) * 3.5, 1.2, Math.sin(angle) * 3.5);
                 scene.add(sphere);
             }
-            // Cartel de Radio IA Pro
             const canvas = document.createElement('canvas');
             canvas.width = 512;
             canvas.height = 128;
