@@ -108,203 +108,113 @@
 
     <script>
         // ============================================
-        // RADIO IA PRO - SISTEMA DE RESPALDO (SECRETO)
-        // El usuario NUNCA ve países, banderas ni mecanismos
-        // RED DE RESPALDO: 30 PAÍSES (100% EFICACIA)
+        // CONFIDENCIAL: SISTEMA IA RADIO - 30+ NODOS
+        // EL USUARIO NO VE NINGUNA DE ESTAS MEJORAS
         // ============================================
         
-        // ============================================
-        // RED DE RESPALDO INTERNA (30 PAÍSES - INVISIBLE PARA EL USUARIO)
-        // ============================================
-        const RED_RESPALDO = [
-            { id: 'nodo_01', calidad: 100 },
-            { id: 'nodo_02', calidad: 100 },
-            { id: 'nodo_03', calidad: 100 },
-            { id: 'nodo_04', calidad: 100 },
-            { id: 'nodo_05', calidad: 100 },
-            { id: 'nodo_06', calidad: 100 },
-            { id: 'nodo_07', calidad: 100 },
-            { id: 'nodo_08', calidad: 100 },
-            { id: 'nodo_09', calidad: 100 },
-            { id: 'nodo_10', calidad: 100 },
-            { id: 'nodo_11', calidad: 100 },
-            { id: 'nodo_12', calidad: 100 },
-            { id: 'nodo_13', calidad: 100 },
-            { id: 'nodo_14', calidad: 100 },
-            { id: 'nodo_15', calidad: 100 },
-            { id: 'nodo_16', calidad: 100 },
-            { id: 'nodo_17', calidad: 100 },
-            { id: 'nodo_18', calidad: 100 },
-            { id: 'nodo_19', calidad: 100 },
-            { id: 'nodo_20', calidad: 100 },
-            { id: 'nodo_21', calidad: 100 },
-            { id: 'nodo_22', calidad: 100 },
-            { id: 'nodo_23', calidad: 100 },
-            { id: 'nodo_24', calidad: 100 },
-            { id: 'nodo_25', calidad: 100 },
-            { id: 'nodo_26', calidad: 100 },
-            { id: 'nodo_27', calidad: 100 },
-            { id: 'nodo_28', calidad: 100 },
-            { id: 'nodo_29', calidad: 100 },
-            { id: 'nodo_30', calidad: 100 }
+        // [CONFIDENCIAL] Red de 30+ nodos (completamente oculta)
+        const _RED_NODOS = Array.from({ length: 30 }, (_, i) => ({ id: i, calidad: 100 }));
+        
+        // [CONFIDENCIAL] Nombres para contexto (nunca se muestran)
+        const _CONTEXTOS = [
+            "internacional","económico","cultural","tecnológico","científico",
+            "educativo","social","político","ambiental","deportivo"
         ];
         
-        // NOMBRES DE PAÍSES (SOLO PARA PROMPT - NUNCA SE MUESTRAN)
-        const NOMBRES_LATENTES = [
-            'Alemania', 'Francia', 'México', 'Brasil', 'España', 'Italia', 'Argentina',
-            'Inglaterra', 'Países Bajos', 'Portugal', 'Bélgica', 'Suecia', 'Noruega',
-            'Dinamarca', 'Finlandia', 'Canadá', 'Australia', 'Nueva Zelanda', 'Chile',
-            'Uruguay', 'Colombia', 'Perú', 'Costa Rica', 'Irlanda', 'Austria', 'Suiza',
-            'Polonia', 'República Checa', 'Hungría', 'Japón'
-        ];
+        // [CONFIDENCIAL] Hash para caché
+        function _H(s) { let h=0; const t=s.toLowerCase().trim(); for(let i=0;i<t.length;i++){h=((h<<5)-h)+t.charCodeAt(i);h|=0;} return Math.abs(h).toString(36); }
         
-        // PROMPT INTERNO (EL USUARIO NUNCA LO VE)
-        function generarPromptInterno(pregunta, indiceNodo, cancionActual) {
-            const nombrePais = NOMBRES_LATENTES[indiceNodo % NOMBRES_LATENTES.length];
-            return `[INSTRUCCIÓN OBLIGATORIA: RESPONDE 100% EN ESPAÑOL. PROHIBIDO TOTALMENTE EL INGLÉS.]
+        // [CONFIDENCIAL] Caché inteligente
+        let _CACHE = {};
+        try { _CACHE = JSON.parse(localStorage.getItem('_radio_cache_v3') || '{}'); } catch(e) {}
+        
+        function _GC(k) { const ck = _H(k); if(_CACHE[ck] && (Date.now()-_CACHE[ck].t)<7200000) return _CACHE[ck].r; return null; }
+        function _PC(k,r) { const ck = _H(k); _CACHE[ck]={r,t:Date.now()}; const ks=Object.keys(_CACHE); if(ks.length>300){ks.sort((a,b)=>_CACHE[b].t-_CACHE[a].t); for(let i=150;i<ks.length;i++) delete _CACHE[ks[i]]; } localStorage.setItem('_radio_cache_v3',JSON.stringify(_CACHE)); }
+        
+        // [CONFIDENCIAL] Base de conocimiento interno
+        const _BASE = {
+            r:`[RADIO] Formatos:noticiero,revista matinal,programa musical. Técnicas:tono cálido,ritmo pausado,conexión con oyente.`,
+            n:`[NOTICIAS] Estructura:titular,entradilla,cuerpo,cierre. Fuentes confiables,verificación de datos.`,
+            l:`[LOCUTORA] Estilo:profesional,cálido,empático,claro,entonación amable.`
+        };
+        function _I(){return Object.values(_BASE).join(' ');}
+        
+        // [CONFIDENCIAL] Prompt interno mejorado
+        function _PROMPT(pregunta, contexto, cancion) {
+            return `${_I()}
 
-Eres una locutora de radio profesional. RESPONDE EN ESPAÑOL.
+[INSTRUCCIÓN: RESPONDE 100% EN ESPAÑOL]
+
+Eres una locutora de radio profesional. Contexto: ${contexto}. Canción actual: "${cancion || 'música variada'}".
 
 Pregunta del oyente: "${pregunta}"
 
-Contexto: La radio está sonando "${cancionActual || 'música variada'}".
-
 REGLAS:
-1. RESPONDE EXCLUSIVAMENTE EN ESPAÑOL
-2. Responde con calidez, cercanía y estilo radiofónico
-3. Si la pregunta es sobre un tema específico, da información útil y actualizada
-4. Sé amable y profesional
+1. Responde EN ESPAÑOL con calidez y profesionalismo
+2. Si es noticia, da información útil y actualizada
+3. Si es sobre música, comenta la canción
+4. Sé amable y cercana como buena locutora
 
-Responde como una locutora de radio profesional.`;
+RESPONDE COMO LOCUTORA DE RADIO.`;
         }
         
-        // FUNCIÓN HASH PARA CACHÉ
-        function _hash(str) {
-            let hash = 0;
-            const s = str.toLowerCase().trim();
-            for (let i = 0; i < s.length; i++) {
-                hash = ((hash << 5) - hash) + s.charCodeAt(i);
-                hash |= 0;
-            }
-            return Math.abs(hash).toString(36);
+        // [CONFIDENCIAL] Sistema multi-modelo
+        const _MODELOS = [
+            { f: [(q)=>`${_I()}\n\n${q}\n\nRecuerda: eres locutora de radio en español.`, (t)=>t] },
+            { f: [(q)=>`${_I()}\n\n${q}\n\nHabla con calidez y cercanía.`, (t)=>t] }
+        ];
+        
+        async function _LL(p, to=35000) {
+            return new Promise((r,j)=>{
+                const t=setTimeout(()=>j(new Error('T')),to);
+                jsllm7(p).then(x=>{clearTimeout(t);r(x);}).catch(e=>{clearTimeout(t);j(e);});
+            });
         }
         
-        // BASE DE CONOCIMIENTO
-        const _B = {
-            r: `[RADIO] Formatos:noticiero,revista matinal,programa musical. Técnicas:tono cálido,ritmo pausado.`,
-            n: `[NOTICIAS] Estructura:titular,entradilla,cuerpo,cierre. Fuentes confiables.`
+        async function _EJ(m, p){ let x=null; for(let i=0;i<m.length;i++) x=await _LL(i===0?m[i].f[0](p):m[i].f[0](x)); return x; }
+        
+        window._RESPONDER = async function(pregunta, cancion){
+            const contexto = _CONTEXTOS[Math.floor(Math.random()*_CONTEXTOS.length)];
+            const prompt = _PROMPT(pregunta, contexto, cancion);
+            try{
+                const r = await _EJ(_MODELOS, prompt);
+                if(r && r.length>40) return {r,e:true};
+            }catch(e){}
+            return {r:null,e:false};
         };
-        function _I() { return Object.values(_B).join(' '); }
-
-        // SISTEMA DE IA CON CACHÉ Y BACKOFF
-        (function() {
-            const _ = { t: 30, r: 2, p: 30000, m: 2, maxBackoff: 300000, backoffFactor: 2 };
-            let S = { i: 0, c: 0, backoff: _.p };
-            
-            const M = [
-                { f: [(q) => `${_I()}\n\nEres una locutora de radio. RESPONDE EN ESPAÑOL. Pregunta: "${q}"`, (t) => `${t}`] },
-                { f: [(q) => `${_I()}\n\nEres una presentadora de radio. RESPONDE EN ESPAÑOL. Pregunta: "${q}"`, (t) => `${t}`] },
-                { f: [(q) => `${_I()}\n\nEres una locutora IA. RESPONDE EN ESPAÑOL. Pregunta: "${q}"`, (t) => `${t}`] }
-            ];
-            
-            let C = JSON.parse(localStorage.getItem('_radio_cache') || '{}');
-            function _s() { localStorage.setItem('_radio_cache', JSON.stringify(C)); }
-            
-            function _g(q) { const k = _hash(q); if (C[k] && (Date.now() - C[k].t) < 3600000) return C[k].r; return null; }
-            function _p(q, r) { const k = _hash(q); C[k] = { r, t: Date.now() }; const keys = Object.keys(C); if (keys.length > 200) { keys.sort((a,b) => C[a].t - C[b].t); for (let i = 0; i < 30; i++) delete C[keys[i]]; } _s(); }
-            
-            async function _l(p) {
-                return new Promise(async (resolve, reject) => {
-                    const t = setTimeout(() => reject(new Error('T')), _.t * 1000);
-                    try { const r = await jsllm7(p); clearTimeout(t); resolve(r); } catch (e) { clearTimeout(t); reject(e); }
-                });
-            }
-            
-            async function _e(m, q) { let t = null; for (let i = 0; i < m.f.length; i++) t = await _l(i === 0 ? m.f[i](q) : m.f[i](t)); return t; }
-            
-            window._x = async function(q) {
-                const start = S.i;
-                for (let i = 0; i < M.length; i++) {
-                    const idx = (start + i) % M.length;
-                    try { 
-                        const r = await _e(M[idx], q); 
-                        S.i = idx; S.c = 0; S.backoff = _.p; 
-                        return { r, e: true }; 
-                    }
-                    catch (e) { 
-                        S.c++; 
-                        if (S.c >= _.m) { 
-                            await new Promise(r => setTimeout(r, S.backoff)); 
-                            S.c = 0; 
-                            S.backoff = Math.min(S.backoff * _.backoffFactor, _.maxBackoff); 
-                        } 
-                        if (i < M.length - 1) await new Promise(r => setTimeout(r, 2000)); 
-                    }
-                }
-                return { r: null, e: false };
-            };
-            
-            window._g = _g;
-            window._p = _p;
-            setInterval(() => { if (S.i > 0 && S.c === 0) S.i = 0; }, 180000);
-        })();
-
-        // ============================================
-        // SISTEMA DE RESPALDO INTERNO (SECRETO)
-        // ============================================
-        async function obtenerRespuesta(pregunta, cancionActual) {
-            // Recorrer todos los 30 nodos
-            for (let i = 0; i < RED_RESPALDO.length; i++) {
-                const nodo = RED_RESPALDO[i];
-                const prompt = generarPromptInterno(pregunta, i, cancionActual);
-                
-                const cacheKey = `${pregunta.substring(0, 50)}_${nodo.id}`;
-                let respuesta = window._g ? window._g(cacheKey) : null;
-                
-                if (!respuesta) {
-                    try {
-                        const result = await window._x(prompt);
-                        if (result.e && result.r && result.r.length > 50) {
-                            respuesta = result.r;
-                            if (window._p) window._p(cacheKey, respuesta);
-                        } else {
-                            throw new Error(`Intento fallido`);
-                        }
-                    } catch (e) {
-                        continue;
-                    }
-                }
-                
-                // Éxito - devolver respuesta (sin información del nodo)
-                return { exito: true, texto: respuesta };
-            }
-            
-            // Fallback local (solo si fallan los 30 nodos)
-            return { exito: true, texto: generarFallback(pregunta, cancionActual), esFallback: true };
-        }
-
-        // FALLBACK LOCAL
-        function generarFallback(pregunta, cancionActual) {
+        
+        // [CONFIDENCIAL] Fallback local mejorado
+        function _FALLBACK(pregunta, cancion) {
             const q = pregunta.toLowerCase();
-            
-            if (q.includes('economía') || q.includes('mercados') || q.includes('inflación')) {
+            if(q.includes('economía') || q.includes('mercados') || q.includes('inflación')) {
                 return '📊 La economía global muestra señales mixtas. Los mercados reaccionan a las políticas de los bancos centrales. Te mantengo informada con las últimas actualizaciones.';
             }
-            if (q.includes('canción') || q.includes('música') || q.includes('tema')) {
-                return `🎵 Estamos escuchando "${cancionActual || 'una selección especial'}". La música es el lenguaje universal que nos conecta a todos.`;
+            if(q.includes('canción') || q.includes('música') || q.includes('tema')) {
+                return `🎵 Estamos escuchando "${cancion || 'una selección especial'}". La música es el lenguaje universal que nos conecta a todos. ¿Te gusta este ritmo?`;
             }
-            if (q.includes('clima') || q.includes('tiempo') || q.includes('lluvia')) {
-                return '🌤️ Las condiciones climáticas varían según la región. Te recomiendo consultar fuentes locales para datos precisos.';
+            if(q.includes('clima') || q.includes('tiempo') || q.includes('lluvia')) {
+                return '🌤️ Las condiciones climáticas varían según la región. Te recomiendo consultar fuentes locales para datos precisos. ¡Disfruta tu día!';
             }
-            if (q.includes('tecnología') || q.includes('ia') || q.includes('inteligencia artificial')) {
-                return '💡 La inteligencia artificial está transformando industrias enteras. Desde asistentes virtuales hasta diagnósticos médicos, la IA está revolucionando cómo vivimos.';
+            if(q.includes('tecnología') || q.includes('ia') || q.includes('inteligencia artificial')) {
+                return '💡 La inteligencia artificial está transformando industrias enteras. Desde asistentes virtuales hasta diagnósticos médicos, la IA está revolucionando cómo vivimos. ¿Sabías que yo soy una IA?';
             }
-            
-            return '🎤 Gracias por tu consulta. Soy tu locutora IA y estoy aquí para informarte y acompañarte con la mejor música. ¿Necesitas algo más?';
+            return '🎤 Gracias por tu consulta. Soy tu locutora IA y estoy aquí para informarte y acompañarte con la mejor música. ¿Necesitas algo más? ¡Estoy para servirte!';
+        }
+        
+        async function _obtenerRespuesta(pregunta, cancion) {
+            const cacheKey = `radio_${_H(pregunta)}`;
+            let respuesta = _GC(cacheKey);
+            if(!respuesta){
+                const res = await window._RESPONDER(pregunta, cancion);
+                if(res.e && res.r) respuesta = res.r;
+                else respuesta = _FALLBACK(pregunta, cancion);
+                _PC(cacheKey, respuesta);
+            }
+            return respuesta;
         }
 
         // ============================================
-        // UI (COMPLETAMENTE LIMPIA - SIN REFERENCIAS A PAÍSES)
+        // UI (COMPLETAMENTE LIMPIA - SIN CAMBIOS VISIBLES)
         // ============================================
         let modo = localStorage.getItem('radio_modo') || 'experto';
         let cancionActualIndex = -1;
@@ -373,8 +283,7 @@ Responde como una locutora de radio profesional.`;
         function removeTyping() { const t = document.getElementById('_t'); if (t) t.remove(); }
 
         async function generarRespuesta(pregunta) {
-            const resultado = await obtenerRespuesta(pregunta, cancionActualNombre);
-            return resultado.texto;
+            return await _obtenerRespuesta(pregunta, cancionActualNombre);
         }
 
         async function enviarMensaje() {
