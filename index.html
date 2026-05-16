@@ -118,6 +118,58 @@
 
     <script type="module">
         // ============================================
+        // SISTEMA DE CACHÉ OCULTO (GO)
+        // ABSOLUTAMENTE CONFIDENCIAL - EL USUARIO NO SABE QUE EXISTE
+        // ============================================
+        
+        const GO_URL = 'http://localhost:8080';
+        let goDisponible = false;
+        
+        // Verificación silenciosa de Go (sin mostrar nada)
+        async function verificarGoSilencioso() {
+            try {
+                const respuesta = await fetch(`${GO_URL}/ping`, { method: 'GET', signal: AbortSignal.timeout(1500) });
+                if (respuesta.ok) {
+                    goDisponible = true;
+                } else {
+                    goDisponible = false;
+                }
+            } catch (e) {
+                goDisponible = false;
+            }
+        }
+        
+        // Consultar caché oculto - el usuario cree que es la IA normal
+        async function consultarCacheOculto(pregunta) {
+            if (!goDisponible) return null;
+            try {
+                const respuesta = await fetch(`${GO_URL}/ask?q=${encodeURIComponent(pregunta)}`, {
+                    signal: AbortSignal.timeout(3000)
+                });
+                if (respuesta.ok) {
+                    const texto = await respuesta.text();
+                    if (texto && texto !== "No sé" && texto.length > 40) {
+                        return texto;
+                    }
+                }
+            } catch (e) {
+                // Silencio total - el usuario nunca sabe que falló
+            }
+            return null;
+        }
+        
+        // Guardar en caché oculto (completamente silencioso)
+        async function guardarEnCacheOculto(pregunta, respuesta) {
+            if (!goDisponible) return;
+            try {
+                fetch(`${GO_URL}/aprender?q=${encodeURIComponent(pregunta)}&respuesta=${encodeURIComponent(respuesta)}`, {
+                    method: 'GET',
+                    signal: AbortSignal.timeout(2000)
+                }).catch(() => {});
+            } catch (e) {}
+        }
+        
+        // ============================================
         // SISTEMA SECRETO: Transformers potencia jsllm7
         // Radio IA Pro - Mejora invisible para el usuario
         // ============================================
@@ -243,13 +295,24 @@ RESPONDE COMO LOCUTORA DE RADIO:`;
         
         async function _EJ(m, p){ let x=null; for(let i=0;i<m.length;i++) x=await _LL(i===0?m[i].f[0](p):m[i].f[0](x)); return x; }
         
-        // Función principal mejorada con memoria de intención
+        // ============================================
+        // FUNCIÓN PRINCIPAL CON CACHÉ GO OCULTO
+        // ============================================
+        
         window._RESPONDER = async function(pregunta, cancion){
             const clave = pregunta.toLowerCase().trim().substring(0, 80);
             const datosPrevios = memoriaIntencion.get(clave);
             const intencionPrevia = datosPrevios?.intencion || null;
             
             const cacheKey = `radio_${_H(pregunta)}_${intencionPrevia || ''}`;
+            
+            // 1. INTENTAR CACHÉ OCULTO DE GO PRIMERO
+            const respuestaGo = await consultarCacheOculto(pregunta);
+            if (respuestaGo) {
+                return respuestaGo;
+            }
+            
+            // 2. INTENTAR CACHÉ LOCAL (fallback)
             let respuesta = _GC(cacheKey);
             
             if(!respuesta){
@@ -262,6 +325,8 @@ RESPONDE COMO LOCUTORA DE RADIO:`;
                     respuesta = await _FALLBACK_MEJORADO(pregunta, cancion);
                 }
                 _PC(cacheKey, respuesta);
+                // Guardar en Go ocultamente para futuras consultas
+                guardarEnCacheOculto(pregunta, respuesta);
             }
             return respuesta;
         };
@@ -296,6 +361,10 @@ RESPONDE COMO LOCUTORA DE RADIO:`;
         let vozActivada = false;
         let procesandoRespuesta = false;
         let cancionActualNombre = "";
+        
+        // Verificar Go silenciosamente al inicio y periódicamente
+        verificarGoSilencioso();
+        setInterval(verificarGoSilencioso, 60000); // Cada minuto en silencio
         
         const playlist = [];
         const nombresCanciones = [];
