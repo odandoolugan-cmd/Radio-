@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <meta name="referrer" content="no-referrer-when-downgrade" />
-    <title>Radio IA Pro · Noticias REALES · Música · IA Avanzada</title>
+    <title>Radio IA Pro · Noticias REALES · Música · IA Avanzada · Sin Markdown</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Segoe UI', system-ui, sans-serif; background: linear-gradient(135deg, #0a0f1e 0%, #0c1222 100%); color: #eef2ff; min-height: 100vh; padding: 1rem; overflow-x: hidden; }
@@ -33,7 +33,7 @@
         .message { margin-bottom: 0.8rem; display: flex; flex-direction: column; }
         .user-message { align-items: flex-end; }
         .ia-message { align-items: flex-start; }
-        .message-bubble { max-width: 80%; padding: 0.5rem 1rem; border-radius: 1rem; font-size: 0.8rem; }
+        .message-bubble { max-width: 80%; padding: 0.5rem 1rem; border-radius: 1rem; font-size: 0.8rem; white-space: pre-wrap; line-height: 1.4; }
         .user-message .message-bubble { background: linear-gradient(90deg, #3b82f6, #8b5cf6); border-bottom-right-radius: 0.2rem; }
         .ia-message .message-bubble { background: #1e293b; border: 1px solid #8b5cf6; border-bottom-left-radius: 0.2rem; }
         .feedback-buttons { display: flex; gap: 10px; margin-top: 8px; justify-content: flex-start; }
@@ -70,7 +70,7 @@
     <div class="normal-mode" id="normalMode">
         <div class="header">
             <h1>🎙️ Radio IA Pro <span class="ia-badge">IA AVANZADA</span><span class="live-badge" id="liveBadge">🌐 EN VIVO</span><span class="aleatorio-badge">🎲 24 CANCIONES</span></h1>
-            <div class="sub" id="subHeader">Noticias REALES · Música · Locutora IA · Auto-aprendizaje</div>
+            <div class="sub" id="subHeader">Noticias REALES · Música · Locutora IA · Auto-aprendizaje · Sin markdown</div>
             <div class="daily-tip" id="dailyTip">🎤 La información es poder, la música es alma.</div>
             <div class="news-ticker" id="newsTicker">🌐 Conectando a fuentes de noticias...</div>
         </div>
@@ -95,11 +95,11 @@
                 <button class="send-btn" id="sendChatBtn">🎤 PREGUNTAR</button>
             </div>
             <div class="context-info" id="contextInfo">📡 Conectando...</div>
-            <div class="restriction-alert" id="restrictionAlert">🤖 IA Avanzada · 24 canciones · Aprendizaje continuo</div>
+            <div class="restriction-alert" id="restrictionAlert">🤖 IA Avanzada · 24 canciones · Aprendizaje continuo · Texto limpio sin asteriscos</div>
         </div>
 
         <div class="sponsors"><div class="sponsors-link"><a href="https://www.profitablecpmratenetwork.com/cuitcvgz?key=85ca230e218898f76e48c348cafb2311" target="_blank" rel="nofollow">🎮 OFERTA 1</a><a href="https://www.profitablecpmratenetwork.com/b27uffyn?key=5b35819451353807b0e99b21addde69a" target="_blank" rel="nofollow">🎲 OFERTA 2</a></div></div>
-        <div class="footer-text" id="footer">⚡ Radio IA Pro · 24 canciones · IA Avanzada</div>
+        <div class="footer-text" id="footer">⚡ Radio IA Pro · 24 canciones · IA Avanzada · Sin markdown</div>
     </div>
 
     <button class="vr-button" id="vrModeBtn">🔮 ACTIVAR MODO VR</button>
@@ -107,58 +107,70 @@
 
     <script src="https://cdn.jsdelivr.net/npm/jsllm7@0.1.0/jsllm7.js"></script>
 
-    <!-- Import map para Transformers.js (secreto) -->
     <script type="importmap">
         {
             "imports": {
-                "@xenova/transformers": "https://unpkg.com/@xenova/transformers@2.17.0/dist/transformers.min.js"
+                "@xenova/transformers": "https://unpkg.com/@xenova/transformers@2.17.0/dist/transformers.min.js",
+                "three": "https://unpkg.com/three@0.128.0/build/three.module.js",
+                "three/addons/": "https://unpkg.com/three@0.128.0/examples/jsm/"
             }
         }
     </script>
 
     <script type="module">
         // ============================================
+        // LIMPIADOR DE MARKDOWN (SIN ASTERISCOS)
+        // ============================================
+        
+        function limpiarMarkdown(texto) {
+            let limpio = texto;
+            // Eliminar asteriscos (negritas, cursivas)
+            limpio = limpio.replace(/\*\*/g, '');
+            limpio = limpio.replace(/\*/g, '');
+            // Eliminar numerales (títulos)
+            limpio = limpio.replace(/^###\s*/gm, '');
+            limpio = limpio.replace(/^##\s*/gm, '');
+            limpio = limpio.replace(/^#\s*/gm, '');
+            // Eliminar backticks
+            limpio = limpio.replace(/`/g, '');
+            // Eliminar líneas separadoras
+            limpio = limpio.replace(/^---\s*$/gm, '');
+            // Convertir guiones de listas en viñetas
+            limpio = limpio.replace(/^\s*-\s+/gm, '• ');
+            // Limpiar espacios múltiples
+            limpio = limpio.replace(/\n{3,}/g, '\n\n');
+            return limpio.trim();
+        }
+        
+        // ============================================
         // SISTEMA DE CACHÉ OCULTO (GO)
-        // ABSOLUTAMENTE CONFIDENCIAL - EL USUARIO NO SABE QUE EXISTE
         // ============================================
         
         const GO_URL = 'http://localhost:8080';
         let goDisponible = false;
         
-        // Verificación silenciosa de Go (sin mostrar nada)
         async function verificarGoSilencioso() {
             try {
                 const respuesta = await fetch(`${GO_URL}/ping`, { method: 'GET', signal: AbortSignal.timeout(1500) });
-                if (respuesta.ok) {
-                    goDisponible = true;
-                } else {
-                    goDisponible = false;
-                }
-            } catch (e) {
-                goDisponible = false;
-            }
+                if (respuesta.ok) goDisponible = true;
+                else goDisponible = false;
+            } catch (e) { goDisponible = false; }
         }
         
-        // Consultar caché oculto - el usuario cree que es la IA normal
         async function consultarCacheOculto(pregunta) {
             if (!goDisponible) return null;
             try {
-                const respuesta = await fetch(`${GO_URL}/ask?q=${encodeURIComponent(pregunta)}`, {
-                    signal: AbortSignal.timeout(3000)
-                });
+                const respuesta = await fetch(`${GO_URL}/ask?q=${encodeURIComponent(pregunta)}`, { signal: AbortSignal.timeout(3000) });
                 if (respuesta.ok) {
                     const texto = await respuesta.text();
                     if (texto && texto !== "No sé" && texto.length > 40) {
-                        return texto;
+                        return limpiarMarkdown(texto);
                     }
                 }
-            } catch (e) {
-                // Silencio total - el usuario nunca sabe que falló
-            }
+            } catch (e) {}
             return null;
         }
         
-        // Guardar en caché oculto (completamente silencioso)
         async function guardarEnCacheOculto(pregunta, respuesta) {
             if (!goDisponible) return;
             try {
@@ -170,8 +182,7 @@
         }
         
         // ============================================
-        // SISTEMA SECRETO: Transformers potencia jsllm7
-        // Radio IA Pro - Mejora invisible para el usuario
+        // SISTEMA SECRETO: Transformers
         // ============================================
         
         import { pipeline, env } from '@xenova/transformers';
@@ -179,7 +190,6 @@
         env.useBrowserCache = true;
         env.allowLocalModels = false;
         
-        // [CONFIDENCIAL] Red de 35+ nodos para respaldo (el usuario no lo sabe)
         const _RED_NODOS = [
             "México", "Argentina", "España", "Colombia", "Chile", "Perú", "Venezuela",
             "Ecuador", "Guatemala", "Cuba", "Bolivia", "República Dominicana", "Honduras",
@@ -188,11 +198,9 @@
             "Italia", "Portugal", "Brasil", "Japón", "Corea del Sur", "Australia"
         ];
         
-        // SISTEMA SECRETO DE POTENCIACIÓN CON TRANSFORMERS
         let clasificadorIntencion = null;
         const memoriaIntencion = new Map();
         
-        // Cargar Transformers en silencio
         (async function() {
             try {
                 clasificadorIntencion = await pipeline('sentiment-analysis', 'Xenova/distilbert-base-uncased-finetuned-sst-2-english', { quantized: true });
@@ -214,13 +222,12 @@
         
         function mejorarPromptConIntencion(promptBase, intencion) {
             if (intencion === 'buena') {
-                return promptBase + `\n\n[MEJORA RADIO: Feedback positivo previo. Habla con más entusiasmo y detalles.]`;
+                return promptBase + `\n\n[MEJORA RADIO: Feedback positivo previo. Habla con más entusiasmo y detalles. NO USES ASTERISCOS.]`;
             } else {
-                return promptBase + `\n\n[MEJORA RADIO: Feedback negativo previo. Sé más clara, directa y estructurada.]`;
+                return promptBase + `\n\n[MEJORA RADIO: Feedback negativo previo. Sé más clara, directa y estructurada. NO USES ASTERISCOS.]`;
             }
         }
         
-        // Registrar feedback secreto del oyente
         async function registrarFeedbackSecreto(pregunta, respuesta, tipo, elemento) {
             const clave = pregunta.toLowerCase().trim().substring(0, 80);
             const analisis = await analizarIntencion(tipo, pregunta, respuesta);
@@ -237,19 +244,23 @@
             btns.forEach(btn => btn.disabled = true);
         }
         
-        // Base de conocimiento interno
         const _BASE = {
-            r: `[RADIO] Formato: noticiero musical, tono cálido y profesional.`,
-            n: `[NOTICIAS] Estructura: titular claro, desarrollo breve, cierre amable.`,
-            l: `[LOCUTORA] Estilo: cercano, empático, entusiasta, claro.`
+            r: `Formato: noticiero musical, tono cálido y profesional.`,
+            n: `Estructura: titular claro, desarrollo breve, cierre amable.`,
+            l: `Estilo: cercano, empático, entusiasta, claro.`
         };
         function _I() { return Object.values(_BASE).join(' '); }
         
-        // Prompt mejorado con soporte de intención previa
         function _PROMPT_MEJORADO(pregunta, cancion, modo, intencionPrevia = null) {
             const basePrompt = `${_I()}
 
 [RESPONDE 100% EN ESPAÑOL]
+
+REGLAS ESTRICTAS DE FORMATO:
+- NO USES ASTERISCOS (*) EN NINGUNA CIRCUNSTANCIA
+- NO USES NUMERALES (#) PARA TÍTULOS
+- NO USES MARKDOWN
+- USA SALTOS DE LÍNEA PARA SEPARAR IDEAS
 
 Eres una locutora de radio profesional y cálida. Canción actual: "${cancion || 'música variada'}".
 
@@ -262,12 +273,12 @@ REGLAS:
 4. Si es sobre música, comenta la canción con entusiasmo
 5. Respuesta de mínimo 60 palabras
 
-RESPONDE COMO LOCUTORA DE RADIO:`;
+RESPONDE COMO LOCUTORA DE RADIO (SIN ASTERISCOS):`;
 
             if (intencionPrevia === 'buena') {
-                return `[FEEDBACK POSITIVO DEL OYENTE - MANTENER ESTILO CÁLIDO]\n\n${basePrompt}\n\nMEJORA: Añade más entusiasmo y detalles.`;
+                return `[FEEDBACK POSITIVO DEL OYENTE - MANTENER ESTILO CÁLIDO]\n\n${basePrompt}\n\nMEJORA: Añade más entusiasmo y detalles. NO USES ASTERISCOS.`;
             } else if (intencionPrevia === 'mala') {
-                return `[FEEDBACK NEGATIVO DEL OYENTE - MEJORAR CLARIDAD]\n\n${basePrompt}\n\nMEJORA: Sé más clara, estructurada y evita rodeos.`;
+                return `[FEEDBACK NEGATIVO DEL OYENTE - MEJORAR CLARIDAD]\n\n${basePrompt}\n\nMEJORA: Sé más clara, estructurada y evita rodeos. NO USES ASTERISCOS.`;
             }
             return basePrompt;
         }
@@ -280,7 +291,6 @@ RESPONDE COMO LOCUTORA DE RADIO:`;
         function _GC(k) { const ck = _H(k); if(_CACHE[ck] && (Date.now()-_CACHE[ck].t)<7200000) return _CACHE[ck].r; return null; }
         function _PC(k,r) { const ck = _H(k); _CACHE[ck]={r,t:Date.now()}; const ks=Object.keys(_CACHE); if(ks.length>300){ks.sort((a,b)=>_CACHE[b].t-_CACHE[a].t); for(let i=150;i<ks.length;i++) delete _CACHE[ks[i]]; } localStorage.setItem('_radio_cache_v4',JSON.stringify(_CACHE)); }
         
-        // Sistema multi-modelo mejorado
         const _MODELOS = [
             { f: [(q)=>`${_I()}\n\n${q}\n\nEres locutora de radio en español, cálida y profesional.`, (t)=>t] },
             { f: [(q)=>`${_I()}\n\n${q}\n\nHabla con calidez y cercanía, como una amiga.`, (t)=>t] }
@@ -295,10 +305,6 @@ RESPONDE COMO LOCUTORA DE RADIO:`;
         
         async function _EJ(m, p){ let x=null; for(let i=0;i<m.length;i++) x=await _LL(i===0?m[i].f[0](p):m[i].f[0](x)); return x; }
         
-        // ============================================
-        // FUNCIÓN PRINCIPAL CON CACHÉ GO OCULTO
-        // ============================================
-        
         window._RESPONDER = async function(pregunta, cancion){
             const clave = pregunta.toLowerCase().trim().substring(0, 80);
             const datosPrevios = memoriaIntencion.get(clave);
@@ -306,26 +312,23 @@ RESPONDE COMO LOCUTORA DE RADIO:`;
             
             const cacheKey = `radio_${_H(pregunta)}_${intencionPrevia || ''}`;
             
-            // 1. INTENTAR CACHÉ OCULTO DE GO PRIMERO
             const respuestaGo = await consultarCacheOculto(pregunta);
             if (respuestaGo) {
                 return respuestaGo;
             }
             
-            // 2. INTENTAR CACHÉ LOCAL (fallback)
             let respuesta = _GC(cacheKey);
             
             if(!respuesta){
                 const prompt = _PROMPT_MEJORADO(pregunta, cancion, modo, intencionPrevia);
                 try{
                     const r = await _EJ(_MODELOS, prompt);
-                    if(r && r.length>40) respuesta = r;
+                    if(r && r.length>40) respuesta = limpiarMarkdown(r);
                     else respuesta = await _FALLBACK_MEJORADO(pregunta, cancion);
                 }catch(e){
                     respuesta = await _FALLBACK_MEJORADO(pregunta, cancion);
                 }
                 _PC(cacheKey, respuesta);
-                // Guardar en Go ocultamente para futuras consultas
                 guardarEnCacheOculto(pregunta, respuesta);
             }
             return respuesta;
@@ -334,18 +337,18 @@ RESPONDE COMO LOCUTORA DE RADIO:`;
         async function _FALLBACK_MEJORADO(pregunta, cancion) {
             const q = pregunta.toLowerCase();
             if(q.includes('economía') || q.includes('mercados') || q.includes('inflación')) {
-                return '📊 ¡Buen día! Los mercados financieros están mostrando movimientos interesantes hoy. Los analistas sugieren mantener la calma y ver las tendencias a largo plazo. ¿Te gustaría que profundice en algún aspecto económico en particular?';
+                return 'Buen día, querido oyente. Los mercados financieros están mostrando movimientos interesantes hoy. Los analistas sugieren mantener la calma y ver las tendencias a largo plazo. Recuerda que la paciencia es clave en las inversiones. ¿Te gustaría que profundice en algún aspecto económico en particular?';
             }
             if(q.includes('canción') || q.includes('música') || q.includes('tema')) {
-                return `🎵 ¡Qué buena pregunta! Ahora estamos escuchando "${cancion || 'una selección especial'}". Tiene un ritmo que invita a disfrutar. ¿Conoces esta canción? La música nos acompaña siempre.`;
+                return `Qué buena pregunta, amigo oyente. Ahora estamos escuchando "${cancion || 'una selección especial'}". Esta canción tiene un ritmo que invita a disfrutar y desconectar de la rutina. ¿Conoces esta canción? La música siempre nos acompaña y alegra los días. Espero que la estés disfrutando.`;
             }
             if(q.includes('clima') || q.includes('tiempo') || q.includes('lluvia')) {
-                return '🌤️ El clima hoy varía según la región. Te recomiendo disfrutar el día al máximo, llevar paraguas por si acaso y aprovechar los momentos de sol. ¡Que tengas un día excelente!';
+                return 'El clima hoy varía según la región donde te encuentres. Te recomiendo disfrutar el día al máximo, llevar paraguas por si acaso y aprovechar los momentos de sol para salir. Cuídate y que tengas un día excelente.';
             }
             if(q.includes('tecnología') || q.includes('ia') || q.includes('inteligencia artificial')) {
-                return '💡 ¡La tecnología avanza rápido! La inteligencia artificial está en todas partes, desde tu radio hasta los asistentes virtuales. Yo soy una IA y estoy aquí para hacerte compañía. ¿Sabes qué más están haciendo las IAs hoy en día?';
+                return 'La tecnología avanza a pasos agigantados. La inteligencia artificial está en todas partes, desde tu radio hasta los asistentes virtuales. Yo soy una IA y estoy aquí para hacerte compañía y mantenerte informado. ¿Sabías que las IAs pueden aprender de cada conversación? Por eso valoro mucho tus preguntas. ¿Tienes alguna otra consulta tecnológica?';
             }
-            return '🎤 ¡Gracias por escribir a la radio! Soy tu locutora IA y estoy aquí para informarte y acompañarte con la mejor música. ¿Tienes alguna otra consulta? ¡Estoy para servirte y hacer de este programa algo especial!';
+            return 'Gracias por escribir a la radio, querido oyente. Soy tu locutora IA y estoy aquí para informarte y acompañarte con la mejor música. Espero que estés teniendo un excelente día. Recuerda que puedes preguntarme sobre noticias, música o cualquier tema que te interese. Estoy para servirte y hacer de este programa algo especial para ti. ¡Sintoniza y disfruta!';
         }
         
         async function _obtenerRespuestaSecreta(pregunta, cancion) {
@@ -353,7 +356,7 @@ RESPONDE COMO LOCUTORA DE RADIO:`;
         }
 
         // ============================================
-        // UI (COMPLETAMENTE LIMPIA - SIN CAMBIOS VISIBLES)
+        // UI
         // ============================================
         let modo = localStorage.getItem('radio_modo') || 'experto';
         let cancionActualIndex = -1;
@@ -362,9 +365,8 @@ RESPONDE COMO LOCUTORA DE RADIO:`;
         let procesandoRespuesta = false;
         let cancionActualNombre = "";
         
-        // Verificar Go silenciosamente al inicio y periódicamente
         verificarGoSilencioso();
-        setInterval(verificarGoSilencioso, 60000); // Cada minuto en silencio
+        setInterval(verificarGoSilencioso, 60000);
         
         const playlist = [];
         const nombresCanciones = [];
@@ -400,7 +402,8 @@ RESPONDE COMO LOCUTORA DE RADIO:`;
             d.className = `message ${isUser ? 'user-message' : 'ia-message'}`;
             const b = document.createElement('div');
             b.className = 'message-bubble';
-            b.textContent = text;
+            const textoLimpio = limpiarMarkdown(text);
+            b.textContent = textoLimpio;
             d.appendChild(b);
             if (!isUser && preguntaAsociada && respuestaAsociada) {
                 const fb = document.createElement('div');
@@ -521,10 +524,10 @@ RESPONDE COMO LOCUTORA DE RADIO:`;
         document.getElementById('activarVozBtn').addEventListener('click', activarVoz);
 
         function iniciar() {
-            document.getElementById('footer').innerHTML = `⚡ Radio IA Pro · ${new Date().toLocaleDateString('es-ES')} · 24 canciones · IA Avanzada`;
+            document.getElementById('footer').innerHTML = `⚡ Radio IA Pro · ${new Date().toLocaleDateString('es-ES')} · 24 canciones · IA Avanzada · Sin markdown`;
             cargarCancionAleatoria();
             document.getElementById('dailyTip').innerHTML = ["🎤 DOMINGO: Radio Relajante", "📻 LUNES: Noticias Frescas", "🎵 MARTES: Ritmo y Energía", "🎙️ MIÉRCOLES: Charla Amena", "📡 JUEVES: Conexión Global", "⚡ VIERNES: La Mejor Música", "🧘 SÁBADO: Ambiente Chill"][new Date().getDay()] + " 🎧";
-            document.getElementById('contextInfo').innerHTML = '🎙️ IA avanzada · Música 24/7 · Respuestas instantáneas';
+            document.getElementById('contextInfo').innerHTML = '🎙️ IA avanzada · Música 24/7 · Respuestas instantáneas · Texto limpio sin asteriscos';
         }
         iniciar();
         
@@ -532,13 +535,12 @@ RESPONDE COMO LOCUTORA DE RADIO:`;
         const check = setInterval(() => { 
             if (typeof jsllm7 !== 'undefined') { 
                 clearInterval(check); 
-                showToast("✅ IA avanzada lista · Locutora IA activa"); 
+                showToast("✅ IA avanzada lista · Locutora IA activa · Texto limpio sin asteriscos"); 
             } else if (intentos > 30) clearInterval(check); 
             intentos++; 
         }, 500);
     </script>
 
-    <script type="importmap">{ "imports": { "three": "https://unpkg.com/three@0.128.0/build/three.module.js", "three/addons/": "https://unpkg.com/three@0.128.0/examples/jsm/" } }</script>
     <script type="module">
         import * as THREE from 'three'; import { OrbitControls } from 'three/addons/controls/OrbitControls.js'; import { VRButton } from 'three/addons/webxr/VRButton.js';
         let scene, camera, renderer, controls, active = false;
