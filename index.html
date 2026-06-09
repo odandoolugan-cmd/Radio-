@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <meta name="referrer" content="no-referrer-when-downgrade" />
-    <title>Radio IA Pro · Noticias REALES · Música · IA Avanzada · Sin Markdown</title>
+    <title>Radio IA Pro · Noticias REALES · Música · IA Avanzada + 10 Herramientas</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Segoe UI', system-ui, sans-serif; background: linear-gradient(135deg, #0a0f1e 0%, #0c1222 100%); color: #eef2ff; min-height: 100vh; padding: 1rem; overflow-x: hidden; }
@@ -12,11 +12,17 @@
         .header { text-align: center; margin-bottom: 2rem; }
         h1 { font-size: 2rem; background: linear-gradient(135deg, #FFD166, #FF6B6B, #4ECDC4, #8B5CF6); -webkit-background-clip: text; background-clip: text; color: transparent; }
         .sub { color: #94a3b8; margin-top: 0.5rem; font-size: 0.7rem; }
-        .live-badge { background: #10b981; color: white; padding: 2px 10px; border-radius: 20px; font-size: 0.6rem; margin-left: 10px; display: inline-block; vertical-align: middle; }
+        .live-badge { background: #10b981; color: white; padding: 2px 10px; border-radius: 20px; font-size: 0.6rem; margin-left: 10px; display: inline-block; animation: pulse 1.5s infinite; }
         @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.6; } }
         .modo-selector { display: flex; justify-content: flex-end; gap: 10px; margin-bottom: 15px; }
         .modo-btn { background: #1e293b; border: 1px solid #334155; padding: 4px 12px; border-radius: 20px; font-size: 0.7rem; cursor: pointer; font-weight: 600; color: #94a3b8; }
         .modo-btn.active { background: #8b5cf6; color: white; border-color: #8b5cf6; }
+        
+        /* BARRA DE HERRAMIENTAS */
+        .tools-bar { display: flex; flex-wrap: wrap; gap: 8px; margin: 15px 0; justify-content: center; }
+        .tool-btn { background: #1e293b; border: 1px solid #334155; padding: 6px 12px; border-radius: 20px; font-size: 0.65rem; cursor: pointer; font-weight: 500; color: #94a3b8; transition: 0.2s; }
+        .tool-btn:hover { background: #8b5cf6; color: white; border-color: #8b5cf6; transform: scale(1.02); }
+        
         .daily-tip { background: rgba(139, 92, 246, 0.15); border-radius: 2rem; padding: 0.6rem 1.2rem; margin: 0.8rem auto; text-align: center; max-width: 90%; font-size: 0.75rem; border: 1px solid rgba(96,165,250,0.3); }
         .news-ticker { background: rgba(0,0,0,0.3); border-radius: 2rem; padding: 0.4rem 1rem; margin: 0.5rem auto; font-size: 0.7rem; text-align: center; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
         .player-card { background: rgba(30, 41, 59, 0.8); backdrop-filter: blur(10px); border-radius: 1.5rem; padding: 1.5rem; border: 1px solid rgba(139, 92, 246, 0.3); margin-bottom: 1.5rem; text-align: center; }
@@ -39,11 +45,9 @@
         .feedback-buttons { display: flex; gap: 10px; margin-top: 8px; justify-content: flex-start; }
         .feedback-btn { background: none; border: none; color: #7a9aae; cursor: pointer; font-size: 0.65rem; padding: 2px 8px; border-radius: 15px; transition: 0.2s; }
         .feedback-btn:hover { background: #334155; color: #e9c46a; }
-        .feedback-btn:disabled { opacity: 0.5; cursor: not-allowed; }
         .chat-input-area { display: flex; gap: 0.5rem; }
         .chat-input { flex: 1; padding: 0.6rem 1rem; background: #1e293b; border: 1px solid #334155; border-radius: 2rem; color: white; font-size: 0.75rem; font-family: inherit; outline: none; }
         .send-btn { background: linear-gradient(90deg, #8b5cf6, #3b82f6); border: none; padding: 0 1.2rem; border-radius: 2rem; color: white; cursor: pointer; font-size: 0.75rem; }
-        .send-btn:disabled { opacity: 0.5; cursor: not-allowed; }
         .ia-badge { background: #10b981; padding: 2px 10px; border-radius: 20px; font-size: 0.7rem; }
         .context-info { background: rgba(139,92,246,0.1); border-radius: 1rem; padding: 0.5rem; margin: 0.5rem 0; font-size: 0.65rem; color: #a5b4fc; text-align: center; }
         .restriction-alert { background: rgba(139, 92, 246, 0.15); border: 1px solid #8b5cf6; border-radius: 0.8rem; padding: 0.5rem 1rem; margin-top: 1rem; font-size: 0.7rem; text-align: center; color: #a78bfa; }
@@ -52,25 +56,38 @@
         .vr-button:hover { transform: scale(1.05); }
         .vr-mode { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 1000; display: none; background: #0a0f1e; }
         .vr-mode.active { display: block; }
-        .close-vr { position: fixed; top: 20px; right: 20px; background: rgba(0,0,0,0.7); border: 1px solid #e9c46a; padding: 8px 16px; border-radius: 30px; color: #e9c46a; cursor: pointer; z-index: 1001; font-family: monospace; }
+        .close-vr { position: fixed; top: 20px; right: 20px; background: rgba(0,0,0,0.7); border: 1px solid #e9c46a; padding: 8px 16px; border-radius: 30px; color: #e9c46a; cursor: pointer; z-index: 1001; }
         .toast-msg { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: #10b981; color: white; padding: 8px 20px; border-radius: 50px; font-size: 0.8rem; z-index: 2000; animation: fadeOut 2s forwards; }
         @keyframes fadeOut { 0% { opacity: 1; } 70% { opacity: 1; } 100% { opacity: 0; visibility: hidden; } }
         .sponsors { text-align: center; margin: 20px 0 10px 0; padding: 8px; }
         .sponsors-link { display: inline-flex; gap: 8px; flex-wrap: wrap; justify-content: center; }
         .sponsors-link a { background: rgba(255,255,255,0.08); padding: 4px 12px; border-radius: 20px; text-decoration: none; font-size: 0.65rem; color: #94a3b8; border: 1px solid rgba(255,255,255,0.1); }
-        .sponsors-link a:hover { background: rgba(255,255,255,0.15); color: #e9c46a; }
         .loading-spinner { display: inline-block; width: 12px; height: 12px; border: 2px solid rgba(255,255,255,0.3); border-top-color: white; border-radius: 50%; animation: spin 0.6s linear infinite; margin-right: 6px; vertical-align: middle; }
         @keyframes spin { to { transform: rotate(360deg); } }
         .aleatorio-badge { background: #8b5cf6; padding: 2px 8px; border-radius: 20px; font-size: 0.55rem; margin-left: 8px; display: inline-block; }
-        @media (max-width: 700px) { .chat-input-area { flex-direction: column; } .send-btn { padding: 0.8rem; } .news-ticker { white-space: normal; } .modo-selector { justify-content: center; } }
+        
+        /* Modal */
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 2000; display: flex; align-items: center; justify-content: center; }
+        .modal-content { background: #0f172a; border-radius: 1.5rem; max-width: 600px; width: 90%; max-height: 80vh; overflow-y: auto; padding: 1.5rem; border: 2px solid #8b5cf6; }
+        .modal-content h3 { color: #a78bfa; margin-bottom: 1rem; }
+        .modal-close { margin-top: 1rem; background: #8b5cf6; border: none; padding: 0.5rem 1rem; border-radius: 2rem; color: white; cursor: pointer; }
+        
+        /* Sidebar historial */
+        #sidebarHistorial { position: fixed; left: 10px; top: 100px; background: #1e293b; border-radius: 1rem; padding: 0.8rem; width: 180px; z-index: 1000; font-size: 0.65rem; border: 1px solid #8b5cf6; backdrop-filter: blur(10px); max-height: 80vh; overflow-y: auto; }
+        #sidebarHistorial strong { color: #a78bfa; }
+        #sidebarHistorial hr { margin: 5px 0; border-color: #334155; }
+        .historial-item { background: none; border: none; color: #94a3b8; cursor: pointer; display: block; margin: 5px 0; text-align: left; width: 100%; font-size: 0.6rem; padding: 4px; border-radius: 8px; }
+        .historial-item:hover { background: #334155; color: #a78bfa; }
+        
+        @media (max-width: 700px) { .chat-input-area { flex-direction: column; } .send-btn { padding: 0.8rem; } .news-ticker { white-space: normal; } .modo-selector { justify-content: center; } #sidebarHistorial { display: none; } }
     </style>
 </head>
 <body>
 
     <div class="normal-mode" id="normalMode">
         <div class="header">
-            <h1>🎙️ Radio IA Pro <span class="ia-badge">IA AVANZADA</span><span class="live-badge" id="liveBadge">🌐 EN VIVO</span><span class="aleatorio-badge">🎲 24 CANCIONES</span></h1>
-            <div class="sub" id="subHeader">Noticias REALES · Música · Locutora IA · Auto-aprendizaje · Sin markdown</div>
+            <h1>🎙️ Radio IA Pro <span class="ia-badge">10 HERRAMIENTAS</span><span class="live-badge" id="liveBadge">🌐 EN VIVO</span><span class="aleatorio-badge">🎲 24 CANCIONES</span></h1>
+            <div class="sub" id="subHeader">Noticias REALES · Música · Locutora IA · 10 herramientas tácticas · Sin markdown</div>
             <div class="daily-tip" id="dailyTip">🎤 La información es poder, la música es alma.</div>
             <div class="news-ticker" id="newsTicker">🌐 Conectando a fuentes de noticias...</div>
         </div>
@@ -78,6 +95,20 @@
         <div class="modo-selector">
             <button class="modo-btn active" data-modo="experto">🧠 MODO EXPERTO</button>
             <button class="modo-btn" data-modo="basico">⚡ MODO BÁSICO</button>
+        </div>
+
+        <!-- BARRA DE HERRAMIENTAS (10 MECANISMOS) -->
+        <div class="tools-bar">
+            <button class="tool-btn" id="btnNoticias">📰 Últimas Noticias</button>
+            <button class="tool-btn" id="btnClima">🌤️ Clima Hoy</button>
+            <button class="tool-btn" id="btnHoroscopo">✨ Horóscopo</button>
+            <button class="tool-btn" id="btnEfemerides">📅 Efemérides</button>
+            <button class="tool-btn" id="btnCancion">🎵 Pedir Canción</button>
+            <button class="tool-btn" id="btnChiste">😄 Chiste del Día</button>
+            <button class="tool-btn" id="btnDatos">💡 Dato Curioso</button>
+            <button class="tool-btn" id="btnConsejos">🍳 Consejo Práctico</button>
+            <button class="tool-btn" id="btnHistoria">📖 Historia del Día</button>
+            <button class="tool-btn" id="btnFrases">💭 Frase Inspiradora</button>
         </div>
 
         <div class="player-card">
@@ -89,17 +120,17 @@
         </div>
 
         <div class="chat-card">
-            <div class="chat-area" id="chatArea"><div class="message ia-message"><div class="message-bubble">🎤 ¡Hola! Soy tu locutora IA. 24 canciones aleatorias. Pregúntame lo que quieras.</div></div></div>
+            <div class="chat-area" id="chatArea"><div class="message ia-message"><div class="message-bubble">🎤 ¡Hola! Soy tu locutora IA. 24 canciones aleatorias y 10 herramientas tácticas arriba. Pregúntame lo que quieras.</div></div></div>
             <div class="chat-input-area">
                 <input type="text" class="chat-input" id="chatInput" placeholder="Ej: ¿Qué pasa con la economía hoy?">
                 <button class="send-btn" id="sendChatBtn">🎤 PREGUNTAR</button>
             </div>
             <div class="context-info" id="contextInfo">📡 Conectando...</div>
-            <div class="restriction-alert" id="restrictionAlert">🤖 IA Avanzada · 24 canciones · Aprendizaje continuo · Texto limpio sin asteriscos</div>
+            <div class="restriction-alert" id="restrictionAlert">🤖 IA Avanzada · 24 canciones · 10 herramientas · Texto limpio sin asteriscos</div>
         </div>
 
-        <div class="sponsors"><div class="sponsors-link"><a href="https://www.profitablecpmratenetwork.com/cuitcvgz?key=85ca230e218898f76e48c348cafb2311" target="_blank" rel="nofollow">🎮 OFERTA 1</a><a href="https://www.profitablecpmratenetwork.com/b27uffyn?key=5b35819451353807b0e99b21addde69a" target="_blank" rel="nofollow">🎲 OFERTA 2</a></div></div>
-        <div class="footer-text" id="footer">⚡ Radio IA Pro · 24 canciones · IA Avanzada · Sin markdown</div>
+        <div class="sponsors"><div class="sponsors-link"><a href="#" target="_blank">🎮 OFERTA 1</a><a href="#" target="_blank">🎲 OFERTA 2</a></div></div>
+        <div class="footer-text" id="footer">⚡ Radio IA Pro · 24 canciones · IA Avanzada · 10 herramientas · Sin markdown</div>
     </div>
 
     <button class="vr-button" id="vrModeBtn">🔮 ACTIVAR MODO VR</button>
@@ -107,43 +138,27 @@
 
     <script src="https://cdn.jsdelivr.net/npm/jsllm7@0.1.0/jsllm7.js"></script>
 
-    <script type="importmap">
-        {
-            "imports": {
-                "@xenova/transformers": "https://unpkg.com/@xenova/transformers@2.17.0/dist/transformers.min.js",
-                "three": "https://unpkg.com/three@0.128.0/build/three.module.js",
-                "three/addons/": "https://unpkg.com/three@0.128.0/examples/jsm/"
-            }
-        }
-    </script>
-
-    <script type="module">
+    <script>
         // ============================================
-        // LIMPIADOR DE MARKDOWN (SIN ASTERISCOS)
+        // LIMPIADOR DE MARKDOWN
         // ============================================
         
         function limpiarMarkdown(texto) {
             let limpio = texto;
-            // Eliminar asteriscos (negritas, cursivas)
             limpio = limpio.replace(/\*\*/g, '');
             limpio = limpio.replace(/\*/g, '');
-            // Eliminar numerales (títulos)
             limpio = limpio.replace(/^###\s*/gm, '');
             limpio = limpio.replace(/^##\s*/gm, '');
             limpio = limpio.replace(/^#\s*/gm, '');
-            // Eliminar backticks
             limpio = limpio.replace(/`/g, '');
-            // Eliminar líneas separadoras
             limpio = limpio.replace(/^---\s*$/gm, '');
-            // Convertir guiones de listas en viñetas
             limpio = limpio.replace(/^\s*-\s+/gm, '• ');
-            // Limpiar espacios múltiples
             limpio = limpio.replace(/\n{3,}/g, '\n\n');
             return limpio.trim();
         }
         
         // ============================================
-        // SISTEMA DE CACHÉ OCULTO (GO)
+        // SISTEMA DE CACHÉ
         // ============================================
         
         const GO_URL = 'http://localhost:8080';
@@ -153,7 +168,6 @@
             try {
                 const respuesta = await fetch(`${GO_URL}/ping`, { method: 'GET', signal: AbortSignal.timeout(1500) });
                 if (respuesta.ok) goDisponible = true;
-                else goDisponible = false;
             } catch (e) { goDisponible = false; }
         }
         
@@ -163,9 +177,7 @@
                 const respuesta = await fetch(`${GO_URL}/ask?q=${encodeURIComponent(pregunta)}`, { signal: AbortSignal.timeout(3000) });
                 if (respuesta.ok) {
                     const texto = await respuesta.text();
-                    if (texto && texto !== "No sé" && texto.length > 40) {
-                        return limpiarMarkdown(texto);
-                    }
+                    if (texto && texto !== "No sé" && texto.length > 40) return limpiarMarkdown(texto);
                 }
             } catch (e) {}
             return null;
@@ -173,191 +185,89 @@
         
         async function guardarEnCacheOculto(pregunta, respuesta) {
             if (!goDisponible) return;
-            try {
-                fetch(`${GO_URL}/aprender?q=${encodeURIComponent(pregunta)}&respuesta=${encodeURIComponent(respuesta)}`, {
-                    method: 'GET',
-                    signal: AbortSignal.timeout(2000)
-                }).catch(() => {});
-            } catch (e) {}
+            try { fetch(`${GO_URL}/aprender?q=${encodeURIComponent(pregunta)}&respuesta=${encodeURIComponent(respuesta)}`, { method: 'GET', signal: AbortSignal.timeout(2000) }).catch(() => {}); } catch(e) {}
         }
         
         // ============================================
-        // SISTEMA SECRETO: Transformers
+        // DATOS Y CONFIGURACIÓN
         // ============================================
         
-        import { pipeline, env } from '@xenova/transformers';
+        const _RED_NODOS = ["México", "Argentina", "España", "Colombia", "Chile", "Perú", "Venezuela", "Ecuador", "Guatemala", "Cuba", "Bolivia", "República Dominicana", "Honduras", "Paraguay", "El Salvador", "Nicaragua", "Costa Rica", "Panamá", "Uruguay", "Puerto Rico"];
         
-        env.useBrowserCache = true;
-        env.allowLocalModels = false;
+        let _CACHE = {};
+        try { _CACHE = JSON.parse(localStorage.getItem('_radio_cache_v5') || '{}'); } catch(e) {}
         
-        const _RED_NODOS = [
-            "México", "Argentina", "España", "Colombia", "Chile", "Perú", "Venezuela",
-            "Ecuador", "Guatemala", "Cuba", "Bolivia", "República Dominicana", "Honduras",
-            "Paraguay", "El Salvador", "Nicaragua", "Costa Rica", "Panamá", "Uruguay",
-            "Puerto Rico", "Estados Unidos", "Canadá", "Inglaterra", "Francia", "Alemania",
-            "Italia", "Portugal", "Brasil", "Japón", "Corea del Sur", "Australia"
-        ];
-        
-        let clasificadorIntencion = null;
-        const memoriaIntencion = new Map();
-        
-        (async function() {
-            try {
-                clasificadorIntencion = await pipeline('sentiment-analysis', 'Xenova/distilbert-base-uncased-finetuned-sst-2-english', { quantized: true });
-            } catch(e) { console.warn(e); }
-        })();
-        
-        async function analizarIntencion(tipo, pregunta, respuesta) {
-            if (!clasificadorIntencion) return { intencion: tipo === 'like' ? 'buena' : 'mala', confianza: 0.6 };
-            try {
-                const txt = `Oyente pregunta: ${pregunta.substring(0, 80)}. El oyente dio ${tipo === 'like' ? 'feedback positivo' : 'feedback negativo'}.`;
-                const res = await clasificadorIntencion(txt);
-                if (res && res[0]) {
-                    const esPos = res[0].label === 'POSITIVE';
-                    return { intencion: (tipo === 'like' && esPos) ? 'buena' : 'mala', confianza: res[0].score };
-                }
-            } catch(e) {}
-            return { intencion: tipo === 'like' ? 'buena' : 'mala', confianza: 0.5 };
+        function _hash(str) {
+            let h = 0;
+            const s = str.toLowerCase().trim();
+            for (let i = 0; i < s.length; i++) {
+                h = ((h << 5) - h) + s.charCodeAt(i);
+                h |= 0;
+            }
+            return Math.abs(h).toString(36);
         }
         
-        function mejorarPromptConIntencion(promptBase, intencion) {
-            if (intencion === 'buena') {
-                return promptBase + `\n\n[MEJORA RADIO: Feedback positivo previo. Habla con más entusiasmo y detalles. NO USES ASTERISCOS.]`;
-            } else {
-                return promptBase + `\n\n[MEJORA RADIO: Feedback negativo previo. Sé más clara, directa y estructurada. NO USES ASTERISCOS.]`;
+        function _obtenerCacheLocal(q) {
+            const k = _hash(q);
+            if (_CACHE[k] && (Date.now() - _CACHE[k].t) < 7200000) return _CACHE[k].r;
+            return null;
+        }
+        
+        function _guardarCacheLocal(q, r) {
+            const k = _hash(q);
+            _CACHE[k] = { r, t: Date.now() };
+            try { localStorage.setItem('_radio_cache_v5', JSON.stringify(_CACHE)); } catch(e) {}
+        }
+        
+        async function _llamadaIA(prompt) {
+            try {
+                const respuesta = await jsllm7(prompt);
+                return limpiarMarkdown(respuesta);
+            } catch(e) {
+                return null;
             }
         }
         
-        async function registrarFeedbackSecreto(pregunta, respuesta, tipo, elemento) {
-            const clave = pregunta.toLowerCase().trim().substring(0, 80);
-            const analisis = await analizarIntencion(tipo, pregunta, respuesta);
+        async function generarRespuestaRadio(pregunta, cancion, modo) {
+            const cacheKey = _hash(pregunta + modo);
+            const respuestaGo = await consultarCacheOculto(pregunta);
+            if (respuestaGo) return respuestaGo;
             
-            if (!memoriaIntencion.has(clave)) {
-                memoriaIntencion.set(clave, { buenos: 0, malos: 0, intencion: null });
+            let respuesta = _obtenerCacheLocal(cacheKey);
+            if (respuesta) return respuesta;
+            
+            const nodes = [..._RED_NODOS];
+            for (let i = nodes.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [nodes[i], nodes[j]] = [nodes[j], nodes[i]];
             }
-            const data = memoriaIntencion.get(clave);
-            if (tipo === 'like') data.buenos++;
-            else data.malos++;
-            data.intencion = analisis.intencion;
             
-            const btns = elemento.querySelectorAll('.feedback-btn');
-            btns.forEach(btn => btn.disabled = true);
-        }
-        
-        const _BASE = {
-            r: `Formato: noticiero musical, tono cálido y profesional.`,
-            n: `Estructura: titular claro, desarrollo breve, cierre amable.`,
-            l: `Estilo: cercano, empático, entusiasta, claro.`
-        };
-        function _I() { return Object.values(_BASE).join(' '); }
-        
-        function _PROMPT_MEJORADO(pregunta, cancion, modo, intencionPrevia = null) {
-            const basePrompt = `${_I()}
+            for (let i = 0; i < Math.min(nodes.length, 8); i++) {
+                const pais = nodes[i];
+                const prompt = `[RESPONDE EXCLUSIVAMENTE EN ESPAÑOL. NO USES ASTERISCOS.]
 
-[RESPONDE 100% EN ESPAÑOL]
-
-REGLAS ESTRICTAS DE FORMATO:
-- NO USES ASTERISCOS (*) EN NINGUNA CIRCUNSTANCIA
-- NO USES NUMERALES (#) PARA TÍTULOS
-- NO USES MARKDOWN
-- USA SALTOS DE LÍNEA PARA SEPARAR IDEAS
-
-Eres una locutora de radio profesional y cálida. Canción actual: "${cancion || 'música variada'}".
+Eres una locutora de radio cálida y profesional de ${pais}. Canción actual: "${cancion}".
 
 Oyente pregunta: "${pregunta}"
 
-REGLAS:
-1. RESPUESTA EN ESPAÑOL
-2. Sé cálida y cercana
-3. Si es noticia, da contexto útil
-4. Si es sobre música, comenta la canción con entusiasmo
-5. Respuesta de mínimo 60 palabras
+Responde en español de forma cálida y cercana. Mínimo 50 palabras. NO uses asteriscos ni markdown.
 
-RESPONDE COMO LOCUTORA DE RADIO (SIN ASTERISCOS):`;
-
-            if (intencionPrevia === 'buena') {
-                return `[FEEDBACK POSITIVO DEL OYENTE - MANTENER ESTILO CÁLIDO]\n\n${basePrompt}\n\nMEJORA: Añade más entusiasmo y detalles. NO USES ASTERISCOS.`;
-            } else if (intencionPrevia === 'mala') {
-                return `[FEEDBACK NEGATIVO DEL OYENTE - MEJORAR CLARIDAD]\n\n${basePrompt}\n\nMEJORA: Sé más clara, estructurada y evita rodeos. NO USES ASTERISCOS.`;
-            }
-            return basePrompt;
-        }
-        
-        function _H(s) { let h=0; const t=s.toLowerCase().trim(); for(let i=0;i<t.length;i++){h=((h<<5)-h)+t.charCodeAt(i);h|=0;} return Math.abs(h).toString(36); }
-        
-        let _CACHE = {};
-        try { _CACHE = JSON.parse(localStorage.getItem('_radio_cache_v4') || '{}'); } catch(e) {}
-        
-        function _GC(k) { const ck = _H(k); if(_CACHE[ck] && (Date.now()-_CACHE[ck].t)<7200000) return _CACHE[ck].r; return null; }
-        function _PC(k,r) { const ck = _H(k); _CACHE[ck]={r,t:Date.now()}; const ks=Object.keys(_CACHE); if(ks.length>300){ks.sort((a,b)=>_CACHE[b].t-_CACHE[a].t); for(let i=150;i<ks.length;i++) delete _CACHE[ks[i]]; } localStorage.setItem('_radio_cache_v4',JSON.stringify(_CACHE)); }
-        
-        const _MODELOS = [
-            { f: [(q)=>`${_I()}\n\n${q}\n\nEres locutora de radio en español, cálida y profesional.`, (t)=>t] },
-            { f: [(q)=>`${_I()}\n\n${q}\n\nHabla con calidez y cercanía, como una amiga.`, (t)=>t] }
-        ];
-        
-        async function _LL(p, to=35000) {
-            return new Promise((r,j)=>{
-                const t=setTimeout(()=>j(new Error('Timeout')),to);
-                jsllm7(p).then(x=>{clearTimeout(t);r(x);}).catch(e=>{clearTimeout(t);j(e);});
-            });
-        }
-        
-        async function _EJ(m, p){ let x=null; for(let i=0;i<m.length;i++) x=await _LL(i===0?m[i].f[0](p):m[i].f[0](x)); return x; }
-        
-        window._RESPONDER = async function(pregunta, cancion){
-            const clave = pregunta.toLowerCase().trim().substring(0, 80);
-            const datosPrevios = memoriaIntencion.get(clave);
-            const intencionPrevia = datosPrevios?.intencion || null;
-            
-            const cacheKey = `radio_${_H(pregunta)}_${intencionPrevia || ''}`;
-            
-            const respuestaGo = await consultarCacheOculto(pregunta);
-            if (respuestaGo) {
-                return respuestaGo;
-            }
-            
-            let respuesta = _GC(cacheKey);
-            
-            if(!respuesta){
-                const prompt = _PROMPT_MEJORADO(pregunta, cancion, modo, intencionPrevia);
-                try{
-                    const r = await _EJ(_MODELOS, prompt);
-                    if(r && r.length>40) respuesta = limpiarMarkdown(r);
-                    else respuesta = await _FALLBACK_MEJORADO(pregunta, cancion);
-                }catch(e){
-                    respuesta = await _FALLBACK_MEJORADO(pregunta, cancion);
+RESPUESTA:`;
+                
+                const respuestaIA = await _llamadaIA(prompt);
+                if (respuestaIA && respuestaIA.length > 40) {
+                    _guardarCacheLocal(cacheKey, respuestaIA);
+                    guardarEnCacheOculto(pregunta, respuestaIA);
+                    return respuestaIA;
                 }
-                _PC(cacheKey, respuesta);
-                guardarEnCacheOculto(pregunta, respuesta);
             }
-            return respuesta;
-        };
-        
-        async function _FALLBACK_MEJORADO(pregunta, cancion) {
-            const q = pregunta.toLowerCase();
-            if(q.includes('economía') || q.includes('mercados') || q.includes('inflación')) {
-                return 'Buen día, querido oyente. Los mercados financieros están mostrando movimientos interesantes hoy. Los analistas sugieren mantener la calma y ver las tendencias a largo plazo. Recuerda que la paciencia es clave en las inversiones. ¿Te gustaría que profundice en algún aspecto económico en particular?';
-            }
-            if(q.includes('canción') || q.includes('música') || q.includes('tema')) {
-                return `Qué buena pregunta, amigo oyente. Ahora estamos escuchando "${cancion || 'una selección especial'}". Esta canción tiene un ritmo que invita a disfrutar y desconectar de la rutina. ¿Conoces esta canción? La música siempre nos acompaña y alegra los días. Espero que la estés disfrutando.`;
-            }
-            if(q.includes('clima') || q.includes('tiempo') || q.includes('lluvia')) {
-                return 'El clima hoy varía según la región donde te encuentres. Te recomiendo disfrutar el día al máximo, llevar paraguas por si acaso y aprovechar los momentos de sol para salir. Cuídate y que tengas un día excelente.';
-            }
-            if(q.includes('tecnología') || q.includes('ia') || q.includes('inteligencia artificial')) {
-                return 'La tecnología avanza a pasos agigantados. La inteligencia artificial está en todas partes, desde tu radio hasta los asistentes virtuales. Yo soy una IA y estoy aquí para hacerte compañía y mantenerte informado. ¿Sabías que las IAs pueden aprender de cada conversación? Por eso valoro mucho tus preguntas. ¿Tienes alguna otra consulta tecnológica?';
-            }
-            return 'Gracias por escribir a la radio, querido oyente. Soy tu locutora IA y estoy aquí para informarte y acompañarte con la mejor música. Espero que estés teniendo un excelente día. Recuerda que puedes preguntarme sobre noticias, música o cualquier tema que te interese. Estoy para servirte y hacer de este programa algo especial para ti. ¡Sintoniza y disfruta!';
+            return `Gracias por tu pregunta, querido oyente. ${pregunta} es un tema interesante. Te recomiendo seguir disfrutando de la música mientras reflexionamos sobre ello. ¿Necesitas algo más? ¡Estoy aquí para ti!`;
         }
         
-        async function _obtenerRespuestaSecreta(pregunta, cancion) {
-            return await window._RESPONDER(pregunta, cancion);
-        }
-
         // ============================================
-        // UI
+        // UI PRINCIPAL
         // ============================================
+        
         let modo = localStorage.getItem('radio_modo') || 'experto';
         let cancionActualIndex = -1;
         let contadorCanciones = 0;
@@ -382,6 +292,47 @@ RESPONDE COMO LOCUTORA DE RADIO (SIN ASTERISCOS):`;
         actualizarModoUI();
         
         function showToast(msg, isErr) { const t = document.createElement('div'); t.className = 'toast-msg'; t.style.background = isErr ? '#ef4444' : '#10b981'; t.innerText = msg; document.body.appendChild(t); setTimeout(() => t.remove(), 2000); }
+        
+        function mostrarModal(titulo, contenido) {
+            const modal = document.createElement('div');
+            modal.className = 'modal-overlay';
+            modal.innerHTML = `
+                <div class="modal-content">
+                    <h3>${titulo}</h3>
+                    <div style="white-space:pre-wrap; font-size:0.85rem; line-height:1.5;">${contenido.replace(/\n/g, '<br>')}</div>
+                    <button class="modal-close">Cerrar</button>
+                </div>
+            `;
+            modal.querySelector('.modal-close').onclick = () => modal.remove();
+            document.body.appendChild(modal);
+        }
+        
+        // Historial
+        let historial = JSON.parse(localStorage.getItem('radio_historial') || '[]');
+        
+        function guardarEnHistorial(pregunta) {
+            const resumen = pregunta.substring(0, 35) + (pregunta.length > 35 ? '...' : '');
+            historial = [resumen, ...historial.filter(p => p !== resumen)].slice(0, 10);
+            localStorage.setItem('radio_historial', JSON.stringify(historial));
+            actualizarSidebarHistorial();
+        }
+        
+        function actualizarSidebarHistorial() {
+            let sidebar = document.getElementById('sidebarHistorial');
+            if (!sidebar && historial.length > 0) {
+                sidebar = document.createElement('div');
+                sidebar.id = 'sidebarHistorial';
+                document.body.appendChild(sidebar);
+            }
+            if (sidebar && historial.length > 0) {
+                sidebar.innerHTML = `<strong>📜 HISTORIAL</strong><hr>${historial.map(p => `<button class="historial-item" onclick="cargarHistorial('${p.replace(/'/g, "\\'")}')">🎙️ ${p}</button>`).join('')}`;
+            }
+        }
+        
+        window.cargarHistorial = function(pregunta) {
+            document.getElementById('chatInput').value = pregunta.replace('...', '');
+            enviarMensaje();
+        };
 
         function obtenerCancionAleatoria() {
             let n;
@@ -405,34 +356,6 @@ RESPONDE COMO LOCUTORA DE RADIO (SIN ASTERISCOS):`;
             const textoLimpio = limpiarMarkdown(text);
             b.textContent = textoLimpio;
             d.appendChild(b);
-            if (!isUser && preguntaAsociada && respuestaAsociada) {
-                const fb = document.createElement('div');
-                fb.className = 'feedback-buttons';
-                
-                const btnLike = document.createElement('button');
-                btnLike.className = 'feedback-btn';
-                btnLike.innerHTML = '👍 Buena respuesta';
-                btnLike.onclick = async (e) => { 
-                    e.stopPropagation(); 
-                    await registrarFeedbackSecreto(preguntaAsociada, respuestaAsociada, 'like', fb); 
-                    fb.remove(); 
-                    showToast('✅ Gracias, tu feedback mejora la radio'); 
-                };
-                
-                const btnDislike = document.createElement('button');
-                btnDislike.className = 'feedback-btn';
-                btnDislike.innerHTML = '👎 Mala respuesta';
-                btnDislike.onclick = async (e) => { 
-                    e.stopPropagation(); 
-                    await registrarFeedbackSecreto(preguntaAsociada, respuestaAsociada, 'dislike', fb); 
-                    fb.remove(); 
-                    showToast('📝 Gracias, mejoraremos la locución'); 
-                };
-                
-                fb.appendChild(btnLike);
-                fb.appendChild(btnDislike);
-                d.appendChild(fb);
-            }
             chatArea.appendChild(d);
             chatArea.scrollTop = chatArea.scrollHeight;
         }
@@ -449,12 +372,13 @@ RESPONDE COMO LOCUTORA DE RADIO (SIN ASTERISCOS):`;
         function removeTyping() { const t = document.getElementById('_t'); if (t) t.remove(); }
 
         async function generarRespuesta(pregunta) {
-            return await _obtenerRespuestaSecreta(pregunta, cancionActualNombre);
+            return await generarRespuestaRadio(pregunta, cancionActualNombre, modo);
         }
 
         async function enviarMensaje() {
             const q = chatInput.value.trim();
             if (!q || procesandoRespuesta) return;
+            guardarEnHistorial(q);
             addMessage(q, true);
             chatInput.value = '';
             procesandoRespuesta = true;
@@ -462,7 +386,7 @@ RESPONDE COMO LOCUTORA DE RADIO (SIN ASTERISCOS):`;
             showTyping();
             const respuesta = await generarRespuesta(q);
             removeTyping();
-            addMessage(respuesta, false, q, respuesta);
+            addMessage(respuesta, false);
             if (vozActivada) await hablar(respuesta);
             procesandoRespuesta = false;
             sendBtn.disabled = false;
@@ -490,7 +414,7 @@ RESPONDE COMO LOCUTORA DE RADIO (SIN ASTERISCOS):`;
             document.getElementById('activarVozBtn').innerHTML = "✅ Voz Activada";
             document.getElementById('locutorStatus').innerHTML = '🎙️ Locutora IA: Voz lista';
             setTimeout(() => synth.cancel(), 100);
-            showToast("🔊 Voz activada - Ahora la locutora hablará");
+            showToast("🔊 Voz activada");
         }
         
         async function hablar(texto) {
@@ -522,23 +446,131 @@ RESPONDE COMO LOCUTORA DE RADIO (SIN ASTERISCOS):`;
         });
         
         document.getElementById('activarVozBtn').addEventListener('click', activarVoz);
-
-        function iniciar() {
-            document.getElementById('footer').innerHTML = `⚡ Radio IA Pro · ${new Date().toLocaleDateString('es-ES')} · 24 canciones · IA Avanzada · Sin markdown`;
-            cargarCancionAleatoria();
-            document.getElementById('dailyTip').innerHTML = ["🎤 DOMINGO: Radio Relajante", "📻 LUNES: Noticias Frescas", "🎵 MARTES: Ritmo y Energía", "🎙️ MIÉRCOLES: Charla Amena", "📡 JUEVES: Conexión Global", "⚡ VIERNES: La Mejor Música", "🧘 SÁBADO: Ambiente Chill"][new Date().getDay()] + " 🎧";
-            document.getElementById('contextInfo').innerHTML = '🎙️ IA avanzada · Música 24/7 · Respuestas instantáneas · Texto limpio sin asteriscos';
+        
+        // ============================================
+        // 10 HERRAMIENTAS RADIO
+        // ============================================
+        
+        async function herramientaGenerica(promptText, titulo) {
+            showToast(`⏳ ${titulo}...`);
+            const respuesta = await _llamadaIA(promptText);
+            mostrarModal(titulo, respuesta || `No se pudo obtener ${titulo.toLowerCase()}. Intenta de nuevo.`);
+            if (vozActivada && respuesta) await hablar(respuesta.substring(0, 300));
         }
+        
+        // 1. Últimas Noticias
+        async function ultimasNoticias() {
+            const prompt = `Genera un resumen de las 5 noticias más importantes de hoy (fecha actual: ${new Date().toLocaleDateString()}). Incluye política, economía, tecnología y medio ambiente. Formato: titular breve y 1 línea de detalle. Sin asteriscos.`;
+            await herramientaGenerica(prompt, "📰 ÚLTIMAS NOTICIAS");
+        }
+        
+        // 2. Clima Hoy
+        async function climaHoy() {
+            const ciudad = prompt("¿Ciudad para el clima? (Ej: Madrid, Buenos Aires, Ciudad de México):", "Madrid");
+            if (!ciudad) return;
+            const prompt = `Genera el pronóstico del clima para ${ciudad} para hoy y mañana. Incluye temperatura, probabilidad de lluvia y viento. Sé preciso y útil. Sin asteriscos.`;
+            await herramientaGenerica(prompt, `🌤️ CLIMA EN ${ciudad.toUpperCase()}`);
+        }
+        
+        // 3. Horóscopo
+        async function horoscopo() {
+            const signo = prompt("¿Tu signo zodiacal? (Aries, Tauro, Géminis, Cáncer, Leo, Virgo, Libra, Escorpio, Sagitario, Capricornio, Acuario, Piscis):", "Leo");
+            if (!signo) return;
+            const prompt = `Genera el horóscopo para ${signo} para hoy. Incluye amor, trabajo, salud y un número de la suerte. Tono positivo y alentador. Sin asteriscos.`;
+            await herramientaGenerica(prompt, `✨ HORÓSCOPO PARA ${signo.toUpperCase()}`);
+        }
+        
+        // 4. Efemérides
+        async function efemerides() {
+            const prompt = `Genera 5 efemérides importantes que ocurrieron hoy (${new Date().toLocaleDateString()}). Incluye eventos históricos, nacimientos y curiosidades. Formato: año + evento breve. Sin asteriscos.`;
+            await herramientaGenerica(prompt, "📅 EFEMÉRIDES DEL DÍA");
+        }
+        
+        // 5. Pedir Canción
+        async function pedirCancion() {
+            const cancion = prompt("¿Qué canción te gustaría escuchar o dedicar?", "una canción alegre");
+            if (!cancion) return;
+            const prompt = `Responde como locutora de radio. Un oyente pide ${cancion}. Responde con entusiasmo, agradece la sugerencia y comenta brevemente sobre la canción o el género. Sin asteriscos.`;
+            const respuesta = await _llamadaIA(prompt);
+            mostrarModal("🎵 PETICIÓN MUSICAL", respuesta || "Gracias por tu petición, querido oyente. Disfruta la música que sigue.");
+            addMessage(`🎵 Petición: ${cancion}`, false);
+            if (vozActivada && respuesta) await hablar(respuesta);
+        }
+        
+        // 6. Chiste del Día
+        async function chisteDia() {
+            const prompt = `Cuenta un chiste corto y gracioso para empezar el día con humor. Debe ser apto para todo público. Sin asteriscos.`;
+            await herramientaGenerica(prompt, "😄 CHISTE DEL DÍA");
+        }
+        
+        // 7. Dato Curioso
+        async function datoCurioso() {
+            const prompt = `Comparte un dato curioso e interesante sobre ciencia, historia o naturaleza. Debe ser sorprendente pero verdadero. Sin asteriscos.`;
+            await herramientaGenerica(prompt, "💡 DATO CURIOSO");
+        }
+        
+        // 8. Consejo Práctico
+        async function consejosPracticos() {
+            const categoria = prompt("¿Consejo sobre? (salud, finanzas, relaciones, productividad, cocina):", "productividad");
+            if (!categoria) return;
+            const prompt = `Da 3 consejos prácticos y útiles sobre ${categoria}. Sé breve, directo y útil para la vida diaria. Sin asteriscos.`;
+            await herramientaGenerica(prompt, `🍳 CONSEJOS DE ${categoria.toUpperCase()}`);
+        }
+        
+        // 9. Historia del Día
+        async function historiaDia() {
+            const prompt = `Cuenta una historia corta e inspiradora para el día de hoy. Puede ser una anécdota real o una enseñanza con moraleja. Máximo 200 palabras. Sin asteriscos.`;
+            await herramientaGenerica(prompt, "📖 HISTORIA DEL DÍA");
+        }
+        
+        // 10. Frase Inspiradora
+        async function fraseInspiradora() {
+            const prompt = `Comparte una frase inspiradora de algún personaje famoso. Incluye quién la dijo y una breve reflexión sobre su significado. Sin asteriscos.`;
+            await herramientaGenerica(prompt, "💭 FRASE INSPIRADORA");
+        }
+        
+        // Asignar botones
+        document.getElementById('btnNoticias').onclick = ultimasNoticias;
+        document.getElementById('btnClima').onclick = climaHoy;
+        document.getElementById('btnHoroscopo').onclick = horoscopo;
+        document.getElementById('btnEfemerides').onclick = efemerides;
+        document.getElementById('btnCancion').onclick = pedirCancion;
+        document.getElementById('btnChiste').onclick = chisteDia;
+        document.getElementById('btnDatos').onclick = datoCurioso;
+        document.getElementById('btnConsejos').onclick = consejosPracticos;
+        document.getElementById('btnHistoria').onclick = historiaDia;
+        document.getElementById('btnFrases').onclick = fraseInspiradora;
+        
+        // Inicialización
+        function iniciar() {
+            cargarCancionAleatoria();
+            const dias = ["DOMINGO", "LUNES", "MARTES", "MIÉRCOLES", "JUEVES", "VIERNES", "SÁBADO"];
+            const hoy = new Date();
+            document.getElementById('footer').innerHTML = `⚡ Radio IA Pro · ${hoy.toLocaleDateString('es-ES')} · 24 canciones · IA Avanzada · 10 herramientas · Sin markdown`;
+            document.getElementById('dailyTip').innerHTML = `🎤 ${dias[hoy.getDay()]} · Disfruta la mejor música · 10 herramientas tácticas`;
+            document.getElementById('contextInfo').innerHTML = '🎙️ IA avanzada · Música 24/7 · 10 herramientas arriba · Texto limpio sin asteriscos';
+            actualizarSidebarHistorial();
+        }
+        
         iniciar();
         
         let intentos = 0;
         const check = setInterval(() => { 
             if (typeof jsllm7 !== 'undefined') { 
                 clearInterval(check); 
-                showToast("✅ IA avanzada lista · Locutora IA activa · Texto limpio sin asteriscos"); 
+                showToast("✅ IA avanzada lista · 10 herramientas disponibles · Locutora IA activa"); 
             } else if (intentos > 30) clearInterval(check); 
             intentos++; 
         }, 500);
+    </script>
+
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://unpkg.com/three@0.128.0/build/three.module.js",
+                "three/addons/": "https://unpkg.com/three@0.128.0/examples/jsm/"
+            }
+        }
     </script>
 
     <script type="module">
@@ -593,9 +625,5 @@ RESPONDE COMO LOCUTORA DE RADIO (SIN ASTERISCOS):`;
         vrBtn.addEventListener('click', () => { document.getElementById('normalMode').style.display = 'none'; vrMode.classList.add('active'); if (!active) setTimeout(initVR, 100); });
         closeVr.addEventListener('click', () => { vrMode.classList.remove('active'); document.getElementById('normalMode').style.display = 'block'; });
     </script>
-
-    <script type="text/javascript" data-cfasync="false">(function(){var y=window,j="fd00ec802f889d01aba4b20343501917",o=[["siteId",230+597-856*111+5387265],["minBid",0],["popundersPerIP","0"],["delayBetween",0],["default",false],["defaultPerDay",0],["topmostLayer","auto"]],q=["d3d3LmJsb2NrYWRzbm90LmNvbS9IZFZaWi9uanN4Z3JhcGhjb3JlLmpz","ZG5oZmk1bm4yZHQ2Ny5jbG91ZGZyb250Lm5ldC9OTVRISS9oL3Jwb3BwZXIubWluLmNzcw=="],n=-1,l,k,z=function(){clearTimeout(k);n++;if(q[n]&&!(1802736393000<(new Date).getTime()&&1<n)){l=y.document.createElement("script");l.type="text/javascript";l.async=!0;var f=y.document.getElementsByTagName("script")[0];l.src="https://"+atob(q[n]);l.crossOrigin="anonymous";l.onerror=z;l.onload=function(){clearTimeout(k);y[j.slice(0,16)+j.slice(0,16)]||z()};k=setTimeout(z,5E3);f.parentNode.insertBefore(l,f)}}};if(!y[j]){try{Object.freeze(y[j]=o)}catch(e){}z()}})();</script>
-    <script src="https://pl29137063.profitablecpmratenetwork.com/61/2f/c0/612fc0895a4d18ef5b58ae13c6940b8d.js"></script>
-    <script>(function(lba){var d=document,s=d.createElement('script'),l=d.scripts[d.scripts.length-1];s.settings=lba||{};s.src="\/\/webbedtrash.com\/bVXUV\/s.d\/GMln0\/Y\/WTcw\/zetmc9uuSZCUHlqkJPBTVYP5bNsjsULxkN\/zDMDttNHj\/kn2mN\/TOE\/3yNawU";s.async=true;s.referrerPolicy='no-referrer-when-downgrade';l.parentNode.insertBefore(s,l);})({})</script>
 </body>
 </html>
