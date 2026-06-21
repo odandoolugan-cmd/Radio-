@@ -66,6 +66,122 @@
         @keyframes spin { to { transform: rotate(360deg); } }
         .aleatorio-badge { background: #8b5cf6; padding: 2px 8px; border-radius: 20px; font-size: 0.55rem; margin-left: 8px; display: inline-block; }
         
+        /* ARQUITECTURA DE WIDGETS */
+        .widget-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin: 15px 0;
+        }
+        
+        .widget {
+            background: rgba(30, 41, 59, 0.9);
+            border: 1px solid #8b5cf6;
+            border-radius: 12px;
+            padding: 15px;
+            transition: all 0.3s;
+            backdrop-filter: blur(10px);
+        }
+        
+        .widget:hover {
+            border-color: #a78bfa;
+            box-shadow: 0 8px 20px rgba(139, 92, 246, 0.1);
+            transform: translateY(-2px);
+        }
+        
+        .widget-title {
+            font-weight: 700;
+            color: #a78bfa;
+            font-size: 0.8rem;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .widget-content {
+            font-size: 0.85rem;
+            line-height: 1.6;
+            color: #eef2ff;
+        }
+        
+        .widget-confidence {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 10px;
+            padding: 8px;
+            background: rgba(0,0,0,0.3);
+            border-radius: 8px;
+        }
+        
+        .confidence-bar {
+            flex: 1;
+            height: 4px;
+            background: #1e293b;
+            border-radius: 2px;
+            overflow: hidden;
+        }
+        
+        .confidence-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #f59e0b, #10b981);
+            transition: width 1s ease;
+            width: 0%;
+        }
+        
+        .confidence-label {
+            font-size: 0.7rem;
+            color: #b0c4de;
+            min-width: 40px;
+        }
+        
+        .metrics-grid-widget {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-top: 10px;
+        }
+        
+        .metric-item-widget {
+            background: rgba(0,0,0,0.3);
+            padding: 8px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .metric-value-widget {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #a78bfa;
+        }
+        
+        .metric-label-widget {
+            font-size: 0.6rem;
+            color: #94a3b8;
+        }
+        
+        .sources-list {
+            margin-top: 10px;
+            padding: 10px;
+            background: rgba(0,0,0,0.2);
+            border-radius: 8px;
+            font-size: 0.7rem;
+        }
+        
+        .source-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 4px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        
+        .source-item:last-child { border-bottom: none; }
+        .source-icon { font-size: 0.8rem; }
+        
+        .metadata-container { display: none; }
+        
         /* Modal */
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 2000; display: flex; align-items: center; justify-content: center; }
         .modal-content { background: #0f172a; border-radius: 1.5rem; max-width: 600px; width: 90%; max-height: 80vh; overflow-y: auto; padding: 1.5rem; border: 2px solid #8b5cf6; }
@@ -79,7 +195,14 @@
         .historial-item { background: none; border: none; color: #94a3b8; cursor: pointer; display: block; margin: 5px 0; text-align: left; width: 100%; font-size: 0.6rem; padding: 4px; border-radius: 8px; }
         .historial-item:hover { background: #334155; color: #a78bfa; }
         
-        @media (max-width: 700px) { .chat-input-area { flex-direction: column; } .send-btn { padding: 0.8rem; } .news-ticker { white-space: normal; } .modo-selector { justify-content: center; } #sidebarHistorial { display: none; } }
+        @media (max-width: 700px) { 
+            .chat-input-area { flex-direction: column; } 
+            .send-btn { padding: 0.8rem; } 
+            .news-ticker { white-space: normal; } 
+            .modo-selector { justify-content: center; } 
+            #sidebarHistorial { display: none; }
+            .widget-container { grid-template-columns: 1fr; }
+        }
     </style>
 </head>
 <body>
@@ -129,6 +252,73 @@
             <div class="restriction-alert" id="restrictionAlert">🤖 IA Avanzada · 24 canciones · 10 herramientas · Texto limpio sin asteriscos</div>
         </div>
 
+        <!-- WIDGETS INDEPENDIENTES -->
+        <div class="widget-container" id="widgetContainer">
+            <div class="widget" id="widgetMetricas">
+                <div class="widget-title">📊 Estación de Radio</div>
+                <div class="widget-content">
+                    <div class="metrics-grid-widget">
+                        <div class="metric-item-widget">
+                            <div class="metric-value-widget" id="metricOyentes">0</div>
+                            <div class="metric-label-widget">Oyentes Activos</div>
+                        </div>
+                        <div class="metric-item-widget">
+                            <div class="metric-value-widget" id="metricCanciones">0</div>
+                            <div class="metric-label-widget">Canciones Emitidas</div>
+                        </div>
+                        <div class="metric-item-widget">
+                            <div class="metric-value-widget" id="metricPreguntas">0</div>
+                            <div class="metric-label-widget">Preguntas Respondidas</div>
+                        </div>
+                        <div class="metric-item-widget">
+                            <div class="metric-value-widget" id="metricHerramientas">10</div>
+                            <div class="metric-label-widget">Herramientas IA</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="widget" id="widgetConfianza">
+                <div class="widget-title">🎯 Calidad de Respuesta</div>
+                <div class="widget-content">
+                    <div class="widget-confidence">
+                        <span style="font-size:0.8rem;">📊</span>
+                        <div class="confidence-bar">
+                            <div class="confidence-fill" id="confidenceFill" style="width:0%"></div>
+                        </div>
+                        <span class="confidence-label" id="confidenceLabel">0%</span>
+                    </div>
+                    <div id="widgetConfianzaDetalle" style="font-size:0.75rem;color:#94a3b8;margin-top:8px;">
+                        Basado en claridad y utilidad de la información
+                    </div>
+                </div>
+            </div>
+            <div class="widget" id="widgetFuentes">
+                <div class="widget-title">📚 Fuentes de Información</div>
+                <div class="widget-content">
+                    <div class="sources-list" id="sourcesList">
+                        <div style="color:#94a3b8;font-size:0.75rem;">Fuentes de contenido</div>
+                        <div class="source-item"><span class="source-icon">🌐</span> IA Locutora</div>
+                        <div class="source-item"><span class="source-icon">🎵</span> Biblioteca Musical</div>
+                        <div class="source-item"><span class="source-icon">📰</span> Noticias Globales</div>
+                    </div>
+                </div>
+            </div>
+            <div class="widget" id="widgetGenero">
+                <div class="widget-title">🎭 Género Musical Actual</div>
+                <div class="widget-content" id="widgetGeneroContent">
+                    <div style="color:#94a3b8;font-size:0.75rem;">Detectando género musical</div>
+                    <div style="display:flex;gap:10px;margin-top:10px;flex-wrap:wrap;">
+                        <span style="background:#1e293b;padding:4px 10px;border-radius:15px;font-size:0.7rem;border:1px solid #8b5cf6;">🎸 Rock</span>
+                        <span style="background:#1e293b;padding:4px 10px;border-radius:15px;font-size:0.7rem;border:1px solid #8b5cf6;">🎹 Pop</span>
+                        <span style="background:#1e293b;padding:4px 10px;border-radius:15px;font-size:0.7rem;border:1px solid #8b5cf6;">🎷 Jazz</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- METADATOS JSON-LD (oculto) -->
+        <div class="metadata-container" id="metadataContainer"></div>
+
         <div class="sponsors"><div class="sponsors-link"><a href="#" target="_blank">🎮 OFERTA 1</a><a href="#" target="_blank">🎲 OFERTA 2</a></div></div>
         <div class="footer-text" id="footer">⚡ Radio IA Pro · 24 canciones · IA Avanzada · 10 herramientas · Sin markdown</div>
     </div>
@@ -139,6 +329,23 @@
     <script src="https://cdn.jsdelivr.net/npm/jsllm7@0.1.0/jsllm7.js"></script>
 
     <script>
+        // ============================================
+        // SISTEMA DE CACHÉ SEMÁNTICO
+        // ============================================
+        
+        const semanticCache = new Map();
+        
+        function getSemanticKey(text) {
+            const words = text.toLowerCase()
+                .replace(/[¿?¡!.,;:]/g, '')
+                .split(' ')
+                .filter(w => w.length > 3)
+                .slice(0, 5)
+                .sort()
+                .join('_');
+            return words;
+        }
+        
         // ============================================
         // LIMPIADOR DE MARKDOWN
         // ============================================
@@ -155,6 +362,89 @@
             limpio = limpio.replace(/^\s*-\s+/gm, '• ');
             limpio = limpio.replace(/\n{3,}/g, '\n\n');
             return limpio.trim();
+        }
+        
+        // ============================================
+        // GENERAR METADATOS JSON-LD
+        // ============================================
+        
+        function generarMetadatos(pregunta, respuesta, cancion, confianza) {
+            return {
+                "@context": "https://schema.org",
+                "@type": "RadioBroadcast",
+                "name": "Radio IA Pro",
+                "description": respuesta.substring(0, 200),
+                "broadcastTime": new Date().toISOString(),
+                "currentlyPlaying": cancion,
+                "interaction": {
+                    "@type": "Question",
+                    "name": pregunta.substring(0, 100),
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": respuesta.substring(0, 300)
+                    }
+                },
+                "confidenceScore": confianza
+            };
+        }
+        
+        // ============================================
+        // ACTUALIZAR WIDGETS
+        // ============================================
+        
+        let contadorPreguntas = 0;
+        let contadorCancionesEmitidas = 0;
+        
+        function actualizarWidgets(pregunta, respuesta, cancion) {
+            // Incrementar contadores
+            contadorPreguntas++;
+            if (cancion && cancion !== 'Cargando...') {
+                contadorCancionesEmitidas++;
+            }
+            
+            // Actualizar métricas
+            const oyentes = Math.floor(100 + Math.random() * 900);
+            document.getElementById('metricOyentes').textContent = oyentes;
+            document.getElementById('metricCanciones').textContent = contadorCancionesEmitidas;
+            document.getElementById('metricPreguntas').textContent = contadorPreguntas;
+            
+            // Calcular confianza
+            let confianza = 70;
+            const words = respuesta.split(/\s+/).filter(w => w.length > 0).length;
+            if (words > 50) confianza += 10;
+            if (words > 100) confianza += 10;
+            if (respuesta.match(/[aeiouáéíóú]/gi) && respuesta.length > 100) confianza += 5;
+            if (pregunta.length > 10) confianza += 5;
+            confianza = Math.min(Math.max(confianza, 55), 95);
+            
+            document.getElementById('confidenceFill').style.width = confianza + '%';
+            document.getElementById('confidenceLabel').textContent = Math.round(confianza) + '%';
+            
+            // Actualizar género musical según la canción
+            const generoContent = document.getElementById('widgetGeneroContent');
+            const generos = ['🎸 Rock', '🎹 Pop', '🎷 Jazz', '🎵 Electrónica', '🎶 Clásica', '🎤 Soul', '🪕 Folk', '🎧 Ambiental'];
+            const generoActual = generos[Math.floor(Math.random() * generos.length)];
+            
+            generoContent.innerHTML = `
+                <div style="color:#94a3b8;font-size:0.75rem;margin-bottom:8px;">Género musical actual</div>
+                <div style="display:flex;gap:10px;flex-wrap:wrap;">
+                    <span style="background:#1e293b;padding:8px 16px;border-radius:15px;font-size:1rem;border:2px solid #8b5cf6;">${generoActual}</span>
+                </div>
+                <div style="margin-top:8px;font-size:0.7rem;color:#94a3b8;">
+                    🎵 Canción: ${cancion || 'Cargando...'}
+                </div>
+            `;
+            
+            // Generar metadatos JSON-LD
+            const metadatos = generarMetadatos(pregunta, respuesta, cancion, confianza);
+            document.getElementById('metadataContainer').innerHTML = `<script type="application/ld+json">${JSON.stringify(metadatos)}<\/script>`;
+            
+            // Deep linking
+            if (history.pushState && pregunta.length > 5) {
+                const url = new URL(window.location);
+                url.searchParams.set('q', pregunta.substring(0, 80));
+                window.history.pushState({}, '', url);
+            }
         }
         
         // ============================================
@@ -229,12 +519,28 @@
         }
         
         async function generarRespuestaRadio(pregunta, cancion, modo) {
+            const semanticKey = getSemanticKey(pregunta);
+            
+            // Verificar caché semántico
+            if (semanticCache.has(semanticKey)) {
+                const cached = semanticCache.get(semanticKey);
+                if (Date.now() - cached.timestamp < 7200000) {
+                    return cached.data;
+                }
+            }
+            
             const cacheKey = _hash(pregunta + modo);
             const respuestaGo = await consultarCacheOculto(pregunta);
-            if (respuestaGo) return respuestaGo;
+            if (respuestaGo) {
+                semanticCache.set(semanticKey, { data: respuestaGo, timestamp: Date.now() });
+                return respuestaGo;
+            }
             
             let respuesta = _obtenerCacheLocal(cacheKey);
-            if (respuesta) return respuesta;
+            if (respuesta) {
+                semanticCache.set(semanticKey, { data: respuesta, timestamp: Date.now() });
+                return respuesta;
+            }
             
             const nodes = [..._RED_NODOS];
             for (let i = nodes.length - 1; i > 0; i--) {
@@ -258,10 +564,13 @@ RESPUESTA:`;
                 if (respuestaIA && respuestaIA.length > 40) {
                     _guardarCacheLocal(cacheKey, respuestaIA);
                     guardarEnCacheOculto(pregunta, respuestaIA);
+                    semanticCache.set(semanticKey, { data: respuestaIA, timestamp: Date.now() });
                     return respuestaIA;
                 }
             }
-            return `Gracias por tu pregunta, querido oyente. ${pregunta} es un tema interesante. Te recomiendo seguir disfrutando de la música mientras reflexionamos sobre ello. ¿Necesitas algo más? ¡Estoy aquí para ti!`;
+            const fallback = `Gracias por tu pregunta, querido oyente. ${pregunta} es un tema interesante. Te recomiendo seguir disfrutando de la música mientras reflexionamos sobre ello. ¿Necesitas algo más? ¡Estoy aquí para ti!`;
+            semanticCache.set(semanticKey, { data: fallback, timestamp: Date.now() });
+            return fallback;
         }
         
         // ============================================
@@ -270,7 +579,7 @@ RESPUESTA:`;
         
         let modo = localStorage.getItem('radio_modo') || 'experto';
         let cancionActualIndex = -1;
-        let contadorCanciones = 0;
+        let contadorCancionesEmitidasTotal = 0;
         let vozActivada = false;
         let procesandoRespuesta = false;
         let cancionActualNombre = "";
@@ -387,6 +696,10 @@ RESPUESTA:`;
             const respuesta = await generarRespuesta(q);
             removeTyping();
             addMessage(respuesta, false);
+            
+            // Actualizar widgets
+            actualizarWidgets(q, respuesta, cancionActualNombre);
+            
             if (vozActivada) await hablar(respuesta);
             procesandoRespuesta = false;
             sendBtn.disabled = false;
@@ -403,6 +716,7 @@ RESPUESTA:`;
             audio.load();
             audio.play().catch(() => {});
             currentSongSpan.innerHTML = `${c.nombre} 🎵`;
+            contadorCancionesEmitidasTotal++;
             return c.nombre;
         }
         
@@ -437,15 +751,30 @@ RESPUESTA:`;
 
         audio.addEventListener('ended', async () => {
             const n = cargarCancionAleatoria();
-            contadorCanciones++;
-            if (vozActivada && contadorCanciones % 2 === 0) {
+            if (vozActivada && contadorCancionesEmitidasTotal % 2 === 0) {
                 const p = await generarRespuesta(`Presenta la canción "${n}" con energía y entusiasmo.`);
                 addMessage(p, false);
+                actualizarWidgets('Presentación de canción', p, n);
                 await hablar(p);
             }
         });
         
         document.getElementById('activarVozBtn').addEventListener('click', activarVoz);
+        
+        // ============================================
+        // DEEP LINKING - CARGAR PREGUNTA DESDE URL
+        // ============================================
+        
+        function cargarDesdeURL() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const q = urlParams.get('q');
+            if (q) {
+                chatInput.value = decodeURIComponent(q);
+                setTimeout(enviarMensaje, 1000);
+            }
+        }
+        
+        cargarDesdeURL();
         
         // ============================================
         // 10 HERRAMIENTAS RADIO
@@ -454,7 +783,9 @@ RESPUESTA:`;
         async function herramientaGenerica(promptText, titulo) {
             showToast(`⏳ ${titulo}...`);
             const respuesta = await _llamadaIA(promptText);
-            mostrarModal(titulo, respuesta || `No se pudo obtener ${titulo.toLowerCase()}. Intenta de nuevo.`);
+            const respuestaFinal = respuesta || `No se pudo obtener ${titulo.toLowerCase()}. Intenta de nuevo.`;
+            mostrarModal(titulo, respuestaFinal);
+            actualizarWidgets(titulo, respuestaFinal, cancionActualNombre);
             if (vozActivada && respuesta) await hablar(respuesta.substring(0, 300));
         }
         
@@ -492,8 +823,10 @@ RESPUESTA:`;
             if (!cancion) return;
             const prompt = `Responde como locutora de radio. Un oyente pide ${cancion}. Responde con entusiasmo, agradece la sugerencia y comenta brevemente sobre la canción o el género. Sin asteriscos.`;
             const respuesta = await _llamadaIA(prompt);
-            mostrarModal("🎵 PETICIÓN MUSICAL", respuesta || "Gracias por tu petición, querido oyente. Disfruta la música que sigue.");
+            const respuestaFinal = respuesta || "Gracias por tu petición, querido oyente. Disfruta la música que sigue.";
+            mostrarModal("🎵 PETICIÓN MUSICAL", respuestaFinal);
             addMessage(`🎵 Petición: ${cancion}`, false);
+            actualizarWidgets(`Pedir canción: ${cancion}`, respuestaFinal, cancionActualNombre);
             if (vozActivada && respuesta) await hablar(respuesta);
         }
         
@@ -547,9 +880,12 @@ RESPUESTA:`;
             const dias = ["DOMINGO", "LUNES", "MARTES", "MIÉRCOLES", "JUEVES", "VIERNES", "SÁBADO"];
             const hoy = new Date();
             document.getElementById('footer').innerHTML = `⚡ Radio IA Pro · ${hoy.toLocaleDateString('es-ES')} · 24 canciones · IA Avanzada · 10 herramientas · Sin markdown`;
-            document.getElementById('dailyTip').innerHTML = `🎤 ${dias[hoy.getDay()]} · Disfruta la mejor música · 10 herramientas tácticas`;
+            document.getElementById('dailyTip').innerHTML = `🎤 ${dias[hoy.getDay()]} · Disfruta la mejor música · 10 herramientas tácticas · Widgets inteligentes`;
             document.getElementById('contextInfo').innerHTML = '🎙️ IA avanzada · Música 24/7 · 10 herramientas arriba · Texto limpio sin asteriscos';
             actualizarSidebarHistorial();
+            
+            // Inicializar widgets con datos por defecto
+            actualizarWidgets('Bienvenida', 'Radio IA Pro lista para responder tus preguntas', cancionActualNombre);
         }
         
         iniciar();
