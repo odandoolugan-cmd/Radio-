@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <meta name="referrer" content="no-referrer-when-downgrade" />
-    <title>Radio IA Pro · Noticias REALES · Música · IA Avanzada + 10 Herramientas</title>
+    <title>Radio IA Pro · Noticias REALES · Música · IA Avanzada + Conectores</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Segoe UI', system-ui, sans-serif; background: linear-gradient(135deg, #0a0f1e 0%, #0c1222 100%); color: #eef2ff; min-height: 100vh; padding: 1rem; overflow-x: hidden; }
@@ -18,7 +18,6 @@
         .modo-btn { background: #1e293b; border: 1px solid #334155; padding: 4px 12px; border-radius: 20px; font-size: 0.7rem; cursor: pointer; font-weight: 600; color: #94a3b8; }
         .modo-btn.active { background: #8b5cf6; color: white; border-color: #8b5cf6; }
         
-        /* BARRA DE HERRAMIENTAS */
         .tools-bar { display: flex; flex-wrap: wrap; gap: 8px; margin: 15px 0; justify-content: center; }
         .tool-btn { background: #1e293b; border: 1px solid #334155; padding: 6px 12px; border-radius: 20px; font-size: 0.65rem; cursor: pointer; font-weight: 500; color: #94a3b8; transition: 0.2s; }
         .tool-btn:hover { background: #8b5cf6; color: white; border-color: #8b5cf6; transform: scale(1.02); }
@@ -66,7 +65,6 @@
         @keyframes spin { to { transform: rotate(360deg); } }
         .aleatorio-badge { background: #8b5cf6; padding: 2px 8px; border-radius: 20px; font-size: 0.55rem; margin-left: 8px; display: inline-block; }
         
-        /* ARQUITECTURA DE WIDGETS */
         .widget-container {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -161,6 +159,29 @@
             color: #94a3b8;
         }
         
+        /* Métricas de conectores */
+        .connector-metrics {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+            margin-top: 10px;
+        }
+        .connector-metric {
+            background: rgba(0,0,0,0.3);
+            padding: 6px;
+            border-radius: 6px;
+            text-align: center;
+        }
+        .connector-metric .value {
+            font-size: 1rem;
+            font-weight: bold;
+            color: #a78bfa;
+        }
+        .connector-metric .label {
+            font-size: 0.55rem;
+            color: #94a3b8;
+        }
+        
         .sources-list {
             margin-top: 10px;
             padding: 10px;
@@ -182,13 +203,11 @@
         
         .metadata-container { display: none; }
         
-        /* Modal */
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 2000; display: flex; align-items: center; justify-content: center; }
         .modal-content { background: #0f172a; border-radius: 1.5rem; max-width: 600px; width: 90%; max-height: 80vh; overflow-y: auto; padding: 1.5rem; border: 2px solid #8b5cf6; }
         .modal-content h3 { color: #a78bfa; margin-bottom: 1rem; }
         .modal-close { margin-top: 1rem; background: #8b5cf6; border: none; padding: 0.5rem 1rem; border-radius: 2rem; color: white; cursor: pointer; }
         
-        /* Sidebar historial */
         #sidebarHistorial { position: fixed; left: 10px; top: 100px; background: #1e293b; border-radius: 1rem; padding: 0.8rem; width: 180px; z-index: 1000; font-size: 0.65rem; border: 1px solid #8b5cf6; backdrop-filter: blur(10px); max-height: 80vh; overflow-y: auto; }
         #sidebarHistorial strong { color: #a78bfa; }
         #sidebarHistorial hr { margin: 5px 0; border-color: #334155; }
@@ -202,6 +221,7 @@
             .modo-selector { justify-content: center; } 
             #sidebarHistorial { display: none; }
             .widget-container { grid-template-columns: 1fr; }
+            .connector-metrics { grid-template-columns: 1fr 1fr; }
         }
     </style>
 </head>
@@ -209,9 +229,9 @@
 
     <div class="normal-mode" id="normalMode">
         <div class="header">
-            <h1>🎙️ Radio IA Pro <span class="ia-badge">10 HERRAMIENTAS</span><span class="live-badge" id="liveBadge">🌐 EN VIVO</span><span class="aleatorio-badge">🎲 24 CANCIONES</span></h1>
-            <div class="sub" id="subHeader">Noticias REALES · Música · Locutora IA · 10 herramientas tácticas · Sin markdown</div>
-            <div class="daily-tip" id="dailyTip">🎤 La información es poder, la música es alma.</div>
+            <h1>🎙️ Radio IA Pro <span class="ia-badge">CONECTORES</span><span class="live-badge" id="liveBadge">🌐 EN VIVO</span><span class="aleatorio-badge">🎲 24 CANCIONES</span></h1>
+            <div class="sub" id="subHeader">Noticias REALES · Música · Locutora IA · Conectores: Memoria · Semántico · APIs</div>
+            <div class="daily-tip" id="dailyTip">🎤 La información es poder, la música es alma. · Conectores activos</div>
             <div class="news-ticker" id="newsTicker">🌐 Conectando a fuentes de noticias...</div>
         </div>
 
@@ -220,7 +240,6 @@
             <button class="modo-btn" data-modo="basico">⚡ MODO BÁSICO</button>
         </div>
 
-        <!-- BARRA DE HERRAMIENTAS (10 MECANISMOS) -->
         <div class="tools-bar">
             <button class="tool-btn" id="btnNoticias">📰 Últimas Noticias</button>
             <button class="tool-btn" id="btnClima">🌤️ Clima Hoy</button>
@@ -243,16 +262,15 @@
         </div>
 
         <div class="chat-card">
-            <div class="chat-area" id="chatArea"><div class="message ia-message"><div class="message-bubble">🎤 ¡Hola! Soy tu locutora IA. 24 canciones aleatorias y 10 herramientas tácticas arriba. Pregúntame lo que quieras.</div></div></div>
+            <div class="chat-area" id="chatArea"><div class="message ia-message"><div class="message-bubble">🎤 ¡Hola! Soy tu locutora IA. Conectores: Memoria · Semántico · APIs. 24 canciones aleatorias y 10 herramientas tácticas arriba. Pregúntame lo que quieras.</div></div></div>
             <div class="chat-input-area">
                 <input type="text" class="chat-input" id="chatInput" placeholder="Ej: ¿Qué pasa con la economía hoy?">
                 <button class="send-btn" id="sendChatBtn">🎤 PREGUNTAR</button>
             </div>
-            <div class="context-info" id="contextInfo">📡 Conectando...</div>
-            <div class="restriction-alert" id="restrictionAlert">🤖 IA Avanzada · 24 canciones · 10 herramientas · Texto limpio sin asteriscos</div>
+            <div class="context-info" id="contextInfo">📡 Conectores activos · Buscando información...</div>
+            <div class="restriction-alert" id="restrictionAlert">🤖 IA Avanzada · 24 canciones · Conectores activos · Texto limpio sin asteriscos</div>
         </div>
 
-        <!-- WIDGETS INDEPENDIENTES -->
         <div class="widget-container" id="widgetContainer">
             <div class="widget" id="widgetMetricas">
                 <div class="widget-title">📊 Estación de Radio</div>
@@ -277,6 +295,29 @@
                     </div>
                 </div>
             </div>
+            <div class="widget" id="widgetConectores">
+                <div class="widget-title">🔌 Estado de Conectores</div>
+                <div class="widget-content">
+                    <div class="connector-metrics">
+                        <div class="connector-metric">
+                            <div class="value" id="metricMemoria">0</div>
+                            <div class="label">Memoria</div>
+                        </div>
+                        <div class="connector-metric">
+                            <div class="value" id="metricSemantico">0</div>
+                            <div class="label">Semántico</div>
+                        </div>
+                        <div class="connector-metric">
+                            <div class="value" id="metricAPIs">0</div>
+                            <div class="label">APIs</div>
+                        </div>
+                        <div class="connector-metric">
+                            <div class="value" id="metricContexto">0%</div>
+                            <div class="label">Contexto</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="widget" id="widgetConfianza">
                 <div class="widget-title">🎯 Calidad de Respuesta</div>
                 <div class="widget-content">
@@ -289,17 +330,6 @@
                     </div>
                     <div id="widgetConfianzaDetalle" style="font-size:0.75rem;color:#94a3b8;margin-top:8px;">
                         Basado en claridad y utilidad de la información
-                    </div>
-                </div>
-            </div>
-            <div class="widget" id="widgetFuentes">
-                <div class="widget-title">📚 Fuentes de Información</div>
-                <div class="widget-content">
-                    <div class="sources-list" id="sourcesList">
-                        <div style="color:#94a3b8;font-size:0.75rem;">Fuentes de contenido</div>
-                        <div class="source-item"><span class="source-icon">🌐</span> IA Locutora</div>
-                        <div class="source-item"><span class="source-icon">🎵</span> Biblioteca Musical</div>
-                        <div class="source-item"><span class="source-icon">📰</span> Noticias Globales</div>
                     </div>
                 </div>
             </div>
@@ -316,11 +346,10 @@
             </div>
         </div>
 
-        <!-- METADATOS JSON-LD (oculto) -->
         <div class="metadata-container" id="metadataContainer"></div>
 
         <div class="sponsors"><div class="sponsors-link"><a href="#" target="_blank">🎮 OFERTA 1</a><a href="#" target="_blank">🎲 OFERTA 2</a></div></div>
-        <div class="footer-text" id="footer">⚡ Radio IA Pro · 24 canciones · IA Avanzada · 10 herramientas · Sin markdown</div>
+        <div class="footer-text" id="footer">⚡ Radio IA Pro · Conectores activos · 24 canciones · IA Avanzada · 10 herramientas</div>
     </div>
 
     <button class="vr-button" id="vrModeBtn">🔮 ACTIVAR MODO VR</button>
@@ -329,6 +358,222 @@
     <script src="https://cdn.jsdelivr.net/npm/jsllm7@0.1.0/jsllm7.js"></script>
 
     <script>
+        // ============================================
+        // CONECTOR DE MEMORIA
+        // ============================================
+        
+        class MemoryConnector {
+            constructor() {
+                this.shortTerm = [];
+                this.longTerm = new Map();
+                this.maxShortTerm = 10;
+                this.loadFromStorage();
+            }
+            
+            loadFromStorage() {
+                try {
+                    const data = JSON.parse(localStorage.getItem('radio_memoria') || '{}');
+                    if (data.shortTerm) this.shortTerm = data.shortTerm;
+                    if (data.longTerm) {
+                        this.longTerm = new Map(Object.entries(data.longTerm));
+                    }
+                } catch(e) {}
+            }
+            
+            saveToStorage() {
+                try {
+                    localStorage.setItem('radio_memoria', JSON.stringify({
+                        shortTerm: this.shortTerm,
+                        longTerm: Object.fromEntries(this.longTerm)
+                    }));
+                } catch(e) {}
+            }
+            
+            remember(interaction) {
+                this.shortTerm.push({
+                    ...interaction,
+                    timestamp: Date.now()
+                });
+                if (this.shortTerm.length > this.maxShortTerm) {
+                    this.shortTerm.shift();
+                }
+                this.saveToStorage();
+            }
+            
+            recall(query, limit = 3) {
+                const relevant = this.shortTerm
+                    .filter(item => {
+                        const similarity = this.calculateSimilarity(query, item.query || '');
+                        return similarity > 0.2;
+                    })
+                    .sort((a, b) => b.similarity - a.similarity)
+                    .slice(0, limit);
+                
+                return relevant.map(item => ({
+                    query: item.query,
+                    response: item.response,
+                    similarity: item.similarity
+                }));
+            }
+            
+            calculateSimilarity(a, b) {
+                if (!a || !b) return 0;
+                const wordsA = a.toLowerCase().split(' ');
+                const wordsB = b.toLowerCase().split(' ');
+                const common = wordsA.filter(w => wordsB.includes(w) && w.length > 2);
+                return common.length / Math.max(wordsA.length, wordsB.length);
+            }
+            
+            getStats() {
+                return {
+                    shortTerm: this.shortTerm.length,
+                    longTerm: this.longTerm.size,
+                    total: this.shortTerm.length + this.longTerm.size
+                };
+            }
+        }
+
+        // ============================================
+        // CONECTOR SEMÁNTICO
+        // ============================================
+        
+        class SemanticConnector {
+            constructor() {
+                this.embeddingsCache = new Map();
+                this.similarityThreshold = 0.2;
+            }
+            
+            generateEmbedding(text) {
+                const words = text.toLowerCase()
+                    .replace(/[¿?¡!.,;:]/g, '')
+                    .split(' ')
+                    .filter(w => w.length > 2);
+                
+                const vector = new Map();
+                words.forEach(w => {
+                    vector.set(w, (vector.get(w) || 0) + 1);
+                });
+                return vector;
+            }
+            
+            cosineSimilarity(vecA, vecB) {
+                let dotProduct = 0;
+                let normA = 0;
+                let normB = 0;
+                
+                const keys = new Set([...vecA.keys(), ...vecB.keys()]);
+                keys.forEach(key => {
+                    const a = vecA.get(key) || 0;
+                    const b = vecB.get(key) || 0;
+                    dotProduct += a * b;
+                    normA += a * a;
+                    normB += b * b;
+                });
+                
+                if (normA === 0 || normB === 0) return 0;
+                return dotProduct / (Math.sqrt(normA) * Math.sqrt(normB));
+            }
+            
+            findSimilar(query, candidates) {
+                const queryEmbedding = this.generateEmbedding(query);
+                const results = candidates.map(candidate => ({
+                    ...candidate,
+                    similarity: this.cosineSimilarity(queryEmbedding, this.generateEmbedding(candidate.text || candidate.query || ''))
+                }));
+                
+                return results
+                    .filter(r => r.similarity > this.similarityThreshold)
+                    .sort((a, b) => b.similarity - a.similarity);
+            }
+            
+            getStats() {
+                return {
+                    cacheSize: this.embeddingsCache.size,
+                    threshold: this.similarityThreshold
+                };
+            }
+        }
+
+        // ============================================
+        // CONECTOR DE APIs
+        // ============================================
+        
+        class APIConnector {
+            constructor() {
+                this.endpoints = new Map();
+                this.cache = new Map();
+                this.maxCacheAge = 3600000;
+                this.registerDefaultEndpoints();
+            }
+            
+            registerDefaultEndpoints() {
+                this.registerEndpoint('newsData', {
+                    url: 'https://api.example.com/news',
+                    method: 'GET',
+                    transform: (data) => ({
+                        noticias: data.noticias || [],
+                        ultima_actualizacion: data.ultima_actualizacion || new Date().toISOString()
+                    })
+                });
+            }
+            
+            registerEndpoint(name, config) {
+                this.endpoints.set(name, config);
+            }
+            
+            async call(endpointName, params = {}) {
+                const config = this.endpoints.get(endpointName);
+                if (!config) {
+                    return { error: `Endpoint ${endpointName} no encontrado` };
+                }
+                
+                const cacheKey = `${endpointName}_${JSON.stringify(params)}`;
+                if (this.cache.has(cacheKey)) {
+                    const cached = this.cache.get(cacheKey);
+                    if (Date.now() - cached.timestamp < this.maxCacheAge) {
+                        return cached.data;
+                    }
+                }
+                
+                try {
+                    const mockData = this.generateMockData(endpointName, params);
+                    const result = config.transform ? config.transform(mockData) : mockData;
+                    this.cache.set(cacheKey, {
+                        data: result,
+                        timestamp: Date.now()
+                    });
+                    return result;
+                } catch(e) {
+                    return { error: e.message };
+                }
+            }
+            
+            generateMockData(endpoint, params) {
+                const datos = {
+                    newsData: {
+                        noticias: ['Noticia 1', 'Noticia 2', 'Noticia 3'],
+                        ultima_actualizacion: new Date().toISOString()
+                    }
+                };
+                return datos[endpoint] || {};
+            }
+            
+            getStats() {
+                return {
+                    endpoints: this.endpoints.size,
+                    cacheSize: this.cache.size
+                };
+            }
+        }
+
+        // ============================================
+        // INICIALIZACIÓN DE CONECTORES
+        // ============================================
+        
+        const memoryConnector = new MemoryConnector();
+        const semanticConnector = new SemanticConnector();
+        const apiConnector = new APIConnector();
+
         // ============================================
         // SISTEMA DE CACHÉ SEMÁNTICO
         // ============================================
@@ -345,7 +590,24 @@
                 .join('_');
             return words;
         }
+
+        // ============================================
+        // ACTUALIZAR MÉTRICAS DE CONECTORES
+        // ============================================
         
+        function actualizarMetricasConectores() {
+            const memStats = memoryConnector.getStats();
+            const semStats = semanticConnector.getStats();
+            const apiStats = apiConnector.getStats();
+            
+            document.getElementById('metricMemoria').textContent = memStats.total;
+            document.getElementById('metricSemantico').textContent = semStats.cacheSize;
+            document.getElementById('metricAPIs').textContent = apiStats.endpoints;
+            
+            const contextoPorcentaje = Math.min(100, (memStats.shortTerm * 10) + 20);
+            document.getElementById('metricContexto').textContent = Math.min(contextoPorcentaje, 100) + '%';
+        }
+
         // ============================================
         // LIMPIADOR DE MARKDOWN
         // ============================================
@@ -363,7 +625,7 @@
             limpio = limpio.replace(/\n{3,}/g, '\n\n');
             return limpio.trim();
         }
-        
+
         // ============================================
         // GENERAR METADATOS JSON-LD
         // ============================================
@@ -387,7 +649,7 @@
                 "confidenceScore": confianza
             };
         }
-        
+
         // ============================================
         // ACTUALIZAR WIDGETS
         // ============================================
@@ -396,19 +658,16 @@
         let contadorCancionesEmitidas = 0;
         
         function actualizarWidgets(pregunta, respuesta, cancion) {
-            // Incrementar contadores
             contadorPreguntas++;
             if (cancion && cancion !== 'Cargando...') {
                 contadorCancionesEmitidas++;
             }
             
-            // Actualizar métricas
             const oyentes = Math.floor(100 + Math.random() * 900);
             document.getElementById('metricOyentes').textContent = oyentes;
             document.getElementById('metricCanciones').textContent = contadorCancionesEmitidas;
             document.getElementById('metricPreguntas').textContent = contadorPreguntas;
             
-            // Calcular confianza
             let confianza = 70;
             const words = respuesta.split(/\s+/).filter(w => w.length > 0).length;
             if (words > 50) confianza += 10;
@@ -420,7 +679,6 @@
             document.getElementById('confidenceFill').style.width = confianza + '%';
             document.getElementById('confidenceLabel').textContent = Math.round(confianza) + '%';
             
-            // Actualizar género musical según la canción
             const generoContent = document.getElementById('widgetGeneroContent');
             const generos = ['🎸 Rock', '🎹 Pop', '🎷 Jazz', '🎵 Electrónica', '🎶 Clásica', '🎤 Soul', '🪕 Folk', '🎧 Ambiental'];
             const generoActual = generos[Math.floor(Math.random() * generos.length)];
@@ -435,18 +693,18 @@
                 </div>
             `;
             
-            // Generar metadatos JSON-LD
             const metadatos = generarMetadatos(pregunta, respuesta, cancion, confianza);
             document.getElementById('metadataContainer').innerHTML = `<script type="application/ld+json">${JSON.stringify(metadatos)}<\/script>`;
             
-            // Deep linking
             if (history.pushState && pregunta.length > 5) {
                 const url = new URL(window.location);
                 url.searchParams.set('q', pregunta.substring(0, 80));
                 window.history.pushState({}, '', url);
             }
+            
+            actualizarMetricasConectores();
         }
-        
+
         // ============================================
         // SISTEMA DE CACHÉ
         // ============================================
@@ -477,7 +735,7 @@
             if (!goDisponible) return;
             try { fetch(`${GO_URL}/aprender?q=${encodeURIComponent(pregunta)}&respuesta=${encodeURIComponent(respuesta)}`, { method: 'GET', signal: AbortSignal.timeout(2000) }).catch(() => {}); } catch(e) {}
         }
-        
+
         // ============================================
         // DATOS Y CONFIGURACIÓN
         // ============================================
@@ -521,12 +779,28 @@
         async function generarRespuestaRadio(pregunta, cancion, modo) {
             const semanticKey = getSemanticKey(pregunta);
             
-            // Verificar caché semántico
+            // 1. Verificar caché semántico
             if (semanticCache.has(semanticKey)) {
                 const cached = semanticCache.get(semanticKey);
                 if (Date.now() - cached.timestamp < 7200000) {
                     return cached.data;
                 }
+            }
+            
+            // 2. Buscar en memoria preguntas similares
+            const memoriaSimilar = memoryConnector.recall(pregunta, 2);
+            let contextoMemoria = '';
+            if (memoriaSimilar.length > 0) {
+                contextoMemoria = '\n\n[Contexto de memoria:] ' + memoriaSimilar.map(m => 
+                    `Pregunta similar anterior: "${m.query}" → "${m.response.substring(0, 80)}..."`
+                ).join(' ');
+            }
+            
+            // 3. Consultar API para datos de noticias
+            const apiData = await apiConnector.call('newsData');
+            let contextoAPI = '';
+            if (!apiData.error) {
+                contextoAPI = `\n\n[Datos de noticias externos:] ${apiData.noticias?.join(', ') || ''}`;
             }
             
             const cacheKey = _hash(pregunta + modo);
@@ -550,13 +824,17 @@
             
             for (let i = 0; i < Math.min(nodes.length, 8); i++) {
                 const pais = nodes[i];
-                const prompt = `[RESPONDE EXCLUSIVAMENTE EN ESPAÑOL. NO USES ASTERISCOS.]
+                let prompt = `[RESPONDE EXCLUSIVAMENTE EN ESPAÑOL. NO USES ASTERISCOS.]
 
 Eres una locutora de radio cálida y profesional de ${pais}. Canción actual: "${cancion}".
 
-Oyente pregunta: "${pregunta}"
-
-Responde en español de forma cálida y cercana. Mínimo 50 palabras. NO uses asteriscos ni markdown.
+Oyente pregunta: "${pregunta}"`;
+                
+                // Añadir contexto de conectores
+                if (contextoMemoria) prompt += `\n${contextoMemoria}`;
+                if (contextoAPI) prompt += `\n${contextoAPI}`;
+                
+                prompt += `\n\nResponde en español de forma cálida y cercana. Mínimo 50 palabras. NO uses asteriscos ni markdown.
 
 RESPUESTA:`;
                 
@@ -565,6 +843,15 @@ RESPUESTA:`;
                     _guardarCacheLocal(cacheKey, respuestaIA);
                     guardarEnCacheOculto(pregunta, respuestaIA);
                     semanticCache.set(semanticKey, { data: respuestaIA, timestamp: Date.now() });
+                    
+                    // Guardar en memoria
+                    memoryConnector.remember({
+                        query: pregunta,
+                        response: respuestaIA,
+                        pais: pais,
+                        cancion: cancion
+                    });
+                    actualizarMetricasConectores();
                     return respuestaIA;
                 }
             }
@@ -572,7 +859,7 @@ RESPUESTA:`;
             semanticCache.set(semanticKey, { data: fallback, timestamp: Date.now() });
             return fallback;
         }
-        
+
         // ============================================
         // UI PRINCIPAL
         // ============================================
@@ -615,8 +902,11 @@ RESPUESTA:`;
             modal.querySelector('.modal-close').onclick = () => modal.remove();
             document.body.appendChild(modal);
         }
+
+        // ============================================
+        // HISTORIAL
+        // ============================================
         
-        // Historial
         let historial = JSON.parse(localStorage.getItem('radio_historial') || '[]');
         
         function guardarEnHistorial(pregunta) {
@@ -657,7 +947,7 @@ RESPUESTA:`;
         const currentSongSpan = document.getElementById('currentSong');
         const synth = window.speechSynthesis;
 
-        function addMessage(text, isUser, preguntaAsociada = null, respuestaAsociada = null) {
+        function addMessage(text, isUser) {
             const d = document.createElement('div');
             d.className = `message ${isUser ? 'user-message' : 'ia-message'}`;
             const b = document.createElement('div');
@@ -696,10 +986,7 @@ RESPUESTA:`;
             const respuesta = await generarRespuesta(q);
             removeTyping();
             addMessage(respuesta, false);
-            
-            // Actualizar widgets
             actualizarWidgets(q, respuesta, cancionActualNombre);
-            
             if (vozActivada) await hablar(respuesta);
             procesandoRespuesta = false;
             sendBtn.disabled = false;
@@ -760,7 +1047,7 @@ RESPUESTA:`;
         });
         
         document.getElementById('activarVozBtn').addEventListener('click', activarVoz);
-        
+
         // ============================================
         // DEEP LINKING - CARGAR PREGUNTA DESDE URL
         // ============================================
@@ -775,7 +1062,7 @@ RESPUESTA:`;
         }
         
         cargarDesdeURL();
-        
+
         // ============================================
         // 10 HERRAMIENTAS RADIO
         // ============================================
@@ -789,13 +1076,11 @@ RESPUESTA:`;
             if (vozActivada && respuesta) await hablar(respuesta.substring(0, 300));
         }
         
-        // 1. Últimas Noticias
         async function ultimasNoticias() {
             const prompt = `Genera un resumen de las 5 noticias más importantes de hoy (fecha actual: ${new Date().toLocaleDateString()}). Incluye política, economía, tecnología y medio ambiente. Formato: titular breve y 1 línea de detalle. Sin asteriscos.`;
             await herramientaGenerica(prompt, "📰 ÚLTIMAS NOTICIAS");
         }
         
-        // 2. Clima Hoy
         async function climaHoy() {
             const ciudad = prompt("¿Ciudad para el clima? (Ej: Madrid, Buenos Aires, Ciudad de México):", "Madrid");
             if (!ciudad) return;
@@ -803,7 +1088,6 @@ RESPUESTA:`;
             await herramientaGenerica(prompt, `🌤️ CLIMA EN ${ciudad.toUpperCase()}`);
         }
         
-        // 3. Horóscopo
         async function horoscopo() {
             const signo = prompt("¿Tu signo zodiacal? (Aries, Tauro, Géminis, Cáncer, Leo, Virgo, Libra, Escorpio, Sagitario, Capricornio, Acuario, Piscis):", "Leo");
             if (!signo) return;
@@ -811,13 +1095,11 @@ RESPUESTA:`;
             await herramientaGenerica(prompt, `✨ HORÓSCOPO PARA ${signo.toUpperCase()}`);
         }
         
-        // 4. Efemérides
         async function efemerides() {
             const prompt = `Genera 5 efemérides importantes que ocurrieron hoy (${new Date().toLocaleDateString()}). Incluye eventos históricos, nacimientos y curiosidades. Formato: año + evento breve. Sin asteriscos.`;
             await herramientaGenerica(prompt, "📅 EFEMÉRIDES DEL DÍA");
         }
         
-        // 5. Pedir Canción
         async function pedirCancion() {
             const cancion = prompt("¿Qué canción te gustaría escuchar o dedicar?", "una canción alegre");
             if (!cancion) return;
@@ -830,19 +1112,16 @@ RESPUESTA:`;
             if (vozActivada && respuesta) await hablar(respuesta);
         }
         
-        // 6. Chiste del Día
         async function chisteDia() {
             const prompt = `Cuenta un chiste corto y gracioso para empezar el día con humor. Debe ser apto para todo público. Sin asteriscos.`;
             await herramientaGenerica(prompt, "😄 CHISTE DEL DÍA");
         }
         
-        // 7. Dato Curioso
         async function datoCurioso() {
             const prompt = `Comparte un dato curioso e interesante sobre ciencia, historia o naturaleza. Debe ser sorprendente pero verdadero. Sin asteriscos.`;
             await herramientaGenerica(prompt, "💡 DATO CURIOSO");
         }
         
-        // 8. Consejo Práctico
         async function consejosPracticos() {
             const categoria = prompt("¿Consejo sobre? (salud, finanzas, relaciones, productividad, cocina):", "productividad");
             if (!categoria) return;
@@ -850,19 +1129,16 @@ RESPUESTA:`;
             await herramientaGenerica(prompt, `🍳 CONSEJOS DE ${categoria.toUpperCase()}`);
         }
         
-        // 9. Historia del Día
         async function historiaDia() {
             const prompt = `Cuenta una historia corta e inspiradora para el día de hoy. Puede ser una anécdota real o una enseñanza con moraleja. Máximo 200 palabras. Sin asteriscos.`;
             await herramientaGenerica(prompt, "📖 HISTORIA DEL DÍA");
         }
         
-        // 10. Frase Inspiradora
         async function fraseInspiradora() {
             const prompt = `Comparte una frase inspiradora de algún personaje famoso. Incluye quién la dijo y una breve reflexión sobre su significado. Sin asteriscos.`;
             await herramientaGenerica(prompt, "💭 FRASE INSPIRADORA");
         }
         
-        // Asignar botones
         document.getElementById('btnNoticias').onclick = ultimasNoticias;
         document.getElementById('btnClima').onclick = climaHoy;
         document.getElementById('btnHoroscopo').onclick = horoscopo;
@@ -873,19 +1149,21 @@ RESPUESTA:`;
         document.getElementById('btnConsejos').onclick = consejosPracticos;
         document.getElementById('btnHistoria').onclick = historiaDia;
         document.getElementById('btnFrases').onclick = fraseInspiradora;
+
+        // ============================================
+        // INICIALIZACIÓN
+        // ============================================
         
-        // Inicialización
         function iniciar() {
             cargarCancionAleatoria();
             const dias = ["DOMINGO", "LUNES", "MARTES", "MIÉRCOLES", "JUEVES", "VIERNES", "SÁBADO"];
             const hoy = new Date();
-            document.getElementById('footer').innerHTML = `⚡ Radio IA Pro · ${hoy.toLocaleDateString('es-ES')} · 24 canciones · IA Avanzada · 10 herramientas · Sin markdown`;
-            document.getElementById('dailyTip').innerHTML = `🎤 ${dias[hoy.getDay()]} · Disfruta la mejor música · 10 herramientas tácticas · Widgets inteligentes`;
-            document.getElementById('contextInfo').innerHTML = '🎙️ IA avanzada · Música 24/7 · 10 herramientas arriba · Texto limpio sin asteriscos';
+            document.getElementById('footer').innerHTML = `⚡ Radio IA Pro · ${hoy.toLocaleDateString('es-ES')} · Conectores activos · 24 canciones · IA Avanzada · 10 herramientas`;
+            document.getElementById('dailyTip').innerHTML = `🎤 ${dias[hoy.getDay()]} · Disfruta la mejor música · Conectores: Memoria · Semántico · APIs`;
+            document.getElementById('contextInfo').innerHTML = '🎙️ Conectores activos · Música 24/7 · 10 herramientas arriba · Texto limpio sin asteriscos';
             actualizarSidebarHistorial();
-            
-            // Inicializar widgets con datos por defecto
-            actualizarWidgets('Bienvenida', 'Radio IA Pro lista para responder tus preguntas', cancionActualNombre);
+            actualizarMetricasConectores();
+            actualizarWidgets('Bienvenida', 'Radio IA Pro lista para responder tus preguntas con conectores', cancionActualNombre);
         }
         
         iniciar();
@@ -894,7 +1172,7 @@ RESPUESTA:`;
         const check = setInterval(() => { 
             if (typeof jsllm7 !== 'undefined') { 
                 clearInterval(check); 
-                showToast("✅ IA avanzada lista · 10 herramientas disponibles · Locutora IA activa"); 
+                showToast("✅ IA avanzada lista · Conectores activos · 10 herramientas disponibles · Locutora IA activa"); 
             } else if (intentos > 30) clearInterval(check); 
             intentos++; 
         }, 500);
