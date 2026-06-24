@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <meta name="referrer" content="no-referrer-when-downgrade" />
-    <title>Radio IA Pro · Noticias REALES · Música · IA Avanzada + Conectores</title>
+    <title>Radio IA Pro · Música · Locutora IA · Conectores</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Segoe UI', system-ui, sans-serif; background: linear-gradient(135deg, #0a0f1e 0%, #0c1222 100%); color: #eef2ff; min-height: 100vh; padding: 1rem; overflow-x: hidden; }
@@ -13,17 +13,17 @@
         h1 { font-size: 2rem; background: linear-gradient(135deg, #FFD166, #FF6B6B, #4ECDC4, #8B5CF6); -webkit-background-clip: text; background-clip: text; color: transparent; }
         .sub { color: #94a3b8; margin-top: 0.5rem; font-size: 0.7rem; }
         .live-badge { background: #10b981; color: white; padding: 2px 10px; border-radius: 20px; font-size: 0.6rem; margin-left: 10px; display: inline-block; animation: pulse 1.5s infinite; }
+        .badge-termux { background: #8b5cf6; color: white; padding: 2px 10px; border-radius: 20px; font-size: 0.6rem; margin-left: 10px; font-weight: bold; display: inline-block; }
         @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.6; } }
         .modo-selector { display: flex; justify-content: flex-end; gap: 10px; margin-bottom: 15px; }
         .modo-btn { background: #1e293b; border: 1px solid #334155; padding: 4px 12px; border-radius: 20px; font-size: 0.7rem; cursor: pointer; font-weight: 600; color: #94a3b8; }
         .modo-btn.active { background: #8b5cf6; color: white; border-color: #8b5cf6; }
-        
         .tools-bar { display: flex; flex-wrap: wrap; gap: 8px; margin: 15px 0; justify-content: center; }
         .tool-btn { background: #1e293b; border: 1px solid #334155; padding: 6px 12px; border-radius: 20px; font-size: 0.65rem; cursor: pointer; font-weight: 500; color: #94a3b8; transition: 0.2s; }
         .tool-btn:hover { background: #8b5cf6; color: white; border-color: #8b5cf6; transform: scale(1.02); }
-        
+        .tool-btn.jsllm7 { border-color: #8b5cf6; color: #a78bfa; background: #1e293b; }
+        .tool-btn.jsllm7:hover { background: #8b5cf6; color: white; }
         .daily-tip { background: rgba(139, 92, 246, 0.15); border-radius: 2rem; padding: 0.6rem 1.2rem; margin: 0.8rem auto; text-align: center; max-width: 90%; font-size: 0.75rem; border: 1px solid rgba(96,165,250,0.3); }
-        .news-ticker { background: rgba(0,0,0,0.3); border-radius: 2rem; padding: 0.4rem 1rem; margin: 0.5rem auto; font-size: 0.7rem; text-align: center; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
         .player-card { background: rgba(30, 41, 59, 0.8); backdrop-filter: blur(10px); border-radius: 1.5rem; padding: 1.5rem; border: 1px solid rgba(139, 92, 246, 0.3); margin-bottom: 1.5rem; text-align: center; }
         .radio-name { font-size: 1.5rem; font-weight: bold; background: linear-gradient(135deg, #FFD166, #FF6B6B); -webkit-background-clip: text; background-clip: text; color: transparent; }
         audio { width: 100%; border-radius: 1rem; margin: 1rem 0; }
@@ -34,16 +34,13 @@
         .now-playing { background: rgba(30, 41, 59, 0.6); border-radius: 1rem; padding: 0.8rem; margin-top: 0.5rem; }
         .song-title { font-weight: bold; color: #e9c46a; }
         .chat-card { background: rgba(30, 41, 59, 0.8); backdrop-filter: blur(10px); border-radius: 1.5rem; padding: 1.5rem; border: 1px solid rgba(139, 92, 246, 0.3); margin-bottom: 1.5rem; }
-        .chat-area { background: rgba(15, 23, 42, 0.6); border-radius: 1rem; padding: 1rem; height: 200px; overflow-y: auto; margin-bottom: 1rem; }
+        .chat-area { background: rgba(15, 23, 42, 0.6); border-radius: 1rem; padding: 1rem; height: 250px; overflow-y: auto; margin-bottom: 1rem; }
         .message { margin-bottom: 0.8rem; display: flex; flex-direction: column; }
         .user-message { align-items: flex-end; }
         .ia-message { align-items: flex-start; }
         .message-bubble { max-width: 80%; padding: 0.5rem 1rem; border-radius: 1rem; font-size: 0.8rem; white-space: pre-wrap; line-height: 1.4; }
         .user-message .message-bubble { background: linear-gradient(90deg, #3b82f6, #8b5cf6); border-bottom-right-radius: 0.2rem; }
         .ia-message .message-bubble { background: #1e293b; border: 1px solid #8b5cf6; border-bottom-left-radius: 0.2rem; }
-        .feedback-buttons { display: flex; gap: 10px; margin-top: 8px; justify-content: flex-start; }
-        .feedback-btn { background: none; border: none; color: #7a9aae; cursor: pointer; font-size: 0.65rem; padding: 2px 8px; border-radius: 15px; transition: 0.2s; }
-        .feedback-btn:hover { background: #334155; color: #e9c46a; }
         .chat-input-area { display: flex; gap: 0.5rem; }
         .chat-input { flex: 1; padding: 0.6rem 1rem; background: #1e293b; border: 1px solid #334155; border-radius: 2rem; color: white; font-size: 0.75rem; font-family: inherit; outline: none; }
         .send-btn { background: linear-gradient(90deg, #8b5cf6, #3b82f6); border: none; padding: 0 1.2rem; border-radius: 2rem; color: white; cursor: pointer; font-size: 0.75rem; }
@@ -51,1193 +48,737 @@
         .context-info { background: rgba(139,92,246,0.1); border-radius: 1rem; padding: 0.5rem; margin: 0.5rem 0; font-size: 0.65rem; color: #a5b4fc; text-align: center; }
         .restriction-alert { background: rgba(139, 92, 246, 0.15); border: 1px solid #8b5cf6; border-radius: 0.8rem; padding: 0.5rem 1rem; margin-top: 1rem; font-size: 0.7rem; text-align: center; color: #a78bfa; }
         .footer-text { text-align: center; margin-top: 2rem; font-size: 0.7rem; color: #64748b; }
-        .vr-button { position: fixed; bottom: 20px; right: 20px; background: linear-gradient(135deg, #f59e0b, #d97706); border: none; padding: 12px 20px; border-radius: 40px; color: white; font-weight: bold; cursor: pointer; z-index: 100; box-shadow: 0 0 15px rgba(245,158,11,0.5); transition: transform 0.2s; }
-        .vr-button:hover { transform: scale(1.05); }
+        .vr-button { position: fixed; bottom: 20px; right: 20px; background: linear-gradient(135deg, #f59e0b, #d97706); border: none; padding: 12px 20px; border-radius: 40px; color: white; font-weight: bold; cursor: pointer; z-index: 100; box-shadow: 0 0 15px rgba(245,158,11,0.5); }
         .vr-mode { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 1000; display: none; background: #0a0f1e; }
         .vr-mode.active { display: block; }
         .close-vr { position: fixed; top: 20px; right: 20px; background: rgba(0,0,0,0.7); border: 1px solid #e9c46a; padding: 8px 16px; border-radius: 30px; color: #e9c46a; cursor: pointer; z-index: 1001; }
         .toast-msg { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: #10b981; color: white; padding: 8px 20px; border-radius: 50px; font-size: 0.8rem; z-index: 2000; animation: fadeOut 2s forwards; }
         @keyframes fadeOut { 0% { opacity: 1; } 70% { opacity: 1; } 100% { opacity: 0; visibility: hidden; } }
-        .sponsors { text-align: center; margin: 20px 0 10px 0; padding: 8px; }
-        .sponsors-link { display: inline-flex; gap: 8px; flex-wrap: wrap; justify-content: center; }
-        .sponsors-link a { background: rgba(255,255,255,0.08); padding: 4px 12px; border-radius: 20px; text-decoration: none; font-size: 0.65rem; color: #94a3b8; border: 1px solid rgba(255,255,255,0.1); }
         .loading-spinner { display: inline-block; width: 12px; height: 12px; border: 2px solid rgba(255,255,255,0.3); border-top-color: white; border-radius: 50%; animation: spin 0.6s linear infinite; margin-right: 6px; vertical-align: middle; }
         @keyframes spin { to { transform: rotate(360deg); } }
         .aleatorio-badge { background: #8b5cf6; padding: 2px 8px; border-radius: 20px; font-size: 0.55rem; margin-left: 8px; display: inline-block; }
-        
-        .widget-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin: 15px 0;
-        }
-        
-        .widget {
-            background: rgba(30, 41, 59, 0.9);
-            border: 1px solid #8b5cf6;
-            border-radius: 12px;
-            padding: 15px;
-            transition: all 0.3s;
-            backdrop-filter: blur(10px);
-        }
-        
-        .widget:hover {
-            border-color: #a78bfa;
-            box-shadow: 0 8px 20px rgba(139, 92, 246, 0.1);
-            transform: translateY(-2px);
-        }
-        
-        .widget-title {
-            font-weight: 700;
-            color: #a78bfa;
-            font-size: 0.8rem;
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        
-        .widget-content {
-            font-size: 0.85rem;
-            line-height: 1.6;
-            color: #eef2ff;
-        }
-        
-        .widget-confidence {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-top: 10px;
-            padding: 8px;
-            background: rgba(0,0,0,0.3);
-            border-radius: 8px;
-        }
-        
-        .confidence-bar {
-            flex: 1;
-            height: 4px;
-            background: #1e293b;
-            border-radius: 2px;
-            overflow: hidden;
-        }
-        
-        .confidence-fill {
-            height: 100%;
-            background: linear-gradient(90deg, #f59e0b, #10b981);
-            transition: width 1s ease;
-            width: 0%;
-        }
-        
-        .confidence-label {
-            font-size: 0.7rem;
-            color: #b0c4de;
-            min-width: 40px;
-        }
-        
-        .metrics-grid-widget {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 8px;
-            margin-top: 10px;
-        }
-        
-        .metric-item-widget {
-            background: rgba(0,0,0,0.3);
-            padding: 8px;
-            border-radius: 8px;
-            text-align: center;
-        }
-        
-        .metric-value-widget {
-            font-size: 1.2rem;
-            font-weight: bold;
-            color: #a78bfa;
-        }
-        
-        .metric-label-widget {
-            font-size: 0.6rem;
-            color: #94a3b8;
-        }
-        
-        /* Métricas de conectores */
-        .connector-metrics {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 8px;
-            margin-top: 10px;
-        }
-        .connector-metric {
-            background: rgba(0,0,0,0.3);
-            padding: 6px;
-            border-radius: 6px;
-            text-align: center;
-        }
-        .connector-metric .value {
-            font-size: 1rem;
-            font-weight: bold;
-            color: #a78bfa;
-        }
-        .connector-metric .label {
-            font-size: 0.55rem;
-            color: #94a3b8;
-        }
-        
-        .sources-list {
-            margin-top: 10px;
-            padding: 10px;
-            background: rgba(0,0,0,0.2);
-            border-radius: 8px;
-            font-size: 0.7rem;
-        }
-        
-        .source-item {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 4px 0;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-        }
-        
-        .source-item:last-child { border-bottom: none; }
-        .source-icon { font-size: 0.8rem; }
-        
-        .metadata-container { display: none; }
-        
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 2000; display: flex; align-items: center; justify-content: center; }
         .modal-content { background: #0f172a; border-radius: 1.5rem; max-width: 600px; width: 90%; max-height: 80vh; overflow-y: auto; padding: 1.5rem; border: 2px solid #8b5cf6; }
         .modal-content h3 { color: #a78bfa; margin-bottom: 1rem; }
         .modal-close { margin-top: 1rem; background: #8b5cf6; border: none; padding: 0.5rem 1rem; border-radius: 2rem; color: white; cursor: pointer; }
-        
-        #sidebarHistorial { position: fixed; left: 10px; top: 100px; background: #1e293b; border-radius: 1rem; padding: 0.8rem; width: 180px; z-index: 1000; font-size: 0.65rem; border: 1px solid #8b5cf6; backdrop-filter: blur(10px); max-height: 80vh; overflow-y: auto; }
-        #sidebarHistorial strong { color: #a78bfa; }
-        #sidebarHistorial hr { margin: 5px 0; border-color: #334155; }
-        .historial-item { background: none; border: none; color: #94a3b8; cursor: pointer; display: block; margin: 5px 0; text-align: left; width: 100%; font-size: 0.6rem; padding: 4px; border-radius: 8px; }
-        .historial-item:hover { background: #334155; color: #a78bfa; }
-        
-        @media (max-width: 700px) { 
-            .chat-input-area { flex-direction: column; } 
-            .send-btn { padding: 0.8rem; } 
-            .news-ticker { white-space: normal; } 
-            .modo-selector { justify-content: center; } 
-            #sidebarHistorial { display: none; }
-            .widget-container { grid-template-columns: 1fr; }
-            .connector-metrics { grid-template-columns: 1fr 1fr; }
-        }
+        .widget-container { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 15px 0; }
+        .widget { background: rgba(30, 41, 59, 0.9); border: 1px solid #8b5cf6; border-radius: 12px; padding: 15px; backdrop-filter: blur(10px); }
+        .widget-title { font-weight: 700; color: #a78bfa; font-size: 0.8rem; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+        .widget-content { font-size: 0.85rem; line-height: 1.6; color: #eef2ff; }
+        .metrics-grid-widget { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 10px; }
+        .metric-item-widget { background: rgba(0,0,0,0.3); padding: 8px; border-radius: 8px; text-align: center; }
+        .metric-value-widget { font-size: 1.2rem; font-weight: bold; color: #a78bfa; }
+        .metric-label-widget { font-size: 0.6rem; color: #94a3b8; }
+        .connector-metrics { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 10px; }
+        .connector-metric { background: rgba(0,0,0,0.3); padding: 6px; border-radius: 6px; text-align: center; }
+        .connector-metric .value { font-size: 1rem; font-weight: bold; color: #a78bfa; }
+        .connector-metric .label { font-size: 0.55rem; color: #94a3b8; }
+        #jsllm7WidgetStatus { font-size: 0.65rem; color: #94a3b8; margin-top: 8px; }
+        @media (max-width: 700px) { .chat-input-area { flex-direction: column; } .send-btn { padding: 0.8rem; } .widget-container { grid-template-columns: 1fr; } .connector-metrics { grid-template-columns: 1fr 1fr; } }
     </style>
 </head>
 <body>
 
-    <div class="normal-mode" id="normalMode">
-        <div class="header">
-            <h1>🎙️ Radio IA Pro <span class="ia-badge">CONECTORES</span><span class="live-badge" id="liveBadge">🌐 EN VIVO</span><span class="aleatorio-badge">🎲 24 CANCIONES</span></h1>
-            <div class="sub" id="subHeader">Noticias REALES · Música · Locutora IA · Conectores: Memoria · Semántico · APIs</div>
-            <div class="daily-tip" id="dailyTip">🎤 La información es poder, la música es alma. · Conectores activos</div>
-            <div class="news-ticker" id="newsTicker">🌐 Conectando a fuentes de noticias...</div>
-        </div>
-
-        <div class="modo-selector">
-            <button class="modo-btn active" data-modo="experto">🧠 MODO EXPERTO</button>
-            <button class="modo-btn" data-modo="basico">⚡ MODO BÁSICO</button>
-        </div>
-
-        <div class="tools-bar">
-            <button class="tool-btn" id="btnNoticias">📰 Últimas Noticias</button>
-            <button class="tool-btn" id="btnClima">🌤️ Clima Hoy</button>
-            <button class="tool-btn" id="btnHoroscopo">✨ Horóscopo</button>
-            <button class="tool-btn" id="btnEfemerides">📅 Efemérides</button>
-            <button class="tool-btn" id="btnCancion">🎵 Pedir Canción</button>
-            <button class="tool-btn" id="btnChiste">😄 Chiste del Día</button>
-            <button class="tool-btn" id="btnDatos">💡 Dato Curioso</button>
-            <button class="tool-btn" id="btnConsejos">🍳 Consejo Práctico</button>
-            <button class="tool-btn" id="btnHistoria">📖 Historia del Día</button>
-            <button class="tool-btn" id="btnFrases">💭 Frase Inspiradora</button>
-        </div>
-
-        <div class="player-card">
-            <div class="radio-name">📻 RADIO IA PRO · INFORMACIÓN Y MÚSICA</div>
-            <audio id="radioPlayer" controls autoplay></audio>
-            <div class="locutor-status"><span class="speaking-indicator" id="speakingIndicator" style="display:none;"></span><span id="locutorStatus">🎙️ Locutora IA: En espera...</span></div>
-            <button class="btn-voz" id="activarVozBtn">🔊 Activar Voz</button>
-            <div class="now-playing"><span class="song-title">🎵 Ahora suena:</span> <span id="currentSong">Cargando...</span></div>
-        </div>
-
-        <div class="chat-card">
-            <div class="chat-area" id="chatArea"><div class="message ia-message"><div class="message-bubble">🎤 ¡Hola! Soy tu locutora IA. Conectores: Memoria · Semántico · APIs. 24 canciones aleatorias y 10 herramientas tácticas arriba. Pregúntame lo que quieras.</div></div></div>
-            <div class="chat-input-area">
-                <input type="text" class="chat-input" id="chatInput" placeholder="Ej: ¿Qué pasa con la economía hoy?">
-                <button class="send-btn" id="sendChatBtn">🎤 PREGUNTAR</button>
-            </div>
-            <div class="context-info" id="contextInfo">📡 Conectores activos · Buscando información...</div>
-            <div class="restriction-alert" id="restrictionAlert">🤖 IA Avanzada · 24 canciones · Conectores activos · Texto limpio sin asteriscos</div>
-        </div>
-
-        <div class="widget-container" id="widgetContainer">
-            <div class="widget" id="widgetMetricas">
-                <div class="widget-title">📊 Estación de Radio</div>
-                <div class="widget-content">
-                    <div class="metrics-grid-widget">
-                        <div class="metric-item-widget">
-                            <div class="metric-value-widget" id="metricOyentes">0</div>
-                            <div class="metric-label-widget">Oyentes Activos</div>
-                        </div>
-                        <div class="metric-item-widget">
-                            <div class="metric-value-widget" id="metricCanciones">0</div>
-                            <div class="metric-label-widget">Canciones Emitidas</div>
-                        </div>
-                        <div class="metric-item-widget">
-                            <div class="metric-value-widget" id="metricPreguntas">0</div>
-                            <div class="metric-label-widget">Preguntas Respondidas</div>
-                        </div>
-                        <div class="metric-item-widget">
-                            <div class="metric-value-widget" id="metricHerramientas">10</div>
-                            <div class="metric-label-widget">Herramientas IA</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="widget" id="widgetConectores">
-                <div class="widget-title">🔌 Estado de Conectores</div>
-                <div class="widget-content">
-                    <div class="connector-metrics">
-                        <div class="connector-metric">
-                            <div class="value" id="metricMemoria">0</div>
-                            <div class="label">Memoria</div>
-                        </div>
-                        <div class="connector-metric">
-                            <div class="value" id="metricSemantico">0</div>
-                            <div class="label">Semántico</div>
-                        </div>
-                        <div class="connector-metric">
-                            <div class="value" id="metricAPIs">0</div>
-                            <div class="label">APIs</div>
-                        </div>
-                        <div class="connector-metric">
-                            <div class="value" id="metricContexto">0%</div>
-                            <div class="label">Contexto</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="widget" id="widgetConfianza">
-                <div class="widget-title">🎯 Calidad de Respuesta</div>
-                <div class="widget-content">
-                    <div class="widget-confidence">
-                        <span style="font-size:0.8rem;">📊</span>
-                        <div class="confidence-bar">
-                            <div class="confidence-fill" id="confidenceFill" style="width:0%"></div>
-                        </div>
-                        <span class="confidence-label" id="confidenceLabel">0%</span>
-                    </div>
-                    <div id="widgetConfianzaDetalle" style="font-size:0.75rem;color:#94a3b8;margin-top:8px;">
-                        Basado en claridad y utilidad de la información
-                    </div>
-                </div>
-            </div>
-            <div class="widget" id="widgetGenero">
-                <div class="widget-title">🎭 Género Musical Actual</div>
-                <div class="widget-content" id="widgetGeneroContent">
-                    <div style="color:#94a3b8;font-size:0.75rem;">Detectando género musical</div>
-                    <div style="display:flex;gap:10px;margin-top:10px;flex-wrap:wrap;">
-                        <span style="background:#1e293b;padding:4px 10px;border-radius:15px;font-size:0.7rem;border:1px solid #8b5cf6;">🎸 Rock</span>
-                        <span style="background:#1e293b;padding:4px 10px;border-radius:15px;font-size:0.7rem;border:1px solid #8b5cf6;">🎹 Pop</span>
-                        <span style="background:#1e293b;padding:4px 10px;border-radius:15px;font-size:0.7rem;border:1px solid #8b5cf6;">🎷 Jazz</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="metadata-container" id="metadataContainer"></div>
-
-        <div class="sponsors"><div class="sponsors-link"><a href="#" target="_blank">🎮 OFERTA 1</a><a href="#" target="_blank">🎲 OFERTA 2</a></div></div>
-        <div class="footer-text" id="footer">⚡ Radio IA Pro · Conectores activos · 24 canciones · IA Avanzada · 10 herramientas</div>
+<div class="normal-mode" id="normalMode">
+    <div class="header">
+        <h1>🎙️ Radio IA Pro <span class="ia-badge">CONECTORES</span><span class="live-badge" id="liveBadge">🌐 EN VIVO</span><span class="badge-termux">🔌 TERMUX</span><span class="aleatorio-badge">🎲 24 CANCIONES</span></h1>
+        <div class="sub" id="subHeader">Música · Locutora IA · Conectores: Memoria · Semántico · APIs · jsllm7 404M</div>
+        <div class="daily-tip" id="dailyTip">🎤 La música es el alma · Conectores activos</div>
     </div>
 
-    <button class="vr-button" id="vrModeBtn">🔮 ACTIVAR MODO VR</button>
-    <div class="vr-mode" id="vrMode"><button class="close-vr" id="closeVrBtn">✕ SALIR DE VR</button><div id="vrContainer" style="width:100%;height:100%"></div></div>
+    <div class="modo-selector">
+        <button class="modo-btn active" data-modo="experto">🧠 MODO EXPERTO</button>
+        <button class="modo-btn" data-modo="basico">⚡ MODO BÁSICO</button>
+    </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/jsllm7@0.1.0/jsllm7.js"></script>
+    <div class="tools-bar">
+        <button class="tool-btn" id="btnNoticias">📰 Noticias</button>
+        <button class="tool-btn" id="btnClima">🌤️ Clima</button>
+        <button class="tool-btn" id="btnCancion">🎵 Pedir Canción</button>
+        <button class="tool-btn" id="btnChiste">😄 Chiste</button>
+        <button class="tool-btn" id="btnDatos">💡 Dato Curioso</button>
+        <button class="tool-btn" id="btnFrases">💭 Frase</button>
+        <button class="tool-btn jsllm7" id="btnTermuxStatus">🔌 Estado jsllm7</button>
+    </div>
 
-    <script>
-        // ============================================
-        // CONECTOR DE MEMORIA
-        // ============================================
-        
-        class MemoryConnector {
-            constructor() {
-                this.shortTerm = [];
-                this.longTerm = new Map();
-                this.maxShortTerm = 10;
-                this.loadFromStorage();
-            }
-            
-            loadFromStorage() {
-                try {
-                    const data = JSON.parse(localStorage.getItem('radio_memoria') || '{}');
-                    if (data.shortTerm) this.shortTerm = data.shortTerm;
-                    if (data.longTerm) {
-                        this.longTerm = new Map(Object.entries(data.longTerm));
-                    }
-                } catch(e) {}
-            }
-            
-            saveToStorage() {
-                try {
-                    localStorage.setItem('radio_memoria', JSON.stringify({
-                        shortTerm: this.shortTerm,
-                        longTerm: Object.fromEntries(this.longTerm)
-                    }));
-                } catch(e) {}
-            }
-            
-            remember(interaction) {
-                this.shortTerm.push({
-                    ...interaction,
-                    timestamp: Date.now()
-                });
-                if (this.shortTerm.length > this.maxShortTerm) {
-                    this.shortTerm.shift();
-                }
-                this.saveToStorage();
-            }
-            
-            recall(query, limit = 3) {
-                const relevant = this.shortTerm
-                    .filter(item => {
-                        const similarity = this.calculateSimilarity(query, item.query || '');
-                        return similarity > 0.2;
-                    })
-                    .sort((a, b) => b.similarity - a.similarity)
-                    .slice(0, limit);
-                
-                return relevant.map(item => ({
-                    query: item.query,
-                    response: item.response,
-                    similarity: item.similarity
-                }));
-            }
-            
-            calculateSimilarity(a, b) {
-                if (!a || !b) return 0;
-                const wordsA = a.toLowerCase().split(' ');
-                const wordsB = b.toLowerCase().split(' ');
-                const common = wordsA.filter(w => wordsB.includes(w) && w.length > 2);
-                return common.length / Math.max(wordsA.length, wordsB.length);
-            }
-            
-            getStats() {
-                return {
-                    shortTerm: this.shortTerm.length,
-                    longTerm: this.longTerm.size,
-                    total: this.shortTerm.length + this.longTerm.size
-                };
-            }
-        }
+    <div class="player-card">
+        <div class="radio-name">📻 RADIO IA PRO · MÚSICA E INFORMACIÓN</div>
+        <audio id="radioPlayer" controls autoplay></audio>
+        <div class="locutor-status"><span class="speaking-indicator" id="speakingIndicator" style="display:none;"></span><span id="locutorStatus">🎙️ Locutora IA: En espera...</span></div>
+        <button class="btn-voz" id="activarVozBtn">🔊 Activar Voz</button>
+        <div class="now-playing"><span class="song-title">🎵 Ahora suena:</span> <span id="currentSong">Cargando...</span></div>
+    </div>
 
-        // ============================================
-        // CONECTOR SEMÁNTICO
-        // ============================================
-        
-        class SemanticConnector {
-            constructor() {
-                this.embeddingsCache = new Map();
-                this.similarityThreshold = 0.2;
-            }
-            
-            generateEmbedding(text) {
-                const words = text.toLowerCase()
-                    .replace(/[¿?¡!.,;:]/g, '')
-                    .split(' ')
-                    .filter(w => w.length > 2);
-                
-                const vector = new Map();
-                words.forEach(w => {
-                    vector.set(w, (vector.get(w) || 0) + 1);
-                });
-                return vector;
-            }
-            
-            cosineSimilarity(vecA, vecB) {
-                let dotProduct = 0;
-                let normA = 0;
-                let normB = 0;
-                
-                const keys = new Set([...vecA.keys(), ...vecB.keys()]);
-                keys.forEach(key => {
-                    const a = vecA.get(key) || 0;
-                    const b = vecB.get(key) || 0;
-                    dotProduct += a * b;
-                    normA += a * a;
-                    normB += b * b;
-                });
-                
-                if (normA === 0 || normB === 0) return 0;
-                return dotProduct / (Math.sqrt(normA) * Math.sqrt(normB));
-            }
-            
-            findSimilar(query, candidates) {
-                const queryEmbedding = this.generateEmbedding(query);
-                const results = candidates.map(candidate => ({
-                    ...candidate,
-                    similarity: this.cosineSimilarity(queryEmbedding, this.generateEmbedding(candidate.text || candidate.query || ''))
-                }));
-                
-                return results
-                    .filter(r => r.similarity > this.similarityThreshold)
-                    .sort((a, b) => b.similarity - a.similarity);
-            }
-            
-            getStats() {
-                return {
-                    cacheSize: this.embeddingsCache.size,
-                    threshold: this.similarityThreshold
-                };
-            }
-        }
+    <div class="chat-card">
+        <div class="chat-area" id="chatArea"><div class="message ia-message"><div class="message-bubble">🎤 ¡Hola! Soy tu locutora IA. Conectores activos y 24 canciones. Pregúntame lo que quieras.</div></div></div>
+        <div class="chat-input-area">
+            <input type="text" class="chat-input" id="chatInput" placeholder="Ej: ¿Qué canción suena?">
+            <button class="send-btn" id="sendChatBtn">🎤 PREGUNTAR</button>
+        </div>
+        <div class="context-info" id="contextInfo">📡 Conectores activos · Buscando información...</div>
+        <div class="restriction-alert" id="restrictionAlert">🤖 IA Avanzada · 24 canciones · Conectores activos</div>
+    </div>
 
-        // ============================================
-        // CONECTOR DE APIs
-        // ============================================
-        
-        class APIConnector {
-            constructor() {
-                this.endpoints = new Map();
-                this.cache = new Map();
-                this.maxCacheAge = 3600000;
-                this.registerDefaultEndpoints();
-            }
-            
-            registerDefaultEndpoints() {
-                this.registerEndpoint('newsData', {
-                    url: 'https://api.example.com/news',
-                    method: 'GET',
-                    transform: (data) => ({
-                        noticias: data.noticias || [],
-                        ultima_actualizacion: data.ultima_actualizacion || new Date().toISOString()
-                    })
-                });
-            }
-            
-            registerEndpoint(name, config) {
-                this.endpoints.set(name, config);
-            }
-            
-            async call(endpointName, params = {}) {
-                const config = this.endpoints.get(endpointName);
-                if (!config) {
-                    return { error: `Endpoint ${endpointName} no encontrado` };
-                }
-                
-                const cacheKey = `${endpointName}_${JSON.stringify(params)}`;
-                if (this.cache.has(cacheKey)) {
-                    const cached = this.cache.get(cacheKey);
-                    if (Date.now() - cached.timestamp < this.maxCacheAge) {
-                        return cached.data;
-                    }
-                }
-                
-                try {
-                    const mockData = this.generateMockData(endpointName, params);
-                    const result = config.transform ? config.transform(mockData) : mockData;
-                    this.cache.set(cacheKey, {
-                        data: result,
-                        timestamp: Date.now()
-                    });
-                    return result;
-                } catch(e) {
-                    return { error: e.message };
-                }
-            }
-            
-            generateMockData(endpoint, params) {
-                const datos = {
-                    newsData: {
-                        noticias: ['Noticia 1', 'Noticia 2', 'Noticia 3'],
-                        ultima_actualizacion: new Date().toISOString()
-                    }
-                };
-                return datos[endpoint] || {};
-            }
-            
-            getStats() {
-                return {
-                    endpoints: this.endpoints.size,
-                    cacheSize: this.cache.size
-                };
-            }
-        }
-
-        // ============================================
-        // INICIALIZACIÓN DE CONECTORES
-        // ============================================
-        
-        const memoryConnector = new MemoryConnector();
-        const semanticConnector = new SemanticConnector();
-        const apiConnector = new APIConnector();
-
-        // ============================================
-        // SISTEMA DE CACHÉ SEMÁNTICO
-        // ============================================
-        
-        const semanticCache = new Map();
-        
-        function getSemanticKey(text) {
-            const words = text.toLowerCase()
-                .replace(/[¿?¡!.,;:]/g, '')
-                .split(' ')
-                .filter(w => w.length > 3)
-                .slice(0, 5)
-                .sort()
-                .join('_');
-            return words;
-        }
-
-        // ============================================
-        // ACTUALIZAR MÉTRICAS DE CONECTORES
-        // ============================================
-        
-        function actualizarMetricasConectores() {
-            const memStats = memoryConnector.getStats();
-            const semStats = semanticConnector.getStats();
-            const apiStats = apiConnector.getStats();
-            
-            document.getElementById('metricMemoria').textContent = memStats.total;
-            document.getElementById('metricSemantico').textContent = semStats.cacheSize;
-            document.getElementById('metricAPIs').textContent = apiStats.endpoints;
-            
-            const contextoPorcentaje = Math.min(100, (memStats.shortTerm * 10) + 20);
-            document.getElementById('metricContexto').textContent = Math.min(contextoPorcentaje, 100) + '%';
-        }
-
-        // ============================================
-        // LIMPIADOR DE MARKDOWN
-        // ============================================
-        
-        function limpiarMarkdown(texto) {
-            let limpio = texto;
-            limpio = limpio.replace(/\*\*/g, '');
-            limpio = limpio.replace(/\*/g, '');
-            limpio = limpio.replace(/^###\s*/gm, '');
-            limpio = limpio.replace(/^##\s*/gm, '');
-            limpio = limpio.replace(/^#\s*/gm, '');
-            limpio = limpio.replace(/`/g, '');
-            limpio = limpio.replace(/^---\s*$/gm, '');
-            limpio = limpio.replace(/^\s*-\s+/gm, '• ');
-            limpio = limpio.replace(/\n{3,}/g, '\n\n');
-            return limpio.trim();
-        }
-
-        // ============================================
-        // GENERAR METADATOS JSON-LD
-        // ============================================
-        
-        function generarMetadatos(pregunta, respuesta, cancion, confianza) {
-            return {
-                "@context": "https://schema.org",
-                "@type": "RadioBroadcast",
-                "name": "Radio IA Pro",
-                "description": respuesta.substring(0, 200),
-                "broadcastTime": new Date().toISOString(),
-                "currentlyPlaying": cancion,
-                "interaction": {
-                    "@type": "Question",
-                    "name": pregunta.substring(0, 100),
-                    "acceptedAnswer": {
-                        "@type": "Answer",
-                        "text": respuesta.substring(0, 300)
-                    }
-                },
-                "confidenceScore": confianza
-            };
-        }
-
-        // ============================================
-        // ACTUALIZAR WIDGETS
-        // ============================================
-        
-        let contadorPreguntas = 0;
-        let contadorCancionesEmitidas = 0;
-        
-        function actualizarWidgets(pregunta, respuesta, cancion) {
-            contadorPreguntas++;
-            if (cancion && cancion !== 'Cargando...') {
-                contadorCancionesEmitidas++;
-            }
-            
-            const oyentes = Math.floor(100 + Math.random() * 900);
-            document.getElementById('metricOyentes').textContent = oyentes;
-            document.getElementById('metricCanciones').textContent = contadorCancionesEmitidas;
-            document.getElementById('metricPreguntas').textContent = contadorPreguntas;
-            
-            let confianza = 70;
-            const words = respuesta.split(/\s+/).filter(w => w.length > 0).length;
-            if (words > 50) confianza += 10;
-            if (words > 100) confianza += 10;
-            if (respuesta.match(/[aeiouáéíóú]/gi) && respuesta.length > 100) confianza += 5;
-            if (pregunta.length > 10) confianza += 5;
-            confianza = Math.min(Math.max(confianza, 55), 95);
-            
-            document.getElementById('confidenceFill').style.width = confianza + '%';
-            document.getElementById('confidenceLabel').textContent = Math.round(confianza) + '%';
-            
-            const generoContent = document.getElementById('widgetGeneroContent');
-            const generos = ['🎸 Rock', '🎹 Pop', '🎷 Jazz', '🎵 Electrónica', '🎶 Clásica', '🎤 Soul', '🪕 Folk', '🎧 Ambiental'];
-            const generoActual = generos[Math.floor(Math.random() * generos.length)];
-            
-            generoContent.innerHTML = `
-                <div style="color:#94a3b8;font-size:0.75rem;margin-bottom:8px;">Género musical actual</div>
-                <div style="display:flex;gap:10px;flex-wrap:wrap;">
-                    <span style="background:#1e293b;padding:8px 16px;border-radius:15px;font-size:1rem;border:2px solid #8b5cf6;">${generoActual}</span>
+    <div class="widget-container" id="widgetContainer">
+        <div class="widget" id="widgetMetricas">
+            <div class="widget-title">📊 Estación de Radio</div>
+            <div class="widget-content">
+                <div class="metrics-grid-widget">
+                    <div class="metric-item-widget"><div class="metric-value-widget" id="metricOyentes">0</div><div class="metric-label-widget">Oyentes</div></div>
+                    <div class="metric-item-widget"><div class="metric-value-widget" id="metricCanciones">0</div><div class="metric-label-widget">Canciones</div></div>
+                    <div class="metric-item-widget"><div class="metric-value-widget" id="metricPreguntas">0</div><div class="metric-label-widget">Preguntas</div></div>
+                    <div class="metric-item-widget"><div class="metric-value-widget" id="metricHerramientas">7</div><div class="metric-label-widget">Herramientas</div></div>
                 </div>
-                <div style="margin-top:8px;font-size:0.7rem;color:#94a3b8;">
-                    🎵 Canción: ${cancion || 'Cargando...'}
+            </div>
+        </div>
+        <div class="widget" id="widgetConectores">
+            <div class="widget-title">🔌 Estado de Conectores</div>
+            <div class="widget-content">
+                <div class="connector-metrics">
+                    <div class="connector-metric"><div class="value" id="metricMemoria">0</div><div class="label">Memoria</div></div>
+                    <div class="connector-metric"><div class="value" id="metricSemantico">0</div><div class="label">Semántico</div></div>
+                    <div class="connector-metric"><div class="value" id="metricAPIs">0</div><div class="label">APIs</div></div>
+                    <div class="connector-metric"><div class="value" id="metricContexto">0%</div><div class="label">Contexto</div></div>
                 </div>
-            `;
-            
-            const metadatos = generarMetadatos(pregunta, respuesta, cancion, confianza);
-            document.getElementById('metadataContainer').innerHTML = `<script type="application/ld+json">${JSON.stringify(metadatos)}<\/script>`;
-            
-            if (history.pushState && pregunta.length > 5) {
-                const url = new URL(window.location);
-                url.searchParams.set('q', pregunta.substring(0, 80));
-                window.history.pushState({}, '', url);
-            }
-            
-            actualizarMetricasConectores();
-        }
+                <div id="jsllm7WidgetStatus">🧠 jsllm7: 🔍 Conectando a Termux...</div>
+            </div>
+        </div>
+    </div>
 
-        // ============================================
-        // SISTEMA DE CACHÉ
-        // ============================================
-        
-        const GO_URL = 'http://localhost:8080';
-        let goDisponible = false;
-        
-        async function verificarGoSilencioso() {
-            try {
-                const respuesta = await fetch(`${GO_URL}/ping`, { method: 'GET', signal: AbortSignal.timeout(1500) });
-                if (respuesta.ok) goDisponible = true;
-            } catch (e) { goDisponible = false; }
-        }
-        
-        async function consultarCacheOculto(pregunta) {
-            if (!goDisponible) return null;
-            try {
-                const respuesta = await fetch(`${GO_URL}/ask?q=${encodeURIComponent(pregunta)}`, { signal: AbortSignal.timeout(3000) });
-                if (respuesta.ok) {
-                    const texto = await respuesta.text();
-                    if (texto && texto !== "No sé" && texto.length > 40) return limpiarMarkdown(texto);
-                }
-            } catch (e) {}
-            return null;
-        }
-        
-        async function guardarEnCacheOculto(pregunta, respuesta) {
-            if (!goDisponible) return;
-            try { fetch(`${GO_URL}/aprender?q=${encodeURIComponent(pregunta)}&respuesta=${encodeURIComponent(respuesta)}`, { method: 'GET', signal: AbortSignal.timeout(2000) }).catch(() => {}); } catch(e) {}
-        }
+    <div class="footer-text" id="footer">⚡ Radio IA Pro · Conectores activos · 24 canciones · jsllm7 404M</div>
+</div>
 
-        // ============================================
-        // DATOS Y CONFIGURACIÓN
-        // ============================================
-        
-        const _RED_NODOS = ["México", "Argentina", "España", "Colombia", "Chile", "Perú", "Venezuela", "Ecuador", "Guatemala", "Cuba", "Bolivia", "República Dominicana", "Honduras", "Paraguay", "El Salvador", "Nicaragua", "Costa Rica", "Panamá", "Uruguay", "Puerto Rico"];
-        
-        let _CACHE = {};
-        try { _CACHE = JSON.parse(localStorage.getItem('_radio_cache_v5') || '{}'); } catch(e) {}
-        
-        function _hash(str) {
-            let h = 0;
-            const s = str.toLowerCase().trim();
-            for (let i = 0; i < s.length; i++) {
-                h = ((h << 5) - h) + s.charCodeAt(i);
-                h |= 0;
-            }
-            return Math.abs(h).toString(36);
-        }
-        
-        function _obtenerCacheLocal(q) {
-            const k = _hash(q);
-            if (_CACHE[k] && (Date.now() - _CACHE[k].t) < 7200000) return _CACHE[k].r;
-            return null;
-        }
-        
-        function _guardarCacheLocal(q, r) {
-            const k = _hash(q);
-            _CACHE[k] = { r, t: Date.now() };
-            try { localStorage.setItem('_radio_cache_v5', JSON.stringify(_CACHE)); } catch(e) {}
-        }
-        
-        async function _llamadaIA(prompt) {
-            try {
-                const respuesta = await jsllm7(prompt);
-                return limpiarMarkdown(respuesta);
-            } catch(e) {
-                return null;
-            }
-        }
-        
-        async function generarRespuestaRadio(pregunta, cancion, modo) {
-            const semanticKey = getSemanticKey(pregunta);
-            
-            // 1. Verificar caché semántico
-            if (semanticCache.has(semanticKey)) {
-                const cached = semanticCache.get(semanticKey);
-                if (Date.now() - cached.timestamp < 7200000) {
-                    return cached.data;
-                }
-            }
-            
-            // 2. Buscar en memoria preguntas similares
-            const memoriaSimilar = memoryConnector.recall(pregunta, 2);
-            let contextoMemoria = '';
-            if (memoriaSimilar.length > 0) {
-                contextoMemoria = '\n\n[Contexto de memoria:] ' + memoriaSimilar.map(m => 
-                    `Pregunta similar anterior: "${m.query}" → "${m.response.substring(0, 80)}..."`
-                ).join(' ');
-            }
-            
-            // 3. Consultar API para datos de noticias
-            const apiData = await apiConnector.call('newsData');
-            let contextoAPI = '';
-            if (!apiData.error) {
-                contextoAPI = `\n\n[Datos de noticias externos:] ${apiData.noticias?.join(', ') || ''}`;
-            }
-            
-            const cacheKey = _hash(pregunta + modo);
-            const respuestaGo = await consultarCacheOculto(pregunta);
-            if (respuestaGo) {
-                semanticCache.set(semanticKey, { data: respuestaGo, timestamp: Date.now() });
-                return respuestaGo;
-            }
-            
-            let respuesta = _obtenerCacheLocal(cacheKey);
-            if (respuesta) {
-                semanticCache.set(semanticKey, { data: respuesta, timestamp: Date.now() });
-                return respuesta;
-            }
-            
-            const nodes = [..._RED_NODOS];
-            for (let i = nodes.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [nodes[i], nodes[j]] = [nodes[j], nodes[i]];
-            }
-            
-            for (let i = 0; i < Math.min(nodes.length, 8); i++) {
-                const pais = nodes[i];
-                let prompt = `[RESPONDE EXCLUSIVAMENTE EN ESPAÑOL. NO USES ASTERISCOS.]
+<button class="vr-button" id="vrModeBtn">🔮 ACTIVAR MODO VR</button>
+<div class="vr-mode" id="vrMode"><button class="close-vr" id="closeVrBtn">✕ SALIR DE VR</button><div id="vrContainer" style="width:100%;height:100%"></div></div>
 
-Eres una locutora de radio cálida y profesional de ${pais}. Canción actual: "${cancion}".
+<script src="https://cdn.jsdelivr.net/npm/jsllm7@0.1.0/jsllm7.js"></script>
 
-Oyente pregunta: "${pregunta}"`;
-                
-                // Añadir contexto de conectores
-                if (contextoMemoria) prompt += `\n${contextoMemoria}`;
-                if (contextoAPI) prompt += `\n${contextoAPI}`;
-                
-                prompt += `\n\nResponde en español de forma cálida y cercana. Mínimo 50 palabras. NO uses asteriscos ni markdown.
+<script>
+// ============================================
+// CONFIGURACIÓN - TERMUX (PUERTO 8081)
+// ============================================
 
-RESPUESTA:`;
-                
-                const respuestaIA = await _llamadaIA(prompt);
-                if (respuestaIA && respuestaIA.length > 40) {
-                    _guardarCacheLocal(cacheKey, respuestaIA);
-                    guardarEnCacheOculto(pregunta, respuestaIA);
-                    semanticCache.set(semanticKey, { data: respuestaIA, timestamp: Date.now() });
-                    
-                    // Guardar en memoria
-                    memoryConnector.remember({
-                        query: pregunta,
-                        response: respuestaIA,
-                        pais: pais,
-                        cancion: cancion
-                    });
-                    actualizarMetricasConectores();
-                    return respuestaIA;
-                }
+const JSLLM7_API_URL = 'http://localhost:8081';
+let jsllm7TermuxConectado = false;
+let cancionActualNombre = "";
+let vozActivada = false;
+let procesandoRespuesta = false;
+let cancionActualIndex = -1;
+let contadorCancionesEmitidasTotal = 0;
+let contadorPreguntas = 0;
+
+// ============================================
+// FUNCIÓN PARA LLAMAR A IA (PRIORIZA TERMUX)
+// ============================================
+
+async function _llamadaIA(prompt) {
+    console.log('🔍 Intentando llamar a IA...');
+    
+    try {
+        const preguntaCodificada = encodeURIComponent(prompt);
+        const url = `${JSLLM7_API_URL}/ask?q=${preguntaCodificada}`;
+        
+        console.log('📤 Enviando a Termux (8081):', prompt.substring(0, 80) + '...');
+        
+        const response = await fetch(url);
+        
+        if (!response.ok) {
+            console.error('❌ Error HTTP:', response.status);
+            throw new Error(`HTTP ${response.status}`);
+        }
+        
+        const text = await response.text();
+        console.log('📥 Respuesta recibida (primeros 100 chars):', text.substring(0, 100));
+        
+        if (text && text.length > 20) {
+            jsllm7TermuxConectado = true;
+            document.getElementById('jsllm7WidgetStatus').textContent = '🧠 jsllm7: ✅ Activo (404M en Termux:8081)';
+            document.getElementById('jsllm7WidgetStatus').style.color = '#10b981';
+            console.log('✅ Usando respuesta de Termux');
+            return limpiarMarkdown(text);
+        } else {
+            throw new Error('Respuesta vacía');
+        }
+    } catch (error) {
+        console.warn('⚠️ Error conectando a Termux:', error.message);
+        jsllm7TermuxConectado = false;
+        document.getElementById('jsllm7WidgetStatus').textContent = '🧠 jsllm7: ⚠️ Usando CDN';
+        document.getElementById('jsllm7WidgetStatus').style.color = '#f59e0b';
+    }
+    
+    // FALLBACK: CDN
+    console.log('⚠️ Termux no disponible, usando CDN...');
+    if (typeof window.jsllm7 !== 'undefined' && window.jsllm7) {
+        try {
+            const response = await window.jsllm7(prompt);
+            if (response && response.length > 50) {
+                console.log('✅ Respuesta de CDN obtenida');
+                return limpiarMarkdown(response);
             }
-            const fallback = `Gracias por tu pregunta, querido oyente. ${pregunta} es un tema interesante. Te recomiendo seguir disfrutando de la música mientras reflexionamos sobre ello. ¿Necesitas algo más? ¡Estoy aquí para ti!`;
-            semanticCache.set(semanticKey, { data: fallback, timestamp: Date.now() });
-            return fallback;
+        } catch (e) {
+            console.warn('Error con jsllm7 CDN:', e);
         }
+    }
+    
+    console.log('⚠️ Usando fallback genérico');
+    return null;
+}
 
-        // ============================================
-        // UI PRINCIPAL
-        // ============================================
-        
-        let modo = localStorage.getItem('radio_modo') || 'experto';
-        let cancionActualIndex = -1;
-        let contadorCancionesEmitidasTotal = 0;
-        let vozActivada = false;
-        let procesandoRespuesta = false;
-        let cancionActualNombre = "";
-        
-        verificarGoSilencioso();
-        setInterval(verificarGoSilencioso, 60000);
-        
-        const playlist = [];
-        const nombresCanciones = [];
-        const nombres = ["Rock Energy","Pop Vibes","Electronic Dreams","Jazz Fusion","Funk Groove","Ambient Chill","Latin Rhythm","Dance Party","Acoustic Guitar","Piano Melody","Orchestral Epic","Reggae Sun","Blues Night","Country Road","Metal Storm","Disco Fever","Trance Wave","Hip Hop Beat","R&B Soul","Swing Time","Bossa Nova","Celtic Folk","Indian Ragas","World Beat"];
-        
-        for (let i = 1; i <= 24; i++) {
-            playlist.push(`https://www.soundhelix.com/examples/mp3/SoundHelix-Song-${i}.mp3`);
-            nombresCanciones.push(nombres[i-1] || `Canción ${i}`);
+function limpiarMarkdown(texto) {
+    let limpio = texto;
+    limpio = limpio.replace(/\*\*/g, '');
+    limpio = limpio.replace(/\*/g, '');
+    limpio = limpio.replace(/^###\s*/gm, '');
+    limpio = limpio.replace(/^##\s*/gm, '');
+    limpio = limpio.replace(/^#\s*/gm, '');
+    limpio = limpio.replace(/`/g, '');
+    limpio = limpio.replace(/^---\s*$/gm, '');
+    limpio = limpio.replace(/^\s*-\s+/gm, '• ');
+    limpio = limpio.replace(/\n{3,}/g, '\n\n');
+    return limpio.trim();
+}
+
+// ============================================
+// CONECTORES (MEMORIA, SEMÁNTICO, APIs)
+// ============================================
+
+class MemoryConnector {
+    constructor() {
+        this.shortTerm = [];
+        this.longTerm = new Map();
+        this.maxShortTerm = 10;
+        this.loadFromStorage();
+    }
+    loadFromStorage() {
+        try {
+            const data = JSON.parse(localStorage.getItem('radio_memoria') || '{}');
+            if (data.shortTerm) this.shortTerm = data.shortTerm;
+            if (data.longTerm) this.longTerm = new Map(Object.entries(data.longTerm));
+        } catch(e) {}
+    }
+    saveToStorage() {
+        try {
+            localStorage.setItem('radio_memoria', JSON.stringify({
+                shortTerm: this.shortTerm,
+                longTerm: Object.fromEntries(this.longTerm)
+            }));
+        } catch(e) {}
+    }
+    remember(interaction) {
+        this.shortTerm.push({ ...interaction, timestamp: Date.now() });
+        if (this.shortTerm.length > this.maxShortTerm) this.shortTerm.shift();
+        this.saveToStorage();
+    }
+    recall(query, limit = 3) {
+        const relevant = this.shortTerm
+            .filter(item => {
+                const similarity = this.calculateSimilarity(query, item.query || '');
+                return similarity > 0.2;
+            })
+            .sort((a, b) => b.similarity - a.similarity)
+            .slice(0, limit);
+        return relevant.map(item => ({ query: item.query, response: item.response, similarity: item.similarity }));
+    }
+    calculateSimilarity(a, b) {
+        if (!a || !b) return 0;
+        const wordsA = a.toLowerCase().split(' ');
+        const wordsB = b.toLowerCase().split(' ');
+        const common = wordsA.filter(w => wordsB.includes(w) && w.length > 2);
+        return common.length / Math.max(wordsA.length, wordsB.length);
+    }
+    getStats() {
+        return { shortTerm: this.shortTerm.length, longTerm: this.longTerm.size, total: this.shortTerm.length + this.longTerm.size };
+    }
+}
+
+class SemanticConnector {
+    constructor() {
+        this.embeddingsCache = new Map();
+        this.similarityThreshold = 0.2;
+    }
+    generateEmbedding(text) {
+        const words = text.toLowerCase().replace(/[¿?¡!.,;:]/g, '').split(' ').filter(w => w.length > 2);
+        const vector = new Map();
+        words.forEach(w => vector.set(w, (vector.get(w) || 0) + 1));
+        return vector;
+    }
+    cosineSimilarity(vecA, vecB) {
+        let dotProduct = 0, normA = 0, normB = 0;
+        const keys = new Set([...vecA.keys(), ...vecB.keys()]);
+        keys.forEach(key => {
+            const a = vecA.get(key) || 0;
+            const b = vecB.get(key) || 0;
+            dotProduct += a * b;
+            normA += a * a;
+            normB += b * b;
+        });
+        if (normA === 0 || normB === 0) return 0;
+        return dotProduct / (Math.sqrt(normA) * Math.sqrt(normB));
+    }
+    findSimilar(query, candidates) {
+        const queryEmbedding = this.generateEmbedding(query);
+        const results = candidates.map(candidate => ({
+            ...candidate,
+            similarity: this.cosineSimilarity(queryEmbedding, this.generateEmbedding(candidate.text || candidate.query || ''))
+        }));
+        return results.filter(r => r.similarity > this.similarityThreshold).sort((a, b) => b.similarity - a.similarity);
+    }
+    getStats() { return { cacheSize: this.embeddingsCache.size, threshold: this.similarityThreshold }; }
+}
+
+class APIConnector {
+    constructor() {
+        this.endpoints = new Map();
+        this.cache = new Map();
+        this.maxCacheAge = 3600000;
+        this.registerDefaultEndpoints();
+    }
+    registerDefaultEndpoints() {
+        this.registerEndpoint('newsData', {
+            url: 'https://api.example.com/news',
+            method: 'GET',
+            transform: (data) => ({ noticias: data.noticias || [], ultima_actualizacion: data.ultima_actualizacion || new Date().toISOString() })
+        });
+    }
+    registerEndpoint(name, config) { this.endpoints.set(name, config); }
+    async call(endpointName, params = {}) {
+        const config = this.endpoints.get(endpointName);
+        if (!config) return { error: `Endpoint ${endpointName} no encontrado` };
+        const cacheKey = `${endpointName}_${JSON.stringify(params)}`;
+        if (this.cache.has(cacheKey)) {
+            const cached = this.cache.get(cacheKey);
+            if (Date.now() - cached.timestamp < this.maxCacheAge) return cached.data;
         }
+        try {
+            const mockData = this.generateMockData(endpointName, params);
+            const result = config.transform ? config.transform(mockData) : mockData;
+            this.cache.set(cacheKey, { data: result, timestamp: Date.now() });
+            return result;
+        } catch(e) { return { error: e.message }; }
+    }
+    generateMockData(endpoint, params) {
+        const datos = { newsData: { noticias: ['Noticia 1', 'Noticia 2', 'Noticia 3'], ultima_actualizacion: new Date().toISOString() } };
+        return datos[endpoint] || {};
+    }
+    getStats() { return { endpoints: this.endpoints.size, cacheSize: this.cache.size }; }
+}
 
-        function actualizarModoUI() { document.querySelectorAll('.modo-btn').forEach(b => b.classList.toggle('active', b.dataset.modo === modo)); }
-        document.querySelectorAll('.modo-btn').forEach(b => { b.addEventListener('click', () => { modo = b.dataset.modo; localStorage.setItem('radio_modo', modo); actualizarModoUI(); showToast(`✨ Modo ${modo === 'experto' ? 'EXPERTO' : 'BÁSICO'}`); }); });
-        actualizarModoUI();
-        
-        function showToast(msg, isErr) { const t = document.createElement('div'); t.className = 'toast-msg'; t.style.background = isErr ? '#ef4444' : '#10b981'; t.innerText = msg; document.body.appendChild(t); setTimeout(() => t.remove(), 2000); }
-        
-        function mostrarModal(titulo, contenido) {
-            const modal = document.createElement('div');
-            modal.className = 'modal-overlay';
-            modal.innerHTML = `
-                <div class="modal-content">
-                    <h3>${titulo}</h3>
-                    <div style="white-space:pre-wrap; font-size:0.85rem; line-height:1.5;">${contenido.replace(/\n/g, '<br>')}</div>
-                    <button class="modal-close">Cerrar</button>
-                </div>
-            `;
-            modal.querySelector('.modal-close').onclick = () => modal.remove();
-            document.body.appendChild(modal);
-        }
+const memoryConnector = new MemoryConnector();
+const semanticConnector = new SemanticConnector();
+const apiConnector = new APIConnector();
 
-        // ============================================
-        // HISTORIAL
-        // ============================================
-        
-        let historial = JSON.parse(localStorage.getItem('radio_historial') || '[]');
-        
-        function guardarEnHistorial(pregunta) {
-            const resumen = pregunta.substring(0, 35) + (pregunta.length > 35 ? '...' : '');
-            historial = [resumen, ...historial.filter(p => p !== resumen)].slice(0, 10);
-            localStorage.setItem('radio_historial', JSON.stringify(historial));
-            actualizarSidebarHistorial();
-        }
-        
-        function actualizarSidebarHistorial() {
-            let sidebar = document.getElementById('sidebarHistorial');
-            if (!sidebar && historial.length > 0) {
-                sidebar = document.createElement('div');
-                sidebar.id = 'sidebarHistorial';
-                document.body.appendChild(sidebar);
-            }
-            if (sidebar && historial.length > 0) {
-                sidebar.innerHTML = `<strong>📜 HISTORIAL</strong><hr>${historial.map(p => `<button class="historial-item" onclick="cargarHistorial('${p.replace(/'/g, "\\'")}')">🎙️ ${p}</button>`).join('')}`;
-            }
-        }
-        
-        window.cargarHistorial = function(pregunta) {
-            document.getElementById('chatInput').value = pregunta.replace('...', '');
-            enviarMensaje();
-        };
+function actualizarMetricasConectores() {
+    const memStats = memoryConnector.getStats();
+    const semStats = semanticConnector.getStats();
+    const apiStats = apiConnector.getStats();
+    document.getElementById('metricMemoria').textContent = memStats.total;
+    document.getElementById('metricSemantico').textContent = semStats.cacheSize;
+    document.getElementById('metricAPIs').textContent = apiStats.endpoints;
+    const contextoPorcentaje = Math.min(100, (memStats.shortTerm * 10) + 20);
+    document.getElementById('metricContexto').textContent = Math.min(contextoPorcentaje, 100) + '%';
+}
 
-        function obtenerCancionAleatoria() {
-            let n;
-            do { n = Math.floor(Math.random() * playlist.length); } while (n === cancionActualIndex && playlist.length > 1);
-            cancionActualIndex = n;
-            return { url: playlist[n], nombre: nombresCanciones[n] };
-        }
+// ============================================
+// DATOS Y CONFIGURACIÓN
+// ============================================
 
-        const chatArea = document.getElementById('chatArea');
-        const chatInput = document.getElementById('chatInput');
-        const sendBtn = document.getElementById('sendChatBtn');
-        const audio = document.getElementById('radioPlayer');
-        const currentSongSpan = document.getElementById('currentSong');
-        const synth = window.speechSynthesis;
+const _RED_NODOS = ["México", "Argentina", "España", "Colombia", "Chile", "Perú", "Venezuela", "Ecuador", "Guatemala", "Cuba", "Bolivia", "República Dominicana", "Honduras", "Paraguay", "El Salvador", "Nicaragua", "Costa Rica", "Panamá", "Uruguay", "Puerto Rico"];
 
-        function addMessage(text, isUser) {
+const playlist = [];
+const nombresCanciones = [];
+const nombres = ["Rock Energy","Pop Vibes","Electronic Dreams","Jazz Fusion","Funk Groove","Ambient Chill","Latin Rhythm","Dance Party","Acoustic Guitar","Piano Melody","Orchestral Epic","Reggae Sun","Blues Night","Country Road","Metal Storm","Disco Fever","Trance Wave","Hip Hop Beat","R&B Soul","Swing Time","Bossa Nova","Celtic Folk","Indian Ragas","World Beat"];
+
+for (let i = 1; i <= 24; i++) {
+    playlist.push(`https://www.soundhelix.com/examples/mp3/SoundHelix-Song-${i}.mp3`);
+    nombresCanciones.push(nombres[i-1] || `Canción ${i}`);
+}
+
+// ============================================
+// FUNCIÓN PRINCIPAL DE RADIO (CORREGIDA)
+// ============================================
+
+let _idxPais = 0;
+
+function _siguientePais() {
+    const hoy = new Date().toDateString();
+    const guardado = localStorage.getItem('_idx_pais_radio');
+    const fechaGuardada = localStorage.getItem('_fecha_pais_radio');
+    if(fechaGuardada===hoy && guardado!==null) _idxPais=parseInt(guardado);
+    else{ _idxPais=(_idxPais+1)%_RED_NODOS.length; localStorage.setItem('_idx_pais_radio',_idxPais); localStorage.setItem('_fecha_pais_radio',hoy); }
+    return _RED_NODOS[_idxPais];
+}
+
+async function _analizarConPotenciacion() {
+    const pais = _siguientePais();
+    document.getElementById('dailyTip').innerHTML = `🎤 Desde ${pais} · Guión de radio del día · jsllm7 404M`;
+    
+    const fecha = new Date().toLocaleDateString('es-ES');
+    const hora = new Date().toLocaleTimeString('es-ES');
+    const cancion = cancionActualNombre || 'Música en vivo';
+    
+    let prompt = `[RESPONDE EXCLUSIVAMENTE EN ESPAÑOL. NO USES ASTERISCOS.]
+
+Eres una locutora de radio experta de ${pais}. Escribe un guión de radio para "Radio IA Pro".
+
+FECHA: ${fecha} - ${hora}
+CANCIÓN ACTUAL: "${cancion}"
+
+ESTRUCTURA OBLIGATORIA:
+APERTURA: Saludo cálido y presentación de la radio (1-2 líneas)
+MÚSICA: Presenta la canción que está sonando con entusiasmo
+NOTICIAS BREVES: 3 noticias cortas (política, economía, sociedad)
+CIERRE: Despedida cálida y recomendación musical
+
+REGLAS:
+- Escribe como locutora profesional de radio
+- Usa lenguaje cálido, cercano y con energía
+- Sin asteriscos ni markdown
+- Máximo 200 palabras en total`;
+
+    try {
+        const texto = await _llamadaIA(prompt);
+        if(texto && texto.length > 80) {
+            const chatArea = document.getElementById('chatArea');
             const d = document.createElement('div');
-            d.className = `message ${isUser ? 'user-message' : 'ia-message'}`;
+            d.className = 'message ia-message';
             const b = document.createElement('div');
             b.className = 'message-bubble';
-            const textoLimpio = limpiarMarkdown(text);
-            b.textContent = textoLimpio;
+            b.textContent = texto;
             d.appendChild(b);
             chatArea.appendChild(d);
             chatArea.scrollTop = chatArea.scrollHeight;
-        }
-        
-        function showTyping() {
-            const d = document.createElement('div');
-            d.className = 'message ia-message';
-            d.id = '_t';
-            d.innerHTML = '<div class="message-bubble"><span class="loading-spinner"></span> Locutora IA pensando...</div>';
-            chatArea.appendChild(d);
-            chatArea.scrollTop = chatArea.scrollHeight;
-        }
-        
-        function removeTyping() { const t = document.getElementById('_t'); if (t) t.remove(); }
-
-        async function generarRespuesta(pregunta) {
-            return await generarRespuestaRadio(pregunta, cancionActualNombre, modo);
-        }
-
-        async function enviarMensaje() {
-            const q = chatInput.value.trim();
-            if (!q || procesandoRespuesta) return;
-            guardarEnHistorial(q);
-            addMessage(q, true);
-            chatInput.value = '';
-            procesandoRespuesta = true;
-            sendBtn.disabled = true;
-            showTyping();
-            const respuesta = await generarRespuesta(q);
-            removeTyping();
-            addMessage(respuesta, false);
-            actualizarWidgets(q, respuesta, cancionActualNombre);
-            if (vozActivada) await hablar(respuesta);
-            procesandoRespuesta = false;
-            sendBtn.disabled = false;
-            chatInput.focus();
-        }
-
-        sendBtn.addEventListener('click', enviarMensaje);
-        chatInput.addEventListener('keypress', e => { if (e.key === 'Enter') enviarMensaje(); });
-
-        function cargarCancionAleatoria() {
-            const c = obtenerCancionAleatoria();
-            cancionActualNombre = c.nombre;
-            audio.src = c.url;
-            audio.load();
-            audio.play().catch(() => {});
-            currentSongSpan.innerHTML = `${c.nombre} 🎵`;
-            contadorCancionesEmitidasTotal++;
-            return c.nombre;
-        }
-        
-        function activarVoz() {
-            if (!synth) return;
-            synth.speak(new SpeechSynthesisUtterance(" "));
-            vozActivada = true;
-            document.getElementById('activarVozBtn').style.background = "linear-gradient(90deg,#10b981,#059669)";
-            document.getElementById('activarVozBtn').innerHTML = "✅ Voz Activada";
-            document.getElementById('locutorStatus').innerHTML = '🎙️ Locutora IA: Voz lista';
-            setTimeout(() => synth.cancel(), 100);
-            showToast("🔊 Voz activada");
-        }
-        
-        async function hablar(texto) {
-            if (!vozActivada || !synth) return;
-            synth.cancel();
-            const u = new SpeechSynthesisUtterance(texto);
-            u.lang = 'es-ES';
-            u.rate = 0.95;
-            u.pitch = 1.1;
-            u.onstart = () => {
-                document.getElementById('speakingIndicator').style.display = 'inline-block';
-                document.getElementById('locutorStatus').innerHTML = '🎙️ Locutora IA: Hablando...';
-            };
-            u.onend = () => {
-                document.getElementById('speakingIndicator').style.display = 'none';
-                document.getElementById('locutorStatus').innerHTML = '🎙️ Locutora IA: En espera...';
-            };
-            synth.speak(u);
-        }
-
-        audio.addEventListener('ended', async () => {
-            const n = cargarCancionAleatoria();
-            if (vozActivada && contadorCancionesEmitidasTotal % 2 === 0) {
-                const p = await generarRespuesta(`Presenta la canción "${n}" con energía y entusiasmo.`);
-                addMessage(p, false);
-                actualizarWidgets('Presentación de canción', p, n);
-                await hablar(p);
-            }
-        });
-        
-        document.getElementById('activarVozBtn').addEventListener('click', activarVoz);
-
-        // ============================================
-        // DEEP LINKING - CARGAR PREGUNTA DESDE URL
-        // ============================================
-        
-        function cargarDesdeURL() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const q = urlParams.get('q');
-            if (q) {
-                chatInput.value = decodeURIComponent(q);
-                setTimeout(enviarMensaje, 1000);
-            }
-        }
-        
-        cargarDesdeURL();
-
-        // ============================================
-        // 10 HERRAMIENTAS RADIO
-        // ============================================
-        
-        async function herramientaGenerica(promptText, titulo) {
-            showToast(`⏳ ${titulo}...`);
-            const respuesta = await _llamadaIA(promptText);
-            const respuestaFinal = respuesta || `No se pudo obtener ${titulo.toLowerCase()}. Intenta de nuevo.`;
-            mostrarModal(titulo, respuestaFinal);
-            actualizarWidgets(titulo, respuestaFinal, cancionActualNombre);
-            if (vozActivada && respuesta) await hablar(respuesta.substring(0, 300));
-        }
-        
-        async function ultimasNoticias() {
-            const prompt = `Genera un resumen de las 5 noticias más importantes de hoy (fecha actual: ${new Date().toLocaleDateString()}). Incluye política, economía, tecnología y medio ambiente. Formato: titular breve y 1 línea de detalle. Sin asteriscos.`;
-            await herramientaGenerica(prompt, "📰 ÚLTIMAS NOTICIAS");
-        }
-        
-        async function climaHoy() {
-            const ciudad = prompt("¿Ciudad para el clima? (Ej: Madrid, Buenos Aires, Ciudad de México):", "Madrid");
-            if (!ciudad) return;
-            const prompt = `Genera el pronóstico del clima para ${ciudad} para hoy y mañana. Incluye temperatura, probabilidad de lluvia y viento. Sé preciso y útil. Sin asteriscos.`;
-            await herramientaGenerica(prompt, `🌤️ CLIMA EN ${ciudad.toUpperCase()}`);
-        }
-        
-        async function horoscopo() {
-            const signo = prompt("¿Tu signo zodiacal? (Aries, Tauro, Géminis, Cáncer, Leo, Virgo, Libra, Escorpio, Sagitario, Capricornio, Acuario, Piscis):", "Leo");
-            if (!signo) return;
-            const prompt = `Genera el horóscopo para ${signo} para hoy. Incluye amor, trabajo, salud y un número de la suerte. Tono positivo y alentador. Sin asteriscos.`;
-            await herramientaGenerica(prompt, `✨ HORÓSCOPO PARA ${signo.toUpperCase()}`);
-        }
-        
-        async function efemerides() {
-            const prompt = `Genera 5 efemérides importantes que ocurrieron hoy (${new Date().toLocaleDateString()}). Incluye eventos históricos, nacimientos y curiosidades. Formato: año + evento breve. Sin asteriscos.`;
-            await herramientaGenerica(prompt, "📅 EFEMÉRIDES DEL DÍA");
-        }
-        
-        async function pedirCancion() {
-            const cancion = prompt("¿Qué canción te gustaría escuchar o dedicar?", "una canción alegre");
-            if (!cancion) return;
-            const prompt = `Responde como locutora de radio. Un oyente pide ${cancion}. Responde con entusiasmo, agradece la sugerencia y comenta brevemente sobre la canción o el género. Sin asteriscos.`;
-            const respuesta = await _llamadaIA(prompt);
-            const respuestaFinal = respuesta || "Gracias por tu petición, querido oyente. Disfruta la música que sigue.";
-            mostrarModal("🎵 PETICIÓN MUSICAL", respuestaFinal);
-            addMessage(`🎵 Petición: ${cancion}`, false);
-            actualizarWidgets(`Pedir canción: ${cancion}`, respuestaFinal, cancionActualNombre);
-            if (vozActivada && respuesta) await hablar(respuesta);
-        }
-        
-        async function chisteDia() {
-            const prompt = `Cuenta un chiste corto y gracioso para empezar el día con humor. Debe ser apto para todo público. Sin asteriscos.`;
-            await herramientaGenerica(prompt, "😄 CHISTE DEL DÍA");
-        }
-        
-        async function datoCurioso() {
-            const prompt = `Comparte un dato curioso e interesante sobre ciencia, historia o naturaleza. Debe ser sorprendente pero verdadero. Sin asteriscos.`;
-            await herramientaGenerica(prompt, "💡 DATO CURIOSO");
-        }
-        
-        async function consejosPracticos() {
-            const categoria = prompt("¿Consejo sobre? (salud, finanzas, relaciones, productividad, cocina):", "productividad");
-            if (!categoria) return;
-            const prompt = `Da 3 consejos prácticos y útiles sobre ${categoria}. Sé breve, directo y útil para la vida diaria. Sin asteriscos.`;
-            await herramientaGenerica(prompt, `🍳 CONSEJOS DE ${categoria.toUpperCase()}`);
-        }
-        
-        async function historiaDia() {
-            const prompt = `Cuenta una historia corta e inspiradora para el día de hoy. Puede ser una anécdota real o una enseñanza con moraleja. Máximo 200 palabras. Sin asteriscos.`;
-            await herramientaGenerica(prompt, "📖 HISTORIA DEL DÍA");
-        }
-        
-        async function fraseInspiradora() {
-            const prompt = `Comparte una frase inspiradora de algún personaje famoso. Incluye quién la dijo y una breve reflexión sobre su significado. Sin asteriscos.`;
-            await herramientaGenerica(prompt, "💭 FRASE INSPIRADORA");
-        }
-        
-        document.getElementById('btnNoticias').onclick = ultimasNoticias;
-        document.getElementById('btnClima').onclick = climaHoy;
-        document.getElementById('btnHoroscopo').onclick = horoscopo;
-        document.getElementById('btnEfemerides').onclick = efemerides;
-        document.getElementById('btnCancion').onclick = pedirCancion;
-        document.getElementById('btnChiste').onclick = chisteDia;
-        document.getElementById('btnDatos').onclick = datoCurioso;
-        document.getElementById('btnConsejos').onclick = consejosPracticos;
-        document.getElementById('btnHistoria').onclick = historiaDia;
-        document.getElementById('btnFrases').onclick = fraseInspiradora;
-
-        // ============================================
-        // INICIALIZACIÓN
-        // ============================================
-        
-        function iniciar() {
-            cargarCancionAleatoria();
-            const dias = ["DOMINGO", "LUNES", "MARTES", "MIÉRCOLES", "JUEVES", "VIERNES", "SÁBADO"];
-            const hoy = new Date();
-            document.getElementById('footer').innerHTML = `⚡ Radio IA Pro · ${hoy.toLocaleDateString('es-ES')} · Conectores activos · 24 canciones · IA Avanzada · 10 herramientas`;
-            document.getElementById('dailyTip').innerHTML = `🎤 ${dias[hoy.getDay()]} · Disfruta la mejor música · Conectores: Memoria · Semántico · APIs`;
-            document.getElementById('contextInfo').innerHTML = '🎙️ Conectores activos · Música 24/7 · 10 herramientas arriba · Texto limpio sin asteriscos';
-            actualizarSidebarHistorial();
+            
+            memoryConnector.remember({ query: 'radio', response: texto, pais: pais, fecha: fecha });
             actualizarMetricasConectores();
-            actualizarWidgets('Bienvenida', 'Radio IA Pro lista para responder tus preguntas con conectores', cancionActualNombre);
+            
+            if (vozActivada) await hablar(texto.substring(0, 300));
+        } else {
+            throw new Error('Respuesta corta');
         }
-        
-        iniciar();
-        
-        let intentos = 0;
-        const check = setInterval(() => { 
-            if (typeof jsllm7 !== 'undefined') { 
-                clearInterval(check); 
-                showToast("✅ IA avanzada lista · Conectores activos · 10 herramientas disponibles · Locutora IA activa"); 
-            } else if (intentos > 30) clearInterval(check); 
-            intentos++; 
-        }, 500);
-    </script>
+    } catch(e) {
+        // FALLBACK DE RADIO (NO PERIODISMO)
+        const fallback = `🎙️ ¡Bienvenidos a Radio IA Pro! Desde ${pais}, saludamos a todos nuestros oyentes.
 
-    <script type="importmap">
-        {
-            "imports": {
-                "three": "https://unpkg.com/three@0.128.0/build/three.module.js",
-                "three/addons/": "https://unpkg.com/three@0.128.0/examples/jsm/"
-            }
-        }
-    </script>
+🎵 Disfrutamos de "${cancion}" mientras compartimos contigo las noticias más importantes del día.
 
-    <script type="module">
-        import * as THREE from 'three'; import { OrbitControls } from 'three/addons/controls/OrbitControls.js'; import { VRButton } from 'three/addons/webxr/VRButton.js';
-        let scene, camera, renderer, controls, active = false;
-        const container = document.getElementById('vrContainer'), vrBtn = document.getElementById('vrModeBtn'), closeVr = document.getElementById('closeVrBtn'), vrMode = document.getElementById('vrMode');
-        function initVR() {
-            if (!container) return;
-            container.innerHTML = '';
-            scene = new THREE.Scene();
-            scene.background = new THREE.Color(0x0a0f1e);
-            camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 1000);
-            camera.position.set(5, 1.6, 6);
-            renderer = new THREE.WebGLRenderer({ antialias: true });
-            renderer.setSize(container.clientWidth, container.clientHeight);
-            renderer.xr.enabled = true;
-            container.appendChild(renderer.domElement);
-            container.appendChild(VRButton.createButton(renderer));
-            controls = new OrbitControls(camera, renderer.domElement);
-            controls.enableDamping = true;
-            scene.add(new THREE.AmbientLight(0x404060));
-            const dirLight = new THREE.DirectionalLight(0xffffff, 1);
-            dirLight.position.set(5, 10, 7);
-            scene.add(dirLight);
-            const floor = new THREE.Mesh(new THREE.PlaneGeometry(16, 16), new THREE.MeshStandardMaterial({ color: 0x1a1f2e }));
-            floor.rotation.x = -Math.PI / 2;
-            floor.position.y = -1.2;
-            scene.add(floor);
-            for (let i = 0; i < 8; i++) {
-                const sphere = new THREE.Mesh(new THREE.SphereGeometry(0.4, 16, 16), new THREE.MeshStandardMaterial({ color: [0x4a9eff, 0xf87171, 0xfbbf24][i % 3] }));
-                const angle = (i / 8) * Math.PI * 2;
-                sphere.position.set(Math.cos(angle) * 3.5, 1.2, Math.sin(angle) * 3.5);
-                scene.add(sphere);
-            }
-            const canvas = document.createElement('canvas');
-            canvas.width = 512;
-            canvas.height = 128;
-            const ctx = canvas.getContext('2d');
-            ctx.fillStyle = '#0a0f1e';
-            ctx.fillRect(0, 0, 512, 128);
-            ctx.font = 'Bold 28px "Segoe UI"';
-            ctx.fillStyle = '#e9c46a';
-            ctx.textAlign = 'center';
-            ctx.fillText('RADIO IA PRO', 256, 64);
-            const textPlane = new THREE.Mesh(new THREE.PlaneGeometry(6, 1.4), new THREE.MeshStandardMaterial({ map: new THREE.CanvasTexture(canvas) }));
-            textPlane.position.set(0, 2.8, -3.5);
-            scene.add(textPlane);
-            function animate() { requestAnimationFrame(animate); controls.update(); renderer.render(scene, camera); }
-            animate();
-            active = true;
+📰 En política, se esperan anuncios clave para la próxima semana. La ciudadanía sigue atenta.
+
+📊 En economía, los indicadores muestran una recuperación gradual. Los sectores productivos comienzan a reactivarse.
+
+👥 En sociedad, la comunidad se organiza para iniciativas de apoyo mutuo. La solidaridad sigue siendo el motor del cambio.
+
+🎶 Sigue con nosotros, disfruta la música y comparte este espacio de información y entretenimiento.
+
+📻 Radio IA Pro · ${pais} · ${fecha}`;
+        const chatArea = document.getElementById('chatArea');
+        const d = document.createElement('div');
+        d.className = 'message ia-message';
+        const b = document.createElement('div');
+        b.className = 'message-bubble';
+        b.textContent = fallback;
+        d.appendChild(b);
+        chatArea.appendChild(d);
+        chatArea.scrollTop = chatArea.scrollHeight;
+    }
+}
+
+// ============================================
+// VERIFICAR TERMUX
+// ============================================
+
+async function verificarConexionTermux() {
+    try {
+        const response = await fetch(`${JSLLM7_API_URL}/stats`);
+        if (response.ok) {
+            const stats = await response.json();
+            jsllm7TermuxConectado = true;
+            document.getElementById('jsllm7WidgetStatus').textContent = `🧠 jsllm7: ✅ Activo (${stats.total?.toLocaleString() || '404M'} en Termux:8081)`;
+            document.getElementById('jsllm7WidgetStatus').style.color = '#10b981';
+            console.log('✅ jsllm7 conectado a Termux:', stats);
         }
-        vrBtn.addEventListener('click', () => { document.getElementById('normalMode').style.display = 'none'; vrMode.classList.add('active'); if (!active) setTimeout(initVR, 100); });
-        closeVr.addEventListener('click', () => { vrMode.classList.remove('active'); document.getElementById('normalMode').style.display = 'block'; });
-    </script>
+    } catch(e) {
+        jsllm7TermuxConectado = false;
+        document.getElementById('jsllm7WidgetStatus').textContent = '🧠 jsllm7: ⚠️ Usando CDN';
+        document.getElementById('jsllm7WidgetStatus').style.color = '#f59e0b';
+        console.warn('⚠️ Termux no disponible en puerto 8081');
+    }
+}
+
+verificarConexionTermux();
+setInterval(verificarConexionTermux, 30000);
+
+// ============================================
+// UI PRINCIPAL
+// ============================================
+
+function showToast(msg) {
+    const t = document.createElement('div');
+    t.className = 'toast-msg';
+    t.innerText = msg;
+    document.body.appendChild(t);
+    setTimeout(() => t.remove(), 2000);
+}
+
+function mostrarModal(titulo, contenido) {
+    const modal = document.createElement('div');
+    modal.className = 'modal-overlay';
+    modal.innerHTML = `
+        <div class="modal-content">
+            <h3>${titulo}</h3>
+            <div style="white-space:pre-wrap; font-size:0.85rem; line-height:1.5;">${contenido.replace(/\n/g, '<br>')}</div>
+            <button class="modal-close">Cerrar</button>
+        </div>
+    `;
+    modal.querySelector('.modal-close').onclick = () => modal.remove();
+    document.body.appendChild(modal);
+}
+
+function verEstadoTermux() {
+    const estado = jsllm7TermuxConectado ? '✅ Conectado' : '❌ Desconectado';
+    const mensaje = `
+=== ESTADO DE jsllm7 ===
+
+🔌 Puerto: 8081
+📊 Registros: 404,356,967
+📡 Estado: ${estado}
+📍 Fuente: ${jsllm7TermuxConectado ? 'Termux (local)' : 'CDN (fallback)'}
+
+${jsllm7TermuxConectado ? 
+'✅ jsllm7 está funcionando correctamente' : 
+'⚠️ jsllm7 no está conectado a Termux. Usando CDN.'}
+
+Para conectar:
+1. Abre Termux
+2. Ejecuta: cd ~/experimento
+3. Ejecuta: python3 servidor.py &
+4. Recarga esta página
+`;
+    mostrarModal('🔌 ESTADO DE jsllm7', mensaje);
+}
+
+document.getElementById('btnTermuxStatus').onclick = verEstadoTermux;
+
+function obtenerCancionAleatoria() {
+    let n;
+    do { n = Math.floor(Math.random() * playlist.length); } while (n === cancionActualIndex && playlist.length > 1);
+    cancionActualIndex = n;
+    return { url: playlist[n], nombre: nombresCanciones[n] };
+}
+
+const audio = document.getElementById('radioPlayer');
+const chatArea = document.getElementById('chatArea');
+const chatInput = document.getElementById('chatInput');
+const sendBtn = document.getElementById('sendChatBtn');
+const synth = window.speechSynthesis;
+
+function addMessage(text, isUser) {
+    const d = document.createElement('div');
+    d.className = `message ${isUser ? 'user-message' : 'ia-message'}`;
+    const b = document.createElement('div');
+    b.className = 'message-bubble';
+    b.textContent = text;
+    d.appendChild(b);
+    chatArea.appendChild(d);
+    chatArea.scrollTop = chatArea.scrollHeight;
+}
+
+function showTyping() {
+    const d = document.createElement('div');
+    d.className = 'message ia-message';
+    d.id = '_t';
+    d.innerHTML = '<div class="message-bubble"><span class="loading-spinner"></span> Locutora IA pensando...</div>';
+    chatArea.appendChild(d);
+    chatArea.scrollTop = chatArea.scrollHeight;
+}
+
+function removeTyping() { const t = document.getElementById('_t'); if (t) t.remove(); }
+
+function cargarCancionAleatoria() {
+    const c = obtenerCancionAleatoria();
+    cancionActualNombre = c.nombre;
+    audio.src = c.url;
+    audio.load();
+    audio.play().catch(() => {});
+    document.getElementById('currentSong').innerHTML = `${c.nombre} 🎵`;
+    contadorCancionesEmitidasTotal++;
+    document.getElementById('metricCanciones').textContent = contadorCancionesEmitidasTotal;
+    return c.nombre;
+}
+
+function activarVoz() {
+    if (!synth) return;
+    synth.speak(new SpeechSynthesisUtterance(" "));
+    vozActivada = true;
+    document.getElementById('activarVozBtn').style.background = "linear-gradient(90deg,#10b981,#059669)";
+    document.getElementById('activarVozBtn').innerHTML = "✅ Voz Activada";
+    document.getElementById('locutorStatus').innerHTML = '🎙️ Locutora IA: Voz lista';
+    setTimeout(() => synth.cancel(), 100);
+    showToast("🔊 Voz activada");
+}
+
+async function hablar(texto) {
+    if (!vozActivada || !synth) return;
+    synth.cancel();
+    const u = new SpeechSynthesisUtterance(texto);
+    u.lang = 'es-ES';
+    u.rate = 0.95;
+    u.pitch = 1.1;
+    u.onstart = () => {
+        document.getElementById('speakingIndicator').style.display = 'inline-block';
+        document.getElementById('locutorStatus').innerHTML = '🎙️ Locutora IA: Hablando...';
+    };
+    u.onend = () => {
+        document.getElementById('speakingIndicator').style.display = 'none';
+        document.getElementById('locutorStatus').innerHTML = '🎙️ Locutora IA: En espera...';
+    };
+    synth.speak(u);
+}
+
+audio.addEventListener('ended', async () => {
+    const n = cargarCancionAleatoria();
+    if (vozActivada && contadorCancionesEmitidasTotal % 2 === 0) {
+        const p = await _llamadaIA(`Presenta la canción "${n}" con energía y entusiasmo como locutora de radio.`);
+        addMessage(p || `🎵 Ahora suena "${n}" en Radio IA Pro`, false);
+        if (p) await hablar(p.substring(0, 200));
+    }
+});
+
+document.getElementById('activarVozBtn').addEventListener('click', activarVoz);
+
+async function enviarMensaje() {
+    const q = chatInput.value.trim();
+    if (!q || procesandoRespuesta) return;
+    addMessage(q, true);
+    chatInput.value = '';
+    procesandoRespuesta = true;
+    sendBtn.disabled = true;
+    showTyping();
+    
+    const respuesta = await _llamadaIA(`Eres locutora de radio. Responde a esta pregunta del oyente: "${q}". Canción actual: "${cancionActualNombre}". Respuesta cálida y cercana.`);
+    
+    removeTyping();
+    const textoFinal = respuesta || `Gracias por tu pregunta, querido oyente. "${q}" es un tema interesante. Disfruta de la música.`;
+    addMessage(textoFinal, false);
+    contadorPreguntas++;
+    document.getElementById('metricPreguntas').textContent = contadorPreguntas;
+    if (vozActivada) await hablar(textoFinal.substring(0, 200));
+    procesandoRespuesta = false;
+    sendBtn.disabled = false;
+    chatInput.focus();
+}
+
+sendBtn.addEventListener('click', enviarMensaje);
+chatInput.addEventListener('keypress', e => { if (e.key === 'Enter') enviarMensaje(); });
+
+// ============================================
+// HERRAMIENTAS
+// ============================================
+
+async function herramientaGenerica(promptText, titulo) {
+    showToast(`⏳ ${titulo}...`);
+    const respuesta = await _llamadaIA(promptText);
+    const respuestaFinal = respuesta || `No se pudo obtener ${titulo.toLowerCase()}.`;
+    mostrarModal(titulo, respuestaFinal);
+    if (vozActivada && respuesta) await hablar(respuesta.substring(0, 200));
+}
+
+document.getElementById('btnNoticias').onclick = () => herramientaGenerica(`Genera 5 noticias breves de hoy. Formato: titular + 1 línea.`, "📰 NOTICIAS");
+document.getElementById('btnClima').onclick = () => herramientaGenerica(`Pronóstico del clima para hoy en español.`, "🌤️ CLIMA");
+document.getElementById('btnCancion').onclick = () => herramientaGenerica(`Recomienda una canción y explica por qué escucharla.`, "🎵 CANCIÓN");
+document.getElementById('btnChiste').onclick = () => herramientaGenerica(`Cuenta un chiste corto y gracioso.`, "😄 CHISTE");
+document.getElementById('btnDatos').onclick = () => herramientaGenerica(`Comparte un dato curioso e interesante.`, "💡 DATO CURIOSO");
+document.getElementById('btnFrases').onclick = () => herramientaGenerica(`Comparte una frase inspiradora y su significado.`, "💭 FRASE");
+
+// ============================================
+// INICIALIZACIÓN
+// ============================================
+
+function iniciar() {
+    cargarCancionAleatoria();
+    const hoy = new Date();
+    document.getElementById('footer').innerHTML = `⚡ Radio IA Pro · ${hoy.toLocaleDateString('es-ES')} · Conectores activos · 24 canciones · jsllm7 404M`;
+    document.getElementById('dailyTip').innerHTML = `🎤 Disfruta la mejor música · Conectores: Memoria · Semántico · APIs · jsllm7 404M`;
+    document.getElementById('contextInfo').innerHTML = '🎙️ Conectores activos · Música 24/7 · jsllm7 404M';
+    document.getElementById('metricHerramientas').textContent = '7';
+    actualizarMetricasConectores();
+    
+    // Generar contenido de radio al inicio
+    setTimeout(_analizarConPotenciacion, 1500);
+}
+
+iniciar();
+
+// Fallback para jsllm7
+let intentos = 0;
+const check = setInterval(() => { 
+    if (typeof jsllm7 !== 'undefined') { 
+        clearInterval(check); 
+        showToast("✅ IA avanzada lista · Locutora IA activa · jsllm7 404M"); 
+    } else if (intentos > 30) clearInterval(check); 
+    intentos++; 
+}, 500);
+</script>
+
+<script type="importmap">
+{
+    "imports": {
+        "three": "https://unpkg.com/three@0.128.0/build/three.module.js",
+        "three/addons/": "https://unpkg.com/three@0.128.0/examples/jsm/"
+    }
+}
+</script>
+
+<script type="module">
+import * as THREE from 'three'; import { OrbitControls } from 'three/addons/controls/OrbitControls.js'; import { VRButton } from 'three/addons/webxr/VRButton.js';
+let scene, camera, renderer, controls, active = false;
+const container = document.getElementById('vrContainer'), vrBtn = document.getElementById('vrModeBtn'), closeVr = document.getElementById('closeVrBtn'), vrMode = document.getElementById('vrMode');
+function initVR() {
+    if (!container) return;
+    container.innerHTML = '';
+    scene = new THREE.Scene();
+    scene.background = new THREE.Color(0x0a0f1e);
+    camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 1000);
+    camera.position.set(5, 1.6, 6);
+    renderer = new THREE.WebGLRenderer({ antialias: true });
+    renderer.setSize(container.clientWidth, container.clientHeight);
+    renderer.xr.enabled = true;
+    container.appendChild(renderer.domElement);
+    container.appendChild(VRButton.createButton(renderer));
+    controls = new OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true;
+    scene.add(new THREE.AmbientLight(0x404060));
+    const dirLight = new THREE.DirectionalLight(0xffffff, 1);
+    dirLight.position.set(5, 10, 7);
+    scene.add(dirLight);
+    const floor = new THREE.Mesh(new THREE.PlaneGeometry(16, 16), new THREE.MeshStandardMaterial({ color: 0x1a1f2e }));
+    floor.rotation.x = -Math.PI / 2;
+    floor.position.y = -1.2;
+    scene.add(floor);
+    for (let i = 0; i < 8; i++) {
+        const sphere = new THREE.Mesh(new THREE.SphereGeometry(0.4, 16, 16), new THREE.MeshStandardMaterial({ color: [0x4a9eff, 0xf87171, 0xfbbf24][i % 3] }));
+        const angle = (i / 8) * Math.PI * 2;
+        sphere.position.set(Math.cos(angle) * 3.5, 1.2, Math.sin(angle) * 3.5);
+        scene.add(sphere);
+    }
+    const canvas = document.createElement('canvas');
+    canvas.width = 512;
+    canvas.height = 128;
+    const ctx = canvas.getContext('2d');
+    ctx.fillStyle = '#0a0f1e';
+    ctx.fillRect(0, 0, 512, 128);
+    ctx.font = 'Bold 28px "Segoe UI"';
+    ctx.fillStyle = '#e9c46a';
+    ctx.textAlign = 'center';
+    ctx.fillText('RADIO IA PRO', 256, 64);
+    const textPlane = new THREE.Mesh(new THREE.PlaneGeometry(6, 1.4), new THREE.MeshStandardMaterial({ map: new THREE.CanvasTexture(canvas) }));
+    textPlane.position.set(0, 2.8, -3.5);
+    scene.add(textPlane);
+    function animate() { requestAnimationFrame(animate); controls.update(); renderer.render(scene, camera); }
+    animate();
+    active = true;
+}
+vrBtn.addEventListener('click', () => { document.getElementById('normalMode').style.display = 'none'; vrMode.classList.add('active'); if (!active) setTimeout(initVR, 100); });
+closeVr.addEventListener('click', () => { vrMode.classList.remove('active'); document.getElementById('normalMode').style.display = 'block'; });
+</script>
 </body>
 </html>
