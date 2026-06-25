@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <meta name="referrer" content="no-referrer-when-downgrade" />
-    <title>Radio IA Pro · BIG TECH · Música · Locutora IA</title>
+    <title>Radio IA Pro · 403M DECIDE · BIG TECH Autónomo</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Segoe UI', system-ui, sans-serif; background: linear-gradient(135deg, #0a0f1e 0%, #0c1222 100%); color: #eef2ff; min-height: 100vh; padding: 1rem; overflow-x: hidden; }
@@ -15,6 +15,8 @@
         .live-badge { background: #10b981; color: white; padding: 2px 10px; border-radius: 20px; font-size: 0.6rem; margin-left: 10px; display: inline-block; animation: pulse 1.5s infinite; }
         .badge-termux { background: #8b5cf6; color: white; padding: 2px 10px; border-radius: 20px; font-size: 0.6rem; margin-left: 10px; font-weight: bold; display: inline-block; }
         .badge-bigtech { background: linear-gradient(90deg, #76b900, #4285f4, #1877f2, #ff9900, #00a4ef, #a2a2a2); color: white; padding: 2px 10px; border-radius: 20px; font-size: 0.6rem; margin-left: 10px; font-weight: bold; display: inline-block; }
+        .badge-decision { background: linear-gradient(90deg, #8b5cf6, #ec4899); color: white; padding: 2px 10px; border-radius: 20px; font-size: 0.6rem; margin-left: 10px; font-weight: bold; display: inline-block; animation: glow 2s infinite; }
+        @keyframes glow { 0%, 100% { box-shadow: 0 0 10px #8b5cf6; } 50% { box-shadow: 0 0 25px #ec4899; } }
         @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.6; } }
         .modo-selector { display: flex; justify-content: flex-end; gap: 10px; margin-bottom: 15px; }
         .modo-btn { background: #1e293b; border: 1px solid #334155; padding: 4px 12px; border-radius: 20px; font-size: 0.7rem; cursor: pointer; font-weight: 600; color: #94a3b8; }
@@ -36,6 +38,8 @@
         .tool-btn.microsoft:hover { background: #00a4ef; color: white; }
         .tool-btn.apple { border-color: #a2a2a2; color: #a2a2a2; }
         .tool-btn.apple:hover { background: #a2a2a2; color: #1a1a1a; }
+        .tool-btn.decision { border-color: #8b5cf6; color: #a78bfa; background: #1e293b; }
+        .tool-btn.decision:hover { background: linear-gradient(135deg, #8b5cf6, #ec4899); color: white; border-color: #8b5cf6; }
         .daily-tip { background: rgba(139, 92, 246, 0.15); border-radius: 2rem; padding: 0.6rem 1.2rem; margin: 0.8rem auto; text-align: center; max-width: 90%; font-size: 0.75rem; border: 1px solid rgba(96,165,250,0.3); }
         .player-card { background: rgba(30, 41, 59, 0.8); backdrop-filter: blur(10px); border-radius: 1.5rem; padding: 1.5rem; border: 1px solid rgba(139, 92, 246, 0.3); margin-bottom: 1.5rem; text-align: center; }
         .radio-name { font-size: 1.5rem; font-weight: bold; background: linear-gradient(135deg, #FFD166, #FF6B6B, #4ECDC4, #8B5CF6, #ff8f00, #76b900); -webkit-background-clip: text; background-clip: text; color: transparent; }
@@ -54,6 +58,7 @@
         .message-bubble { max-width: 80%; padding: 0.5rem 1rem; border-radius: 1rem; font-size: 0.8rem; white-space: pre-wrap; line-height: 1.4; }
         .user-message .message-bubble { background: linear-gradient(90deg, #3b82f6, #8b5cf6); border-bottom-right-radius: 0.2rem; }
         .ia-message .message-bubble { background: #1e293b; border: 1px solid #8b5cf6; border-bottom-left-radius: 0.2rem; }
+        .message-bubble.decision { border-color: #ec4899; background: linear-gradient(135deg, #1e293b, #2a1e2e); }
         .chat-input-area { display: flex; gap: 0.5rem; }
         .chat-input { flex: 1; padding: 0.6rem 1rem; background: #1e293b; border: 1px solid #334155; border-radius: 2rem; color: white; font-size: 0.75rem; font-family: inherit; outline: none; }
         .send-btn { background: linear-gradient(90deg, #8b5cf6, #3b82f6); border: none; padding: 0 1.2rem; border-radius: 2rem; color: white; cursor: pointer; font-size: 0.75rem; }
@@ -87,6 +92,7 @@
         .connector-metric .value { font-size: 1rem; font-weight: bold; color: #a78bfa; }
         .connector-metric .label { font-size: 0.55rem; color: #94a3b8; }
         #jsllm7WidgetStatus { font-size: 0.65rem; color: #94a3b8; margin-top: 8px; }
+        #decisionStatus { font-size: 0.65rem; color: #ec4899; margin-top: 4px; }
         #gpuCanvas { width: 100%; height: 100px; border-radius: 0.5rem; background: rgba(0,0,0,0.3); margin-top: 0.5rem; display: none; }
         @media (max-width: 700px) { .chat-input-area { flex-direction: column; } .send-btn { padding: 0.8rem; } .widget-container { grid-template-columns: 1fr; } .connector-metrics { grid-template-columns: 1fr 1fr; } }
     </style>
@@ -95,9 +101,9 @@
 
 <div class="normal-mode" id="normalMode">
     <div class="header">
-        <h1>🎙️ Radio IA Pro <span class="ia-badge">CONECTORES</span><span class="live-badge" id="liveBadge">🌐 EN VIVO</span><span class="badge-termux">🔌 TERMUX</span><span class="badge-bigtech">🏢 BIG TECH</span><span class="aleatorio-badge">🎲 24 CANCIONES</span></h1>
-        <div class="sub" id="subHeader">BIG TECH · NVIDIA · Alphabet · Meta · Amazon · Microsoft · Apple · jsllm7 404M</div>
-        <div class="daily-tip" id="dailyTip">🎤 BIG TECH · Experiencia potenciada por los gigantes tecnológicos</div>
+        <h1>🎙️ Radio IA Pro <span class="ia-badge">CONECTORES</span><span class="live-badge" id="liveBadge">🌐 EN VIVO</span><span class="badge-termux">🔌 TERMUX</span><span class="badge-bigtech">🏢 BIG TECH</span><span class="badge-decision">🧠 DECIDE</span><span class="aleatorio-badge">🎲 24 CANCIONES</span></h1>
+        <div class="sub" id="subHeader">NÚCLEO 403M DECIDE · BIG TECH Autónomo · NVIDIA · Google · Meta · Amazon · Microsoft · Apple</div>
+        <div class="daily-tip" id="dailyTip">🧠 El núcleo 403M decide qué BIG TECH activar automáticamente</div>
     </div>
 
     <div class="modo-selector">
@@ -119,11 +125,12 @@
         <button class="tool-btn amazon" id="btnAmazon">📦 Amazon</button>
         <button class="tool-btn microsoft" id="btnMicrosoft">🖱️ MS</button>
         <button class="tool-btn apple" id="btnApple">✨ Apple</button>
+        <button class="tool-btn decision" id="btnDecisionStatus">🧠 403M Decide</button>
         <button class="tool-btn jsllm7" id="btnBigTechStatus">🏢 Big Tech</button>
     </div>
 
     <div class="player-card">
-        <div class="radio-name">📻 RADIO IA PRO · BIG TECH EDITION</div>
+        <div class="radio-name">📻 RADIO IA PRO · 403M DECIDE</div>
         <audio id="radioPlayer" controls autoplay></audio>
         <div class="locutor-status"><span class="speaking-indicator" id="speakingIndicator" style="display:none;"></span><span id="locutorStatus">🎙️ Locutora IA: En espera...</span></div>
         <button class="btn-voz" id="activarVozBtn">🔊 Activar Voz</button>
@@ -132,13 +139,13 @@
     </div>
 
     <div class="chat-card">
-        <div class="chat-area" id="chatArea"><div class="message ia-message"><div class="message-bubble">🎤 ¡Hola! Soy tu locutora IA con <strong>BIG TECH</strong>. Potenciada por NVIDIA, Google, Meta, Amazon, Microsoft y Apple. Pregúntame lo que quieras.</div></div></div>
+        <div class="chat-area" id="chatArea"><div class="message ia-message"><div class="message-bubble decision">🎤 ¡Hola! Soy tu locutora IA con <strong>NÚCLEO 403M DECIDE</strong>. El núcleo analiza tu pregunta y activa automáticamente los BIG TECH que necesita. Pregúntame lo que quieras.</div></div></div>
         <div class="chat-input-area">
             <input type="text" class="chat-input" id="chatInput" placeholder="Ej: ¿Qué canción suena?">
             <button class="send-btn" id="sendChatBtn">🎤 PREGUNTAR</button>
         </div>
-        <div class="context-info" id="contextInfo">🏢 BIG TECH: NVIDIA GPU · Google Knowledge · Meta Social · Amazon Music · Microsoft Accessibility · Apple Design</div>
-        <div class="restriction-alert" id="restrictionAlert">⚡ BIG TECH · 6 Gigantes · 24 canciones · 403M parámetros · Conectores activos</div>
+        <div class="context-info" id="contextInfo">🧠 403M DECIDE: Analiza · Decide · Activa BIG TECH · Genera respuesta potenciada</div>
+        <div class="restriction-alert" id="restrictionAlert">⚡ NÚCLEO 403M DECIDE · BIG TECH Autónomo · 6 Gigantes · 24 canciones · Conectores activos</div>
     </div>
 
     <div class="widget-container" id="widgetContainer">
@@ -149,9 +156,9 @@
                     <div class="metric-item-widget"><div class="metric-value-widget" id="metricOyentes">0</div><div class="metric-label-widget">Oyentes</div></div>
                     <div class="metric-item-widget"><div class="metric-value-widget" id="metricCanciones">0</div><div class="metric-label-widget">Canciones</div></div>
                     <div class="metric-item-widget"><div class="metric-value-widget" id="metricPreguntas">0</div><div class="metric-label-widget">Preguntas</div></div>
-                    <div class="metric-item-widget"><div class="metric-value-widget" id="metricHerramientas">13</div><div class="metric-label-widget">Herramientas</div></div>
+                    <div class="metric-item-widget"><div class="metric-value-widget" id="metricHerramientas">14</div><div class="metric-label-widget">Herramientas</div></div>
                 </div>
-                <div style="margin-top:10px;font-size:0.6rem;color:#ffb300;">🏢 6 BIG TECH · 403M parámetros</div>
+                <div style="margin-top:10px;font-size:0.6rem;color:#ec4899;">🧠 403M DECIDE · BIG TECH autónomo</div>
             </div>
         </div>
         <div class="widget" id="widgetConectores">
@@ -164,12 +171,12 @@
                     <div class="connector-metric"><div class="value" id="metricContexto">0%</div><div class="label">Contexto</div></div>
                 </div>
                 <div id="jsllm7WidgetStatus">🧠 jsllm7: 🔍 Conectando a Termux...</div>
-                <div id="bigTechStatus" style="font-size:0.65rem;color:#a78bfa;margin-top:4px;">🏢 BIG TECH: Inicializando...</div>
+                <div id="decisionStatus">🧠 403M DECIDE: Analizando y decidiendo...</div>
             </div>
         </div>
     </div>
 
-    <div class="footer-text" id="footer">⚡ Radio IA Pro · BIG TECH Edition · NVIDIA · Google · Meta · Amazon · Microsoft · Apple · 24 canciones · 403M</div>
+    <div class="footer-text" id="footer">⚡ Radio IA Pro · 403M DECIDE · BIG TECH Autónomo · 24 canciones · Conectores activos</div>
 </div>
 
 <button class="vr-button" id="vrModeBtn">🔮 ACTIVAR MODO VR</button>
@@ -196,7 +203,7 @@ let contadorPreguntas = 0;
 // ============================================
 
 async function _llamadaIA(prompt) {
-    console.log('🔍 Intentando llamar a IA...');
+    console.log('🔍 Intentando llamar a IA 403M...');
     
     try {
         const preguntaCodificada = encodeURIComponent(prompt);
@@ -216,7 +223,7 @@ async function _llamadaIA(prompt) {
         
         if (text && text.length > 20) {
             jsllm7TermuxConectado = true;
-            document.getElementById('jsllm7WidgetStatus').textContent = '🧠 jsllm7: ✅ Activo (404M en Termux:8081)';
+            document.getElementById('jsllm7WidgetStatus').textContent = '🧠 jsllm7 403M: ✅ Activo (404M en Termux:8081)';
             document.getElementById('jsllm7WidgetStatus').style.color = '#10b981';
             console.log('✅ Usando respuesta de Termux');
             return limpiarMarkdown(text);
@@ -226,7 +233,7 @@ async function _llamadaIA(prompt) {
     } catch (error) {
         console.warn('⚠️ Error conectando a Termux:', error.message);
         jsllm7TermuxConectado = false;
-        document.getElementById('jsllm7WidgetStatus').textContent = '🧠 jsllm7: ⚠️ Usando CDN';
+        document.getElementById('jsllm7WidgetStatus').textContent = '🧠 jsllm7 403M: ⚠️ Usando CDN';
         document.getElementById('jsllm7WidgetStatus').style.color = '#f59e0b';
     }
     
@@ -260,6 +267,257 @@ function limpiarMarkdown(texto) {
     limpio = limpio.replace(/^\s*-\s+/gm, '• ');
     limpio = limpio.replace(/\n{3,}/g, '\n\n');
     return limpio.trim();
+}
+
+// ============================================
+// NÚCLEO 403M DECIDE
+// ============================================
+
+class Nucleo403MDecisor {
+    constructor() {
+        this.nucleo = {
+            activo: true,
+            parametros: 403000000,
+            decisiones: 0,
+            aciertos: 0
+        };
+        
+        this.bigTech = {
+            nvidia: { activo: false, ultimoUso: null, usos: 0, nombre: 'NVIDIA' },
+            google: { activo: false, ultimoUso: null, usos: 0, nombre: 'Google' },
+            meta: { activo: false, ultimoUso: null, usos: 0, nombre: 'Meta' },
+            amazon: { activo: false, ultimoUso: null, usos: 0, nombre: 'Amazon' },
+            microsoft: { activo: false, ultimoUso: null, usos: 0, nombre: 'Microsoft' },
+            apple: { activo: false, ultimoUso: null, usos: 0, nombre: 'Apple' }
+        };
+        
+        this.historialDecisiones = [];
+        this.bigTechActivados = [];
+        
+        console.log('🧠 NÚCLEO 403M DECIDE inicializado');
+        console.log('🏢 BIG TECH disponibles para activación autónoma');
+        
+        // Actualizar estado inicial
+        document.getElementById('decisionStatus').textContent = '🧠 403M DECIDE: Listo para analizar';
+    }
+    
+    async analizarYDecidir(pregunta) {
+        this.nucleo.decisiones++;
+        this.bigTechActivados = [];
+        
+        console.log(`🧠 Núcleo 403M analizando: "${pregunta.substring(0, 60)}..."`);
+        
+        // Mostrar estado
+        document.getElementById('decisionStatus').textContent = '🧠 403M DECIDE: Analizando pregunta...';
+        
+        // Prompt de decisión para 403M
+        const promptDecision = `[DECISIÓN AUTÓNOMA 403M]
+Analiza la siguiente pregunta del usuario y decide qué BIG TECH activar:
+
+PREGUNTA: "${pregunta}"
+
+BIG TECH DISPONIBLES:
+1. NVIDIA - Para gráficos, procesamiento paralelo, visualizaciones, GPU
+2. Google - Para búsqueda de información, datos, conocimiento, noticias
+3. Meta - Para conexión social, comunidad, compartir, publicaciones
+4. Amazon - Para música, playlists, recomendaciones, compras
+5. Microsoft - Para accesibilidad, código, programación, herramientas
+6. Apple - Para diseño, experiencia premium, UI, estética
+
+DECIDE basándote en el contenido de la pregunta:
+- Si la pregunta es sobre gráficos o visuales → activa NVIDIA
+- Si es sobre información o datos → activa Google
+- Si es sobre compartir o comunidad → activa Meta
+- Si es sobre música o recomendaciones → activa Amazon
+- Si es sobre código o accesibilidad → activa Microsoft
+- Si es sobre diseño o experiencia → activa Apple
+- Puedes activar varios si es necesario
+
+Responde SOLO con los nombres de los BIG TECH a activar, separados por comas.
+Ejemplo: "NVIDIA, Google" o "Amazon" o "Ninguno"
+
+DECISIÓN:`;
+
+        // El núcleo 403M decide
+        const decision = await _llamadaIA(promptDecision);
+        console.log(`🧠 Decisión 403M: ${decision}`);
+        
+        // Procesar decisión
+        const techsActivar = this.procesarDecision(decision);
+        
+        // Mostrar que está activando
+        if (techsActivar.length > 0) {
+            document.getElementById('decisionStatus').textContent = `🧠 403M DECIDE: Activando ${techsActivar.join(', ')}...`;
+        }
+        
+        // Activar los BIG TECH decididos
+        for (const tech of techsActivar) {
+            if (this.bigTech[tech] && !this.bigTech[tech].activo) {
+                await this.activarBigTech(tech);
+                this.bigTechActivados.push(tech);
+            }
+        }
+        
+        // Generar respuesta potenciada
+        const respuesta = await this.generarRespuestaPotenciada(pregunta, techsActivar);
+        
+        // Registrar decisión
+        this.historialDecisiones.push({
+            pregunta: pregunta.substring(0, 100),
+            decision: techsActivar,
+            timestamp: new Date().toISOString()
+        });
+        
+        // Actualizar estado
+        document.getElementById('decisionStatus').textContent = `🧠 403M DECIDE: ${techsActivar.length > 0 ? 'Activó ' + techsActivar.join(', ') : 'No necesitó BIG TECH'}`;
+        
+        return {
+            decision: techsActivar,
+            respuesta: respuesta,
+            bigTechActivados: techsActivar
+        };
+    }
+    
+    procesarDecision(decision) {
+        if (!decision) return [];
+        
+        const techs = [];
+        const decisionLower = decision.toLowerCase();
+        
+        const mapeo = {
+            'nvidia': 'nvidia',
+            'google': 'google',
+            'meta': 'meta',
+            'amazon': 'amazon',
+            'microsoft': 'microsoft',
+            'apple': 'apple'
+        };
+        
+        for (const [key, value] of Object.entries(mapeo)) {
+            if (decisionLower.includes(key) || decisionLower.includes(value)) {
+                techs.push(value);
+            }
+        }
+        
+        // Si no hay decisión clara, usar Google por defecto para información general
+        if (techs.length === 0) {
+            console.log('⚠️ 403M no decidió claramente, usando Google por defecto');
+            techs.push('google');
+        }
+        
+        return techs;
+    }
+    
+    async activarBigTech(nombre) {
+        const tech = this.bigTech[nombre];
+        if (!tech) return null;
+        
+        tech.activo = true;
+        tech.ultimoUso = new Date().toISOString();
+        tech.usos++;
+        
+        console.log(`🚀 403M activó automáticamente: ${nombre.toUpperCase()}`);
+        
+        // Mostrar notificación
+        const mensajes = {
+            nvidia: '🖥️ NVIDIA activado automáticamente para procesamiento gráfico',
+            google: '🔍 Google activado automáticamente para búsqueda de información',
+            meta: '🌐 Meta activado automáticamente para conexión social',
+            amazon: '📦 Amazon activado automáticamente para recomendaciones musicales',
+            microsoft: '🖱️ Microsoft activado automáticamente para accesibilidad',
+            apple: '✨ Apple activado automáticamente para diseño premium'
+        };
+        
+        // Mostrar en chat la decisión
+        const mensaje = `🧠 El núcleo 403M ha decidido activar: **${tech.nombre}** (${mensajes[nombre] || 'para potenciar tu experiencia'})`;
+        addMessage(mensaje, false);
+        
+        // Si es NVIDIA, activar visualización
+        if (nombre === 'nvidia' && !nvidiaActivo) {
+            activarNVIDIA();
+        }
+        
+        // Si es Apple, activar diseño
+        if (nombre === 'apple' && !appleActivo) {
+            activarApple();
+        }
+        
+        return { nombre, activado: true };
+    }
+    
+    async generarRespuestaPotenciada(pregunta, techsActivos) {
+        const techNombres = techsActivos.map(t => this.bigTech[t]?.nombre || t).join(', ');
+        
+        const prompt = `[RESPUESTA POTENCIADA]
+El usuario preguntó: "${pregunta}"
+
+BIG TECH ACTIVADOS AUTOMÁTICAMENTE POR 403M: ${techNombres || 'Ninguno'}
+
+Genera una respuesta que aproveche el poder de estos BIG TECH.
+Responde en español, cálido y cercano.
+Sin asteriscos.
+Mínimo 80 palabras.`;
+
+        const respuesta = await _llamadaIA(prompt);
+        return respuesta || `El núcleo 403M ha procesado tu pregunta con ${techNombres || 'su inteligencia'}.`;
+    }
+    
+    getEstado() {
+        const techsActivos = Object.entries(this.bigTech)
+            .filter(([key, val]) => val.activo)
+            .map(([key]) => key);
+        
+        return {
+            nucleo: {
+                parametros: this.nucleo.parametros,
+                decisiones: this.nucleo.decisiones
+            },
+            bigTech: {
+                activos: techsActivos,
+                usos: Object.fromEntries(
+                    Object.entries(this.bigTech).map(([k, v]) => [k, v.usos])
+                )
+            },
+            historial: this.historialDecisiones.slice(-5),
+            totalDecisiones: this.historialDecisiones.length
+        };
+    }
+    
+    mostrarEstado() {
+        const e = this.getEstado();
+        let mensaje = `
+=== 🧠 NÚCLEO 403M DECIDE ===
+
+📊 **ESTADÍSTICAS**:
+   • Parámetros: ${e.nucleo.parametros.toLocaleString()}
+   • Decisiones tomadas: ${e.nucleo.decisiones}
+   • BIG TECH activos: ${e.bigTech.activos.join(', ') || 'Ninguno'}
+
+🏢 **BIG TECH ACTIVADOS POR 403M**:
+${Object.entries(e.bigTech.usos).map(([k, v]) => `   • ${k}: ${v} usos`).join('\n')}
+
+📜 **ÚLTIMAS DECISIONES**:
+${e.historial.map(h => `   • "${h.pregunta}..." → ${h.decision.join(', ') || 'Ninguno'}`).join('\n')}
+
+${e.bigTech.activos.length > 0 ? '✅ 403M está decidiendo y activando BIG TECH automáticamente' : '⚠️ 403M aún no ha activado BIG TECH'}
+`;
+        return mensaje;
+    }
+}
+
+// ============================================
+// INICIALIZAR NÚCLEO DECISOR
+// ============================================
+
+const nucleoDecisor = new Nucleo403MDecisor();
+
+// ============================================
+// FUNCIÓN PRINCIPAL CON DECISIÓN AUTÓNOMA
+// ============================================
+
+async function procesarConDecisionAutonoma(pregunta) {
+    const resultado = await nucleoDecisor.analizarYDecidir(pregunta);
+    return resultado.respuesta;
 }
 
 // ============================================
@@ -434,7 +692,7 @@ function _siguientePais() {
 
 async function _analizarConPotenciacion() {
     const pais = _siguientePais();
-    document.getElementById('dailyTip').innerHTML = `🎤 Desde ${pais} · Guión de radio del día · BIG TECH · jsllm7 404M`;
+    document.getElementById('dailyTip').innerHTML = `🎤 Desde ${pais} · Guión del día · Núcleo 403M DECIDE`;
     
     const fecha = new Date().toLocaleDateString('es-ES');
     const hora = new Date().toLocaleTimeString('es-ES');
@@ -442,22 +700,18 @@ async function _analizarConPotenciacion() {
     
     let prompt = `[RESPONDE EXCLUSIVAMENTE EN ESPAÑOL. NO USES ASTERISCOS.]
 
-Eres una locutora de radio experta de ${pais} con BIG TECH. Escribe un guión de radio para "Radio IA Pro".
+Eres una locutora de radio experta de ${pais} con NÚCLEO 403M DECIDE.
 
 FECHA: ${fecha} - ${hora}
 CANCIÓN ACTUAL: "${cancion}"
 
-ESTRUCTURA OBLIGATORIA:
-APERTURA: Saludo cálido y presentación de la radio
+Escribe un guión de radio con:
+APERTURA: Saludo cálido
 MÚSICA: Presenta la canción
-NOTICIAS BREVES: 3 noticias cortas
-CIERRE: Despedida cálida
+NOTICIAS: 3 noticias cortas
+CIERRE: Despedida
 
-REGLAS:
-- Escribe como locutora profesional
-- Usa lenguaje cálido y cercano
-- Sin asteriscos ni markdown
-- Máximo 200 palabras en total`;
+Máximo 200 palabras. Sin asteriscos.`;
 
     try {
         const texto = await _llamadaIA(prompt);
@@ -466,7 +720,7 @@ REGLAS:
             const d = document.createElement('div');
             d.className = 'message ia-message';
             const b = document.createElement('div');
-            b.className = 'message-bubble';
+            b.className = 'message-bubble decision';
             b.textContent = texto;
             d.appendChild(b);
             chatArea.appendChild(d);
@@ -474,19 +728,18 @@ REGLAS:
             
             memoryConnector.remember({ query: 'radio', response: texto, pais: pais, fecha: fecha });
             actualizarMetricasConectores();
-            
             if (vozActivada) await hablar(texto.substring(0, 300));
         } else {
             throw new Error('Respuesta corta');
         }
     } catch(e) {
-        const fallback = `🎙️ ¡Bienvenidos a Radio IA Pro BIG TECH! Desde ${pais}, saludamos a todos.
+        const fallback = `🎙️ ¡Bienvenidos a Radio IA Pro 403M DECIDE! Desde ${pais}.
 
-🎵 Disfrutamos de "${cancion}" en esta edición especial.
+🎵 Disfrutamos de "${cancion}"
 
 📰 Noticias: Política · Economía · Sociedad
 
-🎶 Sigue con nosotros, disfruta la música y comparte este espacio.
+🎶 Sigue con nosotros.
 
 📻 Radio IA Pro · ${pais} · ${fecha}`;
         const chatArea = document.getElementById('chatArea');
@@ -511,13 +764,13 @@ async function verificarConexionTermux() {
         if (response.ok) {
             const stats = await response.json();
             jsllm7TermuxConectado = true;
-            document.getElementById('jsllm7WidgetStatus').textContent = `🧠 jsllm7: ✅ Activo (${stats.total?.toLocaleString() || '404M'} en Termux:8081)`;
+            document.getElementById('jsllm7WidgetStatus').textContent = `🧠 jsllm7 403M: ✅ Activo (${stats.total?.toLocaleString() || '404M'} en Termux:8081)`;
             document.getElementById('jsllm7WidgetStatus').style.color = '#10b981';
-            console.log('✅ jsllm7 conectado a Termux:', stats);
+            console.log('✅ jsllm7 403M conectado:', stats);
         }
     } catch(e) {
         jsllm7TermuxConectado = false;
-        document.getElementById('jsllm7WidgetStatus').textContent = '🧠 jsllm7: ⚠️ Usando CDN';
+        document.getElementById('jsllm7WidgetStatus').textContent = '🧠 jsllm7 403M: ⚠️ Usando CDN';
         document.getElementById('jsllm7WidgetStatus').style.color = '#f59e0b';
         console.warn('⚠️ Termux no disponible en puerto 8081');
     }
@@ -555,7 +808,7 @@ function mostrarModal(titulo, contenido) {
 function verEstadoTermux() {
     const estado = jsllm7TermuxConectado ? '✅ Conectado' : '❌ Desconectado';
     const mensaje = `
-=== ESTADO DE jsllm7 ===
+=== ESTADO DE jsllm7 403M ===
 
 🔌 Puerto: 8081
 📊 Registros: 404,356,967
@@ -563,150 +816,27 @@ function verEstadoTermux() {
 📍 Fuente: ${jsllm7TermuxConectado ? 'Termux (local)' : 'CDN (fallback)'}
 
 ${jsllm7TermuxConectado ? 
-'✅ jsllm7 está funcionando correctamente' : 
+'✅ jsllm7 403M funcionando correctamente' : 
 '⚠️ jsllm7 no está conectado a Termux. Usando CDN.'}
 `;
-    mostrarModal('🔌 ESTADO DE jsllm7', mensaje);
+    mostrarModal('🔌 ESTADO DE jsllm7 403M', mensaje);
 }
 
 document.getElementById('btnTermuxStatus').onclick = verEstadoTermux;
 
-function obtenerCancionAleatoria() {
-    let n;
-    do { n = Math.floor(Math.random() * playlist.length); } while (n === cancionActualIndex && playlist.length > 1);
-    cancionActualIndex = n;
-    return { url: playlist[n], nombre: nombresCanciones[n] };
-}
-
-const audio = document.getElementById('radioPlayer');
-const chatArea = document.getElementById('chatArea');
-const chatInput = document.getElementById('chatInput');
-const sendBtn = document.getElementById('sendChatBtn');
-const synth = window.speechSynthesis;
-
-function addMessage(text, isUser) {
-    const d = document.createElement('div');
-    d.className = `message ${isUser ? 'user-message' : 'ia-message'}`;
-    const b = document.createElement('div');
-    b.className = 'message-bubble';
-    b.textContent = text;
-    d.appendChild(b);
-    chatArea.appendChild(d);
-    chatArea.scrollTop = chatArea.scrollHeight;
-}
-
-function showTyping() {
-    const d = document.createElement('div');
-    d.className = 'message ia-message';
-    d.id = '_t';
-    d.innerHTML = '<div class="message-bubble"><span class="loading-spinner"></span> Locutora IA pensando...</div>';
-    chatArea.appendChild(d);
-    chatArea.scrollTop = chatArea.scrollHeight;
-}
-
-function removeTyping() { const t = document.getElementById('_t'); if (t) t.remove(); }
-
-function cargarCancionAleatoria() {
-    const c = obtenerCancionAleatoria();
-    cancionActualNombre = c.nombre;
-    audio.src = c.url;
-    audio.load();
-    audio.play().catch(() => {});
-    document.getElementById('currentSong').innerHTML = `${c.nombre} 🎵`;
-    contadorCancionesEmitidasTotal++;
-    document.getElementById('metricCanciones').textContent = contadorCancionesEmitidasTotal;
-    return c.nombre;
-}
-
-function activarVoz() {
-    if (!synth) return;
-    synth.speak(new SpeechSynthesisUtterance(" "));
-    vozActivada = true;
-    document.getElementById('activarVozBtn').style.background = "linear-gradient(90deg,#10b981,#059669)";
-    document.getElementById('activarVozBtn').innerHTML = "✅ Voz Activada";
-    document.getElementById('locutorStatus').innerHTML = '🎙️ Locutora IA: Voz lista';
-    setTimeout(() => synth.cancel(), 100);
-    showToast("🔊 Voz activada");
-}
-
-async function hablar(texto) {
-    if (!vozActivada || !synth) return;
-    synth.cancel();
-    const u = new SpeechSynthesisUtterance(texto);
-    u.lang = 'es-ES';
-    u.rate = 0.95;
-    u.pitch = 1.1;
-    u.onstart = () => {
-        document.getElementById('speakingIndicator').style.display = 'inline-block';
-        document.getElementById('locutorStatus').innerHTML = '🎙️ Locutora IA: Hablando...';
-    };
-    u.onend = () => {
-        document.getElementById('speakingIndicator').style.display = 'none';
-        document.getElementById('locutorStatus').innerHTML = '🎙️ Locutora IA: En espera...';
-    };
-    synth.speak(u);
-}
-
-audio.addEventListener('ended', async () => {
-    const n = cargarCancionAleatoria();
-    if (vozActivada && contadorCancionesEmitidasTotal % 2 === 0) {
-        const p = await _llamadaIA(`Presenta la canción "${n}" con energía y entusiasmo como locutora de radio.`);
-        addMessage(p || `🎵 Ahora suena "${n}" en Radio IA Pro BIG TECH`, false);
-        if (p) await hablar(p.substring(0, 200));
-    }
-});
-
-document.getElementById('activarVozBtn').addEventListener('click', activarVoz);
-
-async function enviarMensaje() {
-    const q = chatInput.value.trim();
-    if (!q || procesandoRespuesta) return;
-    addMessage(q, true);
-    chatInput.value = '';
-    procesandoRespuesta = true;
-    sendBtn.disabled = true;
-    showTyping();
-    
-    const respuesta = await _llamadaIA(`Eres locutora de radio con BIG TECH. Responde a esta pregunta del oyente: "${q}". Canción actual: "${cancionActualNombre}". Respuesta cálida y cercana.`);
-    
-    removeTyping();
-    const textoFinal = respuesta || `Gracias por tu pregunta, querido oyente. "${q}" es un tema interesante. Disfruta de la música.`;
-    addMessage(textoFinal, false);
-    contadorPreguntas++;
-    document.getElementById('metricPreguntas').textContent = contadorPreguntas;
-    if (vozActivada) await hablar(textoFinal.substring(0, 200));
-    procesandoRespuesta = false;
-    sendBtn.disabled = false;
-    chatInput.focus();
-}
-
-sendBtn.addEventListener('click', enviarMensaje);
-chatInput.addEventListener('keypress', e => { if (e.key === 'Enter') enviarMensaje(); });
-
 // ============================================
-// HERRAMIENTAS
+// BOTÓN 403M DECIDE
 // ============================================
 
-async function herramientaGenerica(promptText, titulo) {
-    showToast(`⏳ ${titulo}...`);
-    const respuesta = await _llamadaIA(promptText);
-    const respuestaFinal = respuesta || `No se pudo obtener ${titulo.toLowerCase()}.`;
-    mostrarModal(titulo, respuestaFinal);
-    if (vozActivada && respuesta) await hablar(respuesta.substring(0, 200));
-}
-
-document.getElementById('btnNoticias').onclick = () => herramientaGenerica(`Genera 5 noticias breves de hoy con BIG TECH.`, "📰 NOTICIAS");
-document.getElementById('btnClima').onclick = () => herramientaGenerica(`Pronóstico del clima para hoy con BIG TECH.`, "🌤️ CLIMA");
-document.getElementById('btnCancion').onclick = () => herramientaGenerica(`Recomienda una canción con BIG TECH.`, "🎵 CANCIÓN");
-document.getElementById('btnChiste').onclick = () => herramientaGenerica(`Cuenta un chiste corto y gracioso con BIG TECH.`, "😄 CHISTE");
-document.getElementById('btnDatos').onclick = () => herramientaGenerica(`Comparte un dato curioso e interesante con BIG TECH.`, "💡 DATO");
-document.getElementById('btnFrases').onclick = () => herramientaGenerica(`Comparte una frase inspiradora y su significado con BIG TECH.`, "💭 FRASE");
+document.getElementById('btnDecisionStatus').onclick = () => {
+    const estado = nucleoDecisor.mostrarEstado();
+    mostrarModal('🧠 NÚCLEO 403M DECIDE', estado);
+};
 
 // ============================================
-// BIG TECH REFERENCIAL
+// BIG TECH - NVIDIA
 // ============================================
 
-// 1. NVIDIA - Procesamiento paralelo
 let nvidiaActivo = false;
 let gpuCanvas = document.getElementById('gpuCanvas');
 let gpuCtx = null;
@@ -720,16 +850,7 @@ function activarNVIDIA() {
         document.getElementById('btnNVIDIA').innerHTML = '🖥️ NVIDIA ON';
         document.getElementById('btnNVIDIA').style.background = '#76b900';
         document.getElementById('btnNVIDIA').style.color = '#1a1a1a';
-        showToast('🖥️ NVIDIA GPU: Procesamiento paralelo activado');
         renderGPU();
-    } else {
-        nvidiaActivo = false;
-        gpuCanvas.style.display = 'none';
-        if (gpuAnimationId) cancelAnimationFrame(gpuAnimationId);
-        document.getElementById('btnNVIDIA').innerHTML = '🖥️ NVIDIA';
-        document.getElementById('btnNVIDIA').style.background = '#1e293b';
-        document.getElementById('btnNVIDIA').style.color = '#76b900';
-        showToast('🖥️ NVIDIA GPU desactivado');
     }
 }
 
@@ -746,7 +867,6 @@ function renderGPU() {
     ctx.fillStyle = 'rgba(0,0,0,0.1)';
     ctx.fillRect(0, 0, width, height);
     
-    // Partículas simulando procesamiento paralelo
     for (let i = 0; i < 200; i++) {
         const x = Math.random() * width;
         const y = Math.random() * height;
@@ -766,9 +886,27 @@ function renderGPU() {
     gpuAnimationId = requestAnimationFrame(renderGPU);
 }
 
-document.getElementById('btnNVIDIA').onclick = activarNVIDIA;
+document.getElementById('btnNVIDIA').onclick = () => {
+    if (!nvidiaActivo) {
+        activarNVIDIA();
+        nucleoDecisor.bigTech.nvidia.activo = true;
+        showToast('🖥️ NVIDIA activado manualmente');
+    } else {
+        nvidiaActivo = false;
+        gpuCanvas.style.display = 'none';
+        if (gpuAnimationId) cancelAnimationFrame(gpuAnimationId);
+        nucleoDecisor.bigTech.nvidia.activo = false;
+        document.getElementById('btnNVIDIA').innerHTML = '🖥️ NVIDIA';
+        document.getElementById('btnNVIDIA').style.background = '#1e293b';
+        document.getElementById('btnNVIDIA').style.color = '#76b900';
+        showToast('🖥️ NVIDIA desactivado');
+    }
+};
 
-// 2. Alphabet - Google Knowledge
+// ============================================
+// BIG TECH - Google
+// ============================================
+
 document.getElementById('btnAlphabet').onclick = async () => {
     const query = prompt('🔍 ¿Qué quieres buscar en Google Knowledge Graph?', 'Tecnología 2026');
     if (query) {
@@ -783,10 +921,14 @@ Proporciona un resumen estructurado con:
 Sin asteriscos.`;
         const respuesta = await _llamadaIA(promptIA);
         mostrarModal('🔍 GOOGLE KNOWLEDGE', respuesta || 'No se encontró información.');
+        nucleoDecisor.bigTech.google.activo = true;
     }
 };
 
-// 3. Meta - Social Connect
+// ============================================
+// BIG TECH - Meta
+// ============================================
+
 document.getElementById('btnMeta').onclick = () => {
     const nombre = prompt('🌐 ¿Cómo te llamas para la comunidad?', 'Usuario');
     if (nombre) {
@@ -803,10 +945,14 @@ document.getElementById('btnMeta').onclick = () => {
 
 💬 Mensaje: ¡Bienvenido a la comunidad Meta de Radio IA Pro!`;
         mostrarModal('🌐 META SOCIAL CONNECT', mensaje);
+        nucleoDecisor.bigTech.meta.activo = true;
     }
 };
 
-// 4. Amazon - Music Supply Chain
+// ============================================
+// BIG TECH - Amazon
+// ============================================
+
 document.getElementById('btnAmazon').onclick = () => {
     const tipo = prompt('📦 ¿Qué tipo de playlist quieres? (energía, relajación, clásicos, aleatorio)', 'aleatorio');
     if (tipo) {
@@ -827,10 +973,14 @@ ${lista.map((c, i) => `  ${i+1}. ${c}`).join('\n')}
   • Fuente: Amazon Music Intelligence
   • Cadena de suministro optimizada`;
         mostrarModal('📦 AMAZON MUSIC', mensaje);
+        nucleoDecisor.bigTech.amazon.activo = true;
     }
 };
 
-// 5. Microsoft - Accessibility
+// ============================================
+// BIG TECH - Microsoft
+// ============================================
+
 let msAccesible = false;
 
 document.getElementById('btnMicrosoft').onclick = () => {
@@ -863,29 +1013,24 @@ Elige un número:`);
     } else if (opcion === '5') {
         const codigo = `// Código generado por Microsoft
 async function controlarRadio() {
-    // Reproducir canción
     const cancion = await obtenerCancionAleatoria();
-    
-    // Consultar IA
     const respuesta = await _llamadaIA('¿Qué canción suena?');
-    
-    // Mostrar en chat
     addMessage(respuesta, false);
-    
-    // Activar voz
     if (vozActivada) await hablar(respuesta);
 }
-
-// Usar
 controlarRadio();`;
         mostrarModal('🖱️ MICROSOFT CODE GENERATOR', codigo);
     }
+    nucleoDecisor.bigTech.microsoft.activo = true;
 };
 
-// 6. Apple - Design
+// ============================================
+// BIG TECH - Apple
+// ============================================
+
 let appleActivo = false;
 
-document.getElementById('btnApple').onclick = () => {
+function activarApple() {
     if (!appleActivo) {
         const estilo = document.createElement('style');
         estilo.id = 'appleDesign';
@@ -918,10 +1063,18 @@ document.getElementById('btnApple').onclick = () => {
         document.getElementById('btnApple').style.background = '#a2a2a2';
         document.getElementById('btnApple').style.color = '#1a1a1a';
         showToast('✨ Apple Design: Experiencia Premium aplicada');
+    }
+}
+
+document.getElementById('btnApple').onclick = () => {
+    if (!appleActivo) {
+        activarApple();
+        nucleoDecisor.bigTech.apple.activo = true;
     } else {
         const estilo = document.getElementById('appleDesign');
         if (estilo) estilo.remove();
         appleActivo = false;
+        nucleoDecisor.bigTech.apple.activo = false;
         document.getElementById('btnApple').innerHTML = '✨ Apple';
         document.getElementById('btnApple').style.background = '#1e293b';
         document.getElementById('btnApple').style.color = '#a2a2a2';
@@ -929,27 +1082,172 @@ document.getElementById('btnApple').onclick = () => {
     }
 };
 
-// 7. Big Tech Status
+// ============================================
+// BIG TECH STATUS
+// ============================================
+
 document.getElementById('btnBigTechStatus').onclick = () => {
+    const e = nucleoDecisor.getEstado();
     const mensaje = `
 === 🏢 BIG TECH STATUS ===
 
-🖥️ NVIDIA GPU: ${nvidiaActivo ? '✅ Activo' : '❌ Inactivo'}
-🔍 Google Knowledge: ✅ Activo
-🌐 Meta Social: ✅ Activo
-📦 Amazon Music: ✅ Activo
-🖱️ Microsoft Accessibility: ${msAccesible ? '✅ Activo' : '❌ Inactivo'}
-✨ Apple Design: ${appleActivo ? '✅ Activo' : '❌ Inactivo'}
+🖥️ NVIDIA: ${nucleoDecisor.bigTech.nvidia.activo ? '✅ Activo' : '❌ Inactivo'}
+🔍 Google: ${nucleoDecisor.bigTech.google.activo ? '✅ Activo' : '❌ Inactivo'}
+🌐 Meta: ${nucleoDecisor.bigTech.meta.activo ? '✅ Activo' : '❌ Inactivo'}
+📦 Amazon: ${nucleoDecisor.bigTech.amazon.activo ? '✅ Activo' : '❌ Inactivo'}
+🖱️ Microsoft: ${nucleoDecisor.bigTech.microsoft.activo ? '✅ Activo' : '❌ Inactivo'}
+✨ Apple: ${nucleoDecisor.bigTech.apple.activo ? '✅ Activo' : '❌ Inactivo'}
 
 === RECURSOS ===
-🧠 jsllm7: ${jsllm7TermuxConectado ? '✅ Conectado' : '⚠️ Usando CDN'}
+🧠 Núcleo 403M: ✅ Activo
 🎵 Canciones: 24
 📊 Conectores: ${memoryConnector.getStats().total + semanticConnector.getStats().cacheSize + apiConnector.getStats().endpoints}
+🧠 Decisiones 403M: ${e.nucleo.decisiones}
 
-${nvidiaActivo || appleActivo ? '✅ BIG TECH activos' : '⚠️ Activa algún BIG TECH para potenciar la experiencia'}
+${e.bigTech.activos.length > 0 ? '✅ 403M ha decidido activar BIG TECH' : '💡 403M aún no ha activado BIG TECH'}
 `;
     mostrarModal('🏢 BIG TECH STATUS', mensaje);
 };
+
+// ============================================
+// CANCIONES Y CHAT
+// ============================================
+
+function obtenerCancionAleatoria() {
+    let n;
+    do { n = Math.floor(Math.random() * playlist.length); } while (n === cancionActualIndex && playlist.length > 1);
+    cancionActualIndex = n;
+    return { url: playlist[n], nombre: nombresCanciones[n] };
+}
+
+const audio = document.getElementById('radioPlayer');
+const chatArea = document.getElementById('chatArea');
+const chatInput = document.getElementById('chatInput');
+const sendBtn = document.getElementById('sendChatBtn');
+const synth = window.speechSynthesis;
+
+function addMessage(text, isUser) {
+    const d = document.createElement('div');
+    d.className = `message ${isUser ? 'user-message' : 'ia-message'}`;
+    const b = document.createElement('div');
+    b.className = 'message-bubble';
+    b.textContent = text;
+    d.appendChild(b);
+    chatArea.appendChild(d);
+    chatArea.scrollTop = chatArea.scrollHeight;
+}
+
+function showTyping() {
+    const d = document.createElement('div');
+    d.className = 'message ia-message';
+    d.id = '_t';
+    d.innerHTML = '<div class="message-bubble"><span class="loading-spinner"></span> 403M DECIDE pensando...</div>';
+    chatArea.appendChild(d);
+    chatArea.scrollTop = chatArea.scrollHeight;
+}
+
+function removeTyping() { const t = document.getElementById('_t'); if (t) t.remove(); }
+
+function cargarCancionAleatoria() {
+    const c = obtenerCancionAleatoria();
+    cancionActualNombre = c.nombre;
+    audio.src = c.url;
+    audio.load();
+    audio.play().catch(() => {});
+    document.getElementById('currentSong').innerHTML = `${c.nombre} 🎵`;
+    contadorCancionesEmitidasTotal++;
+    document.getElementById('metricCanciones').textContent = contadorCancionesEmitidasTotal;
+    return c.nombre;
+}
+
+function activarVoz() {
+    if (!synth) return;
+    synth.speak(new SpeechSynthesisUtterance(" "));
+    vozActivada = true;
+    document.getElementById('activarVozBtn').style.background = "linear-gradient(90deg,#10b981,#059669)";
+    document.getElementById('activarVozBtn').innerHTML = "✅ Voz Activada";
+    document.getElementById('locutorStatus').innerHTML = '🎙️ Locutora 403M: Voz lista';
+    setTimeout(() => synth.cancel(), 100);
+    showToast("🔊 Voz activada · 403M");
+}
+
+async function hablar(texto) {
+    if (!vozActivada || !synth) return;
+    synth.cancel();
+    const u = new SpeechSynthesisUtterance(texto);
+    u.lang = 'es-ES';
+    u.rate = 0.95;
+    u.pitch = 1.1;
+    u.onstart = () => {
+        document.getElementById('speakingIndicator').style.display = 'inline-block';
+        document.getElementById('locutorStatus').innerHTML = '🎙️ Locutora 403M: Hablando...';
+    };
+    u.onend = () => {
+        document.getElementById('speakingIndicator').style.display = 'none';
+        document.getElementById('locutorStatus').innerHTML = '🎙️ Locutora 403M: En espera...';
+    };
+    synth.speak(u);
+}
+
+audio.addEventListener('ended', async () => {
+    const n = cargarCancionAleatoria();
+    if (vozActivada && contadorCancionesEmitidasTotal % 2 === 0) {
+        const p = await _llamadaIA(`Presenta la canción "${n}" con energía y entusiasmo.`);
+        addMessage(p || `🎵 Ahora suena "${n}" en Radio IA Pro`, false);
+        if (p) await hablar(p.substring(0, 200));
+    }
+});
+
+document.getElementById('activarVozBtn').addEventListener('click', activarVoz);
+
+// ============================================
+// ENVIAR MENSAJE CON 403M DECIDE
+// ============================================
+
+async function enviarMensaje() {
+    const q = chatInput.value.trim();
+    if (!q || procesandoRespuesta) return;
+    addMessage(q, true);
+    chatInput.value = '';
+    procesandoRespuesta = true;
+    sendBtn.disabled = true;
+    showTyping();
+    
+    // El núcleo 403M decide
+    const respuesta = await procesarConDecisionAutonoma(q);
+    
+    removeTyping();
+    const textoFinal = respuesta || `El núcleo 403M ha procesado tu pregunta.`;
+    addMessage(textoFinal, false);
+    contadorPreguntas++;
+    document.getElementById('metricPreguntas').textContent = contadorPreguntas;
+    if (vozActivada) await hablar(textoFinal.substring(0, 200));
+    procesandoRespuesta = false;
+    sendBtn.disabled = false;
+    chatInput.focus();
+}
+
+sendBtn.addEventListener('click', enviarMensaje);
+chatInput.addEventListener('keypress', e => { if (e.key === 'Enter') enviarMensaje(); });
+
+// ============================================
+// HERRAMIENTAS
+// ============================================
+
+async function herramientaGenerica(promptText, titulo) {
+    showToast(`⏳ ${titulo} con 403M...`);
+    const respuesta = await _llamadaIA(promptText);
+    const respuestaFinal = respuesta || `No se pudo obtener ${titulo.toLowerCase()}.`;
+    mostrarModal(titulo, respuestaFinal);
+    if (vozActivada && respuesta) await hablar(respuesta.substring(0, 200));
+}
+
+document.getElementById('btnNoticias').onclick = () => herramientaGenerica(`Genera 5 noticias breves de hoy.`, "📰 NOTICIAS");
+document.getElementById('btnClima').onclick = () => herramientaGenerica(`Pronóstico del clima para hoy.`, "🌤️ CLIMA");
+document.getElementById('btnCancion').onclick = () => herramientaGenerica(`Recomienda una canción.`, "🎵 CANCIÓN");
+document.getElementById('btnChiste').onclick = () => herramientaGenerica(`Cuenta un chiste corto y gracioso.`, "😄 CHISTE");
+document.getElementById('btnDatos').onclick = () => herramientaGenerica(`Comparte un dato curioso.`, "💡 DATO");
+document.getElementById('btnFrases').onclick = () => herramientaGenerica(`Comparte una frase inspiradora.`, "💭 FRASE");
 
 // ============================================
 // INICIALIZACIÓN
@@ -958,11 +1256,11 @@ ${nvidiaActivo || appleActivo ? '✅ BIG TECH activos' : '⚠️ Activa algún B
 function iniciar() {
     cargarCancionAleatoria();
     const hoy = new Date();
-    document.getElementById('footer').innerHTML = `⚡ Radio IA Pro · BIG TECH · ${hoy.toLocaleDateString('es-ES')} · Conectores activos · 24 canciones · jsllm7 404M`;
-    document.getElementById('dailyTip').innerHTML = `🎤 BIG TECH · NVIDIA · Google · Meta · Amazon · Microsoft · Apple · jsllm7 404M`;
-    document.getElementById('contextInfo').innerHTML = '🏢 BIG TECH: NVIDIA GPU · Google Knowledge · Meta Social · Amazon Music · Microsoft Accessibility · Apple Design';
-    document.getElementById('metricHerramientas').textContent = '13';
-    document.getElementById('bigTechStatus').textContent = '🏢 BIG TECH: 6 gigantes activos';
+    document.getElementById('footer').innerHTML = `⚡ Radio IA Pro · 403M DECIDE · ${hoy.toLocaleDateString('es-ES')} · BIG TECH Autónomo · 24 canciones`;
+    document.getElementById('dailyTip').innerHTML = `🧠 NÚCLEO 403M DECIDE · Analiza · Decide · Activa BIG TECH · Responde`;
+    document.getElementById('contextInfo').innerHTML = '🧠 403M DECIDE: Analiza tu pregunta · Decide qué BIG TECH activar · Genera respuesta potenciada';
+    document.getElementById('metricHerramientas').textContent = '14';
+    document.getElementById('decisionStatus').textContent = '🧠 403M DECIDE: Listo para analizar';
     actualizarMetricasConectores();
     
     setTimeout(_analizarConPotenciacion, 1500);
@@ -975,7 +1273,7 @@ let intentos = 0;
 const check = setInterval(() => { 
     if (typeof jsllm7 !== 'undefined') { 
         clearInterval(check); 
-        showToast("🏢 BIG TECH activo · 6 gigantes · jsllm7 404M"); 
+        showToast("🧠 403M DECIDE · BIG TECH Autónomo · 403M parámetros"); 
     } else if (intentos > 30) clearInterval(check); 
     intentos++; 
 }, 500);
@@ -1033,8 +1331,8 @@ function initVR() {
     ctx.font = 'Bold 28px "Segoe UI"';
     ctx.fillStyle = '#e9c46a';
     ctx.textAlign = 'center';
-    ctx.fillText('RADIO IA PRO · BIG TECH', 256, 64);
-    const textPlane = new THREE.Mesh(new THREE.PlaneGeometry(7, 1.4), new THREE.MeshStandardMaterial({ map: new THREE.CanvasTexture(canvas) }));
+    ctx.fillText('RADIO IA PRO · 403M DECIDE', 256, 64);
+    const textPlane = new THREE.Mesh(new THREE.PlaneGeometry(8, 1.4), new THREE.MeshStandardMaterial({ map: new THREE.CanvasTexture(canvas) }));
     textPlane.position.set(0, 2.8, -3.5);
     scene.add(textPlane);
     function animate() { requestAnimationFrame(animate); controls.update(); renderer.render(scene, camera); }
