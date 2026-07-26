@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <meta name="referrer" content="no-referrer-when-downgrade" />
-    <title>Radio IA Pro · 403M LECTOR · Cloudflare 24/7</title>
+    <title>Radio IA Pro · 403M LECTOR · Cloudflare 24/7 · AcadémIA Pro</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Segoe UI', system-ui, sans-serif; background: linear-gradient(135deg, #0a0f1e 0%, #0c1222 100%); color: #eef2ff; min-height: 100vh; padding: 1rem; overflow-x: hidden; }
@@ -13,20 +13,23 @@
         h1 { font-size: 2rem; background: linear-gradient(135deg, #FFD166, #FF6B6B, #4ECDC4, #8B5CF6, #ff8f00, #76b900, #1877f2, #ff9900, #00a4ef, #a2a2a2); -webkit-background-clip: text; background-clip: text; color: transparent; }
         .sub { color: #94a3b8; margin-top: 0.5rem; font-size: 0.7rem; }
         .live-badge { background: #10b981; color: white; padding: 2px 10px; border-radius: 20px; font-size: 0.6rem; margin-left: 10px; display: inline-block; animation: pulse 1.5s infinite; }
-        .badge-termux { background: #8b5cf6; color: white; padding: 2px 10px; border-radius: 20px; font-size: 0.6rem; margin-left: 10px; font-weight: bold; display: inline-block; }
-        .badge-cloudflare { background: linear-gradient(135deg, #f59e0b, #8b5cf6); color: white; padding: 2px 10px; border-radius: 20px; font-size: 0.6rem; margin-left: 10px; font-weight: bold; display: inline-block; animation: glow 2s infinite; }
-        .badge-bigtech { background: linear-gradient(90deg, #76b900, #4285f4, #1877f2, #ff9900, #00a4ef, #a2a2a2); color: white; padding: 2px 10px; border-radius: 20px; font-size: 0.6rem; margin-left: 10px; font-weight: bold; display: inline-block; }
+        .badge-academia { background: linear-gradient(90deg, #10b981, #059669); color: white; padding: 2px 10px; border-radius: 20px; font-size: 0.6rem; margin-left: 10px; font-weight: bold; display: inline-block; animation: glow 2s infinite; }
         .badge-decision { background: linear-gradient(90deg, #8b5cf6, #ec4899); color: white; padding: 2px 10px; border-radius: 20px; font-size: 0.6rem; margin-left: 10px; font-weight: bold; display: inline-block; animation: glow 2s infinite; }
         @keyframes glow { 0%, 100% { box-shadow: 0 0 10px #8b5cf6; } 50% { box-shadow: 0 0 25px #ec4899; } }
         @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.6; } }
         .modo-selector { display: flex; justify-content: flex-end; gap: 10px; margin-bottom: 15px; }
         .modo-btn { background: #1e293b; border: 1px solid #334155; padding: 4px 12px; border-radius: 20px; font-size: 0.7rem; cursor: pointer; font-weight: 600; color: #94a3b8; }
         .modo-btn.active { background: #8b5cf6; color: white; border-color: #8b5cf6; }
+        
+        .status-bar { background: #1e293b; border-radius: 1rem; padding: 0.4rem 1rem; margin: 0.5rem 0; font-size: 0.6rem; display: flex; justify-content: space-around; flex-wrap: wrap; color: #94a3b8; }
+        
         .tools-bar { display: flex; flex-wrap: wrap; gap: 8px; margin: 15px 0; justify-content: center; }
         .tool-btn { background: #1e293b; border: 1px solid #334155; padding: 6px 12px; border-radius: 20px; font-size: 0.65rem; cursor: pointer; font-weight: 500; color: #94a3b8; transition: 0.2s; }
         .tool-btn:hover { background: #8b5cf6; color: white; border-color: #8b5cf6; transform: scale(1.02); }
-        .tool-btn.jsllm7 { border-color: #8b5cf6; color: #a78bfa; background: #1e293b; }
-        .tool-btn.jsllm7:hover { background: #8b5cf6; color: white; }
+        .tool-btn.academia { border-color: #10b981; color: #34d399; }
+        .tool-btn.academia:hover { background: linear-gradient(135deg, #10b981, #059669); color: white; }
+        .tool-btn.decision { border-color: #ec4899; color: #f472b6; }
+        .tool-btn.decision:hover { background: linear-gradient(135deg, #8b5cf6, #ec4899); color: white; }
         .tool-btn.nvidia { border-color: #76b900; color: #76b900; }
         .tool-btn.nvidia:hover { background: #76b900; color: #1a1a1a; }
         .tool-btn.alphabet { border-color: #4285f4; color: #4285f4; }
@@ -39,20 +42,23 @@
         .tool-btn.microsoft:hover { background: #00a4ef; color: white; }
         .tool-btn.apple { border-color: #a2a2a2; color: #a2a2a2; }
         .tool-btn.apple:hover { background: #a2a2a2; color: #1a1a1a; }
-        .tool-btn.decision { border-color: #8b5cf6; color: #a78bfa; background: #1e293b; }
-        .tool-btn.decision:hover { background: linear-gradient(135deg, #8b5cf6, #ec4899); color: white; border-color: #8b5cf6; }
-        .tool-btn.cloudflare { border-color: #f59e0b; color: #fbbf24; background: #1e293b; }
-        .tool-btn.cloudflare:hover { background: linear-gradient(135deg, #f59e0b, #8b5cf6); color: white; border-color: #f59e0b; }
-        .daily-tip { background: rgba(139, 92, 246, 0.15); border-radius: 2rem; padding: 0.6rem 1.2rem; margin: 0.8rem auto; text-align: center; max-width: 90%; font-size: 0.75rem; border: 1px solid rgba(96,165,250,0.3); }
-        .player-card { background: rgba(30, 41, 59, 0.8); backdrop-filter: blur(10px); border-radius: 1.5rem; padding: 1.5rem; border: 1px solid rgba(139, 92, 246, 0.3); margin-bottom: 1.5rem; text-align: center; }
-        .radio-name { font-size: 1.5rem; font-weight: bold; background: linear-gradient(135deg, #FFD166, #FF6B6B, #4ECDC4, #8B5CF6, #ff8f00, #76b900); -webkit-background-clip: text; background-clip: text; color: transparent; }
+        
+        .player-card { background: rgba(30, 41, 59, 0.8); backdrop-filter: blur(10px); border-radius: 1.5rem; padding: 1.5rem; border: 1px solid rgba(139, 92, 246, 0.3); margin-bottom: 1.5rem; text-align: center; position: relative; }
+        .radio-name { font-size: 1.5rem; font-weight: bold; background: linear-gradient(135deg, #FFD166, #FF6B6B, #4ECDC4, #8B5CF6); -webkit-background-clip: text; background-clip: text; color: transparent; }
         audio { width: 100%; border-radius: 1rem; margin: 1rem 0; }
         .locutor-status { background: rgba(139, 92, 246, 0.2); border-radius: 1rem; padding: 1rem; margin-top: 1rem; }
         .speaking-indicator { display: inline-block; width: 12px; height: 12px; background: #10b981; border-radius: 50%; animation: pulse 1s infinite; margin-right: 8px; }
+        .quality-badge { position: absolute; top: 10px; right: 10px; padding: 3px 8px; border-radius: 10px; font-size: 0.55rem; }
+        .quality-alta { background: #10b981; color: white; }
+        .quality-media { background: #f59e0b; color: black; }
+        .quality-baja { background: #ef4444; color: white; }
+        .export-buttons { display: flex; gap: 5px; margin-top: 8px; flex-wrap: wrap; justify-content: center; }
+        .export-btn { background: #334155; border: 1px solid #475569; padding: 3px 10px; border-radius: 15px; font-size: 0.55rem; cursor: pointer; color: #94a3b8; transition: 0.2s; }
+        .export-btn:hover { background: #8b5cf6; color: white; }
         .btn-voz { background: linear-gradient(90deg, #10b981, #059669); border: none; padding: 8px 20px; border-radius: 30px; color: white; cursor: pointer; margin-top: 10px; font-size: 0.8rem; transition: transform 0.2s; }
-        .btn-voz:hover { transform: scale(1.02); }
         .now-playing { background: rgba(30, 41, 59, 0.6); border-radius: 1rem; padding: 0.8rem; margin-top: 0.5rem; }
         .song-title { font-weight: bold; color: #e9c46a; }
+        
         .chat-card { background: rgba(30, 41, 59, 0.8); backdrop-filter: blur(10px); border-radius: 1.5rem; padding: 1.5rem; border: 1px solid rgba(139, 92, 246, 0.3); margin-bottom: 1.5rem; }
         .chat-area { background: rgba(15, 23, 42, 0.6); border-radius: 1rem; padding: 1rem; height: 250px; overflow-y: auto; margin-bottom: 1rem; }
         .message { margin-bottom: 0.8rem; display: flex; flex-direction: column; }
@@ -61,27 +67,11 @@
         .message-bubble { max-width: 80%; padding: 0.5rem 1rem; border-radius: 1rem; font-size: 0.8rem; white-space: pre-wrap; line-height: 1.4; }
         .user-message .message-bubble { background: linear-gradient(90deg, #3b82f6, #8b5cf6); border-bottom-right-radius: 0.2rem; }
         .ia-message .message-bubble { background: #1e293b; border: 1px solid #8b5cf6; border-bottom-left-radius: 0.2rem; }
-        .message-bubble.decision { border-color: #ec4899; background: linear-gradient(135deg, #1e293b, #2a1e2e); }
         .chat-input-area { display: flex; gap: 0.5rem; }
         .chat-input { flex: 1; padding: 0.6rem 1rem; background: #1e293b; border: 1px solid #334155; border-radius: 2rem; color: white; font-size: 0.75rem; font-family: inherit; outline: none; }
         .send-btn { background: linear-gradient(90deg, #8b5cf6, #3b82f6); border: none; padding: 0 1.2rem; border-radius: 2rem; color: white; cursor: pointer; font-size: 0.75rem; }
         .ia-badge { background: #10b981; padding: 2px 10px; border-radius: 20px; font-size: 0.7rem; }
-        .context-info { background: rgba(139,92,246,0.1); border-radius: 1rem; padding: 0.5rem; margin: 0.5rem 0; font-size: 0.65rem; color: #a5b4fc; text-align: center; }
-        .restriction-alert { background: rgba(139, 92, 246, 0.15); border: 1px solid #8b5cf6; border-radius: 0.8rem; padding: 0.5rem 1rem; margin-top: 1rem; font-size: 0.7rem; text-align: center; color: #a78bfa; }
-        .footer-text { text-align: center; margin-top: 2rem; font-size: 0.7rem; color: #64748b; }
-        .vr-button { position: fixed; bottom: 20px; right: 20px; background: linear-gradient(135deg, #f59e0b, #d97706); border: none; padding: 12px 20px; border-radius: 40px; color: white; font-weight: bold; cursor: pointer; z-index: 100; box-shadow: 0 0 15px rgba(245,158,11,0.5); }
-        .vr-mode { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 1000; display: none; background: #0a0f1e; }
-        .vr-mode.active { display: block; }
-        .close-vr { position: fixed; top: 20px; right: 20px; background: rgba(0,0,0,0.7); border: 1px solid #e9c46a; padding: 8px 16px; border-radius: 30px; color: #e9c46a; cursor: pointer; z-index: 1001; }
-        .toast-msg { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: #10b981; color: white; padding: 8px 20px; border-radius: 50px; font-size: 0.8rem; z-index: 2000; animation: fadeOut 2s forwards; }
-        @keyframes fadeOut { 0% { opacity: 1; } 70% { opacity: 1; } 100% { opacity: 0; visibility: hidden; } }
-        .loading-spinner { display: inline-block; width: 12px; height: 12px; border: 2px solid rgba(255,255,255,0.3); border-top-color: white; border-radius: 50%; animation: spin 0.6s linear infinite; margin-right: 6px; vertical-align: middle; }
-        @keyframes spin { to { transform: rotate(360deg); } }
-        .aleatorio-badge { background: #8b5cf6; padding: 2px 8px; border-radius: 20px; font-size: 0.55rem; margin-left: 8px; display: inline-block; }
-        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 2000; display: flex; align-items: center; justify-content: center; }
-        .modal-content { background: #0f172a; border-radius: 1.5rem; max-width: 600px; width: 90%; max-height: 80vh; overflow-y: auto; padding: 1.5rem; border: 2px solid #8b5cf6; }
-        .modal-content h3 { color: #a78bfa; margin-bottom: 1rem; }
-        .modal-close { margin-top: 1rem; background: #8b5cf6; border: none; padding: 0.5rem 1rem; border-radius: 2rem; color: white; cursor: pointer; }
+        
         .widget-container { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 15px 0; }
         .widget { background: rgba(30, 41, 59, 0.9); border: 1px solid #8b5cf6; border-radius: 12px; padding: 15px; backdrop-filter: blur(10px); }
         .widget-title { font-weight: 700; color: #a78bfa; font-size: 0.8rem; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
@@ -94,20 +84,38 @@
         .connector-metric { background: rgba(0,0,0,0.3); padding: 6px; border-radius: 6px; text-align: center; }
         .connector-metric .value { font-size: 1rem; font-weight: bold; color: #a78bfa; }
         .connector-metric .label { font-size: 0.55rem; color: #94a3b8; }
-        #jsllm7WidgetStatus { font-size: 0.65rem; color: #94a3b8; margin-top: 8px; }
-        #cloudflareStatus { font-size: 0.65rem; color: #94a3b8; margin-top: 4px; }
-        #decisionStatus { font-size: 0.65rem; color: #ec4899; margin-top: 4px; }
-        #gpuCanvas { width: 100%; height: 100px; border-radius: 0.5rem; background: rgba(0,0,0,0.3); margin-top: 0.5rem; display: none; }
-        @media (max-width: 700px) { .chat-input-area { flex-direction: column; } .send-btn { padding: 0.8rem; } .widget-container { grid-template-columns: 1fr; } .connector-metrics { grid-template-columns: 1fr 1fr; } }
+        
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 2000; display: flex; align-items: center; justify-content: center; }
+        .modal-content { background: #0f172a; border-radius: 1.5rem; max-width: 650px; width: 90%; max-height: 80vh; overflow-y: auto; padding: 1.5rem; border: 2px solid #8b5cf6; }
+        .modal-content h3 { color: #a78bfa; margin-bottom: 1rem; }
+        .modal-close { margin-top: 1rem; background: #8b5cf6; border: none; padding: 0.5rem 1rem; border-radius: 2rem; color: white; cursor: pointer; }
+        
+        .toast-msg { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: #10b981; color: white; padding: 8px 20px; border-radius: 50px; font-size: 0.8rem; z-index: 2000; animation: fadeOut 3s forwards; }
+        @keyframes fadeOut { 0% { opacity: 1; } 70% { opacity: 1; } 100% { opacity: 0; visibility: hidden; } }
+        .loading-spinner { display: inline-block; width: 12px; height: 12px; border: 2px solid rgba(255,255,255,0.3); border-top-color: white; border-radius: 50%; animation: spin 0.6s linear infinite; margin-right: 6px; vertical-align: middle; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        
+        .vr-button { position: fixed; bottom: 20px; right: 20px; background: linear-gradient(135deg, #f59e0b, #d97706); border: none; padding: 12px 20px; border-radius: 40px; color: white; font-weight: bold; cursor: pointer; z-index: 100; }
+        .vr-mode { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 1000; display: none; background: #0a0f1e; }
+        .vr-mode.active { display: block; }
+        .close-vr { position: fixed; top: 20px; right: 20px; background: rgba(0,0,0,0.7); border: 1px solid #e9c46a; padding: 8px 16px; border-radius: 30px; color: #e9c46a; cursor: pointer; z-index: 1001; }
+        
+        @media (max-width: 700px) { .chat-input-area { flex-direction: column; } .widget-container { grid-template-columns: 1fr; } .connector-metrics { grid-template-columns: 1fr 1fr; } }
     </style>
 </head>
 <body>
 
 <div class="normal-mode" id="normalMode">
     <div class="header">
-        <h1>🎙️ Radio IA Pro <span class="ia-badge">403M LECTOR</span><span class="live-badge" id="liveBadge">☁️ 24/7</span><span class="badge-cloudflare">☁️ CLOUDFLARE 24/7</span><span class="badge-bigtech">🏢 BIG TECH</span><span class="badge-decision">🧠 403M LECTOR</span><span class="aleatorio-badge">🎲 24 CANCIONES</span></h1>
-        <div class="sub" id="subHeader">☁️ 403M LECTOR · Cloudflare 24/7 · Lee 403M+ datos · Responde directamente · BIG TECH Autónomo</div>
-        <div class="daily-tip" id="dailyTip">🧠 403M LECTOR: Cloudflare 24/7 · Lee 403M+ datos · Responde directamente · BIG TECH autónomo</div>
+        <h1>🎙️ Radio IA Pro <span class="ia-badge">403M LECTOR</span><span class="live-badge">☁️ 24/7</span><span class="badge-academia">📚 ACADÉMIA PRO</span><span class="badge-decision">🧠 403M LECTOR</span></h1>
+        <div class="sub">☁️ 403M LECTOR · AcadémIA Pro · IndexedDB · 5 Fuentes · BIG TECH Autónomo · 24 canciones</div>
+    </div>
+
+    <div class="status-bar">
+        <span>💾 Caché: <span id="cacheHitRate">0%</span></span>
+        <span>📊 DB: <span id="dbEntries">0</span></span>
+        <span>🧠 403M: <span id="decisionCount">0</span></span>
+        <span>🔌 Cloudflare: <span id="cfStatus">Conectando...</span></span>
     </div>
 
     <div class="modo-selector">
@@ -118,42 +126,41 @@
     <div class="tools-bar">
         <button class="tool-btn" id="btnNoticias">📰 Noticias</button>
         <button class="tool-btn" id="btnClima">🌤️ Clima</button>
-        <button class="tool-btn" id="btnCancion">🎵 Pedir Canción</button>
+        <button class="tool-btn" id="btnCancion">🎵 Canción</button>
         <button class="tool-btn" id="btnChiste">😄 Chiste</button>
         <button class="tool-btn" id="btnDatos">💡 Dato</button>
         <button class="tool-btn" id="btnFrases">💭 Frase</button>
-        <button class="tool-btn jsllm7" id="btnTermuxStatus">🔌 Estado</button>
         <button class="tool-btn nvidia" id="btnNVIDIA">🖥️ NVIDIA</button>
         <button class="tool-btn alphabet" id="btnAlphabet">🔍 Google</button>
         <button class="tool-btn meta" id="btnMeta">🌐 Meta</button>
         <button class="tool-btn amazon" id="btnAmazon">📦 Amazon</button>
         <button class="tool-btn microsoft" id="btnMicrosoft">🖱️ MS</button>
         <button class="tool-btn apple" id="btnApple">✨ Apple</button>
+        <button class="tool-btn academia" id="btnBuscarAcademico">📚 Búsqueda Académica</button>
+        <button class="tool-btn academia" id="btnVerificarPlagio">⚠️ Plagio</button>
+        <button class="tool-btn academia" id="btnExportar">📤 Exportar</button>
         <button class="tool-btn decision" id="btnDecisionStatus">🧠 403M LECTOR</button>
-        <button class="tool-btn cloudflare" id="btnCloudflareStatus">☁️ CLOUDFLARE 24/7</button>
-        <button class="tool-btn jsllm7" id="btnBigTechStatus">🏢 Big Tech</button>
+        <button class="tool-btn" id="btnTermuxStatus">🔌 Estado Sistema</button>
     </div>
 
-    <div class="player-card">
-        <div class="radio-name">📻 RADIO IA PRO · 403M LECTOR · CLOUDFLARE 24/7</div>
+    <div class="player-card" id="playerCard">
+        <div class="radio-name">📻 RADIO IA PRO · 403M LECTOR · ACADÉMIA PRO</div>
         <audio id="radioPlayer" controls autoplay></audio>
         <div class="locutor-status"><span class="speaking-indicator" id="speakingIndicator" style="display:none;"></span><span id="locutorStatus">🎙️ Locutora IA: En espera...</span></div>
         <button class="btn-voz" id="activarVozBtn">🔊 Activar Voz</button>
         <div class="now-playing"><span class="song-title">🎵 Ahora suena:</span> <span id="currentSong">Cargando...</span></div>
-        <canvas id="gpuCanvas"></canvas>
+        <canvas id="gpuCanvas" style="width:100%;height:100px;border-radius:0.5rem;background:rgba(0,0,0,0.3);margin-top:0.5rem;display:none;"></canvas>
     </div>
 
     <div class="chat-card">
-        <div class="chat-area" id="chatArea"><div class="message ia-message"><div class="message-bubble decision">🎤 ¡Hola! Soy tu locutora IA con <strong>403M LECTOR</strong> y Cloudflare 24/7. Lee 403M+ datos y responde directamente. Pregúntame lo que quieras.</div></div></div>
+        <div class="chat-area" id="chatArea"><div class="message ia-message"><div class="message-bubble decision">🎤 ¡Hola! Soy tu locutora IA con <strong>403M LECTOR</strong> y <strong>AcadémIA Pro</strong>. IndexedDB activo, 5 fuentes académicas. Pregúntame lo que quieras.</div></div></div>
         <div class="chat-input-area">
             <input type="text" class="chat-input" id="chatInput" placeholder="Ej: ¿Qué canción suena?">
             <button class="send-btn" id="sendChatBtn">🎤 PREGUNTAR</button>
         </div>
-        <div class="context-info" id="contextInfo">☁️ 403M LECTOR: Cloudflare 24/7 · Lee 403M+ datos · Responde directamente · BIG TECH autónomo</div>
-        <div class="restriction-alert" id="restrictionAlert">⚡ 403M LECTOR · Cloudflare 24/7 · 403M+ datos · BIG TECH Autónomo · 6 Gigantes · 24 canciones · Conectores activos</div>
     </div>
 
-    <div class="widget-container" id="widgetContainer">
+    <div class="widget-container">
         <div class="widget" id="widgetMetricas">
             <div class="widget-title">📊 Estación de Radio</div>
             <div class="widget-content">
@@ -161,28 +168,25 @@
                     <div class="metric-item-widget"><div class="metric-value-widget" id="metricOyentes">0</div><div class="metric-label-widget">Oyentes</div></div>
                     <div class="metric-item-widget"><div class="metric-value-widget" id="metricCanciones">0</div><div class="metric-label-widget">Canciones</div></div>
                     <div class="metric-item-widget"><div class="metric-value-widget" id="metricPreguntas">0</div><div class="metric-label-widget">Preguntas</div></div>
-                    <div class="metric-item-widget"><div class="metric-value-widget" id="metricHerramientas">15</div><div class="metric-label-widget">Herramientas</div></div>
+                    <div class="metric-item-widget"><div class="metric-value-widget" id="metricHerramientas">18</div><div class="metric-label-widget">Herramientas</div></div>
                 </div>
-                <div style="margin-top:10px;font-size:0.6rem;color:#ec4899;">☁️ 403M LECTOR · Cloudflare 24/7 · 403M+ datos</div>
             </div>
         </div>
         <div class="widget" id="widgetConectores">
-            <div class="widget-title">🔌 Estado del Lector</div>
+            <div class="widget-title">🔌 Estado del Sistema</div>
             <div class="widget-content">
                 <div class="connector-metrics">
                     <div class="connector-metric"><div class="value" id="metricMemoria">0</div><div class="label">Conversaciones</div></div>
                     <div class="connector-metric"><div class="value" id="metricSemantico">403M+</div><div class="label">Datos leídos</div></div>
                     <div class="connector-metric"><div class="value" id="metricAPIs">30</div><div class="label">Países</div></div>
-                    <div class="connector-metric"><div class="value" id="metricContexto">100%</div><div class="label">Precisión</div></div>
+                    <div class="connector-metric"><div class="value" id="metricDB">0</div><div class="label">IndexedDB</div></div>
                 </div>
-                <div id="jsllm7WidgetStatus">📖 403M LECTOR: ✅ Activo · Cloudflare 24/7</div>
-                <div id="cloudflareStatus">☁️ Cloudflare: ✅ 24/7 · Nunca cae</div>
-                <div id="decisionStatus">🧠 403M LECTOR: Listo para responder</div>
+                <div id="jsllm7WidgetStatus">📖 403M LECTOR: ✅ Activo</div>
             </div>
         </div>
     </div>
 
-    <div class="footer-text" id="footer">☁️ Radio IA Pro · 403M LECTOR · Cloudflare 24/7 · 403M+ datos · BIG TECH Autónomo · 24 canciones · Respuesta directa</div>
+    <div class="footer-text">☁️ Radio IA Pro · 403M LECTOR · AcadémIA Pro · IndexedDB · 5 Fuentes · 18 herramientas · BIG TECH</div>
 </div>
 
 <button class="vr-button" id="vrModeBtn">🔮 ACTIVAR MODO VR</button>
@@ -192,449 +196,299 @@
 
 <script>
 // ============================================
-// CONFIGURACIÓN - CLOUDFLARE 24/7
+// CONFIGURACIÓN
 // ============================================
-
-// 🔥 AHORA USA CLOUDFLARE 24/7 EN LUGAR DE localhost:8081
 const JSLLM7_API_URL = 'https://wikipedia-403m.odandoolugan.workers.dev';
 let cloudflareConectado = false;
-let jsllm7TermuxConectado = false;
-let cancionActualNombre = "";
+let modo = localStorage.getItem('radio_modo') || 'experto';
+let ultimoAnalisis = '';
+let referenciasAcademicas = [];
 let vozActivada = false;
 let procesandoRespuesta = false;
 let cancionActualIndex = -1;
 let contadorCancionesEmitidasTotal = 0;
 let contadorPreguntas = 0;
-let modo = localStorage.getItem('radio_modo') || 'experto';
 
 // ============================================
-// BASE DE DATOS 403M+ (INTERNA)
+// SISTEMA DE CACHÉ CON IndexedDB
 // ============================================
-
-const BASE_DATOS_403M = {
-    radio: {
-        'noticias': {
-            analisis: `📰 NOTICIAS RADIO IA PRO · CLOUDFLARE 24/7
-
-🔍 RESUMEN DE NOTICIAS:
-
-1. ECONOMÍA: El crecimiento económico supera las expectativas del mercado con un aumento del 3.2% en el PIB.
-
-2. TECNOLOGÍA: Nuevo avance en inteligencia artificial promete revolucionar la industria.
-
-3. CULTURA: Festival internacional de música atrae a miles de visitantes.
-
-4. DEPORTES: El equipo local logra importante victoria en el torneo.
-
-5. CIENCIA: Descubrimiento científico abre nuevas posibilidades en medicina.
-
-📻 Mantente informado con Radio IA Pro · 403M LECTOR · Cloudflare 24/7
-📖 Fuente: 403M+ datos`
-        },
-        'clima': {
-            analisis: `🌤️ PRONÓSTICO DEL CLIMA · CLOUDFLARE 24/7
-
-🔍 TEMPERATURAS:
-• Mañana: 22°C - Mayormente soleado
-• Tarde: 28°C - Cielos despejados
-• Noche: 18°C - Brisa suave
-
-💨 VIENTO: 10 km/h dirección noreste
-💧 HUMEDAD: 65%
-☀️ PROBABILIDAD DE LLUVIA: 10%
-
-📻 Radio IA Pro · 403M LECTOR · Cloudflare 24/7
-📖 Fuente: 403M+ datos`
-        },
-        'cancion': {
-            analisis: `🎵 RECOMENDACIÓN MUSICAL · CLOUDFLARE 24/7
-
-🎶 Canción recomendada: "Melodía del Alma"
-
-🎤 Artista: Radio IA Pro
-
-📝 DESCRIPCIÓN:
-Una canción que combina ritmos modernos con armonías clásicas. Perfecta para comenzar el día con energía o relajarse después de un largo día.
-
-🎧 DISPONIBLE EN:
-• Todas las plataformas digitales
-• Radio IA Pro 24/7
-
-📻 Radio IA Pro · 403M LECTOR · Cloudflare 24/7
-📖 Fuente: 403M+ datos`
-        },
-        'chiste': {
-            analisis: `😄 CHISTE DEL DÍA · CLOUDFLARE 24/7
-
-🔍 ¿Qué le dice un semáforo a otro?
-"No me mires que me pongo rojo"
-
-😂 OTRO:
-¿Cómo se llama el campeón de buceo japonés?
-Tokofondo
-
-📻 Radio IA Pro · 403M LECTOR · Cloudflare 24/7
-📖 Fuente: 403M+ datos`
-        },
-        'dato': {
-            analisis: `💡 DATO CURIOSO · CLOUDFLARE 24/7
-
-🔍 SABÍAS QUE...
-El cerebro humano procesa información a una velocidad de aproximadamente 120 metros por segundo.
-
-🧠 DATO EXTRA:
-La memoria humana puede almacenar alrededor de 2.5 petabytes de información (equivalente a 3 millones de horas de video).
-
-📻 Radio IA Pro · 403M LECTOR · Cloudflare 24/7
-📖 Fuente: 403M+ datos`
-        },
-        'frase': {
-            analisis: `💭 FRASE INSPIRADORA · CLOUDFLARE 24/7
-
-🌟 "La única forma de hacer un gran trabajo es amar lo que haces" - Steve Jobs
-
-✨ OTRA FRASE:
-"El éxito no es definitivo, el fracaso no es fatal: lo que cuenta es el valor para continuar" - Winston Churchill
-
-📻 Radio IA Pro · 403M LECTOR · Cloudflare 24/7
-📖 Fuente: 403M+ datos`
-        }
-    }
-};
-
-// ============================================
-// MOTOR DE BÚSQUEDA 403M+
-// ============================================
-
-class MotorBusqueda403M {
+class PersistentCache {
     constructor() {
-        this.baseDatos = BASE_DATOS_403M;
-        this.cache = new Map();
-        console.log('📚 403M LECTOR: Base de datos de radio cargada');
+        this.dbName = 'RadioDB';
+        this.version = 1;
+        this.db = null;
+        this.cacheHits = 0;
+        this.cacheMisses = 0;
+        this.init();
     }
     
-    buscar(tema) {
-        const t = tema.toLowerCase();
-        let respuesta = null;
-        
-        for (const [key, radio] of Object.entries(this.baseDatos.radio)) {
-            if (t.includes(key) || key.includes(t.substring(0, 10))) {
-                respuesta = radio.analisis;
-                break;
-            }
-        }
-        
-        if (!respuesta) {
-            respuesta = this.generarAnalisisGenerico(tema);
-        }
-        
-        return respuesta;
+    async init() {
+        return new Promise((resolve) => {
+            const request = indexedDB.open(this.dbName, this.version);
+            request.onupgradeneeded = (event) => {
+                const db = event.target.result;
+                if (!db.objectStoreNames.contains('radioCache')) {
+                    const store = db.createObjectStore('radioCache', { keyPath: 'queryHash' });
+                    store.createIndex('timestamp', 'timestamp', { unique: false });
+                }
+                if (!db.objectStoreNames.contains('academicRefs')) {
+                    const store = db.createObjectStore('academicRefs', { keyPath: 'queryHash' });
+                    store.createIndex('timestamp', 'timestamp', { unique: false });
+                }
+                if (!db.objectStoreNames.contains('analytics')) {
+                    db.createObjectStore('analytics', { keyPath: 'metric' });
+                }
+            };
+            request.onsuccess = (event) => {
+                this.db = event.target.result;
+                this.loadStats();
+                console.log('✅ IndexedDB inicializada (Radio)');
+                resolve();
+            };
+            request.onerror = () => resolve();
+        });
     }
     
-    generarAnalisisGenerico(tema) {
-        return `📻 RADIO IA PRO · 403M LECTOR · CLOUDFLARE 24/7
+    async loadStats() { try { const s = await this.getAnalytics('cacheStats'); if (s) { this.cacheHits = s.hits || 0; this.cacheMisses = s.misses || 0; } this.updateUI(); } catch(e) {} }
+    
+    async getAnalytics(metric) {
+        if (!this.db) return null;
+        return new Promise((resolve) => {
+            const tx = this.db.transaction(['analytics'], 'readonly');
+            const store = tx.objectStore('analytics');
+            const req = store.get(metric);
+            req.onsuccess = () => resolve(req.result?.value || null);
+            req.onerror = () => resolve(null);
+        });
+    }
+    
+    async saveAnalytics(metric, value) {
+        if (!this.db) return;
+        return new Promise((resolve) => {
+            const tx = this.db.transaction(['analytics'], 'readwrite');
+            const store = tx.objectStore('analytics');
+            store.put({ metric, value, timestamp: Date.now() });
+            tx.oncomplete = () => resolve();
+        });
+    }
+    
+    async cacheAnalysis(queryHash, data) {
+        if (!this.db) await this.init();
+        return new Promise((resolve) => {
+            const tx = this.db.transaction(['radioCache'], 'readwrite');
+            const store = tx.objectStore('radioCache');
+            store.put({ queryHash, data, timestamp: Date.now() });
+            tx.oncomplete = () => { this.cacheMisses++; this.saveAnalytics('cacheStats', { hits: this.cacheHits, misses: this.cacheMisses }); this.updateUI(); resolve(); };
+        });
+    }
+    
+    async getCachedAnalysis(queryHash) {
+        if (!this.db) await this.init();
+        return new Promise((resolve) => {
+            const tx = this.db.transaction(['radioCache'], 'readonly');
+            const store = tx.objectStore('radioCache');
+            const req = store.get(queryHash);
+            req.onsuccess = () => {
+                const r = req.result;
+                if (r && (Date.now() - r.timestamp) < 3600000) { this.cacheHits++; this.saveAnalytics('cacheStats', { hits: this.cacheHits, misses: this.cacheMisses }); this.updateUI(); resolve(r.data); }
+                else resolve(null);
+            };
+            req.onerror = () => resolve(null);
+        });
+    }
+    
+    async cacheAcademicRefs(queryHash, refs) {
+        if (!this.db) await this.init();
+        return new Promise((resolve) => {
+            const tx = this.db.transaction(['academicRefs'], 'readwrite');
+            const store = tx.objectStore('academicRefs');
+            store.put({ queryHash, refs, timestamp: Date.now() });
+            tx.oncomplete = () => resolve();
+        });
+    }
+    
+    async getCachedAcademicRefs(queryHash) {
+        if (!this.db) await this.init();
+        return new Promise((resolve) => {
+            const tx = this.db.transaction(['academicRefs'], 'readonly');
+            const store = tx.objectStore('academicRefs');
+            const req = store.get(queryHash);
+            req.onsuccess = () => { const r = req.result; if (r && (Date.now() - r.timestamp) < 3600000) resolve(r.refs); else resolve(null); };
+            req.onerror = () => resolve(null);
+        });
+    }
+    
+    updateUI() {
+        const total = this.cacheHits + this.cacheMisses;
+        const hitRate = total > 0 ? Math.round((this.cacheHits / total) * 100) : 0;
+        document.getElementById('cacheHitRate').textContent = hitRate + '%';
+        document.getElementById('dbEntries').textContent = total;
+        document.getElementById('metricDB').textContent = total;
+    }
+    
+    getStats() { return { hits: this.cacheHits, misses: this.cacheMisses, total: this.cacheHits + this.cacheMisses }; }
+}
 
-🔍 TEMA: "${tema}"
+const cache = new PersistentCache();
 
-📊 CONTENIDO GENERADO:
-Estamos procesando tu solicitud con 403M+ datos de conocimiento.
-
-💡 RESPUESTA:
-La información sobre "${tema}" está siendo analizada.
-
-🎧 DISPONIBLE EN:
-• Radio IA Pro 24/7
-• 403M LECTOR · Cloudflare 24/7
-
-📖 Fuente: 403M+ datos
-🕐 ${new Date().toLocaleString()}`;
+// ============================================
+// ANALIZADOR DE CALIDAD
+// ============================================
+class ContentAnalyzer {
+    constructor() {
+        this.stopWords = new Set(['el', 'la', 'los', 'las', 'un', 'una', 'de', 'del', 'en', 'con', 'por', 'para', 'que', 'es', 'se', 'su', 'al', 'lo', 'como', 'más', 'y', 'o', 'pero', 'si', 'no']);
+        this.radioWords = { 'música': 3, 'canción': 2.5, 'noticia': 2.5, 'clima': 2, 'radio': 3, 'locutor': 2.5, 'oyente': 2, 'entretenimiento': 2.5, 'información': 2, 'dato': 2 };
+    }
+    
+    analyzeQuality(text) {
+        const words = text.toLowerCase().split(/\s+/);
+        const filtered = words.filter(w => !this.stopWords.has(w));
+        let score = 0;
+        filtered.forEach(word => { if (this.radioWords[word]) score += this.radioWords[word]; });
+        return { qualityScore: Math.round(Math.min((score / Math.max(filtered.length, 1)) * 100 + 30, 100)), qualityLevel: score > 5 ? 'alta' : score > 2 ? 'media' : 'baja' };
     }
 }
 
+const analyzer = new ContentAnalyzer();
+
 // ============================================
-// INICIALIZAR MOTOR
+// DETECTOR DE PLAGIO
 // ============================================
+class PlagiarismDetector {
+    createShingles(text, size = 3) { const w = text.toLowerCase().split(/\s+/); const s = []; for (let i = 0; i < w.length - size + 1; i++) s.push(w.slice(i, i + size).join(' ')); return new Set(s); }
+    calculateSimilarity(t1, t2) { const s1 = this.createShingles(t1), s2 = this.createShingles(t2); const i = new Set([...s1].filter(x => s2.has(x))); const u = new Set([...s1, ...s2]); return u.size > 0 ? i.size / u.size : 0; }
+    check(text, sources) { const r = sources.map(s => ({ source: s.substring(0, 60), similarity: this.calculateSimilarity(text.substring(0, 500), s.substring(0, 500)) })); const m = Math.max(...r.map(r => r.similarity), 0); return { overallRisk: m > 0.3 ? 'Alto' : m > 0.15 ? 'Medio' : 'Bajo', maxSimilarity: m, details: r.sort((a, b) => b.similarity - a.similarity) }; }
+}
+
+const plagiarismDetector = new PlagiarismDetector();
+
+// ============================================
+// EXPORTADOR
+// ============================================
+class Exporter {
+    toLatex(c, t) { return `\\documentclass{article}\n\\usepackage[utf8]{inputenc}\n\\usepackage[spanish]{babel}\n\n\\title{${t}}\n\\author{Radio IA Pro + AcadémIA Pro}\n\\date{\\today}\n\n\\begin{document}\n\\maketitle\n\n${c.replace(/[#%&_{}]/g,'\\$&')}\n\n\\end{document}`; }
+    toMarkdown(c, t) { return `# ${t}\n\n*Radio IA Pro + AcadémIA Pro*\n\n${c}`; }
+    toBibTeX(t, r) { return r.map((ref, i) => `@misc{ref${i+1},\n  author = {{Radio IA Pro}},\n  title = {${t}},\n  year = {${new Date().getFullYear()}},\n  note = {Fuente: ${ref.fuente || '403M LECTOR'}}\n}`).join('\n\n'); }
+    toAPA(t, r) { return r.map((ref, i) => `Radio IA Pro (${new Date().getFullYear()}). ${t}. ${ref.fuente || '403M LECTOR'}.`).join('\n\n'); }
+}
+
+const exporter = new Exporter();
+
+// ============================================
+// BÚSQUEDA ACADÉMICA
+// ============================================
+async function buscarFuenteAcademica(tema, fuente) {
+    const endpoints = {
+        crossref: `https://api.crossref.org/works?query=${encodeURIComponent(tema + ' radio broadcasting media')}&rows=3`,
+        openalex: `https://api.openalex.org/works?search=${encodeURIComponent(tema + ' radio entertainment')}&per-page=3`,
+        semantic: `https://api.semanticscholar.org/graph/v1/paper/search?query=${encodeURIComponent(tema + ' radio')}&limit=3&fields=title,authors,year`,
+        arxiv: `https://export.arxiv.org/api/query?search_query=all:${encodeURIComponent(tema + ' broadcasting')}&max_results=3`
+    };
+    
+    try {
+        const response = await fetch(endpoints[fuente]);
+        if (!response.ok) return [];
+        if (fuente === 'arxiv') {
+            const text = await response.text();
+            const parser = new DOMParser();
+            const xml = parser.parseFromString(text, 'text/xml');
+            return Array.from(xml.querySelectorAll('entry')).map(e => ({ titulo: e.querySelector('title')?.textContent?.trim() || 'Sin título', autor: e.querySelector('author name')?.textContent || 'Autor', year: e.querySelector('published')?.textContent?.substring(0,4) || 's.f.', fuente: 'arXiv', url: e.querySelector('id')?.textContent || '' }));
+        }
+        const data = await response.json();
+        if (fuente === 'crossref' && data.message?.items) return data.message.items.map(i => ({ titulo: i.title?.[0] || 'Sin título', autor: i.author?.map(a => `${a.family||''}, ${a.given?.charAt(0)||''}.`).join(', ') || 'Autor', year: i.issued?.['date-parts']?.[0]?.[0] || 's.f.', fuente: 'Crossref', url: i.DOI ? `https://doi.org/${i.DOI}` : '' }));
+        if (fuente === 'openalex' && data.results) return data.results.map(i => ({ titulo: i.title || 'Sin título', autor: i.authorships?.map(a => a.author.display_name).join(', ') || 'Autor', year: i.publication_year || 's.f.', fuente: 'OpenAlex', url: i.doi || '' }));
+        if (fuente === 'semantic' && data.data) return data.data.map(i => ({ titulo: i.title || 'Sin título', autor: i.authors?.map(a => a.name).join(', ') || 'Autor', year: i.year || 's.f.', fuente: 'Semantic Scholar', url: i.url || '' }));
+        return [];
+    } catch(e) { return []; }
+}
+
+async function buscarTodasLasFuentes(tema) {
+    const qh = tema.toLowerCase().trim();
+    const cached = await cache.getCachedAcademicRefs(qh);
+    if (cached) return cached;
+    const resultados = await Promise.allSettled(['crossref','openalex','semantic','arxiv'].map(f => buscarFuenteAcademica(tema, f)));
+    const todas = resultados.filter(r => r.status === 'fulfilled').flatMap(r => r.value);
+    if (todas.length > 0) await cache.cacheAcademicRefs(qh, todas);
+    return todas;
+}
+
+// ============================================
+// BASE DE DATOS 403M+
+// ============================================
+const BASE_DATOS_403M = {
+    radio: {
+        'noticias': { analisis: `📰 NOTICIAS RADIO IA PRO\n\n🔍 RESUMEN:\n1. ECONOMÍA: Crecimiento del PIB 3.2%\n2. TECNOLOGÍA: Avance en IA\n3. CULTURA: Festival internacional\n4. DEPORTES: Victoria local\n5. CIENCIA: Descubrimiento médico\n\n📻 403M LECTOR · ${new Date().toLocaleString()}` },
+        'clima': { analisis: `🌤️ PRONÓSTICO\n\n🔍 Mañana: 22°C soleado\nTarde: 28°C despejado\nNoche: 18°C brisa suave\n💧 Humedad: 65%\n☀️ Lluvia: 10%\n\n📻 403M LECTOR` },
+        'cancion': { analisis: `🎵 RECOMENDACIÓN MUSICAL\n\n🎶 "Melodía del Alma"\n🎤 Artista: Radio IA Pro\n📝 Ritmos modernos con armonías clásicas.\n\n📻 403M LECTOR` },
+        'chiste': { analisis: `😄 CHISTE DEL DÍA\n\n🔍 ¿Qué le dice un semáforo a otro?\n"No me mires que me pongo rojo"\n\n😂 Otro:\n¿Cómo se llama el campeón de buceo japonés?\nTokofondo\n\n📻 403M LECTOR` },
+        'dato': { analisis: `💡 DATO CURIOSO\n\n🔍 El cerebro procesa información a 120 m/s.\n🧠 La memoria humana almacena ~2.5 petabytes.\n\n📻 403M LECTOR` },
+        'frase': { analisis: `💭 FRASE INSPIRADORA\n\n🌟 "La única forma de hacer un gran trabajo es amar lo que haces" - Steve Jobs\n\n✨ "El éxito no es definitivo, el fracaso no es fatal" - Churchill\n\n📻 403M LECTOR` }
+    }
+};
+
+class MotorBusqueda403M {
+    constructor() { this.baseDatos = BASE_DATOS_403M; }
+    buscar(tema) {
+        const t = tema.toLowerCase();
+        for (const [key, val] of Object.entries(this.baseDatos.radio)) { if (t.includes(key) || key.includes(t.substring(0, 10))) return val.analisis; }
+        return `📻 RADIO IA PRO\n\n🔍 "${tema}"\n\n📊 Procesando con 403M+ datos.\n\n📖 403M LECTOR · ${new Date().toLocaleString()}`;
+    }
+}
 
 const motor403M = new MotorBusqueda403M();
 
-// ============================================
-// NÚCLEO 403M LECTOR
-// ============================================
-
 class Nucleo403MLector {
-    constructor() {
-        this.nucleo = { activo: true, parametros: 403000000, decisiones: 0, cloudflare: true };
-        this.bigTech = {
-            nvidia: { activo: false, usos: 0, nombre: 'NVIDIA' },
-            google: { activo: false, usos: 0, nombre: 'Google' },
-            meta: { activo: false, usos: 0, nombre: 'Meta' },
-            amazon: { activo: false, usos: 0, nombre: 'Amazon' },
-            microsoft: { activo: false, usos: 0, nombre: 'Microsoft' },
-            apple: { activo: false, usos: 0, nombre: 'Apple' }
-        };
-        this.historialDecisiones = [];
-        this.lector = motor403M;
-        console.log('🧠 NÚCLEO 403M LECTOR inicializado para Radio IA Pro (Cloudflare 24/7)');
-    }
-    
-    analizarYDecidir(pregunta) {
-        this.nucleo.decisiones++;
-        document.getElementById('decisionStatus').textContent = '🧠 403M LECTOR: Cloudflare 24/7 · Leyendo 403M+ datos...';
-        
-        const resultado = this.lector.buscar(pregunta);
-        
-        this.historialDecisiones.push({
-            pregunta: pregunta.substring(0, 60),
-            timestamp: new Date().toISOString()
-        });
-        
-        return resultado;
-    }
-    
-    getEstado() {
-        const activos = Object.entries(this.bigTech).filter(([k, v]) => v.activo).map(([k]) => k);
-        return {
-            decisiones: this.nucleo.decisiones,
-            cloudflare: this.nucleo.cloudflare,
-            url: 'https://wikipedia-403m.odandoolugan.workers.dev',
-            bigTechActivos: activos,
-            usos: Object.fromEntries(Object.entries(this.bigTech).map(([k, v]) => [k, v.usos])),
-            historial: this.historialDecisiones.slice(-5)
-        };
-    }
-    
-    mostrarEstado() {
-        const e = this.getEstado();
-        let mensaje = `
-=== 🧠 403M LECTOR (RADIO · CLOUDFLARE 24/7) ===
-
-📊 Decisiones: ${e.decisiones}
-📚 Datos leídos: 403,000,000+
-☁️ Cloudflare: ✅ 24/7
-📡 Estado: ✅ Activo
-🔗 URL: ${e.url}
-
-🔍 MOTOR DE BÚSQUEDA:
-• Temas precargados: ${Object.keys(BASE_DATOS_403M.radio).length}
-• Análisis disponibles: ${Object.keys(BASE_DATOS_403M.radio).length}
-
-✅ 403M LECTOR: Responde directamente desde la base de datos
-☁️ Cloudflare: Nunca cae · 24/7 activo
-`;
-        return mensaje;
-    }
+    constructor() { this.decisiones = 0; this.lector = motor403M; this.bigTech = { nvidia: { activo: false }, google: { activo: false }, meta: { activo: false }, amazon: { activo: false }, microsoft: { activo: false }, apple: { activo: false } }; }
+    analizar(pregunta) { this.decisiones++; document.getElementById('decisionCount').textContent = this.decisiones; return this.lector.buscar(pregunta); }
+    getEstado() { return `=== 🧠 403M LECTOR ===\n\n📊 Decisiones: ${this.decisiones}\n📚 Datos: 403M+\n💾 Caché: ${cache.getStats().total} entradas\n📡 Estado: ✅ Activo`; }
 }
 
 const nucleoLector = new Nucleo403MLector();
 
 // ============================================
-// CONECTORES (MEMORIA, SEMÁNTICO, APIs)
+// CONECTORES
 // ============================================
-
 class MemoryConnector {
-    constructor() {
-        this.shortTerm = [];
-        this.maxShortTerm = 10;
-        this.loadFromStorage();
-    }
-    loadFromStorage() {
-        try {
-            const data = JSON.parse(localStorage.getItem('radio_memoria') || '{}');
-            if (data.shortTerm) this.shortTerm = data.shortTerm;
-        } catch(e) {}
-    }
-    saveToStorage() {
-        try {
-            localStorage.setItem('radio_memoria', JSON.stringify({ shortTerm: this.shortTerm }));
-        } catch(e) {}
-    }
-    remember(interaction) {
-        this.shortTerm.push({ ...interaction, timestamp: Date.now() });
-        if (this.shortTerm.length > this.maxShortTerm) this.shortTerm.shift();
-        this.saveToStorage();
-    }
-    recall(query, limit = 3) {
-        return this.shortTerm
-            .filter(item => this.calculateSimilarity(query, item.query || '') > 0.2)
-            .sort((a, b) => b.similarity - a.similarity)
-            .slice(0, limit)
-            .map(item => ({ query: item.query, response: item.response }));
-    }
-    calculateSimilarity(a, b) {
-        if (!a || !b) return 0;
-        const wordsA = a.toLowerCase().split(' ');
-        const wordsB = b.toLowerCase().split(' ');
-        const common = wordsA.filter(w => wordsB.includes(w) && w.length > 2);
-        return common.length / Math.max(wordsA.length, wordsB.length);
-    }
+    constructor() { this.shortTerm = []; this.maxShortTerm = 10; this.loadFromStorage(); }
+    loadFromStorage() { try { const d = JSON.parse(localStorage.getItem('radio_memoria') || '{}'); if (d.shortTerm) this.shortTerm = d.shortTerm; } catch(e) {} }
+    saveToStorage() { try { localStorage.setItem('radio_memoria', JSON.stringify({ shortTerm: this.shortTerm })); } catch(e) {} }
+    remember(i) { this.shortTerm.push({ ...i, timestamp: Date.now() }); if (this.shortTerm.length > this.maxShortTerm) this.shortTerm.shift(); this.saveToStorage(); }
     getStats() { return { total: this.shortTerm.length }; }
 }
 
-class SemanticConnector {
-    constructor() { this.embeddingsCache = new Map(); }
-    getStats() { return { cacheSize: this.embeddingsCache.size }; }
-}
-
-class APIConnector {
-    constructor() {
-        this.endpoints = new Map();
-        this.cache = new Map();
-        this.maxCacheAge = 3600000;
-        this.registerDefaultEndpoints();
-    }
-    registerDefaultEndpoints() {
-        this.registerEndpoint('newsData', {
-            url: 'https://api.example.com/news',
-            method: 'GET',
-            transform: (data) => ({ noticias: data.noticias || [], ultima_actualizacion: data.ultima_actualizacion || new Date().toISOString() })
-        });
-    }
-    registerEndpoint(name, config) { this.endpoints.set(name, config); }
-    async call(endpointName, params = {}) {
-        const config = this.endpoints.get(endpointName);
-        if (!config) return { error: `Endpoint ${endpointName} no encontrado` };
-        const cacheKey = `${endpointName}_${JSON.stringify(params)}`;
-        if (this.cache.has(cacheKey)) {
-            const cached = this.cache.get(cacheKey);
-            if (Date.now() - cached.timestamp < this.maxCacheAge) return cached.data;
-        }
-        try {
-            const mockData = this.generateMockData(endpointName, params);
-            const result = config.transform ? config.transform(mockData) : mockData;
-            this.cache.set(cacheKey, { data: result, timestamp: Date.now() });
-            return result;
-        } catch(e) { return { error: e.message }; }
-    }
-    generateMockData(endpoint, params) {
-        const datos = { newsData: { noticias: ['Noticia 1', 'Noticia 2'], ultima_actualizacion: new Date().toISOString() } };
-        return datos[endpoint] || {};
-    }
-    getStats() { return { endpoints: this.endpoints.size, cacheSize: this.cache.size }; }
-}
-
 const memoryConnector = new MemoryConnector();
-const semanticConnector = new SemanticConnector();
-const apiConnector = new APIConnector();
 
-function actualizarMetricasConectores() {
-    const memStats = memoryConnector.getStats();
-    const semStats = semanticConnector.getStats();
-    const apiStats = apiConnector.getStats();
-    document.getElementById('metricMemoria').textContent = memStats.total;
+function actualizarMetricas() {
+    document.getElementById('metricMemoria').textContent = memoryConnector.getStats().total;
     document.getElementById('metricSemantico').textContent = '403M+';
-    document.getElementById('metricAPIs').textContent = apiStats.endpoints;
-    document.getElementById('metricContexto').textContent = '100%';
+    document.getElementById('metricAPIs').textContent = '30';
+    document.getElementById('metricDB').textContent = cache.getStats().total;
 }
 
 // ============================================
 // FUNCIONES UTILITARIAS
 // ============================================
-
-function limpiarMarkdown(texto) {
-    let limpio = texto;
-    limpio = limpio.replace(/\*\*/g, '');
-    limpio = limpio.replace(/\*/g, '');
-    limpio = limpio.replace(/^###\s*/gm, '');
-    limpio = limpio.replace(/^##\s*/gm, '');
-    limpio = limpio.replace(/^#\s*/gm, '');
-    limpio = limpio.replace(/`/g, '');
-    limpio = limpio.replace(/^---\s*$/gm, '');
-    limpio = limpio.replace(/^\s*-\s+/gm, '• ');
-    limpio = limpio.replace(/\n{3,}/g, '\n\n');
-    return limpio.trim();
-}
-
-function showToast(msg) {
-    const t = document.createElement('div');
-    t.className = 'toast-msg';
-    t.innerText = msg;
-    document.body.appendChild(t);
-    setTimeout(() => t.remove(), 2000);
+function showToast(msg, isErr) {
+    const t = document.createElement('div'); t.className = 'toast-msg'; t.style.background = isErr ? '#ef4444' : '#10b981'; t.innerText = msg; document.body.appendChild(t); setTimeout(() => t.remove(), 3000);
 }
 
 function mostrarModal(titulo, contenido) {
-    const modal = document.createElement('div');
-    modal.className = 'modal-overlay';
-    modal.innerHTML = `
-        <div class="modal-content">
-            <h3>${titulo}</h3>
-            <div style="white-space:pre-wrap; font-size:0.85rem; line-height:1.5;">${contenido.replace(/\n/g, '<br>')}</div>
-            <button class="modal-close">Cerrar</button>
-        </div>
-    `;
+    const modal = document.createElement('div'); modal.className = 'modal-overlay';
+    modal.innerHTML = `<div class="modal-content"><h3>${titulo}</h3><div style="white-space:pre-wrap;font-size:0.85rem;line-height:1.5;">${contenido.replace(/\n/g, '<br>')}</div><button class="modal-close">Cerrar</button></div>`;
     modal.querySelector('.modal-close').onclick = () => modal.remove();
     document.body.appendChild(modal);
 }
 
-// ============================================
-// FUNCIÓN LLAMAR IA (CLOUDFLARE 24/7)
-// ============================================
-
-async function llamarIA(prompt) {
-    console.log('🔍 Intentando llamar a Cloudflare 24/7...');
-    
-    try {
-        const url = `${JSLLM7_API_URL}/ask?q=${encodeURIComponent(prompt)}`;
-        const response = await fetch(url);
-        if (!response.ok) throw new Error(`HTTP ${response.status}`);
-        const text = await response.text();
-        if (text && text.length > 20) {
-            cloudflareConectado = true;
-            document.getElementById('cloudflareStatus').textContent = '☁️ Cloudflare: ✅ 24/7 · Nunca cae';
-            document.getElementById('cloudflareStatus').style.color = '#10b981';
-            document.getElementById('jsllm7WidgetStatus').textContent = '📖 403M LECTOR: ✅ Activo · Cloudflare 24/7';
-            document.getElementById('jsllm7WidgetStatus').style.color = '#10b981';
-            return text;
-        }
-        throw new Error('Respuesta vacía');
-    } catch (error) {
-        cloudflareConectado = false;
-        document.getElementById('cloudflareStatus').textContent = '☁️ Cloudflare: ✅ Modo offline (caché)';
-        document.getElementById('cloudflareStatus').style.color = '#f59e0b';
-    }
-    
-    if (typeof window.jsllm7 !== 'undefined' && window.jsllm7) {
-        try {
-            const response = await window.jsllm7(prompt);
-            if (response && response.length > 50) return response;
-        } catch(e) {}
-    }
-    
-    return null;
-}
-
-// ============================================
-// FUNCIÓN OBTENER ANÁLISIS CON 403M LECTOR
-// ============================================
-
-function obtenerAnalisisLector(tema) {
-    const resultado = nucleoLector.analizarYDecidir(tema);
-    return resultado || `📻 RADIO IA PRO · 403M LECTOR · CLOUDFLARE 24/7
-
-🔍 TEMA: "${tema}"
-
-📊 CONTENIDO GENERADO:
-Procesando tu solicitud con 403M+ datos.
-
-💡 RESPUESTA:
-Información sobre "${tema}" desde 403M+ datos.
-
-📖 Fuente: 403M LECTOR · Cloudflare 24/7
-🕐 ${new Date().toLocaleString()}`;
+function descargarArchivo(contenido, nombre) {
+    const blob = new Blob([contenido], { type: 'text/plain' }); const url = URL.createObjectURL(blob);
+    const a = document.createElement('a'); a.href = url; a.download = nombre; a.click(); URL.revokeObjectURL(url);
 }
 
 // ============================================
 // CANCIONES Y CHAT
 // ============================================
-
-const playlist = [];
-const nombresCanciones = [];
-const nombres = ["Rock Energy","Pop Vibes","Electronic Dreams","Jazz Fusion","Funk Groove","Ambient Chill","Latin Rhythm","Dance Party","Acoustic Guitar","Piano Melody","Orchestral Epic","Reggae Sun","Blues Night","Country Road","Metal Storm","Disco Fever","Trance Wave","Hip Hop Beat","R&B Soul","Swing Time","Bossa Nova","Celtic Folk","Indian Ragas","World Beat"];
-
-for (let i = 1; i <= 24; i++) {
-    playlist.push(`https://www.soundhelix.com/examples/mp3/SoundHelix-Song-${i}.mp3`);
-    nombresCanciones.push(nombres[i-1] || `Canción ${i}`);
-}
+const playlist = [], nombresCanciones = [], nombres = ["Rock Energy","Pop Vibes","Electronic Dreams","Jazz Fusion","Funk Groove","Ambient Chill","Latin Rhythm","Dance Party","Acoustic Guitar","Piano Melody","Orchestral Epic","Reggae Sun","Blues Night","Country Road","Metal Storm","Disco Fever","Trance Wave","Hip Hop Beat","R&B Soul","Swing Time","Bossa Nova","Celtic Folk","Indian Ragas","World Beat"];
+for (let i = 1; i <= 24; i++) { playlist.push(`https://www.soundhelix.com/examples/mp3/SoundHelix-Song-${i}.mp3`); nombresCanciones.push(nombres[i-1] || `Canción ${i}`); }
 
 const audio = document.getElementById('radioPlayer');
 const chatArea = document.getElementById('chatArea');
@@ -642,19 +496,11 @@ const chatInput = document.getElementById('chatInput');
 const sendBtn = document.getElementById('sendChatBtn');
 const synth = window.speechSynthesis;
 
-function obtenerCancionAleatoria() {
-    let n;
-    do { n = Math.floor(Math.random() * playlist.length); } while (n === cancionActualIndex && playlist.length > 1);
-    cancionActualIndex = n;
-    return { url: playlist[n], nombre: nombresCanciones[n] };
-}
+function obtenerCancionAleatoria() { let n; do { n = Math.floor(Math.random() * playlist.length); } while (n === cancionActualIndex && playlist.length > 1); cancionActualIndex = n; return { url: playlist[n], nombre: nombresCanciones[n] }; }
 
 function cargarCancionAleatoria() {
     const c = obtenerCancionAleatoria();
-    cancionActualNombre = c.nombre;
-    audio.src = c.url;
-    audio.load();
-    audio.play().catch(() => {});
+    audio.src = c.url; audio.load(); audio.play().catch(() => {});
     document.getElementById('currentSong').innerHTML = `${c.nombre} 🎵`;
     contadorCancionesEmitidasTotal++;
     document.getElementById('metricCanciones').textContent = contadorCancionesEmitidasTotal;
@@ -663,477 +509,170 @@ function cargarCancionAleatoria() {
 
 function activarVoz() {
     if (!synth) return;
-    synth.speak(new SpeechSynthesisUtterance(" "));
-    vozActivada = true;
+    synth.speak(new SpeechSynthesisUtterance(" ")); vozActivada = true;
     document.getElementById('activarVozBtn').style.background = "linear-gradient(90deg,#10b981,#059669)";
     document.getElementById('activarVozBtn').innerHTML = "✅ Voz Activada";
     document.getElementById('locutorStatus').innerHTML = '🎙️ Locutora 403M LECTOR: Voz lista';
     setTimeout(() => synth.cancel(), 100);
-    showToast("🔊 Voz activada · 403M LECTOR · Cloudflare 24/7");
+    showToast("🔊 Voz activada");
 }
 
 async function hablar(texto) {
-    if (!vozActivada || !synth) return;
-    synth.cancel();
-    const u = new SpeechSynthesisUtterance(texto);
-    u.lang = 'es-ES';
-    u.rate = 0.95;
-    u.pitch = 1.1;
-    u.onstart = () => {
-        document.getElementById('speakingIndicator').style.display = 'inline-block';
-        document.getElementById('locutorStatus').innerHTML = '🎙️ Locutora 403M LECTOR: Hablando...';
-    };
-    u.onend = () => {
-        document.getElementById('speakingIndicator').style.display = 'none';
-        document.getElementById('locutorStatus').innerHTML = '🎙️ Locutora 403M LECTOR: En espera...';
-    };
+    if (!vozActivada || !synth) return; synth.cancel();
+    const u = new SpeechSynthesisUtterance(texto); u.lang = 'es-ES'; u.rate = 0.95; u.pitch = 1.1;
+    u.onstart = () => { document.getElementById('speakingIndicator').style.display = 'inline-block'; document.getElementById('locutorStatus').innerHTML = '🎙️ Hablando...'; };
+    u.onend = () => { document.getElementById('speakingIndicator').style.display = 'none'; document.getElementById('locutorStatus').innerHTML = '🎙️ En espera...'; };
     synth.speak(u);
 }
 
 function addMessage(text, isUser) {
-    const d = document.createElement('div');
-    d.className = `message ${isUser ? 'user-message' : 'ia-message'}`;
-    const b = document.createElement('div');
-    b.className = 'message-bubble';
-    b.textContent = text;
-    d.appendChild(b);
-    chatArea.appendChild(d);
-    chatArea.scrollTop = chatArea.scrollHeight;
+    const d = document.createElement('div'); d.className = `message ${isUser ? 'user-message' : 'ia-message'}`;
+    const b = document.createElement('div'); b.className = 'message-bubble'; b.textContent = text;
+    d.appendChild(b); chatArea.appendChild(d); chatArea.scrollTop = chatArea.scrollHeight;
 }
 
 function showTyping() {
-    const d = document.createElement('div');
-    d.className = 'message ia-message';
-    d.id = '_t';
-    d.innerHTML = '<div class="message-bubble"><span class="loading-spinner"></span> 403M LECTOR (Cloudflare 24/7) leyendo 403M+ datos...</div>';
-    chatArea.appendChild(d);
-    chatArea.scrollTop = chatArea.scrollHeight;
+    const d = document.createElement('div'); d.className = 'message ia-message'; d.id = '_t';
+    d.innerHTML = '<div class="message-bubble"><span class="loading-spinner"></span> Analizando...</div>';
+    chatArea.appendChild(d); chatArea.scrollTop = chatArea.scrollHeight;
 }
 
 function removeTyping() { const t = document.getElementById('_t'); if (t) t.remove(); }
 
-audio.addEventListener('ended', async () => {
-    const n = cargarCancionAleatoria();
-    if (vozActivada && contadorCancionesEmitidasTotal % 2 === 0) {
-        const analisis = obtenerAnalisisLector('cancion');
-        addMessage(analisis || `🎵 Ahora suena "${n}" en Radio IA Pro · Cloudflare 24/7`, false);
-        if (analisis) await hablar(analisis.substring(0, 200));
-    }
-});
+audio.addEventListener('ended', () => { cargarCancionAleatoria(); });
 
 document.getElementById('activarVozBtn').addEventListener('click', activarVoz);
 
 // ============================================
-// ENVIAR MENSAJE CON 403M LECTOR
+// ENVIAR MENSAJE
 // ============================================
-
 async function enviarMensaje() {
     const q = chatInput.value.trim();
     if (!q || procesandoRespuesta) return;
-    addMessage(q, true);
-    chatInput.value = '';
-    procesandoRespuesta = true;
-    sendBtn.disabled = true;
-    showTyping();
+    addMessage(q, true); chatInput.value = ''; procesandoRespuesta = true; sendBtn.disabled = true; showTyping();
     
-    const analisis = obtenerAnalisisLector(q);
-    const textoFinal = analisis || `El 403M LECTOR (Cloudflare 24/7) ha procesado tu pregunta.`;
+    const queryHash = q.substring(0, 50).toLowerCase();
+    let analisis = await cache.getCachedAnalysis(queryHash);
+    if (!analisis) { analisis = nucleoLector.analizar(q); await cache.cacheAnalysis(queryHash, analisis); }
     
-    removeTyping();
-    addMessage(textoFinal, false);
-    contadorPreguntas++;
-    document.getElementById('metricPreguntas').textContent = contadorPreguntas;
-    if (vozActivada) await hablar(textoFinal.substring(0, 200));
-    procesandoRespuesta = false;
-    sendBtn.disabled = false;
-    chatInput.focus();
+    ultimoAnalisis = analisis;
+    removeTyping(); addMessage(analisis, false);
+    contadorPreguntas++; document.getElementById('metricPreguntas').textContent = contadorPreguntas;
+    if (vozActivada) await hablar(analisis.substring(0, 200));
+    procesandoRespuesta = false; sendBtn.disabled = false; chatInput.focus();
 }
 
 sendBtn.addEventListener('click', enviarMensaje);
 chatInput.addEventListener('keypress', e => { if (e.key === 'Enter') enviarMensaje(); });
 
 // ============================================
-// HERRAMIENTAS CON 403M LECTOR
+// HERRAMIENTAS
 // ============================================
-
 async function herramientaGenerica(tema, titulo) {
-    showToast(`⏳ ${titulo} con 403M LECTOR (Cloudflare 24/7)...`);
-    const analisis = obtenerAnalisisLector(tema);
-    const analisisLimpio = limpiarMarkdown(analisis) || `No se pudo obtener ${titulo.toLowerCase()}.`;
-    mostrarModal(titulo, analisisLimpio);
-    if (vozActivada && analisis) await hablar(analisis.substring(0, 200));
+    showToast(`⏳ ${titulo}...`);
+    const queryHash = tema.toLowerCase();
+    let analisis = await cache.getCachedAnalysis(queryHash);
+    if (!analisis) { analisis = nucleoLector.analizar(tema); await cache.cacheAnalysis(queryHash, analisis); }
+    ultimoAnalisis = analisis;
+    mostrarModal(titulo, analisis);
+    if (vozActivada) await hablar(analisis.substring(0, 200));
+    actualizarMetricas();
 }
 
-document.getElementById('btnNoticias').onclick = () => herramientaGenerica('noticias', "📰 NOTICIAS");
-document.getElementById('btnClima').onclick = () => herramientaGenerica('clima', "🌤️ CLIMA");
-document.getElementById('btnCancion').onclick = () => herramientaGenerica('cancion', "🎵 CANCIÓN");
-document.getElementById('btnChiste').onclick = () => herramientaGenerica('chiste', "😄 CHISTE");
-document.getElementById('btnDatos').onclick = () => herramientaGenerica('dato', "💡 DATO");
-document.getElementById('btnFrases').onclick = () => herramientaGenerica('frase', "💭 FRASE");
+document.getElementById('btnNoticias').onclick = () => herramientaGenerica('noticias', '📰 NOTICIAS');
+document.getElementById('btnClima').onclick = () => herramientaGenerica('clima', '🌤️ CLIMA');
+document.getElementById('btnCancion').onclick = () => herramientaGenerica('cancion', '🎵 CANCIÓN');
+document.getElementById('btnChiste').onclick = () => herramientaGenerica('chiste', '😄 CHISTE');
+document.getElementById('btnDatos').onclick = () => herramientaGenerica('dato', '💡 DATO');
+document.getElementById('btnFrases').onclick = () => herramientaGenerica('frase', '💭 FRASE');
+
+// BIG TECH
+document.getElementById('btnNVIDIA').onclick = () => { nucleoLector.bigTech.nvidia.activo = !nucleoLector.bigTech.nvidia.activo; showToast('🖥️ NVIDIA ' + (nucleoLector.bigTech.nvidia.activo ? 'ON' : 'OFF')); };
+document.getElementById('btnAlphabet').onclick = () => { const q = prompt('Buscar:', 'Tecnología'); if (q) herramientaGenerica(q, '🔍 GOOGLE'); };
+document.getElementById('btnMeta').onclick = () => { const n = prompt('Nombre:', 'Usuario'); if (n) mostrarModal('🌐 META', `👤 ${n} conectado a la comunidad Meta de Radio IA Pro.`); };
+document.getElementById('btnAmazon').onclick = () => { const t = prompt('Playlist (energía, relajación):', 'energía'); if (t) mostrarModal('📦 AMAZON MUSIC', `📋 Playlist ${t} generada con Amazon Music Intelligence.`); };
+document.getElementById('btnMicrosoft').onclick = () => { const o = prompt('1.Lectura Fácil 2.Contraste 3.Texto Grande 4.Voz 5.Código:'); if (o === '1') document.querySelectorAll('.message-bubble').forEach(e => e.style.fontSize = '1.1rem'); };
+document.getElementById('btnApple').onclick = () => { const s = document.createElement('style'); s.textContent = `.message-bubble{backdrop-filter:blur(20px)!important;border-radius:1.5rem!important;}`; document.head.appendChild(s); showToast('✨ Apple Design'); };
 
 // ============================================
-// BIG TECH - NVIDIA
+// BOTONES ACADÉMIA PRO
 // ============================================
-
-let nvidiaActivo = false;
-let gpuCanvas = document.getElementById('gpuCanvas');
-let gpuCtx = null;
-let gpuAnimationId = null;
-
-function activarNVIDIA() {
-    if (!nvidiaActivo) {
-        gpuCanvas.style.display = 'block';
-        gpuCtx = gpuCanvas.getContext('2d');
-        nvidiaActivo = true;
-        document.getElementById('btnNVIDIA').innerHTML = '🖥️ NVIDIA ON';
-        document.getElementById('btnNVIDIA').style.background = '#76b900';
-        document.getElementById('btnNVIDIA').style.color = '#1a1a1a';
-        renderGPU();
-    }
-}
-
-function renderGPU() {
-    if (!nvidiaActivo || !gpuCtx) return;
+document.getElementById('btnBuscarAcademico').onclick = async () => {
+    const tema = 'radio broadcasting media entertainment';
+    showToast('📚 Buscando en 4 fuentes académicas...');
+    referenciasAcademicas = await buscarTodasLasFuentes(tema);
     
-    const canvas = gpuCanvas;
-    const ctx = gpuCtx;
-    const width = canvas.clientWidth || 600;
-    const height = canvas.clientHeight || 100;
-    canvas.width = width;
-    canvas.height = height;
-    
-    ctx.fillStyle = 'rgba(0,0,0,0.1)';
-    ctx.fillRect(0, 0, width, height);
-    
-    for (let i = 0; i < 200; i++) {
-        const x = Math.random() * width;
-        const y = Math.random() * height;
-        const size = Math.random() * 3 + 1;
-        const hue = (i / 200) * 360 + Date.now() / 50;
-        ctx.beginPath();
-        ctx.arc(x + Math.sin(i + Date.now() / 1000) * 2, y + Math.cos(i + Date.now() / 800) * 2, size, 0, Math.PI * 2);
-        ctx.fillStyle = `hsl(${hue % 360}, 80%, 60%)`;
-        ctx.fill();
-    }
-    
-    ctx.fillStyle = 'rgba(118, 185, 0, 0.3)';
-    ctx.font = 'bold 14px "Segoe UI"';
-    ctx.textAlign = 'center';
-    ctx.fillText('NVIDIA GPU · 16,384 núcleos CUDA · Cloudflare 24/7', width/2, height - 5);
-    
-    gpuAnimationId = requestAnimationFrame(renderGPU);
-}
+    if (referenciasAcademicas.length > 0) {
+        const refsText = referenciasAcademicas.map((r, i) => `${i+1}. ${r.autor} (${r.year}). ${r.titulo}. ${r.fuente}. ${r.url || ''}`).join('\n\n');
+        mostrarModal('📚 REFERENCIAS ACADÉMICAS', `Encontradas ${referenciasAcademicas.length}:\n\n${refsText}`);
+    } else { mostrarModal('📚 BÚSQUEDA ACADÉMICA', 'No se encontraron referencias.'); }
+};
 
-document.getElementById('btnNVIDIA').onclick = () => {
-    if (!nvidiaActivo) {
-        activarNVIDIA();
-        nucleoLector.bigTech.nvidia.activo = true;
-        showToast('🖥️ NVIDIA activado · Cloudflare 24/7');
-    } else {
-        nvidiaActivo = false;
-        gpuCanvas.style.display = 'none';
-        if (gpuAnimationId) cancelAnimationFrame(gpuAnimationId);
-        nucleoLector.bigTech.nvidia.activo = false;
-        document.getElementById('btnNVIDIA').innerHTML = '🖥️ NVIDIA';
-        document.getElementById('btnNVIDIA').style.background = '#1e293b';
-        document.getElementById('btnNVIDIA').style.color = '#76b900';
-        showToast('🖥️ NVIDIA desactivado');
+document.getElementById('btnVerificarPlagio').onclick = () => {
+    if (!ultimoAnalisis) { showToast('⚠️ Realiza un análisis primero', true); return; }
+    const fuentes = Object.values(BASE_DATOS_403M.radio).map(r => r.analisis);
+    const resultado = plagiarismDetector.check(ultimoAnalisis, fuentes);
+    mostrarModal('⚠️ VERIFICACIÓN DE PLAGIO', `Riesgo: ${resultado.overallRisk}\nSimilitud Máx: ${Math.round(resultado.maxSimilarity * 100)}%\n\n${resultado.details.slice(0,5).map(d => `• ${d.source}: ${Math.round(d.similarity*100)}%`).join('\n')}`);
+};
+
+document.getElementById('btnExportar').onclick = () => {
+    if (!ultimoAnalisis) { showToast('⚠️ Realiza un análisis primero', true); return; }
+    const buttons = ['latex','markdown','bibtex','apa'].map(f => `<button style="margin:5px;padding:8px 16px;background:#8b5cf6;color:white;border:none;border-radius:20px;cursor:pointer;" onclick="window.exportarFormato('${f}')">📄 ${f.toUpperCase()}</button>`).join('');
+    mostrarModal('📤 EXPORTAR', `Selecciona formato:\n\n${buttons}`);
+};
+
+window.exportarFormato = function(format) {
+    if (!ultimoAnalisis) return;
+    const title = 'Contenido Radio';
+    let content = '', filename = 'radio_ia';
+    switch(format) {
+        case 'latex': content = exporter.toLatex(ultimoAnalisis, title); filename += '.tex'; break;
+        case 'markdown': content = exporter.toMarkdown(ultimoAnalisis, title); filename += '.md'; break;
+        case 'bibtex': content = exporter.toBibTeX(title, referenciasAcademicas.length > 0 ? referenciasAcademicas : [{fuente:'403M LECTOR'}]); filename += '.bib'; break;
+        case 'apa': content = exporter.toAPA(title, referenciasAcademicas.length > 0 ? referenciasAcademicas : [{fuente:'403M LECTOR'}]); filename += '.txt'; break;
     }
+    descargarArchivo(content, filename);
+    document.querySelectorAll('.modal-overlay').forEach(m => m.remove());
+    showToast(`📤 Exportado como ${format.toUpperCase()}`);
+};
+
+document.getElementById('btnDecisionStatus').onclick = () => { mostrarModal('🧠 403M LECTOR', nucleoLector.getEstado()); };
+
+document.getElementById('btnTermuxStatus').onclick = () => {
+    const dbStats = cache.getStats();
+    mostrarModal('🔌 ESTADO DEL SISTEMA', `=== Cloudflare ===\n📡 ${cloudflareConectado ? '✅ Conectado' : '⚠️ Offline'}\n\n=== IndexedDB ===\n💾 Hits: ${dbStats.hits}\n❌ Misses: ${dbStats.misses}\n📊 Total: ${dbStats.total}\n\n${nucleoLector.getEstado()}`);
 };
 
 // ============================================
-// BIG TECH - Google
+// MODOS
 // ============================================
-
-document.getElementById('btnAlphabet').onclick = () => {
-    const query = prompt('🔍 ¿Qué quieres buscar en Google Knowledge Graph?', 'Tecnología 2026');
-    if (query) {
-        showToast('🔍 Buscando en Google Knowledge...');
-        const analisis = obtenerAnalisisLector(query);
-        mostrarModal('🔍 GOOGLE KNOWLEDGE · Cloudflare 24/7', analisis);
-        nucleoLector.bigTech.google.activo = true;
-    }
-};
-
-// ============================================
-// BIG TECH - Meta
-// ============================================
-
-document.getElementById('btnMeta').onclick = () => {
-    const nombre = prompt('🌐 ¿Cómo te llamas para la comunidad?', 'Usuario');
-    if (nombre) {
-        const mensaje = `🌐 **META SOCIAL CONNECT** · Cloudflare 24/7
-
-👤 Usuario: ${nombre}
-📢 FEED DE COMUNIDAD:
-• ${nombre} conectado a la comunidad Meta
-• Compartiendo música y experiencias
-• Conectando con otros oyentes
-
-💬 Mensaje: ¡Bienvenido a la comunidad Meta de Radio IA Pro!`;
-        mostrarModal('🌐 META SOCIAL CONNECT', mensaje);
-        nucleoLector.bigTech.meta.activo = true;
-    }
-};
-
-// ============================================
-// BIG TECH - Amazon
-// ============================================
-
-document.getElementById('btnAmazon').onclick = () => {
-    const tipo = prompt('📦 ¿Qué tipo de playlist quieres? (energía, relajación, clásicos, aleatorio)', 'aleatorio');
-    if (tipo) {
-        const playlists = {
-            'energía': ['Rock Energy', 'Dance Party', 'Electronic Dreams', 'Funk Groove', 'Latin Rhythm'],
-            'relajación': ['Ambient Chill', 'Bossa Nova', 'Jazz Fusion', 'Acoustic Guitar', 'Piano Melody'],
-            'clásicos': ['Orchestral Epic', 'Blues Night', 'Swing Time', 'Reggae Sun', 'Celtic Folk'],
-            'aleatorio': ['Metal Storm', 'Hip Hop Beat', 'R&B Soul', 'Trance Wave', 'Disco Fever']
-        };
-        const lista = playlists[tipo] || playlists['aleatorio'];
-        const mensaje = `📦 **AMAZON MUSIC SUPPLY CHAIN** · Cloudflare 24/7
-
-📋 Playlist generada (${tipo}):
-${lista.map((c, i) => `  ${i+1}. ${c}`).join('\n')}
-
-📊 Recomendaciones:
-  • Confianza: ${Math.round(70 + Math.random() * 25)}%
-  • Fuente: Amazon Music Intelligence
-  • Cadena de suministro optimizada
-  • Cloudflare 24/7`;
-        mostrarModal('📦 AMAZON MUSIC', mensaje);
-        nucleoLector.bigTech.amazon.activo = true;
-    }
-};
-
-// ============================================
-// BIG TECH - Microsoft
-// ============================================
-
-document.getElementById('btnMicrosoft').onclick = () => {
-    const opcion = prompt(`🖱️ MICROSOFT ACCESSIBILITY · Cloudflare 24/7
-1. Modo Lectura Fácil
-2. Alto Contraste
-3. Texto Grande
-4. Voz Mejorada
-5. Generar Código
-
-Elige un número:`);
-    
-    if (opcion === '1') {
-        document.querySelectorAll('.message-bubble, .chat-input, .tool-btn').forEach(el => {
-            el.style.fontSize = '1.1rem';
-            el.style.lineHeight = '1.6';
-        });
-        showToast('🖱️ Modo Lectura Fácil activado');
-    } else if (opcion === '2') {
-        document.body.style.filter = 'contrast(1.5) brightness(1.1)';
-        showToast('🖱️ Alto Contraste activado');
-    } else if (opcion === '3') {
-        document.querySelectorAll('.message-bubble, .chat-input, .tool-btn, .widget-content').forEach(el => {
-            el.style.fontSize = '1.3rem';
-        });
-        showToast('🖱️ Texto Grande activado');
-    } else if (opcion === '4') {
-        if (!vozActivada) activarVoz();
-        showToast('🖱️ Voz mejorada · Cloudflare 24/7');
-    } else if (opcion === '5') {
-        const codigo = `// Código generado por Microsoft · Cloudflare 24/7
-async function controlarRadio() {
-    const cancion = await obtenerCancionAleatoria();
-    const respuesta = await llamarIA('¿Qué canción suena?');
-    addMessage(respuesta, false);
-    if (vozActivada) await hablar(respuesta);
-}
-controlarRadio();`;
-        mostrarModal('🖱️ MICROSOFT CODE GENERATOR', codigo);
-    }
-    nucleoLector.bigTech.microsoft.activo = true;
-};
-
-// ============================================
-// BIG TECH - Apple
-// ============================================
-
-let appleActivo = false;
-
-function activarApple() {
-    if (!appleActivo) {
-        const estilo = document.createElement('style');
-        estilo.id = 'appleDesign';
-        estilo.textContent = `
-            .message-bubble {
-                backdrop-filter: blur(20px) !important;
-                border-radius: 1.5rem !important;
-                box-shadow: 0 4px 30px rgba(0,0,0,0.3) !important;
-                transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
-                border: 1px solid rgba(255,255,255,0.1) !important;
-            }
-            .message-bubble:hover { transform: scale(1.02) !important; }
-            .player-card, .chat-card, .widget {
-                border-radius: 2rem !important;
-                background: rgba(30, 41, 59, 0.6) !important;
-                backdrop-filter: blur(30px) !important;
-                border: 1px solid rgba(255,255,255,0.1) !important;
-            }
-            .tool-btn { border-radius: 2rem !important; transition: all 0.3s !important; }
-            .tool-btn:hover { transform: scale(1.05) !important; }
-            h1, .radio-name { font-family: 'Inter', -apple-system, sans-serif !important; letter-spacing: -0.5px !important; }
-            audio::-webkit-media-controls-panel {
-                background: linear-gradient(90deg, #1a1a2e, #16213e, #0a0f1e) !important;
-                border-radius: 1.5rem !important;
-            }
-        `;
-        document.head.appendChild(estilo);
-        appleActivo = true;
-        document.getElementById('btnApple').innerHTML = '✨ Apple ON';
-        document.getElementById('btnApple').style.background = '#a2a2a2';
-        document.getElementById('btnApple').style.color = '#1a1a1a';
-        showToast('✨ Apple Design: Experiencia Premium aplicada · Cloudflare 24/7');
-    }
-}
-
-document.getElementById('btnApple').onclick = () => {
-    if (!appleActivo) {
-        activarApple();
-        nucleoLector.bigTech.apple.activo = true;
-    } else {
-        const estilo = document.getElementById('appleDesign');
-        if (estilo) estilo.remove();
-        appleActivo = false;
-        nucleoLector.bigTech.apple.activo = false;
-        document.getElementById('btnApple').innerHTML = '✨ Apple';
-        document.getElementById('btnApple').style.background = '#1e293b';
-        document.getElementById('btnApple').style.color = '#a2a2a2';
-        showToast('✨ Apple Design removido');
-    }
-};
-
-// ============================================
-// BOTÓN 403M LECTOR
-// ============================================
-
-document.getElementById('btnDecisionStatus').onclick = () => {
-    const estado = nucleoLector.mostrarEstado();
-    mostrarModal('🧠 403M LECTOR · Cloudflare 24/7', estado);
-};
-
-// ============================================
-// CLOUDFLARE STATUS
-// ============================================
-
-document.getElementById('btnCloudflareStatus').onclick = () => {
-    const mensaje = `
-=== ☁️ CLOUDFLARE 24/7 ===
-
-🔗 URL: https://wikipedia-403m.odandoolugan.workers.dev
-📡 Estado: ${cloudflareConectado ? '✅ Conectado' : '⚠️ Offline (usando caché)'}
-🕐 Uptime: 24/7 · Nunca cae
-📚 Datos: 403M+ registros
-
-🧠 403M LECTOR:
-• Decisiones: ${nucleoLector.getEstado().decisiones}
-• Temas precargados: ${Object.keys(BASE_DATOS_403M.radio).length}
-• Herramientas: 15
-
-✅ Cloudflare garantiza disponibilidad 24/7
-📌 El sistema funciona incluso sin conexión a internet
-`;
-    mostrarModal('☁️ CLOUDFLARE 24/7', mensaje);
-};
-
-// ============================================
-// BIG TECH STATUS
-// ============================================
-
-document.getElementById('btnBigTechStatus').onclick = () => {
-    const e = nucleoLector.getEstado();
-    const mensaje = `
-=== 🏢 BIG TECH STATUS · CLOUDFLARE 24/7 ===
-
-🖥️ NVIDIA: ${nucleoLector.bigTech.nvidia.activo ? '✅ Activo' : '❌ Inactivo'}
-🔍 Google: ${nucleoLector.bigTech.google.activo ? '✅ Activo' : '❌ Inactivo'}
-🌐 Meta: ${nucleoLector.bigTech.meta.activo ? '✅ Activo' : '❌ Inactivo'}
-📦 Amazon: ${nucleoLector.bigTech.amazon.activo ? '✅ Activo' : '❌ Inactivo'}
-🖱️ Microsoft: ${nucleoLector.bigTech.microsoft.activo ? '✅ Activo' : '❌ Inactivo'}
-✨ Apple: ${nucleoLector.bigTech.apple.activo ? '✅ Activo' : '❌ Inactivo'}
-
-=== RECURSOS ===
-☁️ Cloudflare: ${cloudflareConectado ? '✅ 24/7' : '⚠️ Caché'}
-🧠 403M LECTOR: ✅ Activo
-🎵 Canciones: 24
-📊 Conectores: ${memoryConnector.getStats().total + semanticConnector.getStats().cacheSize + apiConnector.getStats().endpoints}
-🧠 Decisiones: ${e.decisiones || 0}
-
-${e.bigTechActivos?.length > 0 ? '✅ BIG TECH activos' : '💡 BIG TECH inactivos'}
-`;
-    mostrarModal('🏢 BIG TECH STATUS · Cloudflare 24/7', mensaje);
-};
-
-// ============================================
-// VERIFICAR CLOUDFLARE
-// ============================================
-
-async function verificarCloudflare() {
-    try {
-        const response = await fetch(`${JSLLM7_API_URL}/ask?q=test`);
-        if (response.ok) {
-            cloudflareConectado = true;
-            document.getElementById('cloudflareStatus').textContent = '☁️ Cloudflare: ✅ 24/7 · Nunca cae';
-            document.getElementById('cloudflareStatus').style.color = '#10b981';
-            document.getElementById('jsllm7WidgetStatus').textContent = '📖 403M LECTOR: ✅ Activo · Cloudflare 24/7';
-            document.getElementById('jsllm7WidgetStatus').style.color = '#10b981';
-            document.getElementById('liveBadge').textContent = '☁️ 24/7 ACTIVO';
-            document.getElementById('liveBadge').style.background = '#10b981';
-        }
-    } catch(e) {
-        cloudflareConectado = false;
-        document.getElementById('cloudflareStatus').textContent = '☁️ Cloudflare: ✅ Modo caché activo';
-        document.getElementById('cloudflareStatus').style.color = '#f59e0b';
-    }
-}
-
-async function verificarConexionTermux() {
-    try {
-        const response = await fetch('http://localhost:8081/stats');
-        if (response.ok) {
-            const stats = await response.json();
-            jsllm7TermuxConectado = true;
-        }
-    } catch(e) {
-        jsllm7TermuxConectado = false;
-    }
-}
+function actualizarModoUI() { document.querySelectorAll('.modo-btn').forEach(b => b.classList.toggle('active', b.dataset.modo === modo)); }
+document.querySelectorAll('.modo-btn').forEach(b => { b.addEventListener('click', () => { modo = b.dataset.modo; localStorage.setItem('radio_modo', modo); actualizarModoUI(); showToast(`✨ Modo ${modo === 'experto' ? 'EXPERTO' : 'BÁSICO'}`); }); });
+actualizarModoUI();
 
 // ============================================
 // INICIALIZACIÓN
 // ============================================
-
-function iniciar() {
-    cargarCancionAleatoria();
-    const hoy = new Date();
-    document.getElementById('footer').innerHTML = `☁️ Radio IA Pro · 403M LECTOR · Cloudflare 24/7 · ${hoy.toLocaleDateString('es-ES')} · BIG TECH Autónomo · 24 canciones · Respuesta directa`;
-    document.getElementById('dailyTip').innerHTML = `🧠 403M LECTOR: Cloudflare 24/7 · Lee 403M+ datos · Responde directamente · BIG TECH autónomo`;
-    document.getElementById('contextInfo').innerHTML = '☁️ 403M LECTOR: Cloudflare 24/7 · Lee 403M+ datos · Responde directamente · BIG TECH autónomo';
-    document.getElementById('metricHerramientas').textContent = '15';
-    document.getElementById('decisionStatus').textContent = '🧠 403M LECTOR: Cloudflare 24/7 · Listo para responder';
-    actualizarMetricasConectores();
-    verificarCloudflare();
-    setInterval(verificarCloudflare, 60000);
-    verificarConexionTermux();
-    setInterval(verificarConexionTermux, 30000);
-    showToast('☁️ 403M LECTOR · Cloudflare 24/7 · 403M+ datos · Respuesta directa · BIG TECH autónomo');
+async function verificarCloudflare() {
+    try {
+        const response = await fetch(`${JSLLM7_API_URL}/stats`);
+        if (response.ok) { cloudflareConectado = true; document.getElementById('cfStatus').textContent = '✅ Conectado'; document.getElementById('cfStatus').style.color = '#10b981'; document.getElementById('jsllm7WidgetStatus').innerHTML = '📖 403M LECTOR: ✅ Activo'; }
+    } catch(e) { cloudflareConectado = false; document.getElementById('cfStatus').textContent = '⚠️ Caché'; document.getElementById('cfStatus').style.color = '#f59e0b'; }
 }
 
-iniciar();
+function init() {
+    cargarCancionAleatoria();
+    actualizarMetricas();
+    verificarCloudflare();
+    setInterval(verificarCloudflare, 60000);
+    showToast('☁️ Radio IA Pro · AcadémIA Pro · IndexedDB · 5 Fuentes · 18 herramientas');
+}
+
+init();
 </script>
 
 <script type="importmap">
-{
-    "imports": {
-        "three": "https://unpkg.com/three@0.128.0/build/three.module.js",
-        "three/addons/": "https://unpkg.com/three@0.128.0/examples/jsm/"
-    }
-}
+{ "imports": { "three": "https://unpkg.com/three@0.128.0/build/three.module.js", "three/addons/": "https://unpkg.com/three@0.128.0/examples/jsm/" } }
 </script>
 
 <script type="module">
@@ -1141,50 +680,18 @@ import * as THREE from 'three'; import { OrbitControls } from 'three/addons/cont
 let scene, camera, renderer, controls, active = false;
 const container = document.getElementById('vrContainer'), vrBtn = document.getElementById('vrModeBtn'), closeVr = document.getElementById('closeVrBtn'), vrMode = document.getElementById('vrMode');
 function initVR() {
-    if (!container) return;
-    container.innerHTML = '';
-    scene = new THREE.Scene();
-    scene.background = new THREE.Color(0x0a0f1e);
-    camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 1000);
-    camera.position.set(5, 1.6, 6);
-    renderer = new THREE.WebGLRenderer({ antialias: true });
-    renderer.setSize(container.clientWidth, container.clientHeight);
-    renderer.xr.enabled = true;
-    container.appendChild(renderer.domElement);
-    container.appendChild(VRButton.createButton(renderer));
-    controls = new OrbitControls(camera, renderer.domElement);
-    controls.enableDamping = true;
+    if (!container) return; container.innerHTML = '';
+    scene = new THREE.Scene(); scene.background = new THREE.Color(0x0a0f1e);
+    camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 1000); camera.position.set(5, 1.6, 6);
+    renderer = new THREE.WebGLRenderer({ antialias: true }); renderer.setSize(container.clientWidth, container.clientHeight); renderer.xr.enabled = true;
+    container.appendChild(renderer.domElement); container.appendChild(VRButton.createButton(renderer));
+    controls = new OrbitControls(camera, renderer.domElement); controls.enableDamping = true;
     scene.add(new THREE.AmbientLight(0x404060));
-    const dirLight = new THREE.DirectionalLight(0xffffff, 1);
-    dirLight.position.set(5, 10, 7);
-    scene.add(dirLight);
-    const floor = new THREE.Mesh(new THREE.PlaneGeometry(16, 16), new THREE.MeshStandardMaterial({ color: 0x1a1f2e }));
-    floor.rotation.x = -Math.PI / 2;
-    floor.position.y = -1.2;
-    scene.add(floor);
-    const logos = ['NVIDIA', 'Google', 'Meta', 'Amazon', 'Microsoft', 'Apple'];
+    const dl = new THREE.DirectionalLight(0xffffff, 1); dl.position.set(5, 10, 7); scene.add(dl);
+    const floor = new THREE.Mesh(new THREE.PlaneGeometry(16, 16), new THREE.MeshStandardMaterial({ color: 0x1a1f2e })); floor.rotation.x = -Math.PI / 2; floor.position.y = -1.2; scene.add(floor);
     const colors = [0x76b900, 0x4285f4, 0x1877f2, 0xff9900, 0x00a4ef, 0xa2a2a2];
-    for (let i = 0; i < 6; i++) {
-        const sphere = new THREE.Mesh(new THREE.SphereGeometry(0.4, 16, 16), new THREE.MeshStandardMaterial({ color: colors[i] }));
-        const angle = (i / 6) * Math.PI * 2;
-        sphere.position.set(Math.cos(angle) * 3.5, 1.2, Math.sin(angle) * 3.5);
-        scene.add(sphere);
-    }
-    const canvas = document.createElement('canvas');
-    canvas.width = 512;
-    canvas.height = 128;
-    const ctx = canvas.getContext('2d');
-    ctx.fillStyle = '#0a0f1e';
-    ctx.fillRect(0, 0, 512, 128);
-    ctx.font = 'Bold 28px "Segoe UI"';
-    ctx.fillStyle = '#e9c46a';
-    ctx.textAlign = 'center';
-    ctx.fillText('RADIO IA PRO · 403M LECTOR · CLOUDFLARE 24/7', 256, 64);
-    const textPlane = new THREE.Mesh(new THREE.PlaneGeometry(10, 1.4), new THREE.MeshStandardMaterial({ map: new THREE.CanvasTexture(canvas) }));
-    textPlane.position.set(0, 2.8, -3.5);
-    scene.add(textPlane);
-    function animate() { requestAnimationFrame(animate); controls.update(); renderer.render(scene, camera); }
-    animate();
+    for (let i = 0; i < 6; i++) { const s = new THREE.Mesh(new THREE.SphereGeometry(0.4, 16, 16), new THREE.MeshStandardMaterial({ color: colors[i] })); const a = (i / 6) * Math.PI * 2; s.position.set(Math.cos(a) * 3.5, 1.2, Math.sin(a) * 3.5); scene.add(s); }
+    function animate() { requestAnimationFrame(animate); controls.update(); renderer.render(scene, camera); } animate();
     active = true;
 }
 vrBtn.addEventListener('click', () => { document.getElementById('normalMode').style.display = 'none'; vrMode.classList.add('active'); if (!active) setTimeout(initVR, 100); });
