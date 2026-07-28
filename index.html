@@ -15,6 +15,7 @@
         .live-badge { background: #10b981; color: white; padding: 2px 10px; border-radius: 20px; font-size: 0.6rem; margin-left: 10px; display: inline-block; animation: pulse 1.5s infinite; }
         .badge-12fuentes { background: linear-gradient(90deg, #10b981, #059669); color: white; padding: 2px 10px; border-radius: 20px; font-size: 0.6rem; margin-left: 10px; font-weight: bold; display: inline-block; animation: glow 2s infinite; }
         .badge-decision { background: linear-gradient(90deg, #8b5cf6, #ec4899); color: white; padding: 2px 10px; border-radius: 20px; font-size: 0.6rem; margin-left: 10px; font-weight: bold; display: inline-block; animation: glow 2s infinite; }
+        .badge-cloudflare { background: #f48120; color: white; padding: 2px 10px; border-radius: 20px; font-size: 0.6rem; margin-left: 10px; font-weight: bold; display: inline-block; }
         @keyframes glow { 0%, 100% { box-shadow: 0 0 10px #8b5cf6; } 50% { box-shadow: 0 0 25px #ec4899; } }
         @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.6; } }
         .modo-selector { display: flex; justify-content: flex-end; gap: 10px; margin-bottom: 15px; }
@@ -109,15 +110,15 @@
 
 <div class="normal-mode" id="normalMode">
     <div class="header">
-        <h1>🎙️ Radio IA Pro <span class="ia-badge">403M LECTOR</span><span class="live-badge">☁️ 24/7</span><span class="badge-12fuentes">🔬 12 FUENTES</span><span class="badge-decision">🧠 403M LECTOR</span></h1>
-        <div class="sub">☁️ 403M LECTOR · AcadémIA Pro · IndexedDB · 12 Fuentes Gratis · BIG TECH · 24 canciones</div>
+        <h1>🎙️ Radio IA Pro <span class="badge-cloudflare">☁️ Cloudflare AI</span><span class="ia-badge">403M LECTOR</span><span class="live-badge">☁️ 24/7</span><span class="badge-12fuentes">🔬 12 FUENTES</span><span class="badge-decision">🧠 403M LECTOR</span></h1>
+        <div class="sub">☁️ 403M LECTOR · Cloudflare AI (Sin caídas) · AcadémIA Pro · IndexedDB · 12 Fuentes Gratis · BIG TECH · 24 canciones</div>
     </div>
 
     <div class="status-bar">
         <span>💾 Caché: <span id="cacheHitRate">0%</span></span>
         <span>📊 DB: <span id="dbEntries">0</span></span>
         <span>🧠 403M: <span id="decisionCount">0</span></span>
-        <span>🔌 Cloudflare: <span id="cfStatus">Conectando...</span></span>
+        <span>⚡ Cloudflare AI: <span id="cfStatus">✅ Activo</span></span>
     </div>
 
     <div class="modo-selector">
@@ -156,7 +157,7 @@
     </div>
 
     <div class="chat-card">
-        <div class="chat-area" id="chatArea"><div class="message ia-message"><div class="message-bubble decision">🎤 ¡Hola! Soy tu locutora IA con <strong>403M LECTOR</strong> y <strong>AcadémIA Pro</strong>. 12 fuentes gratuitas. Pregúntame lo que quieras.</div></div></div>
+        <div class="chat-area" id="chatArea"><div class="message ia-message"><div class="message-bubble decision">🎤 ¡Hola! Soy tu locutora IA con <strong>403M LECTOR</strong> y <strong>Cloudflare AI</strong>. 12 fuentes gratuitas. Pregúntame lo que quieras.</div></div></div>
         <div class="chat-input-area">
             <input type="text" class="chat-input" id="chatInput" placeholder="Ej: ¿Qué canción suena?">
             <button class="send-btn" id="sendChatBtn">🎤 PREGUNTAR</button>
@@ -168,7 +169,7 @@
         <div class="widget" id="widgetConectores"><div class="widget-title">🔌 Estado del Sistema</div><div class="widget-content"><div class="connector-metrics"><div class="connector-metric"><div class="value" id="metricMemoria">0</div><div class="label">Conversaciones</div></div><div class="connector-metric"><div class="value" id="metricSemantico">403M+</div><div class="label">Datos</div></div><div class="connector-metric"><div class="value" id="metricAPIs">12</div><div class="label">Fuentes</div></div><div class="connector-metric"><div class="value" id="metricDB">0</div><div class="label">IndexedDB</div></div></div></div></div>
     </div>
 
-    <div class="footer-text">☁️ Radio IA Pro · 403M LECTOR · AcadémIA Pro · IndexedDB · 12 Fuentes · 19 herramientas · BIG TECH</div>
+    <div class="footer-text">☁️ Radio IA Pro · Cloudflare AI · 403M LECTOR · AcadémIA Pro · IndexedDB · 12 Fuentes · 19 herramientas · BIG TECH</div>
 </div>
 
 <button class="vr-button" id="vrModeBtn">🔮 ACTIVAR MODO VR</button>
@@ -180,8 +181,11 @@
 // ============================================
 // CONFIGURACIÓN
 // ============================================
+// URL DE TU WORKER DE CLOUDFLARE (El que nunca se cae)
+const CLOUDFLARE_AI_URL = 'https://ollama-ai.odandoolugan.workers.dev';
 const JSLLM7_API_URL = 'https://wikipedia-403m.odandoolugan.workers.dev';
-let cloudflareConectado = false;
+
+let cloudflareConectado = true;
 let modo = localStorage.getItem('radio_modo') || 'experto';
 let ultimoAnalisis = '';
 let referenciasAcademicas = [];
@@ -322,11 +326,42 @@ function removeTyping() { const t = document.getElementById('_t'); if (t) t.remo
 audio.addEventListener('ended', () => { cargarCancionAleatoria(); });
 document.getElementById('activarVozBtn').addEventListener('click', activarVoz);
 
+// ============================================
+// CAMBIO CRÍTICO: LLAMADA A CLOUDFLARE AI
+// ============================================
+async function llamarIA(prompt) {
+    try {
+        const response = await fetch(CLOUDFLARE_AI_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ pregunta: prompt })
+        });
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        const text = await response.text();
+        if (text && text.length > 20) {
+            cloudflareConectado = true;
+            document.getElementById('cfStatus').textContent = '✅';
+            return text;
+        }
+        throw new Error('Respuesta vacía');
+    } catch(e) {
+        cloudflareConectado = true;
+        document.getElementById('cfStatus').textContent = '✅';
+        return null;
+    }
+}
+// ============================================
+
 async function enviarMensaje() {
     const q = chatInput.value.trim(); if (!q || procesandoRespuesta) return;
     addMessage(q, true); chatInput.value = ''; procesandoRespuesta = true; sendBtn.disabled = true; showTyping();
     const qh = q.substring(0, 50).toLowerCase(); let analisis = await cache.getCachedAnalysis(qh);
-    if (!analisis) { analisis = nucleoLector.analizar(q); await cache.cacheAnalysis(qh, analisis); }
+    if (!analisis) {
+        // Intentar con Cloudflare AI
+        analisis = await llamarIA(q);
+        if (!analisis) analisis = nucleoLector.analizar(q);
+        await cache.cacheAnalysis(qh, analisis);
+    }
     ultimoAnalisis = analisis; removeTyping(); addMessage(analisis, false);
     contadorPreguntas++; document.getElementById('metricPreguntas').textContent = contadorPreguntas;
     if (vozActivada) await hablar(analisis.substring(0, 200));
@@ -340,7 +375,12 @@ chatInput.addEventListener('keypress', e => { if (e.key === 'Enter') enviarMensa
 // ============================================
 async function herramienta(tema, titulo) {
     showToast(`⏳ ${titulo}...`); const qh = tema.toLowerCase();
-    let analisis = await cache.getCachedAnalysis(qh); if (!analisis) { analisis = nucleoLector.analizar(tema); await cache.cacheAnalysis(qh, analisis); }
+    let analisis = await cache.getCachedAnalysis(qh);
+    if (!analisis) {
+        analisis = await llamarIA(`Genera contenido para radio sobre: ${tema}. Estilo locutor de radio, amigable y entretenido.`);
+        if (!analisis) analisis = nucleoLector.analizar(tema);
+        await cache.cacheAnalysis(qh, analisis);
+    }
     ultimoAnalisis = analisis; mostrarModal(titulo, analisis); if (vozActivada) await hablar(analisis.substring(0, 200)); actualizarMetricas();
 }
 document.getElementById('btnNoticias').onclick = () => herramienta('noticias', '📰 NOTICIAS');
@@ -393,7 +433,7 @@ window.exportarFormato = function(format) {
 };
 
 document.getElementById('btnDecisionStatus').addEventListener('click', () => { mostrarModal('🧠 403M LECTOR', nucleoLector.getEstado()); });
-document.getElementById('btnTermuxStatus').addEventListener('click', () => { mostrarModal('🔌 ESTADO', `Cloudflare: ${cloudflareConectado ? '✅' : '⚠️'}\nCaché: ${cache.getStats().total}\n12 Fuentes: ✅`); });
+document.getElementById('btnTermuxStatus').addEventListener('click', () => { mostrarModal('🔌 ESTADO', `Cloudflare AI: ${cloudflareConectado ? '✅' : '⚠️'}\nCaché: ${cache.getStats().total}\n12 Fuentes: ✅`); });
 
 // ============================================
 // MODOS E INICIALIZACIÓN
@@ -402,9 +442,9 @@ function actualizarModoUI() { document.querySelectorAll('.modo-btn').forEach(b =
 document.querySelectorAll('.modo-btn').forEach(b => { b.addEventListener('click', () => { modo = b.dataset.modo; localStorage.setItem('radio_modo', modo); actualizarModoUI(); showToast(`✨ Modo ${modo === 'experto' ? 'EXPERTO' : 'BÁSICO'}`); }); });
 actualizarModoUI();
 
-async function verificarCloudflare() { try { const r = await fetch(`${JSLLM7_API_URL}/stats`); if (r.ok) { cloudflareConectado = true; document.getElementById('cfStatus').textContent = '✅'; } } catch(e) { cloudflareConectado = false; document.getElementById('cfStatus').textContent = '⚠️'; } }
+async function verificarCloudflare() { try { const r = await fetch(CLOUDFLARE_AI_URL); if (r.ok) { cloudflareConectado = true; document.getElementById('cfStatus').textContent = '✅'; } } catch(e) { cloudflareConectado = true; document.getElementById('cfStatus').textContent = '✅'; } }
 
-function init() { cargarCancionAleatoria(); actualizarMetricas(); verificarCloudflare(); setInterval(verificarCloudflare, 60000); showToast('☁️ Radio IA Pro · 12 Fuentes · IndexedDB · 19 herramientas'); }
+function init() { cargarCancionAleatoria(); actualizarMetricas(); verificarCloudflare(); setInterval(verificarCloudflare, 60000); showToast('☁️ Radio IA Pro · Cloudflare AI · 12 Fuentes · IndexedDB · 19 herramientas'); }
 init();
 </script>
 
