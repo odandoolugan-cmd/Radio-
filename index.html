@@ -357,8 +357,27 @@ async function enviarMensaje() {
     addMessage(q, true); chatInput.value = ''; procesandoRespuesta = true; sendBtn.disabled = true; showTyping();
     const qh = q.substring(0, 50).toLowerCase(); let analisis = await cache.getCachedAnalysis(qh);
     if (!analisis) {
-        // Intentar con Cloudflare AI
-        analisis = await llamarIA(q);
+        // === FASE 2 y 3 en el chat ===
+        const resultados12 = await fuentes12.buscarTodasLasFuentes(q.substring(0, 100));
+        let contextoAcademico = "";
+        if (resultados12.resumen.total_resultados > 0) {
+            contextoAcademico = `\n\nContexto académico sobre el tema:\n`;
+            contextoAcademico += `Se encontraron ${resultados12.resumen.total_resultados} resultados académicos.\n\n`;
+            const fuentesPrioritarias = ['semanticScholar', 'core', 'arxiv', 'wikipedia'];
+            fuentesPrioritarias.forEach(key => {
+                const f = resultados12.fuentes[key];
+                if (f && f.exito && f.count > 0) {
+                    contextoAcademico += `[${key.toUpperCase()} - ${f.count} resultados]:\n`;
+                    f.data.slice(0, 2).forEach(r => {
+                        contextoAcademico += `• Título: ${r.titulo || 'Sin título'}\n`;
+                        contextoAcademico += `  Resumen: ${(r.abstract || r.descripcion || r.snippet || 'Sin resumen disponible.').substring(0, 200)}...\n`;
+                    });
+                }
+            });
+        }
+
+        const promptConContexto = `${contextoAcademico}\n\n${q}`;
+        analisis = await llamarIA(promptConContexto);
         if (!analisis) analisis = nucleoLector.analizar(q);
         await cache.cacheAnalysis(qh, analisis);
     }
@@ -377,7 +396,27 @@ async function herramienta(tema, titulo) {
     showToast(`⏳ ${titulo}...`); const qh = tema.toLowerCase();
     let analisis = await cache.getCachedAnalysis(qh);
     if (!analisis) {
-        analisis = await llamarIA(`Genera contenido para radio sobre: ${tema}. Estilo locutor de radio, amigable y entretenido.`);
+        // === FASE 2 y 3 en herramientas ===
+        const resultados12 = await fuentes12.buscarTodasLasFuentes(tema);
+        let contextoAcademico = "";
+        if (resultados12.resumen.total_resultados > 0) {
+            contextoAcademico = `\n\nContexto académico sobre el tema:\n`;
+            contextoAcademico += `Se encontraron ${resultados12.resumen.total_resultados} resultados académicos.\n\n`;
+            const fuentesPrioritarias = ['semanticScholar', 'core', 'arxiv', 'wikipedia'];
+            fuentesPrioritarias.forEach(key => {
+                const f = resultados12.fuentes[key];
+                if (f && f.exito && f.count > 0) {
+                    contextoAcademico += `[${key.toUpperCase()} - ${f.count} resultados]:\n`;
+                    f.data.slice(0, 2).forEach(r => {
+                        contextoAcademico += `• Título: ${r.titulo || 'Sin título'}\n`;
+                        contextoAcademico += `  Resumen: ${(r.abstract || r.descripcion || r.snippet || 'Sin resumen disponible.').substring(0, 200)}...\n`;
+                    });
+                }
+            });
+        }
+
+        const promptConContexto = `${contextoAcademico}\n\nGenera contenido para radio sobre: ${tema}. Estilo locutor de radio, amigable y entretenido.`;
+        analisis = await llamarIA(promptConContexto);
         if (!analisis) analisis = nucleoLector.analizar(tema);
         await cache.cacheAnalysis(qh, analisis);
     }
