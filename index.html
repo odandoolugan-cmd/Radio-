@@ -75,6 +75,50 @@
         .send-btn { background: linear-gradient(90deg, #8b5cf6, #3b82f6); border: none; padding: 0 1.2rem; border-radius: 2rem; color: white; cursor: pointer; font-size: 0.75rem; }
         .ia-badge { background: #10b981; padding: 2px 10px; border-radius: 20px; font-size: 0.7rem; }
         
+        /* Botón de temas relacionados */
+        .temas-btn {
+            background: rgba(139, 92, 246, 0.3);
+            border: 1px solid #8b5cf6;
+            color: #a78bfa;
+            padding: 4px 14px;
+            border-radius: 16px;
+            cursor: pointer;
+            font-size: 0.6rem;
+            font-weight: 500;
+            margin-top: 8px;
+            transition: 0.2s;
+        }
+        .temas-btn:hover {
+            background: #8b5cf6;
+            color: white;
+        }
+        .temas-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        .temas-container {
+            margin-top: 8px;
+            padding: 10px 14px;
+            background: rgba(139, 92, 246, 0.1);
+            border-left: 3px solid #8b5cf6;
+            border-radius: 0 8px 8px 0;
+            display: none;
+        }
+        .temas-container.visible {
+            display: block;
+        }
+        .temas-container .titulo {
+            font-weight: 600;
+            color: #a78bfa;
+            font-size: 0.7rem;
+            margin-bottom: 4px;
+        }
+        .temas-container .texto {
+            font-size: 0.8rem;
+            color: #eef2ff;
+            line-height: 1.5;
+        }
+        
         .widget-container { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 15px 0; }
         .widget { background: rgba(30, 41, 59, 0.9); border: 1px solid #8b5cf6; border-radius: 12px; padding: 15px; backdrop-filter: blur(10px); }
         .widget-title { font-weight: 700; color: #a78bfa; font-size: 0.8rem; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
@@ -251,11 +295,44 @@ class PersistentCache {
 const cache = new PersistentCache();
 
 // ============================================
-// ANALIZADOR + PLAGIO + EXPORTADOR
+// ANALIZADOR MEJORADO PARA RADIO
 // ============================================
 class ContentAnalyzer {
-    constructor() { this.stopWords = new Set(['el','la','los','las','un','una','de','del','en','con','por','para','que','es','se','su','al','lo','como','más','y','o','pero','si','no']); this.radioWords = { 'música':3,'canción':2.5,'noticia':2.5,'clima':2,'radio':3,'locutor':2.5,'oyente':2,'entretenimiento':2.5,'información':2,'dato':2 }; }
-    analyzeQuality(text) { const w = text.toLowerCase().split(/\s+/); const f = w.filter(w => !this.stopWords.has(w)); let s = 0; f.forEach(w => { if (this.radioWords[w]) s += this.radioWords[w]; }); return { qualityScore: Math.round(Math.min((s / Math.max(f.length, 1)) * 100 + 30, 100)), qualityLevel: s > 5 ? 'alta' : s > 2 ? 'media' : 'baja' }; }
+    constructor() { 
+        this.stopWords = new Set(['el','la','los','las','un','una','de','del','en','con','por','para','que','es','se','su','al','lo','como','más','y','o','pero','si','no']); 
+        this.radioWords = { 
+            'música':3,'canción':2.5,'noticia':2.5,'clima':2,'radio':3,'locutor':2.5,
+            'oyente':2,'entretenimiento':2.5,'información':2,'dato':2,'saludo':2,
+            'despedida':2,'presentación':2,'entrevista':2,'comentario':2,'reflexión':2
+        };
+        this.estructuraPalabras = {
+            'introducción': 8, 'desarrollo': 10, 'conclusión': 8,
+            '1.': 5, '2.': 5, '3.': 5,
+            'bueno': 3, 'amigos': 3, 'finalmente': 3
+        };
+    }
+    
+    analyzeQuality(text) {
+        const w = text.toLowerCase().split(/\s+/);
+        const f = w.filter(w => !this.stopWords.has(w));
+        let s = 0;
+        f.forEach(w => { if (this.radioWords[w]) s += this.radioWords[w]; });
+        
+        // BONIFICACIÓN POR ESTRUCTURA DE RADIO
+        let estructuraBonus = 0;
+        const lowerText = text.toLowerCase();
+        if (lowerText.includes('introducción')) estructuraBonus += 8;
+        if (lowerText.includes('desarrollo')) estructuraBonus += 10;
+        if (lowerText.includes('conclusión')) estructuraBonus += 8;
+        if (lowerText.includes('1.')) estructuraBonus += 5;
+        if (lowerText.includes('2.')) estructuraBonus += 5;
+        if (lowerText.includes('amigos')) estructuraBonus += 4;
+        if (lowerText.includes('bienvenidos')) estructuraBonus += 4;
+        
+        const base = (s / Math.max(f.length, 1)) * 100 + 30 + estructuraBonus;
+        const q = Math.min(Math.round(base), 100);
+        return { qualityScore: q, qualityLevel: q > 70 ? 'alta' : q > 40 ? 'media' : 'baja' };
+    }
 }
 const analyzer = new ContentAnalyzer();
 
@@ -306,8 +383,33 @@ function actualizarMetricas() { document.getElementById('metricMemoria').textCon
 // FUNCIONES UTILITARIAS
 // ============================================
 function showToast(msg, isErr) { const t = document.createElement('div'); t.className = 'toast-msg'; t.style.background = isErr ? '#ef4444' : '#10b981'; t.innerText = msg; document.body.appendChild(t); setTimeout(() => t.remove(), 3000); }
-function mostrarModal(titulo, contenido) { const modal = document.createElement('div'); modal.className = 'modal-overlay'; modal.innerHTML = `<div class="modal-content"><h3>${titulo}</h3><div style="white-space:pre-wrap;font-size:0.85rem;line-height:1.5;">${contenido.replace(/\n/g, '<br>')}</div><button class="modal-close">Cerrar</button></div>`; modal.querySelector('.modal-close').onclick = () => modal.remove(); document.body.appendChild(modal); }
+function mostrarModal(titulo, contenido) { const modal = document.createElement('div'); modal.className = 'modal-overlay'; modal.innerHTML = `<div class="modal-content"><h3>${titulo}</h3><div id="modalTexto" style="white-space:pre-wrap;font-size:0.85rem;line-height:1.5;"></div><button class="modal-close">Cerrar</button></div>`; document.body.appendChild(modal); 
+    // Efecto máquina de escribir en el modal
+    const textoDiv = modal.querySelector('#modalTexto');
+    typeWriter(textoDiv, contenido, 15);
+    modal.querySelector('.modal-close').onclick = () => modal.remove();
+}
 function descargarArchivo(contenido, nombre) { const blob = new Blob([contenido], { type: 'text/plain' }); const url = URL.createObjectURL(blob); const a = document.createElement('a'); a.href = url; a.download = nombre; a.click(); URL.revokeObjectURL(url); }
+
+// ============================================
+// EFECTO MÁQUINA DE ESCRIBIR
+// ============================================
+function typeWriter(element, text, speed = 20) {
+    element.innerHTML = '';
+    let i = 0;
+    return new Promise((resolve) => {
+        function type() {
+            if (i < text.length) {
+                element.innerHTML += text.charAt(i);
+                i++;
+                setTimeout(type, speed);
+            } else {
+                resolve();
+            }
+        }
+        type();
+    });
+}
 
 // ============================================
 // CANCIONES Y CHAT
@@ -320,21 +422,97 @@ function obtenerCancionAleatoria() { let n; do { n = Math.floor(Math.random() * 
 function cargarCancionAleatoria() { const c = obtenerCancionAleatoria(); audio.src = c.url; audio.load(); audio.play().catch(() => {}); document.getElementById('currentSong').innerHTML = `${c.nombre} 🎵`; contadorCancionesEmitidasTotal++; document.getElementById('metricCanciones').textContent = contadorCancionesEmitidasTotal; return c.nombre; }
 function activarVoz() { if (!synth) return; synth.speak(new SpeechSynthesisUtterance(" ")); vozActivada = true; document.getElementById('activarVozBtn').style.background = "linear-gradient(90deg,#10b981,#059669)"; document.getElementById('activarVozBtn').innerHTML = "✅ Voz Activada"; document.getElementById('locutorStatus').innerHTML = '🎙️ Locutora 403M LECTOR: Voz lista'; setTimeout(() => synth.cancel(), 100); showToast("🔊 Voz activada"); }
 async function hablar(texto) { if (!vozActivada || !synth) return; synth.cancel(); const u = new SpeechSynthesisUtterance(texto); u.lang = 'es-ES'; u.rate = 0.95; u.pitch = 1.1; u.onstart = () => { document.getElementById('speakingIndicator').style.display = 'inline-block'; document.getElementById('locutorStatus').innerHTML = '🎙️ Hablando...'; }; u.onend = () => { document.getElementById('speakingIndicator').style.display = 'none'; document.getElementById('locutorStatus').innerHTML = '🎙️ En espera...'; }; synth.speak(u); }
-function addMessage(text, isUser) { const d = document.createElement('div'); d.className = `message ${isUser ? 'user-message' : 'ia-message'}`; const b = document.createElement('div'); b.className = 'message-bubble'; b.textContent = text; d.appendChild(b); chatArea.appendChild(d); chatArea.scrollTop = chatArea.scrollHeight; }
+function addMessage(text, isUser, showTemasBtn = false, temaBase = '') { const d = document.createElement('div'); d.className = `message ${isUser ? 'user-message' : 'ia-message'}`; const b = document.createElement('div'); b.className = 'message-bubble'; 
+    // Si tiene temas relacionados, agregar botón
+    if (showTemasBtn && !isUser) {
+        const id = Date.now();
+        b.innerHTML = `<div id="msgText_${id}"></div>
+            <button class="temas-btn" onclick="cargarTemasRadio(this, '${temaBase || texto.substring(0, 50)}', '${id}')">💡 Cargar temas relacionados</button>
+            <div class="temas-container" id="temasContainer_${id}">
+                <div class="titulo">📌 Temas relacionados:</div>
+                <div class="texto" id="temasTexto_${id}">Cargando...</div>
+            </div>`;
+        d.appendChild(b);
+        chatArea.appendChild(d);
+        chatArea.scrollTop = chatArea.scrollHeight;
+        // Escribir el texto con efecto máquina de escribir
+        const textoDiv = b.querySelector(`#msgText_${id}`);
+        typeWriter(textoDiv, text, 15);
+    } else {
+        b.textContent = text;
+        d.appendChild(b);
+        chatArea.appendChild(d);
+        chatArea.scrollTop = chatArea.scrollHeight;
+    }
+}
 function showTyping() { const d = document.createElement('div'); d.className = 'message ia-message'; d.id = '_t'; d.innerHTML = '<div class="message-bubble"><span class="loading-spinner"></span> Analizando...</div>'; chatArea.appendChild(d); }
 function removeTyping() { const t = document.getElementById('_t'); if (t) t.remove(); }
+
+// ============================================
+// FUNCIÓN PARA CARGAR TEMAS RELACIONADOS (BAJO DEMANDA)
+// ============================================
+window.cargarTemasRadio = async function(btn, tema, id) {
+    const container = document.getElementById(`temasContainer_${id}`);
+    const textoDiv = document.getElementById(`temasTexto_${id}`);
+    
+    btn.disabled = true;
+    btn.textContent = '⏳ Cargando...';
+    container.classList.add('visible');
+    textoDiv.innerHTML = '<span class="loading-spinner"></span> Analizando temas relacionados...';
+    
+    try {
+        const prompt = `Genera 3 temas de radio relacionados con "${tema}". Temas para debatir, entrevistas o segmentos de radio. Proporciona solo los títulos.`;
+        const temas = await llamarIA(prompt);
+        
+        if (temas) {
+            textoDiv.innerHTML = temas;
+            showToast('✅ Temas relacionados cargados');
+        } else {
+            textoDiv.innerHTML = '⚠️ No se pudieron cargar los temas relacionados.';
+        }
+    } catch (e) {
+        textoDiv.innerHTML = '❌ Error al cargar temas relacionados.';
+    } finally {
+        btn.disabled = false;
+        btn.textContent = '💡 Cargar temas relacionados';
+    }
+};
+
 audio.addEventListener('ended', () => { cargarCancionAleatoria(); });
 document.getElementById('activarVozBtn').addEventListener('click', activarVoz);
 
 // ============================================
-// CAMBIO CRÍTICO: LLAMADA A CLOUDFLARE AI
+// FUNCIÓN DE LLAMADA A CLOUDFLARE AI (CON CONTEXTO ACADÉMICO)
 // ============================================
-async function llamarIA(prompt) {
+async function llamarIAConContexto(prompt, temaBusqueda = '') {
     try {
+        let contextoAcademico = '';
+        if (temaBusqueda) {
+            const resultados12 = await fuentes12.buscarTodasLasFuentes(temaBusqueda);
+            if (resultados12.resumen.total_resultados > 0) {
+                contextoAcademico = '\n\n--- CONTEXTO ACADÉMICO RADIO ---\n';
+                contextoAcademico += `Se encontraron ${resultados12.resumen.total_resultados} resultados académicos.\n\n`;
+                const fuentesPrioritarias = ['semanticScholar', 'core', 'arxiv', 'wikipedia'];
+                fuentesPrioritarias.forEach(key => {
+                    const f = resultados12.fuentes[key];
+                    if (f && f.exito && f.count > 0) {
+                        contextoAcademico += `\n[${key.toUpperCase()} - ${f.count} resultados]:\n`;
+                        f.data.slice(0, 2).forEach(r => {
+                            contextoAcademico += `• Título: ${r.titulo || 'Sin título'}\n`;
+                            if (r.abstract) contextoAcademico += `  Resumen: ${r.abstract.substring(0, 200)}...\n`;
+                        });
+                    }
+                });
+                contextoAcademico += '\n--- FIN CONTEXTO ACADÉMICO ---\n\n';
+            }
+        }
+
+        const promptCompleto = contextoAcademico + prompt;
+        
         const response = await fetch(CLOUDFLARE_AI_URL, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ pregunta: prompt })
+            body: JSON.stringify({ pregunta: promptCompleto })
         });
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
         const text = await response.text();
@@ -350,14 +528,19 @@ async function llamarIA(prompt) {
         return null;
     }
 }
-// ============================================
 
+async function llamarIA(prompt) {
+    return llamarIAConContexto(prompt, 'radio broadcasting entertainment');
+}
+
+// ============================================
+// ENVÍO DE MENSAJES AL CHAT (CON TEMAS RELACIONADOS)
+// ============================================
 async function enviarMensaje() {
     const q = chatInput.value.trim(); if (!q || procesandoRespuesta) return;
     addMessage(q, true); chatInput.value = ''; procesandoRespuesta = true; sendBtn.disabled = true; showTyping();
     const qh = q.substring(0, 50).toLowerCase(); let analisis = await cache.getCachedAnalysis(qh);
     if (!analisis) {
-        // === FASE 2 y 3 en el chat ===
         const resultados12 = await fuentes12.buscarTodasLasFuentes(q.substring(0, 100));
         let contextoAcademico = "";
         if (resultados12.resumen.total_resultados > 0) {
@@ -376,12 +559,14 @@ async function enviarMensaje() {
             });
         }
 
-        const promptConContexto = `${contextoAcademico}\n\n${q}`;
+        const promptConContexto = `${contextoAcademico}\n\nResponde como locutora de radio: ${q}`;
         analisis = await llamarIA(promptConContexto);
         if (!analisis) analisis = nucleoLector.analizar(q);
         await cache.cacheAnalysis(qh, analisis);
     }
-    ultimoAnalisis = analisis; removeTyping(); addMessage(analisis, false);
+    ultimoAnalisis = analisis; removeTyping(); 
+    // Mostrar con botón de temas relacionados
+    addMessage(analisis, false, true, q);
     contadorPreguntas++; document.getElementById('metricPreguntas').textContent = contadorPreguntas;
     if (vozActivada) await hablar(analisis.substring(0, 200));
     procesandoRespuesta = false; sendBtn.disabled = false; chatInput.focus();
@@ -396,7 +581,6 @@ async function herramienta(tema, titulo) {
     showToast(`⏳ ${titulo}...`); const qh = tema.toLowerCase();
     let analisis = await cache.getCachedAnalysis(qh);
     if (!analisis) {
-        // === FASE 2 y 3 en herramientas ===
         const resultados12 = await fuentes12.buscarTodasLasFuentes(tema);
         let contextoAcademico = "";
         if (resultados12.resumen.total_resultados > 0) {
