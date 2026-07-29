@@ -75,7 +75,6 @@
         .send-btn { background: linear-gradient(90deg, #8b5cf6, #3b82f6); border: none; padding: 0 1.2rem; border-radius: 2rem; color: white; cursor: pointer; font-size: 0.75rem; }
         .ia-badge { background: #10b981; padding: 2px 10px; border-radius: 20px; font-size: 0.7rem; }
         
-        /* Botón de temas relacionados */
         .temas-btn {
             background: rgba(139, 92, 246, 0.3);
             border: 1px solid #8b5cf6;
@@ -88,36 +87,12 @@
             margin-top: 8px;
             transition: 0.2s;
         }
-        .temas-btn:hover {
-            background: #8b5cf6;
-            color: white;
-        }
-        .temas-btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-        .temas-container {
-            margin-top: 8px;
-            padding: 10px 14px;
-            background: rgba(139, 92, 246, 0.1);
-            border-left: 3px solid #8b5cf6;
-            border-radius: 0 8px 8px 0;
-            display: none;
-        }
-        .temas-container.visible {
-            display: block;
-        }
-        .temas-container .titulo {
-            font-weight: 600;
-            color: #a78bfa;
-            font-size: 0.7rem;
-            margin-bottom: 4px;
-        }
-        .temas-container .texto {
-            font-size: 0.8rem;
-            color: #eef2ff;
-            line-height: 1.5;
-        }
+        .temas-btn:hover { background: #8b5cf6; color: white; }
+        .temas-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+        .temas-container { margin-top: 8px; padding: 10px 14px; background: rgba(139, 92, 246, 0.1); border-left: 3px solid #8b5cf6; border-radius: 0 8px 8px 0; display: none; }
+        .temas-container.visible { display: block; }
+        .temas-container .titulo { font-weight: 600; color: #a78bfa; font-size: 0.7rem; margin-bottom: 4px; }
+        .temas-container .texto { font-size: 0.8rem; color: #eef2ff; line-height: 1.5; }
         
         .widget-container { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 15px 0; }
         .widget { background: rgba(30, 41, 59, 0.9); border: 1px solid #8b5cf6; border-radius: 12px; padding: 15px; backdrop-filter: blur(10px); }
@@ -318,7 +293,6 @@ class ContentAnalyzer {
         let s = 0;
         f.forEach(w => { if (this.radioWords[w]) s += this.radioWords[w]; });
         
-        // BONIFICACIÓN POR ESTRUCTURA DE RADIO
         let estructuraBonus = 0;
         const lowerText = text.toLowerCase();
         if (lowerText.includes('introducción')) estructuraBonus += 8;
@@ -384,7 +358,6 @@ function actualizarMetricas() { document.getElementById('metricMemoria').textCon
 // ============================================
 function showToast(msg, isErr) { const t = document.createElement('div'); t.className = 'toast-msg'; t.style.background = isErr ? '#ef4444' : '#10b981'; t.innerText = msg; document.body.appendChild(t); setTimeout(() => t.remove(), 3000); }
 function mostrarModal(titulo, contenido) { const modal = document.createElement('div'); modal.className = 'modal-overlay'; modal.innerHTML = `<div class="modal-content"><h3>${titulo}</h3><div id="modalTexto" style="white-space:pre-wrap;font-size:0.85rem;line-height:1.5;"></div><button class="modal-close">Cerrar</button></div>`; document.body.appendChild(modal); 
-    // Efecto máquina de escribir en el modal
     const textoDiv = modal.querySelector('#modalTexto');
     typeWriter(textoDiv, contenido, 15);
     modal.querySelector('.modal-close').onclick = () => modal.remove();
@@ -423,7 +396,6 @@ function cargarCancionAleatoria() { const c = obtenerCancionAleatoria(); audio.s
 function activarVoz() { if (!synth) return; synth.speak(new SpeechSynthesisUtterance(" ")); vozActivada = true; document.getElementById('activarVozBtn').style.background = "linear-gradient(90deg,#10b981,#059669)"; document.getElementById('activarVozBtn').innerHTML = "✅ Voz Activada"; document.getElementById('locutorStatus').innerHTML = '🎙️ Locutora 403M LECTOR: Voz lista'; setTimeout(() => synth.cancel(), 100); showToast("🔊 Voz activada"); }
 async function hablar(texto) { if (!vozActivada || !synth) return; synth.cancel(); const u = new SpeechSynthesisUtterance(texto); u.lang = 'es-ES'; u.rate = 0.95; u.pitch = 1.1; u.onstart = () => { document.getElementById('speakingIndicator').style.display = 'inline-block'; document.getElementById('locutorStatus').innerHTML = '🎙️ Hablando...'; }; u.onend = () => { document.getElementById('speakingIndicator').style.display = 'none'; document.getElementById('locutorStatus').innerHTML = '🎙️ En espera...'; }; synth.speak(u); }
 function addMessage(text, isUser, showTemasBtn = false, temaBase = '') { const d = document.createElement('div'); d.className = `message ${isUser ? 'user-message' : 'ia-message'}`; const b = document.createElement('div'); b.className = 'message-bubble'; 
-    // Si tiene temas relacionados, agregar botón
     if (showTemasBtn && !isUser) {
         const id = Date.now();
         b.innerHTML = `<div id="msgText_${id}"></div>
@@ -435,7 +407,6 @@ function addMessage(text, isUser, showTemasBtn = false, temaBase = '') { const d
         d.appendChild(b);
         chatArea.appendChild(d);
         chatArea.scrollTop = chatArea.scrollHeight;
-        // Escribir el texto con efecto máquina de escribir
         const textoDiv = b.querySelector(`#msgText_${id}`);
         typeWriter(textoDiv, text, 15);
     } else {
@@ -448,9 +419,6 @@ function addMessage(text, isUser, showTemasBtn = false, temaBase = '') { const d
 function showTyping() { const d = document.createElement('div'); d.className = 'message ia-message'; d.id = '_t'; d.innerHTML = '<div class="message-bubble"><span class="loading-spinner"></span> Analizando...</div>'; chatArea.appendChild(d); }
 function removeTyping() { const t = document.getElementById('_t'); if (t) t.remove(); }
 
-// ============================================
-// FUNCIÓN PARA CARGAR TEMAS RELACIONADOS (BAJO DEMANDA)
-// ============================================
 window.cargarTemasRadio = async function(btn, tema, id) {
     const container = document.getElementById(`temasContainer_${id}`);
     const textoDiv = document.getElementById(`temasTexto_${id}`);
@@ -463,7 +431,6 @@ window.cargarTemasRadio = async function(btn, tema, id) {
     try {
         const prompt = `Genera 3 temas de radio relacionados con "${tema}". Temas para debatir, entrevistas o segmentos de radio. Proporciona solo los títulos.`;
         const temas = await llamarIA(prompt);
-        
         if (temas) {
             textoDiv.innerHTML = temas;
             showToast('✅ Temas relacionados cargados');
@@ -482,7 +449,7 @@ audio.addEventListener('ended', () => { cargarCancionAleatoria(); });
 document.getElementById('activarVozBtn').addEventListener('click', activarVoz);
 
 // ============================================
-// FUNCIÓN DE LLAMADA A CLOUDFLARE AI (CON CONTEXTO ACADÉMICO)
+// FUNCIÓN DE LLAMADA A CLOUDFLARE AI (OPTIMIZADA PARA RESPUESTAS COMPLETAS)
 // ============================================
 async function llamarIAConContexto(prompt, temaBusqueda = '') {
     try {
@@ -507,8 +474,24 @@ async function llamarIAConContexto(prompt, temaBusqueda = '') {
             }
         }
 
-        const promptCompleto = contextoAcademico + prompt;
-        
+        // PROMPT OPTIMIZADO PARA RESPUESTAS COMPLETAS Y EXTENSAS
+        const promptCompleto = `${contextoAcademico}
+
+${prompt}
+
+⚠️ INSTRUCCIONES OBLIGATORIAS PARA LA LOCUTORA DE RADIO:
+1. La respuesta DEBE ser COMPLETA y EXTENSA (mínimo 300-500 palabras).
+2. Estructura OBLIGATORIA: 
+   - INTRODUCCIÓN: Saludo y presentación del tema (2-3 párrafos).
+   - DESARROLLO: 3-5 segmentos con información detallada, ejemplos y contexto.
+   - DESPEDIDA: Cierre amigable y reflexivo (1-2 párrafos).
+3. NO te detengas hasta haber completado TODA la respuesta.
+4. Usa el contexto académico proporcionado como base fundamental.
+5. Incluye datos, cifras o referencias cuando sea posible.
+6. Mantén un tono cálido, amigable y profesional como locutor de radio.
+
+RESPONDE CON LA MÁXIMA EXTENSIÓN Y CALIDAD POSIBLE:`;
+
         const response = await fetch(CLOUDFLARE_AI_URL, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -516,13 +499,35 @@ async function llamarIAConContexto(prompt, temaBusqueda = '') {
         });
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
         const text = await response.text();
+        
         if (text && text.length > 20) {
             cloudflareConectado = true;
             document.getElementById('cfStatus').textContent = '✅';
+            
+            // Si la respuesta es muy corta (< 200 caracteres), reintentar
+            if (text.length < 200) {
+                console.warn('⚠️ Respuesta corta, reintentando...');
+                const retryPrompt = `Responde COMPLETA Y EXTENSAMENTE como locutora de radio: "${prompt}". 
+                La respuesta debe tener introducción, desarrollo y despedida. 
+                Extensión mínima: 300 palabras. No te detengas hasta completar.`;
+                const retryResponse = await fetch(CLOUDFLARE_AI_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ pregunta: retryPrompt })
+                });
+                if (retryResponse.ok) {
+                    const retryText = await retryResponse.text();
+                    if (retryText.length > text.length) {
+                        console.log('✅ Reintento exitoso:', retryText.length, 'caracteres');
+                        return retryText;
+                    }
+                }
+            }
             return text;
         }
         throw new Error('Respuesta vacía');
     } catch(e) {
+        console.warn('⚠️ Error en llamada IA:', e.message);
         cloudflareConectado = true;
         document.getElementById('cfStatus').textContent = '✅';
         return null;
@@ -534,42 +539,25 @@ async function llamarIA(prompt) {
 }
 
 // ============================================
-// ENVÍO DE MENSAJES AL CHAT (CON TEMAS RELACIONADOS)
+// ENVÍO DE MENSAJES AL CHAT
 // ============================================
 async function enviarMensaje() {
     const q = chatInput.value.trim(); if (!q || procesandoRespuesta) return;
     addMessage(q, true); chatInput.value = ''; procesandoRespuesta = true; sendBtn.disabled = true; showTyping();
-    const qh = q.substring(0, 50).toLowerCase(); let analisis = await cache.getCachedAnalysis(qh);
+    const qh = q.substring(0, 50).toLowerCase(); 
+    let analisis = await cache.getCachedAnalysis(qh);
     if (!analisis) {
-        const resultados12 = await fuentes12.buscarTodasLasFuentes(q.substring(0, 100));
-        let contextoAcademico = "";
-        if (resultados12.resumen.total_resultados > 0) {
-            contextoAcademico = `\n\nContexto académico sobre el tema:\n`;
-            contextoAcademico += `Se encontraron ${resultados12.resumen.total_resultados} resultados académicos.\n\n`;
-            const fuentesPrioritarias = ['semanticScholar', 'core', 'arxiv', 'wikipedia'];
-            fuentesPrioritarias.forEach(key => {
-                const f = resultados12.fuentes[key];
-                if (f && f.exito && f.count > 0) {
-                    contextoAcademico += `[${key.toUpperCase()} - ${f.count} resultados]:\n`;
-                    f.data.slice(0, 2).forEach(r => {
-                        contextoAcademico += `• Título: ${r.titulo || 'Sin título'}\n`;
-                        contextoAcademico += `  Resumen: ${(r.abstract || r.descripcion || r.snippet || 'Sin resumen disponible.').substring(0, 200)}...\n`;
-                    });
-                }
-            });
-        }
-
-        const promptConContexto = `${contextoAcademico}\n\nResponde como locutora de radio: ${q}`;
-        analisis = await llamarIA(promptConContexto);
+        const prompt = `Responde como locutora de radio: ${q}. Estilo amigable y profesional.`;
+        analisis = await llamarIAConContexto(prompt, q);
         if (!analisis) analisis = nucleoLector.analizar(q);
         await cache.cacheAnalysis(qh, analisis);
     }
     ultimoAnalisis = analisis; removeTyping(); 
-    // Mostrar con botón de temas relacionados
     addMessage(analisis, false, true, q);
     contadorPreguntas++; document.getElementById('metricPreguntas').textContent = contadorPreguntas;
-    if (vozActivada) await hablar(analisis.substring(0, 200));
+    if (vozActivada) await hablar(analisis.substring(0, 300));
     procesandoRespuesta = false; sendBtn.disabled = false; chatInput.focus();
+    showToast(`📻 Respuesta completa · ${analisis.length} caracteres`);
 }
 sendBtn.addEventListener('click', enviarMensaje);
 chatInput.addEventListener('keypress', e => { if (e.key === 'Enter') enviarMensaje(); });
@@ -578,33 +566,20 @@ chatInput.addEventListener('keypress', e => { if (e.key === 'Enter') enviarMensa
 // HERRAMIENTAS
 // ============================================
 async function herramienta(tema, titulo) {
-    showToast(`⏳ ${titulo}...`); const qh = tema.toLowerCase();
+    showToast(`⏳ ${titulo}...`); 
+    const qh = tema.toLowerCase();
     let analisis = await cache.getCachedAnalysis(qh);
     if (!analisis) {
-        const resultados12 = await fuentes12.buscarTodasLasFuentes(tema);
-        let contextoAcademico = "";
-        if (resultados12.resumen.total_resultados > 0) {
-            contextoAcademico = `\n\nContexto académico sobre el tema:\n`;
-            contextoAcademico += `Se encontraron ${resultados12.resumen.total_resultados} resultados académicos.\n\n`;
-            const fuentesPrioritarias = ['semanticScholar', 'core', 'arxiv', 'wikipedia'];
-            fuentesPrioritarias.forEach(key => {
-                const f = resultados12.fuentes[key];
-                if (f && f.exito && f.count > 0) {
-                    contextoAcademico += `[${key.toUpperCase()} - ${f.count} resultados]:\n`;
-                    f.data.slice(0, 2).forEach(r => {
-                        contextoAcademico += `• Título: ${r.titulo || 'Sin título'}\n`;
-                        contextoAcademico += `  Resumen: ${(r.abstract || r.descripcion || r.snippet || 'Sin resumen disponible.').substring(0, 200)}...\n`;
-                    });
-                }
-            });
-        }
-
-        const promptConContexto = `${contextoAcademico}\n\nGenera contenido para radio sobre: ${tema}. Estilo locutor de radio, amigable y entretenido.`;
-        analisis = await llamarIA(promptConContexto);
+        const prompt = `Genera contenido extenso y completo para radio sobre: ${tema}. Estilo locutor de radio, amigable y entretenido. Incluye introducción, desarrollo y despedida.`;
+        analisis = await llamarIAConContexto(prompt, tema);
         if (!analisis) analisis = nucleoLector.analizar(tema);
         await cache.cacheAnalysis(qh, analisis);
     }
-    ultimoAnalisis = analisis; mostrarModal(titulo, analisis); if (vozActivada) await hablar(analisis.substring(0, 200)); actualizarMetricas();
+    ultimoAnalisis = analisis; 
+    mostrarModal(titulo, analisis); 
+    if (vozActivada) await hablar(analisis.substring(0, 300)); 
+    actualizarMetricas();
+    showToast(`📻 ${titulo} · ${analisis.length} caracteres`);
 }
 document.getElementById('btnNoticias').onclick = () => herramienta('noticias', '📰 NOTICIAS');
 document.getElementById('btnClima').onclick = () => herramienta('clima', '🌤️ CLIMA');
