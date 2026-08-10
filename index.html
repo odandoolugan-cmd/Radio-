@@ -355,7 +355,7 @@ class WASMUltra {
         return result;
     }
 
-    // 2. DETECCIÓN DE IDIOMA
+    // ✅ 2. DETECCIÓN DE IDIOMA (CORREGIDO: detectarIdioma con I mayúscula)
     detectarIdioma(texto) {
         const inicio = performance.now();
         if (!texto || texto.length < 5) return 'es';
@@ -1372,11 +1372,12 @@ async function enviarMensaje() {
     ultimoAnalisis = analisis; 
     const stats = wasmUltra.getStats();
     removeTyping(); 
+    // ✅ Usar detectarIdioma con I mayúscula
+    const idiomaDet = wasmUltra.detectarIdioma(analisis);
     addMessage(analisis, false, true, q);
     contadorPreguntas++; document.getElementById('metricPreguntas').textContent = contadorPreguntas;
     
     // ===== ANÁLISIS AUTOMÁTICO COMPLETO =====
-    const idiomaDet = wasmUltra.detectarIdioma(analisis);
     actualizarAnalisisAutomatico(analisis, idiomaDet);
     
     // Registrar en memoria
@@ -1414,6 +1415,7 @@ async function herramienta(tema, titulo) {
     const stats = wasmUltra.getStats();
     
     // ===== ANÁLISIS AUTOMÁTICO COMPLETO =====
+    // ✅ Usar detectarIdioma con I mayúscula
     const idiomaDet = wasmUltra.detectarIdioma(analisis);
     actualizarAnalisisAutomatico(analisis, idiomaDet);
     
@@ -1626,6 +1628,22 @@ async function init() {
         document.getElementById('ultraTiempo').textContent = Math.round(stats.tiempoTotal) + 'ms';
         document.getElementById('ultraIdiomas').textContent = stats.idiomasDetectados;
         document.getElementById('ultraFunciones').textContent = stats.funcionesEjecutadas;
+        
+        // ✅ Prueba de diagnóstico - verificar que la función está disponible
+        console.log('🔍 Funciones disponibles en wasmUltra:');
+        console.log(Object.keys(wasmUltra));
+        
+        if (typeof wasmUltra.detectarIdioma === 'function') {
+            console.log('✅ detectarIdioma está disponible');
+        } else {
+            console.log('❌ detectarIdioma NO está disponible');
+            console.log('🔍 Buscando funciones similares:');
+            Object.keys(wasmUltra).forEach(key => {
+                if (key.includes('detectar') || key.includes('idioma')) {
+                    console.log(`  - ${key}`);
+                }
+            });
+        }
     }
     
     cargarCancionAleatoria(); 
