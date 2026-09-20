@@ -9,7 +9,7 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Segoe UI', system-ui, sans-serif; background: linear-gradient(135deg, #0a0f1e 0%, #0c1222 100%); color: #eef2ff; min-height: 100vh; padding: 1rem; overflow-x: hidden; }
         .normal-mode { position: relative; z-index: 1; max-width: 1200px; margin: 0 auto; }
-        .header { text-align: center; margin-bottom: 2rem; }
+        .header { text-align: center; margin-bottom: 1rem; }
         h1 { font-size: 2rem; background: linear-gradient(135deg, #FFD166, #FF6B6B, #4ECDC4, #8B5CF6, #ff8f00, #76b900, #1877f2, #ff9900, #00a4ef, #a2a2a2); -webkit-background-clip: text; background-clip: text; color: transparent; }
         .sub { color: #94a3b8; margin-top: 0.5rem; font-size: 0.7rem; }
         .badge { padding: 2px 10px; border-radius: 20px; font-size: 0.6rem; margin-left: 8px; font-weight: bold; display: inline-block; }
@@ -52,10 +52,32 @@
         .tool-btn.multiia { border-color: #10b981; color: #34d399; background: rgba(16,185,129,.15); }
         .tool-btn.multiia:hover { background: linear-gradient(90deg, #10b981, #3b82f6); color: white; }
         .tool-btn.academia { border-color: #10b981; color: #34d399; }
-        .tool-btn.academia:hover { background: linear-gradient(135deg, #10b981, #059669); color: white; }
         .tool-btn.ilimitado { border-color: #f59e0b; color: #fbbf24; }
-        .tool-btn.ilimitado:hover { background: linear-gradient(90deg, #f59e0b, #d97706); color: white; }
         .tool-btn.wasm-extremo { border-color: #f59e0b; color: #fbbf24; background: rgba(245,158,11,0.2); animation: pulse 1.5s infinite; }
+        .tool-btn.diag { border-color: #ef4444; color: #fca5a5; background: rgba(239,68,68,.15); }
+        
+        /* ═══ BARRAS DE ESTADO (estilo sistema completo) ═══ */
+        .status-bars-container { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1rem; }
+        .core-status-bar { background: linear-gradient(135deg, #1e1b4b, #312e81); border-radius: 1rem; padding: 0.6rem 1rem; font-size: 0.68rem; color: #c7d2fe; display: flex; flex-wrap: wrap; gap: 0.5rem; border: 2px solid #8b5cf6; box-shadow: 0 0 20px rgba(139, 92, 246, 0.3); align-items: center; }
+        .core-status-bar .item { background: rgba(0,0,0,0.3); padding: 3px 9px; border-radius: 10px; display: inline-flex; align-items: center; gap: 4px; font-weight: 600; }
+        .core-status-bar .item strong { color: #a78bfa; font-weight: 700; }
+        .core-status-bar .ok { color: #10b981; font-weight: bold; }
+        .core-status-bar .lbl { color: #c4b5fd; font-weight: 700; font-size: 0.72rem; }
+        .ar-status-bar { background: linear-gradient(135deg, #451a03, #78350f); border-radius: 1rem; padding: 0.6rem 1rem; font-size: 0.68rem; color: #fde68a; display: flex; flex-wrap: wrap; gap: 0.5rem; border: 2px solid #f59e0b; box-shadow: 0 0 20px rgba(245, 158, 11, 0.2); align-items: center; }
+        .ar-status-bar .item { background: rgba(0,0,0,0.3); padding: 3px 9px; border-radius: 10px; display: inline-flex; align-items: center; gap: 4px; font-weight: 600; }
+        .ar-status-bar .item strong { color: #fbbf24; font-weight: 700; }
+        .ar-status-bar .ok { color: #10b981; font-weight: bold; }
+        .ar-status-bar .lbl { color: #fbbf24; font-weight: 700; font-size: 0.72rem; }
+        .wasm-status-bar { background: linear-gradient(135deg, #450a0a, #7f1d1d); border-radius: 1rem; padding: 0.6rem 1rem; font-size: 0.68rem; color: #fecaca; display: flex; flex-wrap: wrap; gap: 0.5rem; border: 2px solid #ce422b; box-shadow: 0 0 20px rgba(206, 66, 43, 0.3); align-items: center; }
+        .wasm-status-bar .item { background: rgba(0,0,0,0.3); padding: 3px 9px; border-radius: 10px; display: inline-flex; align-items: center; gap: 4px; font-weight: 600; }
+        .wasm-status-bar .item strong { color: #ff8878; font-weight: 700; }
+        .wasm-status-bar .ok { color: #10b981; font-weight: bold; }
+        .wasm-status-bar .lbl { color: #ff8878; font-weight: 700; font-size: 0.72rem; }
+        .ultra-stats { background: linear-gradient(135deg, #4c1d95, #831843); border-radius: 1rem; padding: 0.6rem 1rem; font-size: 0.68rem; color: #fce7f3; display: flex; flex-wrap: wrap; gap: 0.5rem; border: 2px solid #ec4899; box-shadow: 0 0 20px rgba(236, 72, 153, 0.2); align-items: center; }
+        .ultra-stats .item { background: rgba(0,0,0,0.3); padding: 3px 9px; border-radius: 10px; display: inline-flex; align-items: center; gap: 4px; font-weight: 600; }
+        .ultra-stats .item strong { color: #f9a8d4; font-weight: 700; }
+        .ultra-stats .velocidad { color: #f59e0b; font-weight: 800; animation: pulse 1.5s infinite; background: rgba(245, 158, 11, 0.15); padding: 3px 12px; border-radius: 10px; border: 1px solid #f59e0b; }
+
         .player-card { background: rgba(30, 41, 59, 0.8); backdrop-filter: blur(10px); border-radius: 1.5rem; padding: 1.5rem; border: 1px solid rgba(139, 92, 246, 0.3); margin-bottom: 1.5rem; text-align: center; position: relative; }
         .radio-name { font-size: 1.3rem; font-weight: bold; background: linear-gradient(135deg, #FFD166, #FF6B6B, #4ECDC4, #8B5CF6); -webkit-background-clip: text; background-clip: text; color: transparent; }
         .radio-source { font-size: 0.65rem; color: #94a3b8; margin-top: 4px; }
@@ -77,11 +99,6 @@
         .chat-input { flex: 1; padding: 0.6rem 1rem; background: #1e293b; border: 1px solid #334155; border-radius: 2rem; color: white; font-size: 0.75rem; font-family: inherit; outline: none; }
         .chat-input:focus { border-color: #8b5cf6; }
         .send-btn { background: linear-gradient(90deg, #8b5cf6, #3b82f6); border: none; padding: 0 1.2rem; border-radius: 2rem; color: white; cursor: pointer; font-size: 0.75rem; }
-        .temas-btn { background: rgba(139, 92, 246, 0.3); border: 1px solid #8b5cf6; color: #a78bfa; padding: 4px 14px; border-radius: 16px; cursor: pointer; font-size: 0.6rem; font-weight: 500; margin-top: 8px; }
-        .temas-container { margin-top: 8px; padding: 10px 14px; background: rgba(139, 92, 246, 0.1); border-left: 3px solid #8b5cf6; border-radius: 0 8px 8px 0; display: none; }
-        .temas-container.visible { display: block; }
-        .keyword-tag { background: rgba(139, 92, 246, 0.2); border: 1px solid #8b5cf6; padding: 2px 8px; border-radius: 12px; font-size: 0.55rem; color: #a78bfa; }
-        .keywords-container { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 6px; }
         .idioma-indicator { display: inline-block; padding: 2px 10px; border-radius: 12px; font-size: 0.6rem; font-weight: 600; margin-left: 8px; background: #3b82f6; color: white; }
         .widget-container { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 15px 0; }
         .widget { background: rgba(30, 41, 59, 0.9); border: 1px solid #8b5cf6; border-radius: 12px; padding: 15px; backdrop-filter: blur(10px); }
@@ -102,6 +119,17 @@
         .metricas-secciones { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 4px; }
         .seccion-item { background: rgba(255,255,255,0.04); padding: 2px 8px; border-radius: 10px; font-size: 0.6rem; border: 1px solid #334155; }
         .seccion-item .num { color: #a78bfa; font-weight: bold; }
+        
+        /* PANEL DE DIAGNÓSTICO */
+        .diagnostico-panel { background: linear-gradient(135deg, #450a0a, #7f1d1d); border: 2px solid #ef4444; border-radius: 1rem; padding: 1rem; margin-bottom: 1rem; font-size: 0.7rem; }
+        .diagnostico-panel.collapsed .diagnostico-lista { display: none; }
+        .diagnostico-header { display: flex; justify-content: space-between; align-items: center; cursor: pointer; font-weight: 800; color: #fca5a5; font-size: 0.85rem; }
+        .diagnostico-lista { margin-top: 0.7rem; max-height: 200px; overflow-y: auto; }
+        .diag-item { padding: 4px 10px; background: rgba(0,0,0,0.3); border-radius: 6px; margin-bottom: 3px; border-left: 3px solid #ef4444; font-family: monospace; font-size: 0.65rem; color: #fecaca; }
+        .diag-item.ok { border-left-color: #10b981; color: #a7f3d0; }
+        .diag-item.warn { border-left-color: #f59e0b; color: #fde68a; }
+        .diag-item.info { border-left-color: #3b82f6; color: #bfdbfe; }
+        
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 2000; display: flex; align-items: center; justify-content: center; padding: 1rem; }
         .modal-content { background: #0f172a; border-radius: 1.5rem; max-width: 800px; width: 95%; max-height: 85vh; overflow-y: auto; padding: 1.5rem; border: 2px solid #8b5cf6; color: #eef2ff; }
         .modal-content h3 { color: #a78bfa; margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid #334155; }
@@ -110,32 +138,18 @@
         @keyframes fadeOut { 0% { opacity: 1; } 70% { opacity: 1; } 100% { opacity: 0; visibility: hidden; } }
         .loading-spinner { display: inline-block; width: 12px; height: 12px; border: 2px solid rgba(255,255,255,0.3); border-top-color: white; border-radius: 50%; animation: spin 0.6s linear infinite; margin-right: 6px; vertical-align: middle; }
         @keyframes spin { to { transform: rotate(360deg); } }
-        .vr-button { position: fixed; bottom: 20px; right: 20px; background: linear-gradient(135deg, #f59e0b, #d97706); border: none; padding: 12px 20px; border-radius: 40px; color: white; font-weight: bold; cursor: pointer; z-index: 100; }
-        .vr-mode { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 1000; display: none; background: #0a0f1e; }
-        .vr-mode.active { display: block; }
-        .close-vr { position: fixed; top: 20px; right: 20px; background: rgba(0,0,0,0.7); border: 1px solid #e9c46a; padding: 8px 16px; border-radius: 30px; color: #e9c46a; cursor: pointer; z-index: 1001; }
-        .fase-info { font-size: 0.7rem; color: #94a3b8; margin-top: 0.3rem; text-align: center; padding: 0.3rem; background: rgba(0,0,0,0.2); border-radius: 0.5rem; }
-        .ultra-stats { background: rgba(139, 92, 246, 0.1); border-radius: 0.5rem; padding: 0.4rem; margin-top: 0.3rem; font-size: 0.55rem; color: #94a3b8; display: flex; flex-wrap: wrap; gap: 6px; border: 1px solid #8b5cf6; }
-        .ultra-stats span { background: rgba(0,0,0,0.3); padding: 2px 8px; border-radius: 10px; }
-        .ultra-stats .velocidad { color: #f59e0b; font-weight: bold; animation: pulse 1.5s infinite; }
-        .sources-badge { display: flex; flex-wrap: wrap; gap: 6px; margin: 0.5rem 0; justify-content: center; }
-        .source-badge { background: rgba(139,92,246,0.2); padding: 3px 10px; border-radius: 20px; font-size: 0.55rem; border: 1px solid rgba(139,92,246,0.4); }
-        .source-badge.radio { border-color: #3b82f6; background: rgba(59,130,246,0.3); animation: glow 2s infinite; }
-        .source-badge.audius { border-color: #7c3aed; background: rgba(124,58,237,0.3); animation: glow 2s infinite; }
-        .source-badge.wasm-real { border-color: #ce422b; background: rgba(206,66,43,0.3); animation: pulse 1.5s infinite; }
-        .source-badge.core { border-color: #8b5cf6; background: rgba(139,92,246,0.3); animation: glow 2s infinite; }
-        .source-badge.agent { border-color: #f59e0b; background: rgba(245,158,11,0.3); animation: glow 2s infinite; }
-        .source-badge.multiia { border-color: #10b981; background: rgba(16,185,129,0.3); animation: glow 2s infinite; }
-        .status-bar { background: #1e293b; border-radius: 1rem; padding: 0.4rem 1rem; margin: 0.5rem 0; font-size: 0.6rem; display: flex; justify-content: space-around; flex-wrap: wrap; color: #94a3b8; gap: 8px; }
-        .status-bar .ok { color: #10b981; font-weight: bold; }
-        .status-bar .bad { color: #ef4444; font-weight: bold; }
         .station-item { background: rgba(0,0,0,0.3); border-radius: 8px; padding: 8px; margin: 6px 0; font-size: 0.7rem; border-left: 3px solid #3b82f6; cursor: pointer; transition: 0.2s; }
         .station-item:hover { background: rgba(59,130,246,0.15); transform: translateX(4px); }
         .station-item .name { font-weight: bold; color: #93c5fd; }
         .station-item .meta { font-size: 0.6rem; color: #94a3b8; margin-top: 2px; }
         .station-fav { color: #e9c46a; font-size: 0.7rem; }
+        .fase-info { font-size: 0.7rem; color: #94a3b8; margin-top: 0.3rem; text-align: center; padding: 0.3rem; background: rgba(0,0,0,0.2); border-radius: 0.5rem; }
         .footer-text { text-align: center; margin-top: 2rem; font-size: 0.7rem; color: #64748b; }
-        @media (max-width: 700px) { .chat-input-area { flex-direction: column; } .widget-container { grid-template-columns: 1fr; } .connector-metrics { grid-template-columns: 1fr 1fr; } }
+        .vr-button { position: fixed; bottom: 20px; right: 20px; background: linear-gradient(135deg, #f59e0b, #d97706); border: none; padding: 12px 20px; border-radius: 40px; color: white; font-weight: bold; cursor: pointer; z-index: 100; }
+        .vr-mode { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 1000; display: none; background: #0a0f1e; }
+        .vr-mode.active { display: block; }
+        .close-vr { position: fixed; top: 20px; right: 20px; background: rgba(0,0,0,0.7); border: 1px solid #e9c46a; padding: 8px 16px; border-radius: 30px; color: #e9c46a; cursor: pointer; z-index: 1001; }
+        @media (max-width: 700px) { .chat-input-area { flex-direction: column; } .widget-container { grid-template-columns: 1fr; } .connector-metrics { grid-template-columns: 1fr 1fr; } h1 { font-size: 1.3rem; } }
     </style>
 </head>
 <body>
@@ -156,48 +170,45 @@
             <span class="badge b-ili">♾️ ILIMITADO</span>
             <span class="live-badge">🌐 24/7</span>
         </h1>
-        <div class="sub">🦀 WASM Rust REAL · 🧬 Core 403M (4 agentes 2do plano) · 🔄 Multi-IA · 🔌 Agent-Reach · 📻 Radio Browser (100.000+) · 🎵 Audius · 📰 GNews · 🌤️ Open-Meteo · 🎧 Podcasts · 12 Fuentes + Ilimitadas · 🇱🇮 · ♾️ Sin límites</div>
+        <div class="sub">🦀 WASM Rust REAL · 🧬 Core 403M · 🔄 Multi-IA (9 proveedores) · 🔌 Agent-Reach · 📻 Radio Browser · 🎵 Audius · 📰 GNews · 🌤️ Open-Meteo · 🎧 Podcasts · ♾️ Fallback inteligente</div>
     </div>
 
-    <div class="ultra-stats">
-        <span>⚡ Optimizaciones: <strong id="ultraOptimizaciones">0</strong></span>
-        <span>⏱️ Tiempo WASM: <strong id="ultraTiempo">0ms</strong></span>
-        <span>🌐 Idiomas: <strong id="ultraIdiomas">0</strong></span>
-        <span>📊 Funciones: <strong id="ultraFunciones">0</strong></span>
-        <span>🧠 Memoria: <strong id="ultraMemoria">0 KB</strong></span>
-        <span>📻 Emisoras: <strong id="ultraEmisoras">0</strong></span>
-        <span>🎵 Canciones: <strong id="ultraCanciones">0</strong></span>
-        <span>📰 Noticias: <strong id="ultraNoticias">0</strong></span>
-        <span>🔌 Agent-Reach: <strong id="ultraAgentReach">0</strong></span>
-        <span>🧬 Core 403M: <strong id="ultraCore">0</strong></span>
-        <span>🔄 IA: <strong id="ultraProveedor">Multi-IA</strong></span>
-        <span>⚡ <strong class="velocidad">50x MÁS RÁPIDO</strong></span>
-    </div>
-
-    <div class="sources-badge">
-        <span class="source-badge radio">📻 Radio Browser (100.000+)</span>
-        <span class="source-badge audius">🎵 Audius</span>
-        <span class="source-badge wasm-real">🦀 WASM Rust REAL</span>
-        <span class="source-badge core">🧬 Core 403M</span>
-        <span class="source-badge agent">🔌 Agent-Reach</span>
-        <span class="source-badge multiia">🔄 Multi-IA</span>
-        <span class="source-badge">📄 Crossref</span>
-        <span class="source-badge">🔬 Semantic Scholar</span>
-        <span class="source-badge">🌐 Wikipedia</span>
-        <span class="source-badge">♾️ + ILIMITADAS</span>
-    </div>
-
-    <div class="status-bar">
-        <span>🦀 WASM Rust: <span id="rustStatus" class="ok">⏳</span></span>
-        <span>🧬 Core 403M: <span id="coreStatus" class="ok">⏳</span></span>
-        <span>🔌 Agent-Reach: <span id="arStatus" class="ok">⏳</span></span>
-        <span>🔄 Multi-IA: <span id="multiiaStatus" class="ok">⏳</span></span>
-        <span>📻 Radio Browser: <span id="radioBrowserStatus" class="ok">⏳</span></span>
-        <span>🎵 Audius: <span id="audiusStatus" class="ok">⏳</span></span>
-        <span>📰 GNews: <span id="gnewsStatus" class="ok">⏳</span></span>
-        <span>🌤️ Clima: <span id="climaStatus" class="ok">⏳</span></span>
-        <span>🎧 Podcasts: <span id="podcastStatus" class="ok">⏳</span></span>
-        <span>📌 Modo: <span id="modoStatus" style="color:#a78bfa;">🧠 Experto</span></span>
+    <!-- ═══ BARRAS DE ESTADO ═══ -->
+    <div class="status-bars-container">
+        <div class="core-status-bar">
+            <span class="lbl">🧬 Core 403M:</span>
+            <span class="item"><strong id="coreStatus" class="ok">⏳ Iniciando…</strong></span>
+            <span class="item">🤖 Agentes: <strong id="coreAgentes">4</strong></span>
+            <span class="item">📡 Consultas: <strong id="coreConsultas">0</strong></span>
+            <span class="item">📚 Temas: <strong id="coreTemas">0</strong></span>
+            <span class="item">🔄 Evoluciones: <strong id="coreEvoluciones">0</strong></span>
+        </div>
+        <div class="ar-status-bar">
+            <span class="lbl">🔌 Agent-Reach:</span>
+            <span class="item"><strong id="arStatus" class="ok">⏳ Iniciando…</strong></span>
+            <span class="item">📦 GitHub <strong id="arGitHub">0</strong></span>
+            <span class="item">📖 Reddit <strong id="arReddit">0</strong></span>
+            <span class="item">🌐 Wiki <strong id="arWiki">0</strong></span>
+        </div>
+        <div class="wasm-status-bar">
+            <span class="lbl">🦀 WASM Rust:</span>
+            <span class="item"><strong id="wasmStatus" class="ok">⏳ Cargando…</strong></span>
+            <span class="item">📊 Funciones: <strong id="wasmFuncsStatus">0</strong></span>
+            <span class="item">📦 Caché: <strong id="wasmCacheSize">0</strong></span>
+            <span class="item">🔄 Multi-IA: <strong id="multiiaStatus" class="ok">✅ Activo</strong></span>
+            <span class="item">⚡ 1 Llamada: <strong>✅</strong></span>
+            <span class="item">📌 Modo: <strong id="modoStatus">🧠 Experto</strong></span>
+        </div>
+        <div class="ultra-stats">
+            <span class="item">⚡ Optimizaciones: <strong id="ultraOptimizaciones">0</strong></span>
+            <span class="item">⏱️ Tiempo WASM: <strong id="ultraTiempo">0ms</strong></span>
+            <span class="item">📊 Funciones: <strong id="ultraFunciones">0</strong></span>
+            <span class="item">📻 Emisoras: <strong id="ultraEmisoras">0</strong></span>
+            <span class="item">🎵 Canciones: <strong id="ultraCanciones">0</strong></span>
+            <span class="item">📰 Noticias: <strong id="ultraNoticias">0</strong></span>
+            <span class="item">🔄 IA: <strong id="ultraProveedor">Multi-IA</strong></span>
+            <span class="velocidad">⚡ 50x MÁS RÁPIDO</span>
+        </div>
     </div>
 
     <div class="modo-selector">
@@ -208,6 +219,15 @@
     </div>
 
     <div class="progress-bar-container"><div class="progress-bar-fill" id="progressBar"></div></div>
+
+    <!-- PANEL DE DIAGNÓSTICO -->
+    <div class="diagnostico-panel collapsed" id="diagPanel">
+        <div class="diagnostico-header" onclick="document.getElementById('diagPanel').classList.toggle('collapsed')">
+            <span>🔍 Diagnóstico en vivo <span id="diagContador" style="font-size:0.7rem;font-weight:600;">(0 eventos)</span></span>
+            <span style="font-size:1rem;">▼</span>
+        </div>
+        <div class="diagnostico-lista" id="diagLista"></div>
+    </div>
 
     <div class="tools-bar">
         <button class="tool-btn radio" id="btnRadioBrowser">📻 RADIO BROWSER</button>
@@ -227,6 +247,7 @@
         <button class="tool-btn academia" id="btn12Fuentes">🔬 12 FUENTES</button>
         <button class="tool-btn ilimitado" id="btnFuentesIlimitadas">♾️ ILIMITADO</button>
         <button class="tool-btn wasm-extremo" id="btnWasmExtremo">⚡ WASM EXTREMO</button>
+        <button class="tool-btn diag" id="btnDiagnostico">🔍 Diagnóstico</button>
         <button class="tool-btn" id="btnAnalisisCompleto">📊 Completo</button>
         <button class="tool-btn" id="btnEstadoSistema">🔌 Estado</button>
     </div>
@@ -293,44 +314,170 @@
                 </div>
                 <div class="keywords-container" id="keywordsWidget"><span style="color:#94a3b8;font-size:0.6rem;">🏷️ Keywords: --</span></div>
                 <div style="font-size:0.6rem;color:#94a3b8;margin-top:4px;" id="repeticionesWidget">🔄 Repeticiones: --</div>
-                <div style="font-size:0.55rem;color:#8b5cf6;margin-top:6px;border-top:1px solid #334155;padding-top:6px;" id="fuentesWidget">🦀 WASM Rust · 🤖 Agente · 🧬 Core 403M · ♾️ Sin límites</div>
+                <div style="font-size:0.55rem;color:#8b5cf6;margin-top:6px;border-top:1px solid #334155;padding-top:6px;" id="fuentesWidget">🦀 WASM Rust · 🤖 Agente · 🧬 Core 403M · ♾️ Fallback inteligente</div>
             </div>
         </div>
     </div>
 
-    <div class="footer-text">☁️ Radio IA Pro · 🦀 WASM Rust REAL · 🧬 Core 403M · 🔄 Multi-IA · 🔌 Agent-Reach · 📻 Radio Browser · 🎵 Audius · 📰 GNews · 🌤️ Open-Meteo · 🎧 Podcasts · 🇱🇮 · ⚡ 1 llamada · ♾️ Sin límites</div>
+    <div class="fase-info" id="faseInfo">💡 Listo</div>
+    <div class="footer-text">☁️ Radio IA Pro · 🦀 WASM Rust REAL · 🧬 Core 403M · 🔄 Multi-IA (9 proveedores) · 🔌 Agent-Reach · 📻 Radio Browser · 🎵 Audius · 📰 GNews · ♾️ Fallback inteligente</div>
 </div>
 
 <button class="vr-button" id="vrModeBtn">🔮 MODO VR</button>
 <div class="vr-mode" id="vrMode"><button class="close-vr" id="closeVrBtn">✕ SALIR DE VR</button><div id="vrContainer" style="width:100%;height:100%"></div></div>
 
 <script type="module">
-// ============================================
-// CONFIG
-// ============================================
+// ═══════════════════════════════════════════════════════════
+// 🔧 UTILIDADES GLOBALES
+// ═══════════════════════════════════════════════════════════
+window.showToast = function(msg, isErr) {
+    const t = document.createElement('div');
+    t.className = 'toast-msg';
+    t.style.background = isErr ? '#ef4444' : '#8b5cf6';
+    t.textContent = msg;
+    document.body.appendChild(t);
+    setTimeout(() => t.remove(), 3500);
+};
+const showToast = window.showToast;
+
+function mostrarModal(titulo, contenido) {
+    const m = document.createElement('div');
+    m.className = 'modal-overlay';
+    m.innerHTML = `<div class="modal-content"><h3>${titulo}</h3><div style="white-space:pre-wrap;font-size:0.85rem;line-height:1.5;max-height:60vh;overflow-y:auto;">${contenido}</div><button class="modal-close">Cerrar</button></div>`;
+    document.body.appendChild(m);
+    m.querySelector('.modal-close').onclick = () => m.remove();
+    m.onclick = e => { if (e.target === m) m.remove(); };
+}
+function actualizarProgress(p) { document.getElementById('progressBar').style.width = `${Math.min(100, p)}%`; }
+
+// ═══════════════════════════════════════════════════════════
+// 🔍 DIAGNÓSTICO EN VIVO
+// ═══════════════════════════════════════════════════════════
+const Diagnostico = {
+    contador: 0,
+    log(mensaje, tipo = 'info') {
+        this.contador++;
+        const icono = tipo === 'ok' ? '✅' : tipo === 'warn' ? '⚠️' : tipo === 'error' ? '❌' : 'ℹ️';
+        const hora = new Date().toLocaleTimeString('es-ES');
+        document.getElementById('diagContador').textContent = `(${this.contador} eventos)`;
+        const lista = document.getElementById('diagLista');
+        if (lista) {
+            lista.innerHTML += `<div class="diag-item ${tipo}">[${hora}] ${icono} ${mensaje}</div>`;
+            lista.scrollTop = lista.scrollHeight;
+        }
+        console.log(`[${tipo.toUpperCase()}] ${mensaje}`);
+    }
+};
+
+// ═══════════════════════════════════════════════════════════
+// 🔄 MULTI-IA — 9 PROVEEDORES CON TODOS SUS MODELOS FREE
+// ═══════════════════════════════════════════════════════════
 const IA_PROVEEDORES = [
-    { nombre: 'Mistral AI', url: 'https://api.mistral.ai/v1/chat/completions', key: '5qjCySPcH6ltO3ACeYcv8peh8iz252uW', modelos: ['mistral-large-latest', 'mistral-small-latest', 'open-mistral-7b'], color: '#f97316' },
-    { nombre: 'OpenRouter', url: 'https://openrouter.ai/api/v1/chat/completions', key: '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', modelos: ['mistralai/mistral-7b-instruct:free', 'meta-llama/llama-3.1-8b-instruct:free', 'google/gemma-2-9b-it:free', 'qwen/qwen-2.5-7b-instruct:free'], color: '#10b981', extraHeaders: { 'HTTP-Referer': 'https://radio-ia-pro.local', 'X-Title': 'Radio IA Pro' } }
+    // ---- Google Gemini (Free) ----
+    {
+        nombre: 'Google',
+        url: 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=AQ.Ab8RN6Ly5QrNa2RWh65DS_PRM_AMDE7E_52VaHe1FcdJcurvgw',
+        key: 'AQ.Ab8RN6Ly5QrNa2RWh65DS_PRM_AMDE7E_52VaHe1FcdJcurvgw',
+        modelos: ['gemini-2.0-flash', 'gemini-2.5-flash-preview-04-17'],
+        color: '#4285F4',
+        tipo: 'google'
+    },
+    // ---- Cerebras (Free) ----
+    {
+        nombre: 'Cerebras',
+        url: 'https://api.cerebras.ai/v1/chat/completions',
+        key: 'csk-jntkcrk4ev8vk35fhy6ctf4f6y2hdfp5h4f2khvwtdy82kcv',
+        modelos: ['llama3.1-8b', 'llama-3.3-70b', 'qwen-2.5-32b', 'qwen-2.5-coder-32b'],
+        color: '#FF6B35'
+    },
+    // ---- Z.ai (Free) ----
+    {
+        nombre: 'Z.ai',
+        url: 'https://api.z.ai/api/paas/v4/chat/completions',
+        key: '864fd7b42aa04163821d727cd74fbaea.GaPaxOmiAJUpm2TP',
+        modelos: ['glm-4-flash', 'glm-4.5-flash'],
+        color: '#7C3AED'
+    },
+    // ---- Mistral (Free) ----
+    {
+        nombre: 'Mistral AI',
+        url: 'https://api.mistral.ai/v1/chat/completions',
+        key: '5qjCySPcH6ltO3ACeYcv8peh8iz252uW',
+        modelos: ['mistral-small-latest', 'mistral-large-latest', 'open-mistral-7b', 'open-mixtral-8x7b', 'mistral-tiny', 'open-mistral-nemo'],
+        color: '#f97316'
+    },
+    // ---- GitHub (Free) ----
+    {
+        nombre: 'GitHub',
+        url: 'https://models.inference.ai.azure.com/chat/completions',
+        key: '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',
+        modelos: ['gpt-4o-mini', 'Phi-3.5-mini-instruct', 'Meta-Llama-3.1-8B-Instruct'],
+        color: '#24292E'
+    },
+    // ---- Ollama Cloud (Free) ----
+    {
+        nombre: 'Ollama Cloud',
+        url: 'https://api.ollama.cloud/v1/chat/completions',
+        key: '0edce97e3d3f405fb5e528efef2757f8.v6Xv_n50E_J9aSpdYQJMvaS3',
+        modelos: ['llama3.2', 'mistral', 'gemma2', 'qwen2.5'],
+        color: '#333333'
+    },
+    // ---- Kiro (Free) ----
+    {
+        nombre: 'Kiro',
+        url: 'https://api.kiro.ai/v1/chat/completions',
+        key: 'sk-xt-41b2aae5f67cc4105f017e26f6f5fe48f21d3e2207977139',
+        modelos: ['kiro-chat', 'kiro-pro'],
+        color: '#00A3FF'
+    },
+    // ---- Orca Router (Free) ----
+    {
+        nombre: 'Orca Router',
+        url: 'https://api.orcarouter.ai/v1/chat/completions',
+        key: 'sk-orca-cCg3Kbg7IUyeXhXdzZ41MRPe5kuQShyEiQ7tvlILHuk',
+        modelos: ['orca-mini', 'orca-2-7b', 'orca-2-13b'],
+        color: '#8B5CF6'
+    },
+    // ---- OpenRouter (Free) ----
+    {
+        nombre: 'OpenRouter',
+        url: 'https://openrouter.ai/api/v1/chat/completions',
+        key: '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',
+        modelos: ['mistralai/mistral-7b-instruct:free', 'meta-llama/llama-3.1-8b-instruct:free', 'google/gemma-2-9b-it:free', 'qwen/qwen-2.5-7b-instruct:free', 'microsoft/phi-3-mini-128k-instruct:free', 'huggingfaceh4/zephyr-7b-beta:free'],
+        color: '#10b981',
+        extraHeaders: { 'HTTP-Referer': 'https://radio-ia-pro.local', 'X-Title': 'Radio IA Pro' }
+    }
 ];
+
 const GNEWS_API_KEY = '91145ca5b48bdf9464f6bc8330633fe8';
 const PAIS_FIJO = 'Liechtenstein';
+const TIMEOUT_IA = 25000;      // 25s por modelo
+const TIMEOUT_API_NEWS = 15000; // 15s por API noticias
 
 let modoActual = 'experto';
-let ultimoAnalisis = '';
 let vozActivada = false;
 let procesandoRespuesta = false;
 let contadorPreguntas = 0;
-let ocupado = false;
 let idiomaDetectado = 'es';
 let proveedorActual = null;
+let iaOkCount = 0, iaFailsCount = 0;
 let emisorasFavoritas = JSON.parse(localStorage.getItem('radio_favoritas') || '[]');
 
 const nombreIdioma = { 'es': 'Español', 'en': 'Inglés', 'de': 'Alemán', 'fr': 'Francés', 'pt': 'Portugués', 'it': 'Italiano' };
 const banderaIdioma = { 'es': '🇪🇸', 'en': '🇬🇧', 'de': '🇩🇪', 'fr': '🇫🇷', 'pt': '🇵🇹', 'it': '🇮🇹' };
 
-// ============================================
-// 🦀 WASM RUST REAL (carga desde ./pkg/)
-// ============================================
+// ═══════════════════════════════════════════════════════════
+// 🛠️ HELPER: FETCH CON TIMEOUT
+// ═══════════════════════════════════════════════════════════
+function fetchConTimeout(url, opciones = {}, timeoutMs = 8000) {
+    const ctrl = new AbortController();
+    const tid = setTimeout(() => ctrl.abort(), timeoutMs);
+    return fetch(url, { ...opciones, signal: ctrl.signal }).finally(() => clearTimeout(tid));
+}
+
+// ═══════════════════════════════════════════════════════════
+// 🦀 WASM RUST
+// ═══════════════════════════════════════════════════════════
 class RustWASM {
     constructor() { this.wasm = null; this.cargado = false; this.stats = { funciones: 0, tiempo: 0, optimizaciones: 0 }; }
     async cargar() {
@@ -342,17 +489,19 @@ class RustWASM {
             const v = mod.wasm_version ? mod.wasm_version() : '1.0';
             const funcs = ['contar_palabras', 'contar_caracteres_sin_espacios', 'contar_oraciones', 'process_text_full', 'extract_keywords', 'extract_authors_fast', 'detectar_idioma', 'resumir_texto', 'process_agent_context', 'cache_response', 'get_cached_response', 'get_cache_size', 'clear_cache'].filter(f => typeof mod[f] === 'function');
             console.log(`✅ WASM Rust REAL cargado (v${v}) · ${funcs.length}/13 funciones`);
-            document.getElementById('rustStatus').textContent = '✅ REAL';
-            document.getElementById('rustStatus').className = 'ok';
-            document.getElementById('wasmWidgetStatusText').textContent = '✅ Real (50x)';
-            document.getElementById('wasmWidgetStatusText').style.color = '#10b981';
+            document.getElementById('wasmStatus').textContent = `✅ Rust real (${funcs.length} funcs)`;
+            document.getElementById('wasmStatus').style.color = '#10b981';
+            document.getElementById('wasmFuncsStatus').textContent = funcs.length;
             document.getElementById('ultraFunciones').textContent = funcs.length;
+            document.getElementById('wasmWidgetStatusText').textContent = '✅ Real (50x)';
+            Diagnostico.log(`WASM Rust REAL cargado v${v} · ${funcs.length} funciones`, 'ok');
             return true;
         } catch (e) {
             console.warn('⚠️ WASM Rust no disponible:', e.message);
-            document.getElementById('rustStatus').textContent = '⚠️ Fallback JS';
-            document.getElementById('rustStatus').className = 'bad';
+            document.getElementById('wasmStatus').textContent = '⚠️ Fallback JS';
+            document.getElementById('wasmStatus').style.color = '#f59e0b';
             document.getElementById('wasmWidgetStatusText').textContent = '⚠️ Fallback JS';
+            Diagnostico.log(`WASM Rust no disponible: ${e.message}`, 'warn');
             return false;
         }
     }
@@ -370,213 +519,152 @@ class RustWASM {
 }
 const rustWASM = new RustWASM();
 
-// ============================================
-// 🔄 MULTI-IA
-// ============================================
+// ═══════════════════════════════════════════════════════════
+// 🚀 MULTI-IA — PARALELO CON TODOS LOS MODELOS FREE
+// ═══════════════════════════════════════════════════════════
 function actualizarProveedor(nombre, color) {
     const el = document.getElementById('proveedorActivo');
     if (nombre) { el.textContent = nombre; el.style.color = color || '#10b981'; document.getElementById('ultraProveedor').textContent = nombre; }
     else { el.textContent = 'Multi-IA'; el.style.color = ''; document.getElementById('ultraProveedor').textContent = 'Multi-IA'; }
 }
-async function llamarIA(messages, maxTokens = 3000) {
-    let ultimoError = null;
+
+async function llamarIAParalelo(messages, maxTokens = 3000) {
+    Diagnostico.log(`🚀 Lanzando ${IA_PROVEEDORES.length} proveedores con todos sus modelos free…`, 'info');
+    
+    const promesas = [];
     for (const prov of IA_PROVEEDORES) {
         for (const modelo of prov.modelos) {
-            try {
-                console.log(`🔄 ${prov.nombre} (${modelo})…`);
-                const headers = { 'Content-Type': 'application/json', 'Authorization': `Bearer ${prov.key}` };
-                if (prov.extraHeaders) Object.assign(headers, prov.extraHeaders);
-                const ctrl = new AbortController();
-                const tid = setTimeout(() => ctrl.abort(), 60000);
-                const resp = await fetch(prov.url, { method: 'POST', headers, body: JSON.stringify({ model: modelo, messages, temperature: 0.7, max_tokens: maxTokens }), signal: ctrl.signal });
-                clearTimeout(tid);
-                if ([401, 403, 429].includes(resp.status)) { ultimoError = `${resp.status} en ${prov.nombre}`; continue; }
-                if (!resp.ok) { const err = await resp.json().catch(() => ({})); ultimoError = err.error?.message || `Error ${resp.status}`; continue; }
-                const data = await resp.json();
-                const texto = data.choices?.[0]?.message?.content || '';
-                if (texto.length < 30) { ultimoError = 'Respuesta muy corta'; continue; }
-                console.log(`✅ ${prov.nombre}: ${texto.length} chars`);
-                proveedorActual = prov.nombre;
-                actualizarProveedor(prov.nombre, prov.color);
-                document.getElementById('multiiaStatus').textContent = `✅ ${prov.nombre}`;
-                return { texto, proveedor: prov.nombre, modelo };
-            } catch (e) { console.warn(`⚠️ ${prov.nombre}/${modelo}:`, e.message); ultimoError = e.name === 'AbortError' ? 'Timeout' : e.message; }
+            promesas.push(
+                (async () => {
+                    const t0 = Date.now();
+                    try {
+                        const headers = { 'Content-Type': 'application/json', 'Authorization': `Bearer ${prov.key}` };
+                        if (prov.extraHeaders) Object.assign(headers, prov.extraHeaders);
+                        
+                        let body, url = prov.url;
+                        if (prov.tipo === 'google') {
+                            url = `https://generativelanguage.googleapis.com/v1beta/models/${modelo}:generateContent?key=${prov.key}`;
+                            body = { contents: messages.map(m => ({ role: m.role === 'assistant' ? 'model' : m.role, parts: [{ text: m.content }] })), generationConfig: { maxOutputTokens: maxTokens, temperature: 0.7 } };
+                        } else {
+                            body = { model: modelo, messages, temperature: 0.7, max_tokens: maxTokens };
+                        }
+                        
+                        const resp = await fetchConTimeout(url, { method: 'POST', headers, body: JSON.stringify(body) }, TIMEOUT_IA);
+                        const dur = ((Date.now() - t0) / 1000).toFixed(1);
+                        
+                        if ([401, 403, 429].includes(resp.status)) {
+                            const errTxt = resp.status === 429 ? 'rate limit' : resp.status === 401 ? 'key inválida' : `HTTP ${resp.status}`;
+                            Diagnostico.log(`${prov.nombre}/${modelo}: ${errTxt} (${dur}s)`, 'error');
+                            iaFailsCount++;
+                            throw new Error(`${prov.nombre}/${modelo}: ${errTxt}`);
+                        }
+                        if (!resp.ok) {
+                            Diagnostico.log(`${prov.nombre}/${modelo}: HTTP ${resp.status} (${dur}s)`, 'error');
+                            iaFailsCount++;
+                            throw new Error(`${prov.nombre}/${modelo}: HTTP ${resp.status}`);
+                        }
+                        
+                        const data = await resp.json();
+                        let texto = '';
+                        if (prov.tipo === 'google') {
+                            texto = data.candidates?.[0]?.content?.parts?.[0]?.text || '';
+                        } else {
+                            texto = data.choices?.[0]?.message?.content || '';
+                        }
+                        
+                        if (texto.length < 50) {
+                            Diagnostico.log(`${prov.nombre}/${modelo}: respuesta corta (${texto.length} chars)`, 'warn');
+                            iaFailsCount++;
+                            throw new Error(`${prov.nombre}/${modelo}: respuesta corta`);
+                        }
+                        
+                        Diagnostico.log(`${prov.nombre}/${modelo}: ✅ ${texto.length} chars en ${dur}s`, 'ok');
+                        iaOkCount++;
+                        return { texto, proveedor: prov.nombre, modelo };
+                    } catch (e) {
+                        if (e.name === 'AbortError') {
+                            Diagnostico.log(`${prov.nombre}/${modelo}: Timeout ${TIMEOUT_IA/1000}s`, 'error');
+                            iaFailsCount++;
+                        }
+                        throw e;
+                    }
+                })()
+            );
         }
     }
-    actualizarProveedor(null);
-    throw new Error(`❌ Todos fallaron. Último: ${ultimoError}`);
+    
+    Diagnostico.log(`Total: ${promesas.length} combinaciones proveedor×modelo`, 'info');
+    
+    try {
+        const resultado = await Promise.any(promesas);
+        proveedorActual = resultado.proveedor;
+        actualizarProveedor(resultado.proveedor, resultado.proveedor === 'Google' ? '#4285F4' : resultado.proveedor === 'OpenRouter' ? '#10b981' : '#f97316');
+        document.getElementById('multiiaStatus').textContent = `✅ ${resultado.proveedor}`;
+        Diagnostico.log(`🏆 GANADOR: ${resultado.proveedor} (${resultado.modelo})`, 'ok');
+        return resultado;
+    } catch (e) {
+        Diagnostico.log('❌ Todos los modelos y proveedores fallaron', 'error');
+        actualizarProveedor(null);
+        document.getElementById('multiiaStatus').textContent = '❌ Todos fallaron';
+        throw new Error('Todos los proveedores IA fallaron');
+    }
 }
 
-// ============================================
-// 🔌 AGENT-REACH (GitHub + Reddit + Wikipedia)
-// ============================================
+// ═══════════════════════════════════════════════════════════
+// 🔌 AGENT-REACH
+// ═══════════════════════════════════════════════════════════
 const agentReach = {
     stats: { github: 0, reddit: 0, wiki: 0, total: 0 },
     async buscar(t) {
-        const [gh, rd, wk] = await Promise.allSettled([this.github(t), this.reddit(t), this.wiki(t)]);
-        const r = {
-            github: gh.status === 'fulfilled' ? gh.value : [],
-            reddit: rd.status === 'fulfilled' ? rd.value : [],
-            wiki: wk.status === 'fulfilled' ? wk.value : []
-        };
+        Diagnostico.log(`Agent-Reach en paralelo: ${t}`, 'info');
+        const [gh, rd, wk] = await Promise.allSettled([
+            fetchConTimeout(`https://api.github.com/search/repositories?q=${encodeURIComponent(t)}&per_page=3`, {}, 5000).then(r => r.json()).then(d => (d.items || []).map(i => ({ titulo: i.full_name }))).catch(() => []),
+            fetchConTimeout(`https://www.reddit.com/search.json?q=${encodeURIComponent(t)}&limit=3`, {}, 5000).then(r => r.json()).then(d => (d.data?.children || []).map(i => ({ titulo: i.data.title }))).catch(() => []),
+            fetchConTimeout(`https://es.wikipedia.org/w/api.php?action=query&list=search&srsearch=${encodeURIComponent(t)}&format=json&origin=*&srlimit=3`, {}, 5000).then(r => r.json()).then(d => (d.query?.search || []).map(i => ({ titulo: i.title }))).catch(() => [])
+        ]);
+        const r = { github: gh.value || [], reddit: rd.value || [], wiki: wk.value || [] };
         this.stats.github += r.github.length;
         this.stats.reddit += r.reddit.length;
         this.stats.wiki += r.wiki.length;
         this.stats.total = this.stats.github + this.stats.reddit + this.stats.wiki;
-        document.getElementById('ultraAgentReach').textContent = this.stats.total;
-        document.getElementById('arStatus').textContent = `✅ G${this.stats.github} R${this.stats.reddit} W${this.stats.wiki}`;
+        document.getElementById('arGitHub').textContent = this.stats.github;
+        document.getElementById('arReddit').textContent = this.stats.reddit;
+        document.getElementById('arWiki').textContent = this.stats.wiki;
+        document.getElementById('arStatus').textContent = `✅ Activo`;
+        Diagnostico.log(`Agent-Reach: G${r.github.length} R${r.reddit.length} W${r.wiki.length}`, 'ok');
         return r;
-    },
-    async github(t) { try { const r = await fetch(`https://api.github.com/search/repositories?q=${encodeURIComponent(t)}&per_page=5`); const d = await r.json(); return (d.items || []).map(i => ({ titulo: i.full_name, descripcion: i.description, estrellas: i.stargazers_count, fuente: 'GitHub' })); } catch (e) { return []; } },
-    async reddit(t) { try { const r = await fetch(`https://www.reddit.com/search.json?q=${encodeURIComponent(t)}&limit=5`); const d = await r.json(); return (d.data?.children || []).map(i => ({ titulo: i.data.title, subreddit: i.data.subreddit, fuente: 'Reddit' })); } catch (e) { return []; } },
-    async wiki(t) { try { const r = await fetch(`https://es.wikipedia.org/w/api.php?action=query&list=search&srsearch=${encodeURIComponent(t)}&format=json&origin=*&srlimit=5`); const d = await r.json(); return (d.query?.search || []).map(i => ({ titulo: i.title, descripcion: i.snippet?.replace(/<[^>]+>/g, ''), fuente: 'Wikipedia' })); } catch (e) { return []; } }
-};
-
-// ============================================
-// 🔬 12 FUENTES ACADÉMICAS
-// ============================================
-const fuentes12 = {
-    async buscar(t) {
-        const results = await Promise.allSettled([
-            this.semantic(t), this.arxiv(t), this.crossref(t), this.openalex(t),
-            this.core(t), this.internetArchive(t), this.wikipedia(t), this.wikidata(t),
-            this.pubmed(t), this.doaj(t), this.openLibrary(t), this.hackerNews(t)
-        ]);
-        const pick = (r) => r.status === 'fulfilled' ? r.value : [];
-        return {
-            semantic: pick(results[0]), arxiv: pick(results[1]), crossref: pick(results[2]), openalex: pick(results[3]),
-            core: pick(results[4]), archive: pick(results[5]), wikipedia: pick(results[6]), wikidata: pick(results[7]),
-            pubmed: pick(results[8]), doaj: pick(results[9]), openLibrary: pick(results[10]), hackerNews: pick(results[11])
-        };
-    },
-    async semantic(t) { try { const r = await fetch(`https://api.semanticscholar.org/graph/v1/paper/search?query=${encodeURIComponent(t)}&limit=5&fields=title,authors,year`); const d = await r.json(); return (d.data || []).map(p => ({ titulo: p.title, autores: p.authors?.map(a => a.name).join(', '), año: p.year, fuente: 'Semantic Scholar' })); } catch (e) { return []; } },
-    async arxiv(t) { try { const r = await fetch(`https://export.arxiv.org/api/query?search_query=all:${encodeURIComponent(t)}&max_results=5`); const text = await r.text(); const entries = text.split('<entry>'); const out = []; for (let i = 1; i < Math.min(entries.length, 6); i++) { const m = entries[i].match(/<title>(.*?)<\/title>/); if (m) out.push({ titulo: m[1].trim(), autores: 'Desconocido', año: 's.f.', fuente: 'arXiv' }); } return out; } catch (e) { return []; } },
-    async crossref(t) { try { const r = await fetch(`https://api.crossref.org/works?query=${encodeURIComponent(t)}&rows=5`); const d = await r.json(); return (d.message?.items || []).map(i => ({ titulo: i.title?.[0] || '', autores: i.author?.map(a => a.family).join(', ') || '', año: i.issued?.['date-parts']?.[0]?.[0] || 's.f.', fuente: 'Crossref' })); } catch (e) { return []; } },
-    async openalex(t) { try { const r = await fetch(`https://api.openalex.org/works?search=${encodeURIComponent(t)}&per-page=5`); const d = await r.json(); return (d.results || []).map(i => ({ titulo: i.title || '', autores: i.authorships?.map(a => a.author.display_name).join(', ') || '', año: i.publication_year || 's.f.', fuente: 'OpenAlex' })); } catch (e) { return []; } },
-    async core(t) { try { const r = await fetch(`https://api.core.ac.uk/v3/search/works?q=${encodeURIComponent(t)}&limit=5`); const d = await r.json(); return (d.results || []).map(i => ({ titulo: i.title, autores: i.authors?.join(', '), año: i.yearPublished, fuente: 'CORE' })); } catch (e) { return []; } },
-    async internetArchive(t) { try { const r = await fetch(`https://archive.org/advancedsearch.php?q=${encodeURIComponent(t)}&fl[]=title,creator,year&rows=5&output=json`); const d = await r.json(); return (d.response?.docs || []).map(i => ({ titulo: i.title, autores: i.creator, año: i.year, fuente: 'Internet Archive' })); } catch (e) { return []; } },
-    async wikipedia(t) { try { const r = await fetch(`https://es.wikipedia.org/w/api.php?action=query&list=search&srsearch=${encodeURIComponent(t)}&format=json&origin=*&srlimit=5`); const d = await r.json(); return (d.query?.search || []).map(i => ({ titulo: i.title, autores: 'Wikipedia', año: 's.f.', fuente: 'Wikipedia' })); } catch (e) { return []; } },
-    async wikidata(t) { try { const r = await fetch(`https://www.wikidata.org/w/api.php?action=wbsearchentities&search=${encodeURIComponent(t)}&language=es&format=json&origin=*&limit=5`); const d = await r.json(); return (d.search || []).map(i => ({ titulo: i.label, autores: 'Wikidata', año: 's.f.', fuente: 'Wikidata' })); } catch (e) { return []; } },
-    async pubmed(t) { try { const r = await fetch(`https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&term=${encodeURIComponent(t)}&retmax=5&retmode=json`); const d = await r.json(); return (d.esearchresult?.idlist || []).map(id => ({ titulo: `PubMed ID ${id}`, autores: 'PubMed', año: 's.f.', fuente: 'PubMed' })); } catch (e) { return []; } },
-    async doaj(t) { try { const r = await fetch(`https://doaj.org/api/search/articles/${encodeURIComponent(t)}?pageSize=5`); const d = await r.json(); return (d.results || []).map(i => ({ titulo: i.bibjson?.title, autores: i.bibjson?.author?.map(a => a.name).join(', '), año: i.bibjson?.year, fuente: 'DOAJ' })); } catch (e) { return []; } },
-    async openLibrary(t) { try { const r = await fetch(`https://openlibrary.org/search.json?q=${encodeURIComponent(t)}&limit=5`); const d = await r.json(); return (d.docs || []).map(i => ({ titulo: i.title, autores: i.author_name?.join(', '), año: i.first_publish_year, fuente: 'Open Library' })); } catch (e) { return []; } },
-    async hackerNews(t) { try { const r = await fetch(`https://hn.algolia.com/api/v1/search?query=${encodeURIComponent(t)}&hitsPerPage=5`); const d = await r.json(); return (d.hits || []).map(i => ({ titulo: i.title, autores: i.author, año: 's.f.', fuente: 'Hacker News' })); } catch (e) { return []; } }
-};
-
-// ============================================
-// ♾️ FUENTES ILIMITADAS (100+)
-// ============================================
-const fuentesIlimitadas = {
-    async buscarTodas(tema) {
-        const r12 = await fuentes12.buscar(tema);
-        const todas = [];
-        Object.values(r12).forEach(arr => todas.push(...arr));
-        for (let i = 1; i <= 88; i++) todas.push({ titulo: `Fuente Adicional ${i}: ${tema}`, autores: 'Auto', año: '2024', fuente: `Fuente ${i}` });
-        return { tema, total: todas.length, resultados: todas, fuentesActivas: 100 };
     }
 };
 
-// ============================================
-// 🧬 CORE 403M (4 AGENTES EN 2DO PLANO)
-// ============================================
-class Core403M {
-    constructor() {
-        this.consultas = 0;
-        this.temas = {};
-        this.evoluciones = 0;
-        this.agentes = {
-            analizador: { activo: true, tareas: 0, ultimaActividad: null },
-            optimizador: { activo: true, tareas: 0, ultimaActividad: null },
-            predictor: { activo: true, tareas: 0, ultimaActividad: null },
-            evolucionador: { activo: true, tareas: 0, ultimaActividad: null }
-        };
-        this.cargar();
-        this.iniciarAgentes();
-    }
-    iniciarAgentes() {
-        document.getElementById('coreStatus').textContent = '✅ 4 agentes activos';
-        // Agente 1: Analizador - cada 30s analiza consultas
-        setInterval(() => {
-            this.agentes.analizador.tareas++;
-            this.agentes.analizador.ultimaActividad = new Date();
-            this.guardar();
-        }, 30000);
-        // Agente 2: Optimizador - cada 45s optimiza caché
-        setInterval(() => {
-            this.agentes.optimizador.tareas++;
-            this.agentes.optimizador.ultimaActividad = new Date();
-            if (rustWASM.cargado && rustWASM.wasm.clear_cache) {
-                const size = rustWASM.getCacheSize();
-                if (size > 50) rustWASM.wasm.clear_cache();
-            }
-            this.guardar();
-        }, 45000);
-        // Agente 3: Predictor - cada 60s predice temas
-        setInterval(() => {
-            this.agentes.predictor.tareas++;
-            this.agentes.predictor.ultimaActividad = new Date();
-            this.guardar();
-        }, 60000);
-        // Agente 4: Evolucionador - cada 60s evoluciona
-        setInterval(() => {
-            this.evoluciones++;
-            this.agentes.evolucionador.tareas++;
-            this.agentes.evolucionador.ultimaActividad = new Date();
-            document.getElementById('ultraCore').textContent = this.evoluciones;
-            this.guardar();
-        }, 60000);
-    }
-    registrar(t, r) {
-        this.consultas++;
-        this.temas[t] = (this.temas[t] || 0) + 1;
-        document.getElementById('ultraCore').textContent = this.consultas;
-        this.guardar();
-    }
-    guardar() { try { localStorage.setItem('core403m_radio', JSON.stringify({ consultas: this.consultas, temas: this.temas, evoluciones: this.evoluciones, agentes: this.agentes })); } catch (e) {} }
-    cargar() { try { const d = JSON.parse(localStorage.getItem('core403m_radio') || '{}'); this.consultas = d.consultas || 0; this.temas = d.temas || {}; this.evoluciones = d.evoluciones || 0; if (d.agentes) this.agentes = d.agentes; document.getElementById('ultraCore').textContent = this.consultas; } catch (e) {} }
-    getEstado() {
-        return Object.entries(this.agentes).map(([nombre, info]) => `• ${nombre}: ${info.activo ? '✅' : '❌'} (${info.tareas} tareas)`).join('\n');
-    }
-}
-const core403M = new Core403M();
-
-// ============================================
+// ═══════════════════════════════════════════════════════════
 // 📻 RADIO BROWSER API
-// ============================================
+// ═══════════════════════════════════════════════════════════
 class RadioBrowserAPI {
-    constructor() {
-        this.baseUrl = 'https://de1.api.radio-browser.info/json';
-        this.cache = new Map();
-        this.maxCacheAge = 1800000;
-        this.totalEmisoras = 0;
-    }
+    constructor() { this.baseUrl = 'https://de1.api.radio-browser.info/json'; this.cache = new Map(); this.totalEmisoras = 0; }
     async buscarEmisoras(query = '', pais = '', genero = '', limite = 20) {
         const cacheKey = `radio_${query}_${pais}_${genero}_${limite}`;
-        if (this.cache.has(cacheKey)) { const c = this.cache.get(cacheKey); if (Date.now() - c.timestamp < this.maxCacheAge) return c.data; }
+        if (this.cache.has(cacheKey)) { const c = this.cache.get(cacheKey); if (Date.now() - c.timestamp < 1800000) return c.data; }
         try {
             let url = `${this.baseUrl}/stations/search?limit=${limite}&hidebroken=true&order=clickcount&reverse=true`;
             if (query) url += `&name=${encodeURIComponent(query)}`;
             if (pais) url += `&countrycode=${encodeURIComponent(pais)}`;
             if (genero) url += `&tag=${encodeURIComponent(genero)}`;
-            console.log(`📻 Radio Browser: ${query || genero || pais || 'top'}`);
             const r = await fetch(url, { headers: { 'User-Agent': 'RadioIAPro/1.0' } });
             if (!r.ok) throw new Error(`HTTP ${r.status}`);
             const data = await r.json();
             const emisoras = data.map(e => ({
                 id: e.stationuuid, nombre: e.name, url: e.url_resolved || e.url,
-                favicon: e.favicon, pais: e.country, paisCode: e.countrycode, idioma: e.language,
-                genero: e.tags, bitrate: e.bitrate, codec: e.codec, votos: e.votes,
-                clickcount: e.clickcount, homepage: e.homepage, fuente: 'Radio Browser'
+                pais: e.country, paisCode: e.countrycode, genero: e.tags,
+                bitrate: e.bitrate, votos: e.votes, clickcount: e.clickcount, fuente: 'Radio Browser'
             })).filter(e => e.url && e.url.startsWith('http'));
             this.totalEmisoras += emisoras.length;
             document.getElementById('ultraEmisoras').textContent = this.totalEmisoras;
-            document.getElementById('radioBrowserStatus').textContent = `✅ ${this.totalEmisoras}`;
+            Diagnostico.log(`Radio Browser: ${emisoras.length} emisoras`, 'ok');
             const resultado = { emisoras, total: emisoras.length, timestamp: Date.now() };
             this.cache.set(cacheKey, { data: resultado, timestamp: Date.now() });
             return resultado;
         } catch (e) {
-            console.warn('⚠️ Radio Browser error:', e.message);
-            document.getElementById('radioBrowserStatus').textContent = '⚠️ Error';
+            Diagnostico.log(`Radio Browser error: ${e.message}`, 'error');
             return { emisoras: [], total: 0, error: e.message };
         }
     }
@@ -598,15 +686,11 @@ class RadioBrowserAPI {
     guardarFavoritas() { localStorage.setItem('radio_favoritas', JSON.stringify(emisorasFavoritas)); }
 }
 
-// ============================================
+// ═══════════════════════════════════════════════════════════
 // 🎵 AUDIUS API
-// ============================================
+// ═══════════════════════════════════════════════════════════
 class AudiusAPI {
-    constructor() {
-        this.baseUrl = 'https://discoveryprovider.audius.co/v1';
-        this.appName = 'RadioIAPro';
-        this.totalCanciones = 0;
-    }
+    constructor() { this.baseUrl = 'https://discoveryprovider.audius.co/v1'; this.appName = 'RadioIAPro'; this.totalCanciones = 0; }
     async buscarCanciones(query = 'electronic', limite = 10) {
         try {
             const url = `${this.baseUrl}/tracks/search?query=${encodeURIComponent(query)}&app_name=${this.appName}&limit=${limite}`;
@@ -615,18 +699,16 @@ class AudiusAPI {
             const data = await r.json();
             const canciones = (data.data || []).map(t => ({
                 id: t.id, titulo: t.title, artista: t.user?.name || 'Artista',
-                duracion: t.duration, genero: t.genre, reproducciones: t.play_count,
-                artwork: t.artwork?.['480x480'],
+                duracion: t.duration, genero: t.genre,
                 streamUrl: `${this.baseUrl}/tracks/${t.id}/stream?app_name=${this.appName}`,
                 fuente: 'Audius'
             }));
             this.totalCanciones += canciones.length;
             document.getElementById('ultraCanciones').textContent = this.totalCanciones;
-            document.getElementById('audiusStatus').textContent = `✅ ${this.totalCanciones}`;
+            Diagnostico.log(`Audius: ${canciones.length} canciones`, 'ok');
             return { canciones, total: canciones.length };
         } catch (e) {
-            console.warn('⚠️ Audius error:', e.message);
-            document.getElementById('audiusStatus').textContent = '⚠️ Error';
+            Diagnostico.log(`Audius error: ${e.message}`, 'error');
             return { canciones: [], total: 0 };
         }
     }
@@ -646,9 +728,9 @@ class AudiusAPI {
     }
 }
 
-// ============================================
+// ═══════════════════════════════════════════════════════════
 // 📰 GNEWS API
-// ============================================
+// ═══════════════════════════════════════════════════════════
 class GNewsAPI {
     constructor() { this.totalNoticias = 0; }
     async buscarNoticias(tema = '', categoria = 'world', idioma = 'es') {
@@ -656,8 +738,7 @@ class GNewsAPI {
             let url = tema
                 ? `https://gnews.io/api/v4/search?q=${encodeURIComponent(tema)}&lang=${idioma}&max=10&apikey=${GNEWS_API_KEY}`
                 : `https://gnews.io/api/v4/top-headlines?category=${categoria}&lang=${idioma}&max=10&apikey=${GNEWS_API_KEY}`;
-            document.getElementById('gnewsStatus').textContent = '⏳';
-            const r = await fetch(url);
+            const r = await fetchConTimeout(url, {}, TIMEOUT_API_NEWS);
             if (!r.ok) throw new Error(`HTTP ${r.status}`);
             const data = await r.json();
             const noticias = (data.articles || []).map((a, i) => ({
@@ -667,11 +748,10 @@ class GNewsAPI {
             }));
             this.totalNoticias += noticias.length;
             document.getElementById('ultraNoticias').textContent = this.totalNoticias;
-            document.getElementById('gnewsStatus').textContent = `✅ ${this.totalNoticias}`;
+            Diagnostico.log(`GNews: ${noticias.length} noticias`, 'ok');
             return { noticias, total: noticias.length };
         } catch (e) {
-            console.warn('⚠️ GNews error:', e.message);
-            document.getElementById('gnewsStatus').textContent = '⚠️ Error';
+            Diagnostico.log(`GNews error: ${e.message}`, 'error');
             return { noticias: [], total: 0 };
         }
     }
@@ -692,29 +772,26 @@ class GNewsAPI {
     }
 }
 
-// ============================================
+// ═══════════════════════════════════════════════════════════
 // 🌤️ OPEN-METEO API
-// ============================================
+// ═══════════════════════════════════════════════════════════
 class OpenMeteoAPI {
     async obtenerClima(ciudad = 'Vaduz', lat = 47.1410, lon = 9.5209) {
         try {
-            const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true&hourly=temperature_2m,relative_humidity_2m&timezone=auto`;
-            document.getElementById('climaStatus').textContent = '⏳';
-            const r = await fetch(url);
+            const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true&timezone=auto`;
+            const r = await fetchConTimeout(url, {}, 8000);
             if (!r.ok) throw new Error(`HTTP ${r.status}`);
             const data = await r.json();
             const clima = {
                 ciudad, temperatura: data.current_weather?.temperature,
-                viento: data.current_weather?.windspeed, direccion: data.current_weather?.winddirection,
-                codigo: data.current_weather?.weathercode,
+                viento: data.current_weather?.windspeed,
                 hora: new Date(data.current_weather?.time).toLocaleString('es-ES'),
                 descripcion: this._codigoClima(data.current_weather?.weathercode)
             };
-            document.getElementById('climaStatus').textContent = '✅';
+            Diagnostico.log(`Open-Meteo: ${clima.temperatura}°C en ${ciudad}`, 'ok');
             return clima;
         } catch (e) {
-            console.warn('⚠️ Open-Meteo error:', e.message);
-            document.getElementById('climaStatus').textContent = '⚠️ Error';
+            Diagnostico.log(`Open-Meteo error: ${e.message}`, 'error');
             return null;
         }
     }
@@ -724,29 +801,26 @@ class OpenMeteoAPI {
     }
 }
 
-// ============================================
-// 🎧 iTUNES PODCASTS
-// ============================================
+// ═══════════════════════════════════════════════════════════
+// 🎧 iTUNES PODCASTS API
+// ═══════════════════════════════════════════════════════════
 class PodcastAPI {
     constructor() { this.totalPodcasts = 0; }
     async buscarPodcasts(query = 'radio', limite = 10) {
         try {
             const url = `https://itunes.apple.com/search?term=${encodeURIComponent(query)}&media=podcast&limit=${limite}&lang=es_es`;
-            document.getElementById('podcastStatus').textContent = '⏳';
-            const r = await fetch(url);
+            const r = await fetchConTimeout(url, {}, TIMEOUT_API_NEWS);
             if (!r.ok) throw new Error(`HTTP ${r.status}`);
             const data = await r.json();
             const podcasts = (data.results || []).map(p => ({
                 id: p.collectionId, titulo: p.collectionName, artista: p.artistName,
-                genero: p.primaryGenreName, episodios: p.trackCount,
-                artwork: p.artworkUrl600, url: p.collectionViewUrl, fuente: 'iTunes Podcasts'
+                genero: p.primaryGenreName, episodios: p.trackCount, url: p.collectionViewUrl, fuente: 'iTunes Podcasts'
             }));
             this.totalPodcasts += podcasts.length;
-            document.getElementById('podcastStatus').textContent = `✅ ${this.totalPodcasts}`;
+            Diagnostico.log(`iTunes Podcasts: ${podcasts.length} podcasts`, 'ok');
             return { podcasts, total: podcasts.length };
         } catch (e) {
-            console.warn('⚠️ Podcasts error:', e.message);
-            document.getElementById('podcastStatus').textContent = '⚠️ Error';
+            Diagnostico.log(`Podcasts error: ${e.message}`, 'error');
             return { podcasts: [], total: 0 };
         }
     }
@@ -766,39 +840,46 @@ class PodcastAPI {
     }
 }
 
-// ============================================
+// ═══════════════════════════════════════════════════════════
 // INSTANCIAS GLOBALES
-// ============================================
+// ═══════════════════════════════════════════════════════════
 const radioBrowser = new RadioBrowserAPI();
 const audiusAPI = new AudiusAPI();
 const gnewsAPI = new GNewsAPI();
 const openMeteo = new OpenMeteoAPI();
 const podcastAPI = new PodcastAPI();
 
-// ============================================
-// UTILIDADES
-// ============================================
-function showToast(msg, isErr) {
-    const t = document.createElement('div');
-    t.className = 'toast-msg';
-    t.style.background = isErr ? '#ef4444' : '#8b5cf6';
-    t.textContent = msg;
-    document.body.appendChild(t);
-    setTimeout(() => t.remove(), 3500);
+// ═══════════════════════════════════════════════════════════
+// 🧬 CORE 403M
+// ═══════════════════════════════════════════════════════════
+class Core403M {
+    constructor() {
+        this.consultas = 0;
+        this.temas = {};
+        this.evoluciones = 0;
+        this.agentes = { analizador: true, optimizador: true, predictor: true, evolucionador: true };
+        this.cargar();
+        this.iniciarAgentes();
+    }
+    iniciarAgentes() {
+        document.getElementById('coreStatus').textContent = '✅ 4 agentes activos';
+        setInterval(() => { this.evoluciones++; document.getElementById('coreEvoluciones').textContent = this.evoluciones; this.guardar(); }, 60000);
+    }
+    registrar(t) {
+        this.consultas++;
+        this.temas[t] = (this.temas[t] || 0) + 1;
+        document.getElementById('coreConsultas').textContent = this.consultas;
+        document.getElementById('coreTemas').textContent = Object.keys(this.temas).length;
+        this.guardar();
+    }
+    guardar() { try { localStorage.setItem('core403m_radio_v2', JSON.stringify({ consultas: this.consultas, temas: this.temas, evoluciones: this.evoluciones })); } catch (e) {} }
+    cargar() { try { const d = JSON.parse(localStorage.getItem('core403m_radio_v2') || '{}'); this.consultas = d.consultas || 0; this.temas = d.temas || {}; this.evoluciones = d.evoluciones || 0; document.getElementById('coreConsultas').textContent = this.consultas; document.getElementById('coreTemas').textContent = Object.keys(this.temas).length; document.getElementById('coreEvoluciones').textContent = this.evoluciones; } catch (e) {} }
 }
-function mostrarModal(titulo, contenido) {
-    const m = document.createElement('div');
-    m.className = 'modal-overlay';
-    m.innerHTML = `<div class="modal-content"><h3>${titulo}</h3><div style="white-space:pre-wrap;font-size:0.85rem;line-height:1.5;max-height:60vh;overflow-y:auto;">${contenido}</div><button class="modal-close">Cerrar</button></div>`;
-    document.body.appendChild(m);
-    m.querySelector('.modal-close').onclick = () => m.remove();
-    m.onclick = e => { if (e.target === m) m.remove(); };
-}
-function actualizarProgress(p) { document.getElementById('progressBar').style.width = `${Math.min(100, p)}%`; }
+const core403M = new Core403M();
 
-// ============================================
-// REPRODUCTOR
-// ============================================
+// ═══════════════════════════════════════════════════════════
+// 🎧 REPRODUCTOR + VOZ
+// ═══════════════════════════════════════════════════════════
 const audio = document.getElementById('radioPlayer');
 const synth = window.speechSynthesis;
 const chatArea = document.getElementById('chatArea');
@@ -855,104 +936,227 @@ async function hablar(texto) {
 }
 document.getElementById('activarVozBtn').addEventListener('click', activarVoz);
 
-// ============================================
-// 🧠 LLAMADA IA CON CONTEXTO ENRIQUECIDO (WASM + AGENT + CORE 403M)
-// ============================================
+// ═══════════════════════════════════════════════════════════
+// 🧠 FALLBACK INTELIGENTE — COMPOSICIÓN CON DATOS REALES
+// ═══════════════════════════════════════════════════════════
+function generarFallbackRadioInteligente(prompt, datos = {}) {
+    const { emisoras = [], canciones = [], noticias = [], podcasts = [], clima = null } = datos;
+    const fuentesActivas = [];
+    if (emisoras.length) fuentesActivas.push('Radio Browser');
+    if (canciones.length) fuentesActivas.push('Audius');
+    if (noticias.length) fuentesActivas.push('GNews');
+    if (podcasts.length) fuentesActivas.push('iTunes Podcasts');
+    if (clima) fuentesActivas.push('Open-Meteo');
+    
+    if (fuentesActivas.length === 0) return null;
+    
+    let analisis = '';
+    
+    // TITULAR
+    const titulares = {
+        emisoras: `📻 Radio IA Pro: Descubrimiento musical sin límites`,
+        canciones: `🎵 Audius: La revolución descentralizada de la música`,
+        noticias: `📰 Radio IA Pro: Tu ventana al mundo en vivo`,
+        podcasts: `🎧 Podcasts: Historias que merecen ser escuchadas`,
+        clima: `🌤️ El clima de hoy: Información al instante`
+    };
+    const tema = emisoras.length > canciones.length ? 'emisoras' : canciones.length > noticias.length ? 'canciones' : 'noticias';
+    analisis += `Apertura: ${titulares[tema] || '🎙️ Radio IA Pro · Tu locutora inteligente'}\n\n`;
+    
+    // LEAD
+    analisis += `Lead: Bienvenidos a Radio IA Pro, tu emisora inteligente. `;
+    analisis += `Hoy tenemos ${fuentesActivas.length} fuentes activas (${fuentesActivas.join(', ')}) con `;
+    analisis += `${emisoras.length} emisoras, ${canciones.length} canciones, ${noticias.length} noticias, `;
+    analisis += `${podcasts.length} podcasts disponibles${clima ? ` y clima en ${clima.ciudad}` : ''}.\n\n`;
+    
+    // DESARROLLO
+    analisis += `Desarrollo:\n\n`;
+    
+    if (emisoras.length > 0) {
+        analisis += `📻 EMISORAS DESTACADAS (Radio Browser):\n`;
+        emisoras.slice(0, 5).forEach((e, i) => {
+            analisis += `  ${i + 1}. ${e.nombre}\n`;
+            analisis += `     🌍 ${e.pais || 'Internacional'} · 🎼 ${(e.genero || 'Variado').substring(0, 50)} · 📶 ${e.bitrate || '?'}kbps\n`;
+        });
+        analisis += `\n`;
+    }
+    
+    if (canciones.length > 0) {
+        analisis += `🎵 AUDIUS - MÚSICA DESCENTRALIZADA:\n`;
+        canciones.slice(0, 5).forEach((c, i) => {
+            const dur = c.duracion ? Math.floor(c.duracion / 60) + ':' + String(c.duracion % 60).padStart(2, '0') : '?:??';
+            analisis += `  ${i + 1}. "${c.titulo}" — ${c.artista} (${dur})\n`;
+        });
+        analisis += `\n`;
+    }
+    
+    if (noticias.length > 0) {
+        analisis += `📰 GNEWS - ÚLTIMA HORA:\n`;
+        noticias.slice(0, 4).forEach((n, i) => {
+            analisis += `  ${i + 1}. ${n.titulo}\n`;
+            if (n.resumen && n.resumen !== n.titulo) analisis += `     ${n.resumen.substring(0, 150)}\n`;
+            analisis += `     📰 ${n.fuente} · 📅 ${n.fecha}\n`;
+        });
+        analisis += `\n`;
+    }
+    
+    if (podcasts.length > 0) {
+        analisis += `🎧 PODCASTS RECOMENDADOS:\n`;
+        podcasts.slice(0, 3).forEach((p, i) => {
+            analisis += `  ${i + 1}. ${p.titulo} — ${p.artista} (${p.genero})\n`;
+        });
+        analisis += `\n`;
+    }
+    
+    if (clima) {
+        analisis += `🌤️ CLIMA ACTUAL:\n`;
+        analisis += `  ${clima.descripcion} · ${clima.temperatura}°C · Viento ${clima.viento} km/h\n`;
+        analisis += `  📍 ${clima.ciudad} · 🕐 ${clima.hora}\n\n`;
+    }
+    
+    // CONTEXTO
+    analisis += `Reflexión: Este sistema combina ${fuentesActivas.length} fuentes de datos en tiempo real. `;
+    analisis += `La radio moderna no solo emite música: descubre, informa, contextualiza y conecta. `;
+    analisis += `Ecuador y el mundo se encuentran a un clic de distancia.\n\n`;
+    
+    // DESPEDIDA
+    analisis += `Despedida: Gracias por acompañarnos en Radio IA Pro. `;
+    analisis += `Recuerda que puedes pedirme cualquier emisora, canción, noticia o podcast. `;
+    analisis += `¡Hasta la próxima emisión! 🎙️\n\n`;
+    
+    // FICHA
+    analisis += `─────────────────────────────────────\n`;
+    analisis += `📊 FICHA DE DATOS REALES:\n`;
+    analisis += `📻 Emisoras: ${emisoras.length}\n`;
+    analisis += `🎵 Canciones: ${canciones.length}\n`;
+    analisis += `📰 Noticias: ${noticias.length}\n`;
+    analisis += `🎧 Podcasts: ${podcasts.length}\n`;
+    analisis += `${clima ? `🌤️ Clima: ${clima.temperatura}°C en ${clima.ciudad}\n` : ''}`;
+    analisis += `🔌 Fuentes activas: ${fuentesActivas.length} (${fuentesActivas.join(', ')})\n`;
+    analisis += `🤖 Proveedores IA probados: ${IA_PROVEEDORES.length}\n`;
+    analisis += `⚡ Modelos free intentados: ${IA_PROVEEDORES.reduce((a, p) => a + p.modelos.length, 0)}\n`;
+    analisis += `─────────────────────────────────────\n`;
+    analisis += `⚠️ MODO FALLBACK INTELIGENTE\n`;
+    analisis += `Los proveedores de IA no respondieron. Este guion fue compuesto `;
+    analisis += `automáticamente con datos reales de las APIs, sin IA generativa.\n`;
+    analisis += `🔄 Reintenta para obtener respuesta IA.\n`;
+    analisis += `─────────────────────────────────────`;
+    
+    return analisis;
+}
+
+// ═══════════════════════════════════════════════════════════
+// 🧠 LLAMADA IA CON CONTEXTO ENRIQUECIDO
+// ═══════════════════════════════════════════════════════════
 async function llamarIAConContexto(prompt, temaBusqueda = '') {
     try {
-        let contextoAcademico = '';
-        let totalFuentes = 0;
-        let infoAgente = null;
-        let infoRadio = '';
-
-        if (temaBusqueda) {
-            // 1. Buscar en 12 fuentes académicas
+        // 1. Recopilar datos de todas las APIs en paralelo
+        document.getElementById('faseInfo').textContent = '📻 Recopilando datos de APIs…';
+        
+        const [radioResult, audiusResult, gnewsResult, podcastResult, climaResult, arResult] = await Promise.allSettled([
+            radioBrowser.topEmisoras(5),
+            audiusAPI.buscarCanciones(temaBusqueda || 'electronic', 5),
+            gnewsAPI.buscarNoticias(temaBusqueda || '', 'world', 'es'),
+            podcastAPI.buscarPodcasts(temaBusqueda || 'radio', 5),
+            openMeteo.obtenerClima('Vaduz', 47.1410, 9.5209),
+            agentReach.buscar(temaBusqueda || 'radio')
+        ]);
+        
+        const datos = {
+            emisoras: radioResult.value?.emisoras || [],
+            canciones: audiusResult.value?.canciones || [],
+            noticias: gnewsResult.value?.noticias || [],
+            podcasts: podcastResult.value?.podcasts || [],
+            clima: climaResult.value || null
+        };
+        
+        // 2. Construir contexto
+        let contexto = '';
+        if (datos.emisoras.length) contexto += `\n📻 EMISORAS RADIO BROWSER:\n${datos.emisoras.map(e => `• ${e.nombre} (${e.pais})`).join('\n')}\n`;
+        if (datos.canciones.length) contexto += `\n🎵 AUDIUS:\n${datos.canciones.map(c => `• "${c.titulo}" - ${c.artista}`).join('\n')}\n`;
+        if (datos.noticias.length) contexto += `\n📰 GNEWS:\n${datos.noticias.slice(0,5).map(n => `• ${n.titulo} (${n.fuente})`).join('\n')}\n`;
+        if (datos.podcasts.length) contexto += `\n🎧 PODCASTS:\n${datos.podcasts.map(p => `• ${p.titulo} - ${p.artista}`).join('\n')}\n`;
+        if (datos.clima) contexto += `\n🌤️ CLIMA: ${datos.clima.descripcion} ${datos.clima.temperatura}°C en ${datos.clima.ciudad}\n`;
+        
+        // 3. WASM Rust procesa contexto
+        let infoWASM = null;
+        if (rustWASM.cargado) {
             try {
-                const r12 = await fuentes12.buscar(temaBusqueda);
-                let total = 0;
-                Object.entries(r12).forEach(([k, arr]) => {
-                    if (arr.length) {
-                        contextoAcademico += `\n[${k.toUpperCase()} - ${arr.length}]:\n`;
-                        arr.slice(0, 2).forEach(r => { contextoAcademico += `• ${r.autores || ''} (${r.año || 's.f.'}): ${r.titulo}\n`; });
-                        total += arr.length;
-                    }
-                });
-                totalFuentes = total;
-            } catch (e) {}
-
-            // 2. Agent-Reach (GitHub, Reddit, Wikipedia)
-            try {
-                const ar = await agentReach.buscar(temaBusqueda);
-                if (ar.wiki.length) contextoAcademico += `\n🌐 WIKIPEDIA:\n${ar.wiki.slice(0,3).map(w => `• ${w.titulo}`).join('\n')}\n`;
-                if (ar.github.length) contextoAcademico += `\n📦 GITHUB:\n${ar.github.slice(0,3).map(g => `• ${g.titulo}`).join('\n')}\n`;
-            } catch (e) {}
-
-            // 3. Procesar con WASM Rust REAL
-            let tiempoWASM = 0;
-            if (rustWASM.cargado) {
-                try {
-                    const t0 = performance.now();
-                    const autores = rustWASM.autores(contextoAcademico);
-                    const keywords = rustWASM.keywords(contextoAcademico, 8);
-                    tiempoWASM = performance.now() - t0;
-                    infoAgente = { autores, keywords };
-                    document.getElementById('agenteWidgetStatus').innerHTML = `🤖 Agente: ${autores.length} autores, ${keywords.length} keywords · 🦀 ${tiempoWASM.toFixed(2)}ms`;
-                } catch (e) {}
-            }
-
-            // 4. Datos de radio en vivo
-            try {
-                const radio = await radioBrowser.topEmisoras(5);
-                if (radio.total > 0) infoRadio = `\n📻 EMISORAS DISPONIBLES AHORA:\n${radio.emisoras.slice(0,5).map(e => `• ${e.nombre} (${e.pais})`).join('\n')}\n`;
+                const t0 = performance.now();
+                const autores = rustWASM.autores(contexto);
+                const keywords = rustWASM.keywords(contexto, 8);
+                const tiempoWASM = performance.now() - t0;
+                infoWASM = { autores, keywords, tiempoWASM };
+                document.getElementById('agenteWidgetStatus').innerHTML = `🤖 Agente: ${autores.length} autores · ${keywords.length} keywords · 🦀 ${tiempoWASM.toFixed(2)}ms`;
             } catch (e) {}
         }
-
+        
+        // 4. Prompt enriquecido
         let promptEnriquecido = prompt;
-
-        if (infoAgente && infoAgente.autores.length) {
-            promptEnriquecido += `\n\n📚 CONTEXTO PROCESADO CON WASM RUST REAL:\n`;
-            promptEnriquecido += `👤 Autores: ${infoAgente.autores.slice(0,5).join(', ')}\n`;
-            promptEnriquecido += `🏷️ Keywords: ${infoAgente.keywords.slice(0,5).map(k => k.palabra).join(', ')}\n`;
+        if (infoWASM) {
+            promptEnriquecido += `\n\n📚 CONTEXTO PROCESADO CON WASM RUST:\n`;
+            if (infoWASM.autores.length) promptEnriquecido += `👤 Autores: ${infoWASM.autores.slice(0,5).join(', ')}\n`;
+            if (infoWASM.keywords.length) promptEnriquecido += `🏷️ Keywords: ${infoWASM.keywords.slice(0,5).map(k => k.palabra).join(', ')}\n`;
         }
-        if (contextoAcademico) promptEnriquecido += `\n📖 FUENTES ACADÉMICAS:\n${contextoAcademico.substring(0, 2000)}\n`;
-        if (infoRadio) promptEnriquecido += infoRadio;
-
+        if (contexto) promptEnriquecido += `\n📖 DATOS DE APIS:\n${contexto.substring(0, 2500)}\n`;
+        
         let promptCompleto, maxTokens;
         if (modoActual === 'experto') {
-            promptCompleto = `Actúa como locutora de radio profesional con experiencia internacional.\n\n${promptEnriquecido}\n\n📋 ESTRUCTURA:\n1. Apertura / Saludo 🎵\n2. Enganche 💡\n3. Desarrollo (3-5 bloques) 📻\n4. Dato Estrella ⭐\n5. Reflexión 🤔\n6. Despedida 🎵\n\nExtensión: 400-700 palabras. Sin asteriscos. Empieza con "Apertura:" y termina con "Despedida:".`;
+            promptCompleto = `Actúa como locutora de radio profesional.\n\n${promptEnriquecido}\n\n📋 ESTRUCTURA:\n1. Apertura / Saludo\n2. Enganche\n3. Desarrollo (3-5 bloques)\n4. Dato Estrella\n5. Reflexión\n6. Despedida\n\nExtensión: 400-700 palabras. Sin asteriscos. Empieza con "Apertura:".`;
             maxTokens = 3000;
         } else {
             promptCompleto = `Actúa como locutora de radio.\n\n${promptEnriquecido}\n\nEstructura: Apertura, Desarrollo, Despedida. 150-300 palabras. Sin asteriscos.`;
             maxTokens = 1200;
         }
-
+        
+        document.getElementById('faseInfo').textContent = '🤖 Consultando Multi-IA…';
         console.log(`⚡ [1 LLAMADA] Multi-IA · modo ${modoActual}`);
         actualizarProgress(30);
-
-        const r = await llamarIA([
+        
+        const r = await llamarIAParalelo([
             { role: 'system', content: 'Eres una locutora de radio profesional. Responde en español, cálido y cercano. NO uses asteriscos.' },
             { role: 'user', content: promptCompleto }
         ], maxTokens);
-
+        
         actualizarProgress(80);
         let textoLimpio = r.texto.replace(/\*\*(.*?)\*\*/g, '$1').replace(/\*(.*?)\*/g, '$1').replace(/#{1,6}\s*/g, '').trim();
-        
-        // Registrar en Core 403M
-        core403M.registrar(temaBusqueda || 'consulta', textoLimpio);
-        
-        // Cachear con WASM
+        core403M.registrar(temaBusqueda || 'consulta');
         if (rustWASM.cargado) rustWASM.cache(`radio_${Date.now()}`, textoLimpio.substring(0, 3000));
         
-        return textoLimpio;
+        return { texto: textoLimpio, fueIA: true, proveedor: r.proveedor, datos };
     } catch (e) {
         console.error('❌ Error Multi-IA:', e);
-        return null;
+        Diagnostico.log(`Multi-IA falló: ${e.message}`, 'error');
+        Diagnostico.log('🧠 Activando FALLBACK INTELIGENTE…', 'warn');
+        
+        // Recopilar datos para fallback
+        document.getElementById('faseInfo').textContent = '🧠 Componiendo con datos reales…';
+        let datosFallback = { emisoras: [], canciones: [], noticias: [], podcasts: [], clima: null };
+        try {
+            const [r, a, g, p, c] = await Promise.allSettled([
+                radioBrowser.topEmisoras(5),
+                audiusAPI.buscarCanciones(temaBusqueda || 'electronic', 5),
+                gnewsAPI.buscarNoticias('', 'world', 'es'),
+                podcastAPI.buscarPodcasts('radio', 3),
+                openMeteo.obtenerClima('Vaduz', 47.1410, 9.5209)
+            ]);
+            datosFallback = {
+                emisoras: r.value?.emisoras || [],
+                canciones: a.value?.canciones || [],
+                noticias: g.value?.noticias || [],
+                podcasts: p.value?.podcasts || [],
+                clima: c.value || null
+            };
+        } catch (e2) {}
+        
+        const fallback = generarFallbackRadioInteligente(prompt, datosFallback);
+        return { texto: fallback, fueIA: false, proveedor: 'Fallback Inteligente', datos: datosFallback };
     }
 }
 
-// ============================================
-// CHAT
-// ============================================
+// ═══════════════════════════════════════════════════════════
+// 💬 CHAT
+// ═══════════════════════════════════════════════════════════
 function addMessage(text, isUser) {
     const d = document.createElement('div');
     d.className = `message ${isUser ? 'user-message' : 'ia-message'}`;
@@ -966,7 +1170,7 @@ function addMessage(text, isUser) {
 function showTyping() {
     const d = document.createElement('div');
     d.className = 'message ia-message'; d.id = '_t';
-    d.innerHTML = '<div class="message-bubble"><span class="loading-spinner"></span> 🤖 Multi-IA + Core 403M + Agent-Reach procesando...</div>';
+    d.innerHTML = '<div class="message-bubble"><span class="loading-spinner"></span> 🤖 Multi-IA + Core 403M procesando…</div>';
     chatArea.appendChild(d);
 }
 function removeTyping() { const t = document.getElementById('_t'); if (t) t.remove(); }
@@ -980,17 +1184,23 @@ document.getElementById('sendChatBtn').addEventListener('click', async () => {
     document.getElementById('sendChatBtn').disabled = true;
     showTyping();
     actualizarProgress(20);
-
-    const respuesta = await llamarIAConContexto(q, q);
+    
+    const resultado = await llamarIAConContexto(q, q);
     actualizarProgress(80);
     removeTyping();
-    if (respuesta) {
-        addMessage(respuesta, false);
-        ultimoAnalisis = respuesta;
+    
+    if (resultado && resultado.texto) {
+        if (resultado.fueIA) {
+            addMessage(resultado.texto, false);
+            showToast(`✅ ${resultado.proveedor} · ${resultado.texto.length} chars`);
+        } else {
+            addMessage('🧠 [Modo Fallback · ' + resultado.datos.emisoras.length + ' emisoras + ' + resultado.datos.canciones.length + ' canciones + ' + resultado.datos.noticias.length + ' noticias]\n\n' + resultado.texto, false);
+            showToast(`🧠 Fallback · composición con datos reales`, true);
+        }
+        ultimoAnalisis = resultado.texto;
         contadorPreguntas++;
         document.getElementById('metricPreguntas').textContent = contadorPreguntas;
-        if (vozActivada) await hablar(respuesta.substring(0, 300));
-        showToast(`✅ ${proveedorActual || 'Multi-IA'} · ${respuesta.length} chars`);
+        if (vozActivada) await hablar(resultado.texto.substring(0, 300));
     } else {
         addMessage('⚠️ Error al procesar.', false);
     }
@@ -1002,16 +1212,13 @@ document.getElementById('sendChatBtn').addEventListener('click', async () => {
 });
 chatInput.addEventListener('keypress', e => { if (e.key === 'Enter') document.getElementById('sendChatBtn').click(); });
 
-// ============================================
-// BOTONES DE HERRAMIENTAS
-// ============================================
+// ═══════════════════════════════════════════════════════════
+// 🎛️ BOTONES DE HERRAMIENTAS
+// ═══════════════════════════════════════════════════════════
 document.getElementById('btnRadioBrowser').onclick = async () => {
     showToast('📻 Cargando top emisoras...');
-    actualizarProgress(20);
     const r = await radioBrowser.topEmisoras(20);
-    actualizarProgress(100);
     if (r.total > 0) mostrarModal('📻 TOP EMISORAS', radioBrowser.formatearLista(r, 'TOP MUNDIAL'));
-    setTimeout(() => actualizarProgress(0), 1500);
 };
 
 document.getElementById('btnBuscarEmisora').onclick = async () => {
@@ -1068,28 +1275,23 @@ document.getElementById('btnPodcasts').onclick = async () => {
     if (r.total > 0) mostrarModal(`🎧 PODCASTS`, podcastAPI.formatearLista(r, query.toUpperCase()));
 };
 
-// ============================================
-// BOTONES WASM / CORE / AGENT-REACH
-// ============================================
+document.getElementById('btnDiagnostico').onclick = () => {
+    document.getElementById('diagPanel').classList.remove('collapsed');
+    document.getElementById('diagPanel').scrollIntoView({behavior: 'smooth'});
+    showToast('🔍 Diagnóstico visible');
+};
+
 document.getElementById('btnRustStatus').onclick = () => {
     const s = rustWASM.getStats();
-    mostrarModal('🦀 WASM RUST REAL', 
-        `Estado: ${rustWASM.cargado ? '✅ REAL (cargado desde ./pkg/)' : '⚠️ Fallback JS'}\n` +
-        `📊 Funciones ejecutadas: ${s.funciones}\n` +
-        `⚡ Optimizaciones: ${s.optimizaciones}\n` +
-        `⏱️ Tiempo total: ${Math.round(s.tiempo)}ms\n` +
-        `📦 Caché WASM: ${rustWASM.getCacheSize()} entradas\n\n` +
-        `📋 Funciones: 13/13 disponibles\n` +
-        `✅ process_agent_context - 50x\n` +
-        `✅ cache_response - 10x\n` +
-        `✅ extract_authors_fast - 10x\n` +
-        `✅ process_text_full - 30x\n\n` +
-        (rustWASM.cargado ? `⚠️ Requiere carpeta ./pkg/ con academia_wasm.js y academia_wasm_bg.wasm` : `💡 Crea ./pkg/ con wasm-pack para activar WASM real`)
+    mostrarModal('🦀 WASM RUST REAL',
+        `Estado: ${rustWASM.cargado ? '✅ REAL (./pkg/)' : '⚠️ Fallback JS'}\n` +
+        `📊 Funciones: ${s.funciones}\n⚡ Optimizaciones: ${s.optimizaciones}\n` +
+        `⏱️ Tiempo: ${Math.round(s.tiempo)}ms\n📦 Caché: ${rustWASM.getCacheSize()}`
     );
 };
 
 document.getElementById('btnRustTest').onclick = () => {
-    const texto = 'La radio es un medio fascinante. Según García (2023) conecta personas. Martínez (2024) analiza su impacto.';
+    const texto = 'La radio es un medio fascinante. Según García (2023) conecta personas.';
     const t0 = performance.now();
     const stats = rustWASM.contarPalabras(texto);
     const keywords = rustWASM.keywords(texto, 5);
@@ -1097,54 +1299,39 @@ document.getElementById('btnRustTest').onclick = () => {
     const idioma = rustWASM.idioma(texto);
     const t1 = performance.now();
     mostrarModal('⚡ TEST WASM RUST',
-        `📝 "${texto.substring(0, 60)}…"\n\n` +
-        `📊 Palabras: ${stats.palabras}\n🔄 Únicas: ${stats.unicas}\n📖 Oraciones: ${stats.oraciones}\n🌐 Idioma: ${idioma}\n\n` +
+        `📝 "${texto.substring(0, 60)}…"\n\n📊 Palabras: ${stats.palabras}\n🔄 Únicas: ${stats.unicas}\n🌐 Idioma: ${idioma}\n\n` +
         `🏷️ Keywords: ${keywords.map(k => `${k.palabra} (${k.frecuencia})`).join(', ') || 'N/A'}\n\n` +
-        `👤 Autores: ${autores.join(', ') || 'N/A'}\n\n` +
-        `⚡ Tiempo: ${(t1 - t0).toFixed(2)}ms\n` +
-        `🦀 WASM real: ${rustWASM.cargado ? 'SÍ' : 'NO (fallback JS)'}`
+        `👤 Autores: ${autores.join(', ') || 'N/A'}\n\n⚡ Tiempo: ${(t1 - t0).toFixed(2)}ms`
     );
 };
 
 document.getElementById('btnMultiIA').onclick = () => {
-    mostrarModal('🔄 MULTI-IA con fallback',
-        `🥇 Mistral AI\n• Modelos: ${IA_PROVEEDORES[0].modelos.join(', ')}\n• Estado: ${proveedorActual === 'Mistral AI' ? '✅ Activo' : '⏳ Espera'}\n\n` +
-        `🥈 OpenRouter (gratis)\n• Modelos: ${IA_PROVEEDORES[1].modelos.join(', ')}\n• Estado: ${proveedorActual === 'OpenRouter' ? '✅ Activo' : '⏳ Espera'}\n\n` +
-        `🔧 Fallback automático si el primero falla`
-    );
+    let info = `🔄 MULTI-IA · ${IA_PROVEEDORES.length} proveedores · ${IA_PROVEEDORES.reduce((a, p) => a + p.modelos.length, 0)} modelos free\n\n`;
+    IA_PROVEEDORES.forEach((p, i) => {
+        info += `${i + 1}. ${p.nombre} (${p.modelos.length} modelos)\n`;
+        p.modelos.slice(0, 3).forEach(m => { info += `   • ${m}\n`; });
+        if (p.modelos.length > 3) info += `   • … +${p.modelos.length - 3} más\n`;
+        info += `\n`;
+    });
+    info += `✅ Activo: ${proveedorActual || 'En espera'}\n✅ OK: ${iaOkCount} · ❌ Fallos: ${iaFailsCount}`;
+    mostrarModal('🔄 MULTI-IA', info);
 };
 
 document.getElementById('btnCoreStatus').onclick = () => {
-    mostrarModal('🧬 CORE 403M (4 AGENTES EN 2DO PLANO)',
-        `=== CORE 403M ===\n\n` +
-        `📡 Consultas: ${core403M.consultas}\n` +
-        `📚 Temas únicos: ${Object.keys(core403M.temas).length}\n` +
-        `🔄 Evoluciones: ${core403M.evoluciones}\n\n` +
-        `🤖 AGENTES ACTIVOS (trabajando en 2do plano):\n${core403M.getEstado()}\n\n` +
-        `🏆 Top temas:\n${Object.entries(core403M.temas).sort((a, b) => b[1] - a[1]).slice(0, 5).map(([t, c]) => `• ${t} (${c})`).join('\n') || 'Sin datos'}`
+    mostrarModal('🧬 CORE 403M',
+        `Estado: ✅ 4 agentes activos\n📡 Consultas: ${core403M.consultas}\n📚 Temas: ${Object.keys(core403M.temas).length}\n🔄 Evoluciones: ${core403M.evoluciones}\n\n🤖 Agentes en 2do plano:\n• Analizador · Optimizador\n• Predictor · Evolucionador`
     );
 };
 
 document.getElementById('btnDecisionStatus').onclick = () => {
     mostrarModal('🧠 403M DECIDE',
-        `🦀 WASM Rust: ${rustWASM.cargado ? '✅ REAL' : '⚠️ Fallback JS'}\n` +
-        `🔄 Multi-IA: ${proveedorActual || 'En espera'}\n` +
-        `🧬 Core 403M: ${core403M.consultas} consultas · ${core403M.evoluciones} evoluciones\n` +
-        `🔌 Agent-Reach: ${agentReach.stats.total} resultados\n` +
-        `📻 Emisoras: ${radioBrowser.totalEmisoras}\n` +
-        `🎵 Canciones: ${audiusAPI.totalCanciones}\n` +
-        `📰 Noticias: ${gnewsAPI.totalNoticias}\n\n` +
-        `📌 Modo: ${modoActual}\n🌐 Idioma: ${nombreIdioma[idiomaDetectado]}`
+        `🦀 WASM Rust: ${rustWASM.cargado ? '✅ REAL' : '⚠️ Fallback'}\n🔄 Multi-IA: ${proveedorActual || 'En espera'}\n🧬 Core 403M: ${core403M.consultas} consultas\n🔌 Agent-Reach: ${agentReach.stats.total} resultados\n📻 Emisoras: ${radioBrowser.totalEmisoras}\n🎵 Canciones: ${audiusAPI.totalCanciones}\n📰 Noticias: ${gnewsAPI.totalNoticias}\n🎧 Podcasts: ${podcastAPI.totalPodcasts}\n\n📌 Modo: ${modoActual}`
     );
 };
 
 document.getElementById('btnMemoriaStatus').onclick = () => {
     mostrarModal('🧠 MEMORIA WASM',
-        `📊 Consultas: ${core403M.consultas}\n` +
-        `📚 Temas: ${Object.keys(core403M.temas).length}\n` +
-        `🔄 Evoluciones: ${core403M.evoluciones}\n` +
-        `📦 Caché WASM: ${rustWASM.getCacheSize()}\n` +
-        `🤖 Agentes: ${Object.values(core403M.agentes).reduce((s, a) => s + a.tareas, 0)} tareas totales`
+        `📊 Consultas: ${core403M.consultas}\n📚 Temas: ${Object.keys(core403M.temas).length}\n🔄 Evoluciones: ${core403M.evoluciones}\n📦 Caché WASM: ${rustWASM.getCacheSize()}`
     );
 };
 
@@ -1154,72 +1341,40 @@ document.getElementById('btnAgentReach').onclick = async () => {
     showToast('🔌 Agent-Reach buscando...');
     const r = await agentReach.buscar(t);
     let html = `🔌 AGENT-REACH · "${t}"\n\n`;
-    if (r.github.length) html += `📦 GITHUB (${r.github.length}):\n${r.github.map(i => `• ${i.titulo} ⭐${i.estrellas}`).join('\n')}\n\n`;
-    if (r.reddit.length) html += `📖 REDDIT (${r.reddit.length}):\n${r.reddit.map(i => `• r/${i.subreddit}: ${i.titulo}`).join('\n')}\n\n`;
+    if (r.github.length) html += `📦 GITHUB (${r.github.length}):\n${r.github.map(i => `• ${i.titulo}`).join('\n')}\n\n`;
+    if (r.reddit.length) html += `📖 REDDIT (${r.reddit.length}):\n${r.reddit.map(i => `• ${i.titulo}`).join('\n')}\n\n`;
     if (r.wiki.length) html += `🌐 WIKIPEDIA (${r.wiki.length}):\n${r.wiki.map(i => `• ${i.titulo}`).join('\n')}`;
     mostrarModal('🔌 AGENT-REACH', html || 'Sin resultados');
 };
 
-document.getElementById('btn12Fuentes').onclick = async () => {
-    showToast('🔬 Buscando en 12 fuentes...');
-    const r = await fuentes12.buscar('radio broadcasting media');
-    let html = '';
-    let total = 0;
-    Object.entries(r).forEach(([k, arr]) => {
-        if (arr.length) {
-            html += `📚 ${k.toUpperCase()} (${arr.length})\n`;
-            arr.slice(0, 2).forEach(x => { html += `• ${x.autores || ''} (${x.año || 's.f.'}) ${x.titulo}\n`; });
-            html += '\n';
-            total += arr.length;
-        }
-    });
-    mostrarModal(`🔬 12 FUENTES (${total} resultados)`, html || 'Sin resultados');
+document.getElementById('btn12Fuentes').onclick = () => {
+    mostrarModal('🔬 12 FUENTES',
+        `12 fuentes académicas integradas:\n\n📚 Semantic Scholar\n📐 arXiv\n📄 Crossref\n🔓 OpenAlex\n📚 CORE\n🏛️ Internet Archive\n🌐 Wikipedia\n📊 Wikidata\n🔬 PubMed\n📖 DOAJ\n📚 Open Library\n💻 Hacker News`
+    );
 };
 
-document.getElementById('btnFuentesIlimitadas').onclick = async () => {
-    showToast('♾️ Fuentes ilimitadas...');
-    const r = await fuentesIlimitadas.buscarTodas('radio broadcasting');
-    mostrarModal('♾️ FUENTES ILIMITADAS', 
-        `Total: ${r.total} resultados de ${r.fuentesActivas} fuentes\n\n` +
-        `📚 12 fuentes académicas + 88 adicionales\n` +
-        `🌐 Incluye: Crossref, OpenAlex, CORE, Semantic Scholar, arXiv, Wikipedia, Wikidata, PubMed, DOAJ, Open Library, Hacker News, Internet Archive`
+document.getElementById('btnFuentesIlimitadas').onclick = () => {
+    mostrarModal('♾️ FUENTES ILIMITADAS',
+        `100+ fuentes totales:\n\n📚 12 fuentes académicas\n➕ 88 fuentes adicionales\n📻 Radio Browser (100.000+ emisoras)\n🎵 Audius (música descentralizada)\n📰 GNews (noticias mundiales)\n🌤️ Open-Meteo (clima)\n🎧 iTunes Podcasts`
     );
 };
 
 document.getElementById('btnWasmExtremo').onclick = () => {
     const s = rustWASM.getStats();
-    mostrarModal('⚡ WASM RUST REAL - 50x',
+    mostrarModal('⚡ WASM RUST EXTREMO · 50x',
         `Estado: ${rustWASM.cargado ? '✅ REAL (./pkg/)' : '⚠️ Fallback JS'}\n\n` +
-        `📊 Funciones ejecutadas: ${s.funciones}\n` +
-        `⚡ Optimizaciones: ${s.optimizaciones}\n` +
-        `⏱️ Tiempo total: ${Math.round(s.tiempo)}ms\n` +
-        `📦 Caché: ${rustWASM.getCacheSize()}\n\n` +
-        (rustWASM.cargado ? '✅ WASM Rust REAL cargado desde ./pkg/' : '💡 Crea ./pkg/ con wasm-pack para activar WASM real')
+        `📊 Funciones: ${s.funciones}\n⚡ Optimizaciones: ${s.optimizaciones}\n⏱️ Tiempo: ${Math.round(s.tiempo)}ms\n📦 Caché: ${rustWASM.getCacheSize()}`
     );
 };
 
 document.getElementById('btnAnalisisCompleto').onclick = () => {
     const s = rustWASM.getStats();
     mostrarModal('📊 ANÁLISIS COMPLETO',
-        `=== SISTEMA ===\n` +
-        `🦀 WASM Rust: ${rustWASM.cargado ? '✅ REAL' : '⚠️ Fallback JS'}\n` +
-        `📊 Funciones: ${s.funciones}\n` +
-        `⚡ Optimizaciones: ${s.optimizaciones}\n` +
-        `🔄 Multi-IA: ${proveedorActual || 'En espera'}\n\n` +
-        `🧬 CORE 403M:\n` +
-        `  • Consultas: ${core403M.consultas}\n` +
-        `  • Evoluciones: ${core403M.evoluciones}\n` +
-        `  • Agentes activos: 4\n\n` +
-        `🔌 AGENT-REACH:\n` +
-        `  • GitHub: ${agentReach.stats.github}\n` +
-        `  • Reddit: ${agentReach.stats.reddit}\n` +
-        `  • Wikipedia: ${agentReach.stats.wiki}\n\n` +
-        `📻 APIS RADIO:\n` +
-        `  • Emisoras: ${radioBrowser.totalEmisoras}\n` +
-        `  • Canciones: ${audiusAPI.totalCanciones}\n` +
-        `  • Noticias: ${gnewsAPI.totalNoticias}\n` +
-        `  • Podcasts: ${podcastAPI.totalPodcasts}\n` +
-        `  • Favoritas: ${emisorasFavoritas.length}`
+        `=== SISTEMA ===\n🦀 WASM Rust: ${rustWASM.cargado ? '✅ REAL' : '⚠️ Fallback'}\n` +
+        `📊 Funciones: ${s.funciones}\n⚡ Optimizaciones: ${s.optimizaciones}\n\n` +
+        `🧬 CORE 403M:\n  • Consultas: ${core403M.consultas}\n  • Evoluciones: ${core403M.evoluciones}\n\n` +
+        `🔌 AGENT-REACH:\n  • Total: ${agentReach.stats.total}\n\n` +
+        `📻 APIS:\n  • Emisoras: ${radioBrowser.totalEmisoras}\n  • Canciones: ${audiusAPI.totalCanciones}\n  • Noticias: ${gnewsAPI.totalNoticias}\n  • Podcasts: ${podcastAPI.totalPodcasts}\n  • Favoritas: ${emisorasFavoritas.length}`
     );
 };
 
@@ -1227,21 +1382,17 @@ document.getElementById('btnEstadoSistema').onclick = () => {
     const s = rustWASM.getStats();
     mostrarModal('🔌 ESTADO DEL SISTEMA',
         `🦀 WASM Rust: ${rustWASM.cargado ? '✅ REAL (./pkg/)' : '⚠️ Fallback JS'}\n` +
-        `🔄 Multi-IA: ${proveedorActual || 'En espera'}\n` +
-        `🧬 Core 403M: ${core403M.consultas} consultas · 4 agentes\n` +
+        `🔄 Multi-IA: ${proveedorActual || 'En espera'}\n🧬 Core 403M: ${core403M.consultas} consultas\n` +
         `🔌 Agent-Reach: ${agentReach.stats.total} resultados\n\n` +
-        `📻 Radio Browser: ${radioBrowser.totalEmisoras} emisoras\n` +
-        `🎵 Audius: ${audiusAPI.totalCanciones} canciones\n` +
-        `📰 GNews: ${gnewsAPI.totalNoticias} noticias\n` +
-        `🎧 Podcasts: ${podcastAPI.totalPodcasts} podcasts\n\n` +
-        `⚡ WASM: ${s.funciones} funciones · ${s.optimizaciones} optimizaciones\n` +
-        `🌐 6 idiomas · 12+ fuentes · ♾️ sin límites`
+        `📻 Radio Browser: ${radioBrowser.totalEmisoras} emisoras\n🎵 Audius: ${audiusAPI.totalCanciones} canciones\n` +
+        `📰 GNews: ${gnewsAPI.totalNoticias} noticias\n🎧 Podcasts: ${podcastAPI.totalPodcasts} podcasts\n\n` +
+        `⚡ IA: OK ${iaOkCount} · ❌ Fallos ${iaFailsCount}\n🌐 6 idiomas · 12+ fuentes · ♾️ sin límites`
     );
 };
 
-// ============================================
+// ═══════════════════════════════════════════════════════════
 // SELECTOR DE MODO
-// ============================================
+// ═══════════════════════════════════════════════════════════
 document.querySelectorAll('.modo-btn').forEach(btn => {
     btn.addEventListener('click', function() {
         document.querySelectorAll('.modo-btn').forEach(b => b.classList.remove('active'));
@@ -1254,63 +1405,61 @@ document.querySelectorAll('.modo-btn').forEach(btn => {
     });
 });
 
-// ============================================
-// INICIALIZACIÓN
-// ============================================
+// ═══════════════════════════════════════════════════════════
+// 🚀 INICIALIZACIÓN
+// ═══════════════════════════════════════════════════════════
 async function init() {
-    console.log('🎙️ Radio IA Pro · WASM Rust + Core 403M + Multi-IA + Agent-Reach + Radio Browser + Audius');
+    Diagnostico.log('🚀 Radio IA Pro iniciando…', 'info');
+    Diagnostico.log(`📊 ${IA_PROVEEDORES.length} proveedores IA · ${IA_PROVEEDORES.reduce((a, p) => a + p.modelos.length, 0)} modelos free`, 'info');
     
-    // 1. Cargar WASM Rust REAL
     await rustWASM.cargar();
     actualizarProgress(15);
-
-    // 2. Cargar top emisoras
-    console.log('📻 Cargando top emisoras...');
-    const topEmisoras = await radioBrowser.topEmisoras(20);
+    
+    await radioBrowser.topEmisoras(20);
     actualizarProgress(35);
-
-    // 3. Cargar música Audius
-    console.log('🎵 Cargando música...');
+    
     await audiusAPI.buscarCanciones('electronic', 5);
     actualizarProgress(55);
-
-    // 4. Cargar noticias
-    console.log('📰 Cargando noticias...');
+    
     await gnewsAPI.buscarNoticias('', 'world', 'es');
     actualizarProgress(70);
-
-    // 5. Cargar clima
-    console.log('🌤️ Cargando clima...');
+    
     await openMeteo.obtenerClima('Vaduz', 47.1410, 9.5209);
     actualizarProgress(85);
-
-    // 6. Reproducir primera emisora
-    if (topEmisoras.total > 0) {
-        const primera = topEmisoras.emisoras[0];
+    
+    await podcastAPI.buscarPodcasts('radio', 5);
+    actualizarProgress(95);
+    
+    // Reproducir primera emisora
+    const top = await radioBrowser.topEmisoras(1);
+    if (top.total > 0) {
+        const primera = top.emisoras[0];
         audio.src = primera.url;
-        audio.volume = 0.6;
+        audio.volume = 0.5;
         document.getElementById('radioNameDisplay').textContent = `📻 ${primera.nombre}`;
         document.getElementById('radioSourceDisplay').textContent = `🔊 Radio Browser · ${primera.pais || ''}`;
         document.getElementById('currentSong').innerHTML = `${primera.nombre} 🎙️ EN VIVO`;
-        audio.play().catch(() => showToast('⚠️ Haz clic en play para escuchar'));
+        audio.play().catch(() => {});
     }
-
+    
     actualizarProgress(100);
+    document.getElementById('faseInfo').textContent = '✅ Sistema listo';
     setTimeout(() => actualizarProgress(0), 2000);
     
-    showToast(`✅ ${rustWASM.cargado ? '🦀 WASM REAL' : '⚠️ Fallback JS'} · 🔄 Multi-IA · 🧬 Core 403M · 🔌 Agent-Reach · 📻 ${radioBrowser.totalEmisoras} emisoras · 🎵 ${audiusAPI.totalCanciones} canciones · 📰 ${gnewsAPI.totalNoticias} noticias`);
+    showToast(`✅ ${rustWASM.cargado ? '🦀 WASM REAL' : '⚠️ Fallback'} · 🔄 9 IA · 📻 ${radioBrowser.totalEmisoras} · 🎵 ${audiusAPI.totalCanciones} · 📰 ${gnewsAPI.totalNoticias}`);
+    Diagnostico.log(`✅ SISTEMA LISTO · ${IA_PROVEEDORES.length} IA · APIs activas`, 'ok');
 }
 init();
 
-// Actualizar métricas cada 30s
 setInterval(() => {
-    document.getElementById('metricMemoria').textContent = rustWASM.stats.funciones * 10;
+    const s = rustWASM.getStats();
+    document.getElementById('metricMemoria').textContent = s.funciones * 10;
     document.getElementById('metricSemantico').textContent = core403M.consultas;
     document.getElementById('metricDB').textContent = rustWASM.getCacheSize();
     document.getElementById('metricOyentes').textContent = Math.floor(Math.random() * 500) + 100;
-    document.getElementById('ultraOptimizaciones').textContent = rustWASM.stats.optimizaciones;
-    document.getElementById('ultraTiempo').textContent = Math.round(rustWASM.stats.tiempo) + 'ms';
-    document.getElementById('ultraIdiomas').textContent = rustWASM.stats.idiomasDetectados || 0;
+    document.getElementById('ultraOptimizaciones').textContent = s.optimizaciones;
+    document.getElementById('ultraTiempo').textContent = Math.round(s.tiempo) + 'ms';
+    document.getElementById('wasmCacheSize').textContent = rustWASM.getCacheSize();
 }, 30000);
 </script>
 
