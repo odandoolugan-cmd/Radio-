@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <meta name="referrer" content="no-referrer-when-downgrade" />
-    <title>Radio IA Pro · WASM Rust · Core 403M · Multi-IA · Agent-Reach · Radio Browser · Audius · ♾️</title>
+    <title>Radio IA Pro · WASM Rust 40 · Core 403M · Multi-IA · Fallback IA · Agent-Reach · Radio Browser · Audius · ♾️</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Segoe UI', system-ui, sans-serif; background: linear-gradient(135deg, #0a0f1e 0%, #0c1222 100%); color: #eef2ff; min-height: 100vh; padding: 1rem; overflow-x: hidden; }
         .normal-mode { position: relative; z-index: 1; max-width: 1200px; margin: 0 auto; }
         .header { text-align: center; margin-bottom: 1rem; }
-        h1 { font-size: 2rem; background: linear-gradient(135deg, #FFD166, #FF6B6B, #4ECDC4, #8B5CF6, #ff8f00, #76b900, #1877f2, #ff9900, #00a4ef, #a2a2a2); -webkit-background-clip: text; background-clip: text; color: transparent; }
+        h1 { font-size: 2rem; background: linear-gradient(135deg, #FFD166, #FF6B6B, #4ECDC4, #8B5CF6, #ff8f00, #76b900, #1877f2, #ff9900, #00a4ef, #a2a2a2, #10b981); -webkit-background-clip: text; background-clip: text; color: transparent; }
         .sub { color: #94a3b8; margin-top: 0.5rem; font-size: 0.7rem; }
         .badge { padding: 2px 10px; border-radius: 20px; font-size: 0.6rem; margin-left: 8px; font-weight: bold; display: inline-block; }
         .b-mistral { background: linear-gradient(90deg, #f97316, #dc2626); color: white; }
@@ -24,6 +24,8 @@
         .b-gnews { background: linear-gradient(90deg, #10b981, #3b82f6); color: white; animation: glow 2s infinite; }
         .b-12f { background: linear-gradient(90deg, #10b981, #059669); color: white; animation: glow 2s infinite; }
         .b-ili { background: linear-gradient(90deg, #ec4899, #f59e0b, #10b981, #3b82f6, #8b5cf6); color: white; animation: glow 2s infinite; }
+        .b-fallback { background: linear-gradient(90deg, #10b981, #f59e0b); color: white; animation: pulse 1.5s infinite; }
+        .b-nuevo { background: linear-gradient(90deg, #ec4899, #f59e0b); color: white; animation: glow 2s infinite; }
         .live-badge { background: #10b981; color: white; padding: 2px 10px; border-radius: 20px; font-size: 0.6rem; margin-left: 10px; display: inline-block; animation: pulse 1.5s infinite; }
         @keyframes glow { 0%, 100% { box-shadow: 0 0 10px #8b5cf6; } 50% { box-shadow: 0 0 25px #ec4899; } }
         @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.6; } }
@@ -55,8 +57,10 @@
         .tool-btn.ilimitado { border-color: #f59e0b; color: #fbbf24; }
         .tool-btn.wasm-extremo { border-color: #f59e0b; color: #fbbf24; background: rgba(245,158,11,0.2); animation: pulse 1.5s infinite; }
         .tool-btn.diag { border-color: #ef4444; color: #fca5a5; background: rgba(239,68,68,.15); }
+        .tool-btn.fallback { border-color: #10b981; color: #34d399; background: linear-gradient(90deg, rgba(16,185,129,.2), rgba(245,158,11,.2)); animation: pulse 1.5s infinite; }
+        .tool-btn.fallback:hover { background: linear-gradient(90deg, #10b981, #f59e0b); color: white; }
         
-        /* ═══ BARRAS DE ESTADO (estilo sistema completo) ═══ */
+        /* ═══ BARRAS DE ESTADO ═══ */
         .status-bars-container { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1rem; }
         .core-status-bar { background: linear-gradient(135deg, #1e1b4b, #312e81); border-radius: 1rem; padding: 0.6rem 1rem; font-size: 0.68rem; color: #c7d2fe; display: flex; flex-wrap: wrap; gap: 0.5rem; border: 2px solid #8b5cf6; box-shadow: 0 0 20px rgba(139, 92, 246, 0.3); align-items: center; }
         .core-status-bar .item { background: rgba(0,0,0,0.3); padding: 3px 9px; border-radius: 10px; display: inline-flex; align-items: center; gap: 4px; font-weight: 600; }
@@ -73,6 +77,13 @@
         .wasm-status-bar .item strong { color: #ff8878; font-weight: 700; }
         .wasm-status-bar .ok { color: #10b981; font-weight: bold; }
         .wasm-status-bar .lbl { color: #ff8878; font-weight: 700; font-size: 0.72rem; }
+        /* ═══ NUEVA BARRA FALLBACK IA ═══ */
+        .fallback-status-bar { background: linear-gradient(135deg, #064e3b, #065f46); border-radius: 1rem; padding: 0.6rem 1rem; font-size: 0.68rem; color: #a7f3d0; display: flex; flex-wrap: wrap; gap: 0.5rem; border: 2px solid #10b981; box-shadow: 0 0 20px rgba(16, 185, 129, 0.3); align-items: center; }
+        .fallback-status-bar .item { background: rgba(0,0,0,0.3); padding: 3px 9px; border-radius: 10px; display: inline-flex; align-items: center; gap: 4px; font-weight: 600; }
+        .fallback-status-bar .item strong { color: #34d399; font-weight: 700; }
+        .fallback-status-bar .ok { color: #10b981; font-weight: bold; }
+        .fallback-status-bar .lbl { color: #34d399; font-weight: 700; font-size: 0.72rem; }
+        .fallback-status-bar .nuevo { color: #f472b6; font-weight: 700; animation: pulse 1.5s infinite; }
         .ultra-stats { background: linear-gradient(135deg, #4c1d95, #831843); border-radius: 1rem; padding: 0.6rem 1rem; font-size: 0.68rem; color: #fce7f3; display: flex; flex-wrap: wrap; gap: 0.5rem; border: 2px solid #ec4899; box-shadow: 0 0 20px rgba(236, 72, 153, 0.2); align-items: center; }
         .ultra-stats .item { background: rgba(0,0,0,0.3); padding: 3px 9px; border-radius: 10px; display: inline-flex; align-items: center; gap: 4px; font-weight: 600; }
         .ultra-stats .item strong { color: #f9a8d4; font-weight: 700; }
@@ -95,6 +106,7 @@
         .message-bubble { max-width: 80%; padding: 0.5rem 1rem; border-radius: 1rem; font-size: 0.8rem; white-space: pre-wrap; line-height: 1.4; }
         .user-message .message-bubble { background: linear-gradient(90deg, #3b82f6, #8b5cf6); border-bottom-right-radius: 0.2rem; }
         .ia-message .message-bubble { background: #1e293b; border: 1px solid #8b5cf6; border-bottom-left-radius: 0.2rem; }
+        .ia-message .message-bubble.fallback { background: linear-gradient(90deg, #064e3b, #065f46); border-color: #10b981; border-left: 3px solid #10b981; }
         .chat-input-area { display: flex; gap: 0.5rem; }
         .chat-input { flex: 1; padding: 0.6rem 1rem; background: #1e293b; border: 1px solid #334155; border-radius: 2rem; color: white; font-size: 0.75rem; font-family: inherit; outline: none; }
         .chat-input:focus { border-color: #8b5cf6; }
@@ -119,6 +131,8 @@
         .metricas-secciones { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 4px; }
         .seccion-item { background: rgba(255,255,255,0.04); padding: 2px 8px; border-radius: 10px; font-size: 0.6rem; border: 1px solid #334155; }
         .seccion-item .num { color: #a78bfa; font-weight: bold; }
+        .keywords-container { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 6px; }
+        .keyword-tag { background: rgba(245, 158, 11, 0.2); border: 1px solid #f59e0b; padding: 2px 8px; border-radius: 12px; font-size: 0.55rem; color: #f59e0b; }
         
         /* PANEL DE DIAGNÓSTICO */
         .diagnostico-panel { background: linear-gradient(135deg, #450a0a, #7f1d1d); border: 2px solid #ef4444; border-radius: 1rem; padding: 1rem; margin-bottom: 1rem; font-size: 0.7rem; }
@@ -160,17 +174,20 @@
             <span class="badge b-mistral">⚡ MISTRAL</span>
             <span class="badge b-openrouter">🔄 OPENROUTER</span>
             <span class="badge b-multiia">🔄 MULTI-IA</span>
-            <span class="badge b-wasm">🦀 WASM RUST</span>
+            <span class="badge b-wasm">🦀 WASM RUST 40</span>
             <span class="badge b-core">🧬 CORE 403M</span>
             <span class="badge b-agent">🔌 AGENT-REACH</span>
             <span class="badge b-radio">📻 RADIO BROWSER</span>
             <span class="badge b-audius">🎵 AUDIUS</span>
             <span class="badge b-gnews">📰 GNEWS</span>
-            <span class="badge b-12f">🔬 12 FUENTES</span>
+            <span class="badge b-fallback">🧠 FALLBACK IA</span>
+            <span class="badge b-nuevo">💡 Datamuse</span>
+            <span class="badge b-nuevo">📖 Wordnik</span>
+            <span class="badge b-nuevo">✏️ LanguageTool</span>
             <span class="badge b-ili">♾️ ILIMITADO</span>
             <span class="live-badge">🌐 24/7</span>
         </h1>
-        <div class="sub">🦀 WASM Rust REAL · 🧬 Core 403M · 🔄 Multi-IA (9 proveedores) · 🔌 Agent-Reach · 📻 Radio Browser · 🎵 Audius · 📰 GNews · 🌤️ Open-Meteo · 🎧 Podcasts · ♾️ Fallback inteligente</div>
+        <div class="sub">🦀 WASM Rust REAL (40 func) · 🧬 Core 403M · 🔄 Multi-IA (9 proveedores) · 🔌 Agent-Reach · 📻 Radio Browser · 🎵 Audius · 📰 GNews · 🌤️ Open-Meteo · 🎧 Podcasts · 🧠 Fallback IA (Datamuse + Wordnik + LanguageTool) · ♾️</div>
     </div>
 
     <!-- ═══ BARRAS DE ESTADO ═══ -->
@@ -193,16 +210,26 @@
         <div class="wasm-status-bar">
             <span class="lbl">🦀 WASM Rust:</span>
             <span class="item"><strong id="wasmStatus" class="ok">⏳ Cargando…</strong></span>
-            <span class="item">📊 Funciones: <strong id="wasmFuncsStatus">0</strong></span>
+            <span class="item">📊 Funciones: <strong id="wasmFuncsStatus">0</strong>/40</span>
             <span class="item">📦 Caché: <strong id="wasmCacheSize">0</strong></span>
             <span class="item">🔄 Multi-IA: <strong id="multiiaStatus" class="ok">✅ Activo</strong></span>
             <span class="item">⚡ 1 Llamada: <strong>✅</strong></span>
             <span class="item">📌 Modo: <strong id="modoStatus">🧠 Experto</strong></span>
         </div>
+        <!-- ═══ NUEVA BARRA FALLBACK IA ═══ -->
+        <div class="fallback-status-bar">
+            <span class="lbl">🧠 Fallback IA:</span>
+            <span class="item"><strong class="ok">✅ Activo</strong></span>
+            <span class="item">💡 Datamuse: <strong id="fbDatamuse">0</strong> sinónimos</span>
+            <span class="item">📖 Wordnik: <strong id="fbWordnik">0</strong> definiciones</span>
+            <span class="item">✏️ LanguageTool: <strong id="fbLanguageTool">0</strong> correcciones</span>
+            <span class="item">🔄 Rehumanizaciones: <strong id="fbRehumanizaciones">0</strong></span>
+            <span class="item nuevo">🆕 Cascada inteligente</span>
+        </div>
         <div class="ultra-stats">
             <span class="item">⚡ Optimizaciones: <strong id="ultraOptimizaciones">0</strong></span>
             <span class="item">⏱️ Tiempo WASM: <strong id="ultraTiempo">0ms</strong></span>
-            <span class="item">📊 Funciones: <strong id="ultraFunciones">0</strong></span>
+            <span class="item">📊 Funciones: <strong id="ultraFunciones">0</strong>/40</span>
             <span class="item">📻 Emisoras: <strong id="ultraEmisoras">0</strong></span>
             <span class="item">🎵 Canciones: <strong id="ultraCanciones">0</strong></span>
             <span class="item">📰 Noticias: <strong id="ultraNoticias">0</strong></span>
@@ -244,6 +271,8 @@
         <button class="tool-btn core" id="btnDecisionStatus">🧠 403M Decide</button>
         <button class="tool-btn core" id="btnMemoriaStatus">🧠 Memoria WASM</button>
         <button class="tool-btn agent" id="btnAgentReach">🔌 AGENT-REACH</button>
+        <button class="tool-btn fallback" id="btnFallbackStatus">🧠 FALLBACK IA</button>
+        <button class="tool-btn fallback" id="btnFallbackTest">💡 Test Fallback</button>
         <button class="tool-btn academia" id="btn12Fuentes">🔬 12 FUENTES</button>
         <button class="tool-btn ilimitado" id="btnFuentesIlimitadas">♾️ ILIMITADO</button>
         <button class="tool-btn wasm-extremo" id="btnWasmExtremo">⚡ WASM EXTREMO</button>
@@ -253,7 +282,7 @@
     </div>
 
     <div class="player-card" id="playerCard">
-        <div class="radio-name" id="radioNameDisplay">📻 RADIO IA PRO · 403M LECTOR · WASM RUST REAL</div>
+        <div class="radio-name" id="radioNameDisplay">📻 RADIO IA PRO · 403M LECTOR · WASM RUST REAL (40 func)</div>
         <div class="radio-source" id="radioSourceDisplay">🔊 Fuente: SoundHelix (demo) · 📻 Cargando Radio Browser…</div>
         <audio id="radioPlayer" controls autoplay></audio>
         <div class="locutor-status"><span class="speaking-indicator" id="speakingIndicator" style="display:none;"></span><span id="locutorStatus">🎙️ Locutora IA: En espera...</span></div>
@@ -262,7 +291,7 @@
     </div>
 
     <div class="chat-card">
-        <div class="chat-area" id="chatArea"><div class="message ia-message"><div class="message-bubble">🎤 ¡Hola! Soy tu locutora IA con <strong>WASM Rust REAL</strong>, <strong>Core 403M</strong>, <strong>Multi-IA</strong>, <strong>Agent-Reach</strong>, <strong>Radio Browser</strong>, <strong>Audius</strong> y <strong>GNews</strong>. Pregúntame lo que quieras. ⚡ 1 sola llamada. ♾️ Sin límites.</div></div></div>
+        <div class="chat-area" id="chatArea"><div class="message ia-message"><div class="message-bubble">🎤 ¡Hola! Soy tu locutora IA con <strong>WASM Rust REAL (40 func)</strong>, <strong>Core 403M</strong>, <strong>Multi-IA</strong>, <strong>Agent-Reach</strong>, <strong>Radio Browser</strong>, <strong>Audius</strong>, <strong>GNews</strong> y <strong>🧠 Fallback IA</strong> (Datamuse + Wordnik + LanguageTool). Pregúntame lo que quieras. ⚡ 1 sola llamada. ♾️ Sin límites.</div></div></div>
         <div class="chat-input-area">
             <input type="text" class="chat-input" id="chatInput" placeholder="Ej: Pon una emisora de jazz en Alemania">
             <button class="send-btn" id="sendChatBtn">🎤 PREGUNTAR</button>
@@ -271,13 +300,13 @@
 
     <div class="widget-container">
         <div class="widget">
-            <div class="widget-title">📊 Estación de Radio <span style="color:#f59e0b;font-size:0.55rem;">🦀 WASM RUST REAL</span></div>
+            <div class="widget-title">📊 Estación de Radio <span style="color:#f59e0b;font-size:0.55rem;">🦀 WASM RUST REAL (40 func)</span></div>
             <div class="widget-content">
                 <div class="metrics-grid-widget">
                     <div class="metric-item-widget"><div class="metric-value-widget" id="metricOyentes">0</div><div class="metric-label-widget">Oyentes</div></div>
                     <div class="metric-item-widget"><div class="metric-value-widget" id="metricCanciones">0</div><div class="metric-label-widget">Canciones</div></div>
                     <div class="metric-item-widget"><div class="metric-value-widget" id="metricPreguntas">0</div><div class="metric-label-widget">Preguntas</div></div>
-                    <div class="metric-item-widget"><div class="metric-value-widget" id="metricHerramientas">25</div><div class="metric-label-widget">Herramientas</div></div>
+                    <div class="metric-item-widget"><div class="metric-value-widget" id="metricHerramientas">27</div><div class="metric-label-widget">Herramientas</div></div>
                 </div>
             </div>
         </div>
@@ -290,8 +319,9 @@
                     <div class="connector-metric"><div class="value" id="metricAPIs">5</div><div class="label">APIs Radio</div></div>
                     <div class="connector-metric"><div class="value" id="metricDB">0</div><div class="label">Caché</div></div>
                 </div>
-                <div style="font-size:0.6rem;color:#94a3b8;margin-top:4px;">🦀 WASM: <span id="wasmWidgetStatusText" style="color:#10b981;">✅ Real</span></div>
+                <div style="font-size:0.6rem;color:#94a3b8;margin-top:4px;">🦀 WASM: <span id="wasmWidgetStatusText" style="color:#10b981;">✅ Real (40 func)</span></div>
                 <div style="font-size:0.6rem;color:#94a3b8;margin-top:2px;">🔄 IA: <span id="proveedorActivo">Multi-IA</span></div>
+                <div style="font-size:0.6rem;color:#94a3b8;margin-top:2px;">🧠 Fallback IA: <span style="color:#10b981;">✅ Datamuse + Wordnik + LanguageTool</span></div>
                 <div style="font-size:0.6rem;color:#94a3b8;margin-top:2px;" id="agenteWidgetStatus">🤖 Agente: Listo</div>
             </div>
         </div>
@@ -305,7 +335,7 @@
             </div>
         </div>
         <div class="widget">
-            <div class="widget-title">🏗️ Estructura Radiofónica</div>
+            <div class="widget-title">🏗️ Estructura Radiofónica + Fallback IA</div>
             <div class="widget-content">
                 <div class="metricas-secciones">
                     <span class="seccion-item">🎵 Apertura: <span class="num" id="aperturaPalabras">0</span></span>
@@ -314,13 +344,13 @@
                 </div>
                 <div class="keywords-container" id="keywordsWidget"><span style="color:#94a3b8;font-size:0.6rem;">🏷️ Keywords: --</span></div>
                 <div style="font-size:0.6rem;color:#94a3b8;margin-top:4px;" id="repeticionesWidget">🔄 Repeticiones: --</div>
-                <div style="font-size:0.55rem;color:#8b5cf6;margin-top:6px;border-top:1px solid #334155;padding-top:6px;" id="fuentesWidget">🦀 WASM Rust · 🤖 Agente · 🧬 Core 403M · ♾️ Fallback inteligente</div>
+                <div style="font-size:0.55rem;color:#10b981;margin-top:6px;border-top:1px solid #334155;padding-top:6px;" id="cascadaWidget">🔄 Fallback IA: 🦀 WASM → 💡 Datamuse → 📖 Wordnik → ✏️ LanguageTool</div>
             </div>
         </div>
     </div>
 
     <div class="fase-info" id="faseInfo">💡 Listo</div>
-    <div class="footer-text">☁️ Radio IA Pro · 🦀 WASM Rust REAL · 🧬 Core 403M · 🔄 Multi-IA (9 proveedores) · 🔌 Agent-Reach · 📻 Radio Browser · 🎵 Audius · 📰 GNews · ♾️ Fallback inteligente</div>
+    <div class="footer-text">☁️ Radio IA Pro · 🦀 WASM Rust (40 func) · 🧬 Core 403M · 🔄 Multi-IA (9 proveedores) · 🔌 Agent-Reach · 📻 Radio Browser · 🎵 Audius · 📰 GNews · 🧠 Fallback IA · ♾️ Sin límites</div>
 </div>
 
 <button class="vr-button" id="vrModeBtn">🔮 MODO VR</button>
@@ -370,105 +400,32 @@ const Diagnostico = {
 };
 
 // ═══════════════════════════════════════════════════════════
-// 🔄 MULTI-IA — 9 PROVEEDORES CON TODOS SUS MODELOS FREE
+// 🔄 MULTI-IA — 9 PROVEEDORES
 // ═══════════════════════════════════════════════════════════
 const IA_PROVEEDORES = [
-    // ---- Google Gemini (Free) ----
-    {
-        nombre: 'Google',
-        url: 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=AQ.Ab8RN6Ly5QrNa2RWh65DS_PRM_AMDE7E_52VaHe1FcdJcurvgw',
-        key: 'AQ.Ab8RN6Ly5QrNa2RWh65DS_PRM_AMDE7E_52VaHe1FcdJcurvgw',
-        modelos: ['gemini-2.0-flash', 'gemini-2.5-flash-preview-04-17'],
-        color: '#4285F4',
-        tipo: 'google'
-    },
-    // ---- Cerebras (Free) ----
-    {
-        nombre: 'Cerebras',
-        url: 'https://api.cerebras.ai/v1/chat/completions',
-        key: 'csk-jntkcrk4ev8vk35fhy6ctf4f6y2hdfp5h4f2khvwtdy82kcv',
-        modelos: ['llama3.1-8b', 'llama-3.3-70b', 'qwen-2.5-32b', 'qwen-2.5-coder-32b'],
-        color: '#FF6B35'
-    },
-    // ---- Z.ai (Free) ----
-    {
-        nombre: 'Z.ai',
-        url: 'https://api.z.ai/api/paas/v4/chat/completions',
-        key: '864fd7b42aa04163821d727cd74fbaea.GaPaxOmiAJUpm2TP',
-        modelos: ['glm-4-flash', 'glm-4.5-flash'],
-        color: '#7C3AED'
-    },
-    // ---- Mistral (Free) ----
-    {
-        nombre: 'Mistral AI',
-        url: 'https://api.mistral.ai/v1/chat/completions',
-        key: '5qjCySPcH6ltO3ACeYcv8peh8iz252uW',
-        modelos: ['mistral-small-latest', 'mistral-large-latest', 'open-mistral-7b', 'open-mixtral-8x7b', 'mistral-tiny', 'open-mistral-nemo'],
-        color: '#f97316'
-    },
-    // ---- GitHub (Free) ----
-    {
-        nombre: 'GitHub',
-        url: 'https://models.inference.ai.azure.com/chat/completions',
-        key: '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',
-        modelos: ['gpt-4o-mini', 'Phi-3.5-mini-instruct', 'Meta-Llama-3.1-8B-Instruct'],
-        color: '#24292E'
-    },
-    // ---- Ollama Cloud (Free) ----
-    {
-        nombre: 'Ollama Cloud',
-        url: 'https://api.ollama.cloud/v1/chat/completions',
-        key: '0edce97e3d3f405fb5e528efef2757f8.v6Xv_n50E_J9aSpdYQJMvaS3',
-        modelos: ['llama3.2', 'mistral', 'gemma2', 'qwen2.5'],
-        color: '#333333'
-    },
-    // ---- Kiro (Free) ----
-    {
-        nombre: 'Kiro',
-        url: 'https://api.kiro.ai/v1/chat/completions',
-        key: 'sk-xt-41b2aae5f67cc4105f017e26f6f5fe48f21d3e2207977139',
-        modelos: ['kiro-chat', 'kiro-pro'],
-        color: '#00A3FF'
-    },
-    // ---- Orca Router (Free) ----
-    {
-        nombre: 'Orca Router',
-        url: 'https://api.orcarouter.ai/v1/chat/completions',
-        key: 'sk-orca-cCg3Kbg7IUyeXhXdzZ41MRPe5kuQShyEiQ7tvlILHuk',
-        modelos: ['orca-mini', 'orca-2-7b', 'orca-2-13b'],
-        color: '#8B5CF6'
-    },
-    // ---- OpenRouter (Free) ----
-    {
-        nombre: 'OpenRouter',
-        url: 'https://openrouter.ai/api/v1/chat/completions',
-        key: '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',
-        modelos: ['mistralai/mistral-7b-instruct:free', 'meta-llama/llama-3.1-8b-instruct:free', 'google/gemma-2-9b-it:free', 'qwen/qwen-2.5-7b-instruct:free', 'microsoft/phi-3-mini-128k-instruct:free', 'huggingfaceh4/zephyr-7b-beta:free'],
-        color: '#10b981',
-        extraHeaders: { 'HTTP-Referer': 'https://radio-ia-pro.local', 'X-Title': 'Radio IA Pro' }
-    }
+    { nombre: 'Google', url: 'https://generativelanguage.googleapis.com/v1beta/models', key: 'AQ.Ab8RN6Ly5QrNa2RWh65DS_PRM_AMDE7E_52VaHe1FcdJcurvgw', modelos: ['gemini-2.0-flash', 'gemini-2.5-flash-preview-04-17'], color: '#4285F4', tipo: 'google' },
+    { nombre: 'Cerebras', url: 'https://api.cerebras.ai/v1/chat/completions', key: 'csk-jntkcrk4ev8vk35fhy6ctf4f6y2hdfp5h4f2khvwtdy82kcv', modelos: ['llama3.1-8b', 'llama-3.3-70b', 'qwen-2.5-32b', 'qwen-2.5-coder-32b'], color: '#FF6B35' },
+    { nombre: 'Z.ai', url: 'https://api.z.ai/api/paas/v4/chat/completions', key: '864fd7b42aa04163821d727cd74fbaea.GaPaxOmiAJUpm2TP', modelos: ['glm-4-flash', 'glm-4.5-flash'], color: '#7C3AED' },
+    { nombre: 'Mistral AI', url: 'https://api.mistral.ai/v1/chat/completions', key: '5qjCySPcH6ltO3ACeYcv8peh8iz252uW', modelos: ['mistral-small-latest', 'mistral-large-latest', 'open-mistral-7b', 'open-mixtral-8x7b', 'mistral-tiny', 'open-mistral-nemo'], color: '#f97316' },
+    { nombre: 'GitHub', url: 'https://models.inference.ai.azure.com/chat/completions', key: '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', modelos: ['gpt-4o-mini', 'Phi-3.5-mini-instruct', 'Meta-Llama-3.1-8B-Instruct'], color: '#24292E' },
+    { nombre: 'Ollama Cloud', url: 'https://api.ollama.cloud/v1/chat/completions', key: '0edce97e3d3f405fb5e528efef2757f8.v6Xv_n50E_J9aSpdYQJMvaS3', modelos: ['llama3.2', 'mistral', 'gemma2', 'qwen2.5'], color: '#333333' },
+    { nombre: 'Kiro', url: 'https://api.kiro.ai/v1/chat/completions', key: 'sk-xt-41b2aae5f67cc4105f017e26f6f5fe48f21d3e2207977139', modelos: ['kiro-chat', 'kiro-pro'], color: '#00A3FF' },
+    { nombre: 'Orca Router', url: 'https://api.orcarouter.ai/v1/chat/completions', key: 'sk-orca-cCg3Kbg7IUyeXhXdzZ41MRPe5kuQShyEiQ7tvlILHuk', modelos: ['orca-mini', 'orca-2-7b', 'orca-2-13b'], color: '#8B5CF6' },
+    { nombre: 'OpenRouter', url: 'https://openrouter.ai/api/v1/chat/completions', key: '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', modelos: ['mistralai/mistral-7b-instruct:free', 'meta-llama/llama-3.1-8b-instruct:free', 'google/gemma-2-9b-it:free', 'qwen/qwen-2.5-7b-instruct:free', 'microsoft/phi-3-mini-128k-instruct:free', 'huggingfaceh4/zephyr-7b-beta:free'], color: '#10b981', extraHeaders: { 'HTTP-Referer': 'https://radio-ia-pro.local', 'X-Title': 'Radio IA Pro' } }
 ];
 
 const GNEWS_API_KEY = '91145ca5b48bdf9464f6bc8330633fe8';
-const PAIS_FIJO = 'Liechtenstein';
-const TIMEOUT_IA = 25000;      // 25s por modelo
-const TIMEOUT_API_NEWS = 15000; // 15s por API noticias
+const TIMEOUT_IA = 25000;
+const TIMEOUT_API_NEWS = 15000;
 
 let modoActual = 'experto';
 let vozActivada = false;
 let procesandoRespuesta = false;
 let contadorPreguntas = 0;
-let idiomaDetectado = 'es';
 let proveedorActual = null;
 let iaOkCount = 0, iaFailsCount = 0;
 let emisorasFavoritas = JSON.parse(localStorage.getItem('radio_favoritas') || '[]');
 
-const nombreIdioma = { 'es': 'Español', 'en': 'Inglés', 'de': 'Alemán', 'fr': 'Francés', 'pt': 'Portugués', 'it': 'Italiano' };
-const banderaIdioma = { 'es': '🇪🇸', 'en': '🇬🇧', 'de': '🇩🇪', 'fr': '🇫🇷', 'pt': '🇵🇹', 'it': '🇮🇹' };
-
-// ═══════════════════════════════════════════════════════════
-// 🛠️ HELPER: FETCH CON TIMEOUT
-// ═══════════════════════════════════════════════════════════
 function fetchConTimeout(url, opciones = {}, timeoutMs = 8000) {
     const ctrl = new AbortController();
     const tid = setTimeout(() => ctrl.abort(), timeoutMs);
@@ -476,10 +433,10 @@ function fetchConTimeout(url, opciones = {}, timeoutMs = 8000) {
 }
 
 // ═══════════════════════════════════════════════════════════
-// 🦀 WASM RUST
+// 🦀 WASM RUST (40 FUNCIONES + HUMANIZACIÓN LOCAL)
 // ═══════════════════════════════════════════════════════════
 class RustWASM {
-    constructor() { this.wasm = null; this.cargado = false; this.stats = { funciones: 0, tiempo: 0, optimizaciones: 0 }; }
+    constructor() { this.wasm = null; this.cargado = false; this.stats = { funciones: 0, tiempo: 0, optimizaciones: 0, idiomasDetectados: 0 }; }
     async cargar() {
         try {
             console.log('🦀 Cargando WASM Rust desde ./pkg/academia_wasm.js…');
@@ -487,14 +444,15 @@ class RustWASM {
             await mod.default('./pkg/academia_wasm_bg.wasm');
             this.wasm = mod; this.cargado = true;
             const v = mod.wasm_version ? mod.wasm_version() : '1.0';
-            const funcs = ['contar_palabras', 'contar_caracteres_sin_espacios', 'contar_oraciones', 'process_text_full', 'extract_keywords', 'extract_authors_fast', 'detectar_idioma', 'resumir_texto', 'process_agent_context', 'cache_response', 'get_cached_response', 'get_cache_size', 'clear_cache'].filter(f => typeof mod[f] === 'function');
-            console.log(`✅ WASM Rust REAL cargado (v${v}) · ${funcs.length}/13 funciones`);
+            const funcsBase = ['contar_palabras','contar_caracteres_sin_espacios','contar_oraciones','process_text_full','extract_keywords','extract_authors_fast','detectar_idioma','resumir_texto','process_agent_context','cache_response','get_cached_response','get_cache_size','clear_cache','wasm_version','now_us','detectar_muletillas_ia','similitud_coseno','sentimiento_espanol','extraer_fechas','extraer_urls','extraer_emails','normalizar_texto','calcular_hash_simhash','contar_silabas_espanol','resumir_tfidf','detectar_idioma_avanzado','detectar_clickbait','detectar_discurso_odio','detectar_pii','detectar_topicos','indice_flesch_espanol','indice_gunning_fog','densidad_lexica','longitud_media_oraciones','extraer_entidades_nombradas','extraer_numeros','extraer_hashtags_menciones','extract_ngramas','sanitizar_texto','calcular_hash_sha256'];
+            const funcs = funcsBase.filter(f => typeof mod[f] === 'function');
+            console.log(`✅ WASM Rust REAL cargado (v${v}) · ${funcs.length}/40 funciones`);
             document.getElementById('wasmStatus').textContent = `✅ Rust real (${funcs.length} funcs)`;
             document.getElementById('wasmStatus').style.color = '#10b981';
             document.getElementById('wasmFuncsStatus').textContent = funcs.length;
             document.getElementById('ultraFunciones').textContent = funcs.length;
-            document.getElementById('wasmWidgetStatusText').textContent = '✅ Real (50x)';
-            Diagnostico.log(`WASM Rust REAL cargado v${v} · ${funcs.length} funciones`, 'ok');
+            document.getElementById('wasmWidgetStatusText').textContent = `✅ Real (${funcs.length} func)`;
+            Diagnostico.log(`WASM Rust REAL cargado v${v} · ${funcs.length}/40 funciones`, 'ok');
             return true;
         } catch (e) {
             console.warn('⚠️ WASM Rust no disponible:', e.message);
@@ -510,17 +468,192 @@ class RustWASM {
     processFull(t) { if (!this.cargado) return null; try { this.stats.funciones++; const r = JSON.parse(this.wasm.process_text_full(t)); if (r.tiempo_us) this.stats.tiempo += r.tiempo_us / 1000; return r; } catch (e) { return null; } }
     keywords(t, n = 8) { if (!this.cargado) return []; try { this.stats.funciones++; return JSON.parse(this.wasm.extract_keywords(t, n)); } catch (e) { return []; } }
     autores(t) { if (!this.cargado) return []; try { this.stats.funciones++; return JSON.parse(this.wasm.extract_authors_fast(t)); } catch (e) { return []; } }
-    idioma(t) { if (!this.cargado) return 'es'; try { this.stats.funciones++; return this.wasm.detectar_idioma(t); } catch (e) { return 'es'; } }
+    idioma(t) { if (!this.cargado) return 'es'; try { this.stats.funciones++; const r = this.wasm.detectar_idioma(t); this.stats.idiomasDetectados++; return r; } catch (e) { return 'es'; } }
     resumen(t, n = 3) { if (!this.cargado) return t.substring(0, 500); try { this.stats.funciones++; return this.wasm.resumir_texto(t, n); } catch (e) { return t.substring(0, 500); } }
     cache(k, v) { if (this.cargado) try { this.wasm.cache_response(k, v); } catch (e) {} }
     getCache(k) { if (this.cargado) { try { const v = this.wasm.get_cached_response(k); return v && v.length > 0 ? v : null; } catch (e) {} } return null; }
     getCacheSize() { if (this.cargado) try { return this.wasm.get_cache_size(); } catch (e) {} return 0; }
+    cleanText(t) { if (!t) return t; return t.replace(/\*\*(.*?)\*\*/g, '$1').replace(/\*(.*?)\*/g, '$1').replace(/__(.*?)__/g, '$1').replace(/#{1,6}\s*/g, '').replace(/\s+/g, ' ').replace(/\s+([.,;:!?])/g, '$1').replace(/\n\s*\n/g, '\n\n').trim(); }
+    // ═══ HUMANIZACIÓN LOCAL (clave para Fallback IA) ═══
+    humanizarFinal(t) {
+        if (!t) return t;
+        let r = t;
+        const muletillas = ['por otro lado','cabe destacar','en conclusión','cabe mencionar','es importante destacar','como se mencionó','cabe resaltar','es crucial','es fundamental','en resumen','en síntesis','dicho esto','en este sentido','a continuación','en primer lugar','en segundo lugar'];
+        muletillas.forEach(m => { r = r.replace(new RegExp(m + '[,.]?', 'gi'), ''); });
+        r = r.replace(/además[,.]?/gi, 'y');
+        r = r.replace(/(\w+)\s+\1\s+/gi, '$1 ');
+        r = r.replace(/\s{2,}/g, ' ');
+        r = r.replace(/,\s*([,.])/g, '$1');
+        r = r.replace(/\.\s*([a-z])/g, (_, c) => '. ' + c.toUpperCase());
+        r = r.replace(/^\d+\.\s*/gm, '');
+        r = r.replace(/^\-\s*/gm, '');
+        r = r.trim();
+        this.stats.optimizaciones++;
+        this.stats.funciones++;
+        return r;
+    }
+    extraerEntidades(t) { if (!this.cargado || typeof this.wasm.extraer_entidades_nombradas !== 'function') return { entidades: [], total: 0 }; try { return JSON.parse(this.wasm.extraer_entidades_nombradas(t)); } catch (e) { return { entidades: [], total: 0 }; } }
+    extraerFechas(t) { if (!this.cargado || typeof this.wasm.extraer_fechas !== 'function') return { fechas: [], total: 0 }; try { return JSON.parse(this.wasm.extraer_fechas(t)); } catch (e) { return { fechas: [], total: 0 }; } }
     getStats() { return this.stats; }
 }
 const rustWASM = new RustWASM();
 
 // ═══════════════════════════════════════════════════════════
-// 🚀 MULTI-IA — PARALELO CON TODOS LOS MODELOS FREE
+// 🧠 FALLBACK IA: Datamuse + Wordnik + LanguageTool
+// ═══════════════════════════════════════════════════════════
+const FallbackIA = {
+    stats: { datamuse: 0, wordnik: 0, languagetool: 0, rehumanizaciones: 0, correcciones: 0, sinonimos: 0 },
+    cache: new Map(),
+    
+    async obtenerSinonimos(palabra) {
+        if (!palabra || palabra.length < 4) return [];
+        const key = `syn_${palabra.toLowerCase()}`;
+        if (this.cache.has(key)) return this.cache.get(key);
+        try {
+            const r = await fetchConTimeout(`https://api.datamuse.com/words?rel_syn=${encodeURIComponent(palabra)}&max=5`, {}, 4000);
+            const d = await r.json();
+            const sinonimos = d.map(w => w.word).filter(w => w && w.toLowerCase() !== palabra.toLowerCase());
+            this.stats.datamuse++;
+            this.cache.set(key, sinonimos);
+            return sinonimos;
+        } catch(e) { return []; }
+    },
+    
+    async obtenerDefiniciones(palabra) {
+        if (!palabra || palabra.length < 4) return [];
+        const key = `def_${palabra.toLowerCase()}`;
+        if (this.cache.has(key)) return this.cache.get(key);
+        try {
+            const r = await fetchConTimeout(`https://api.wordnik.com/v4/word.json/${encodeURIComponent(palabra)}/definitions?limit=2&api_key=demo`, {}, 4000);
+            if (!r.ok) return [];
+            const d = await r.json();
+            const definiciones = (d || []).map(x => x.text).filter(Boolean);
+            this.stats.wordnik++;
+            this.cache.set(key, definiciones);
+            return definiciones;
+        } catch(e) { return []; }
+    },
+    
+    async corregirConLanguageTool(texto) {
+        if (!texto || texto.length < 10) return null;
+        try {
+            const formData = new URLSearchParams();
+            formData.append('text', texto.substring(0, 2000));
+            formData.append('language', 'es');
+            const r = await fetchConTimeout('https://api.languagetool.org/v2/check', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: formData.toString()
+            }, 8000);
+            if (!r.ok) return null;
+            const d = await r.json();
+            this.stats.languagetool++;
+            return d.matches || [];
+        } catch(e) { return null; }
+    },
+    
+    async rehumanizarTexto(textoOriginal, contextoRadiofonico = true) {
+        try {
+            if (!textoOriginal || textoOriginal.length < 20) return textoOriginal;
+            let texto = textoOriginal;
+            Diagnostico.log(`🧠 Rehumanizando guion radiofónico (${textoOriginal.length} chars)…`, 'info');
+            
+            // === PASO 1: Humanización WASM Rust ===
+            texto = rustWASM.humanizarFinal(texto);
+            Diagnostico.log(`🦀 WASM humanización aplicada`, 'ok');
+            
+            // === PASO 2: Sinónimos con Datamuse ===
+            const palabras = texto.toLowerCase().match(/[a-záéíóúüñ]{5,}/g) || [];
+            const frecuencias = {};
+            palabras.forEach(p => frecuencias[p] = (frecuencias[p] || 0) + 1);
+            const repetidas = Object.entries(frecuencias).filter(([_, c]) => c >= 3).slice(0, 5).map(([p]) => p);
+            
+            let sinonimosAplicados = 0;
+            for (const palabra of repetidas) {
+                try {
+                    const sinonimos = await this.obtenerSinonimos(palabra);
+                    if (sinonimos.length > 0) {
+                        const reemplazo = sinonimos[0];
+                        let reemplazos = 0;
+                        texto = texto.replace(new RegExp(`\\b${palabra}\\b`, 'gi'), (match) => {
+                            if (reemplazos < 2) { reemplazos++; sinonimosAplicados++; return reemplazo; }
+                            return match;
+                        });
+                    }
+                } catch(e) {}
+            }
+            this.stats.sinonimos += sinonimosAplicados;
+            if (sinonimosAplicados > 0) Diagnostico.log(`💡 ${sinonimosAplicados} sinónimos via Datamuse`, 'ok');
+            
+            // === PASO 3: Corrección con LanguageTool ===
+            try {
+                const matches = await this.corregirConLanguageTool(texto.substring(0, 2000));
+                if (matches && matches.length > 0) {
+                    let correccionesAplicadas = 0;
+                    const matchesOrdenados = [...matches].sort((a, b) => b.offset - a.offset);
+                    for (const m of matchesOrdenados) {
+                        if (m.replacements && m.replacements.length > 0 && m.rule?.issueType !== 'style') {
+                            const offset = m.offset;
+                            const length = m.length;
+                            const reemplazo = m.replacements[0].value;
+                            texto = texto.substring(0, offset) + reemplazo + texto.substring(offset + length);
+                            correccionesAplicadas++;
+                        }
+                    }
+                    this.stats.correcciones += correccionesAplicadas;
+                    if (correccionesAplicadas > 0) Diagnostico.log(`✏️ ${correccionesAplicadas} correcciones via LanguageTool`, 'ok');
+                }
+            } catch(e) {}
+            
+            // === PASO 4: Variación de conectores radiofónicos ===
+            const conectoresVariados = ['y', 'además', 'incluso', 'también', 'asimismo', 'igualmente'];
+            let conectorIdx = 0;
+            texto = texto.replace(/\by\s+(?=[a-záéíóúñ])/gi, () => {
+                conectorIdx = (conectorIdx + 1) % conectoresVariados.length;
+                return conectorIdx === 0 ? 'y ' : conectoresVariados[conectorIdx] + ' ';
+            });
+            
+            // === PASO 5: Dividir frases largas (>30 palabras) ===
+            const frases = texto.split(/(?<=[.!?])\s+/);
+            const frasesMejoradas = frases.map(frase => {
+                const palabras = frase.split(/\s+/);
+                if (palabras.length > 30) {
+                    const puntos = [' y ', ' pero ', ' aunque ', ' porque ', ' mientras ', ' cuando ', ' sin embargo '];
+                    for (const punto of puntos) {
+                        const idx = frase.indexOf(punto);
+                        if (idx > 20 && idx < frase.length - 20) {
+                            return frase.substring(0, idx) + '.' + frase.substring(idx);
+                        }
+                    }
+                }
+                return frase;
+            });
+            texto = frasesMejoradas.join(' ');
+            
+            // === PASO 6: Limpieza final ===
+            texto = rustWASM.cleanText(texto);
+            this.stats.rehumanizaciones++;
+            this.actualizarUI();
+            Diagnostico.log(`✅ Rehumanización radiofónica completa`, 'ok');
+            return texto;
+        } catch(e) {
+            console.error('❌ Error rehumanizando:', e);
+            return rustWASM.humanizarFinal(textoOriginal);
+        }
+    },
+    
+    actualizarUI() {
+        const dm = document.getElementById('fbDatamuse'); if (dm) dm.textContent = this.stats.datamuse;
+        const wn = document.getElementById('fbWordnik'); if (wn) wn.textContent = this.stats.wordnik;
+        const lt = document.getElementById('fbLanguageTool'); if (lt) lt.textContent = this.stats.languagetool;
+        const rh = document.getElementById('fbRehumanizaciones'); if (rh) rh.textContent = this.stats.rehumanizaciones;
+    },
+    
+    getStats() { return { ...this.stats, cacheSize: this.cache.size }; }
+};
+
+// ═══════════════════════════════════════════════════════════
+// 🚀 MULTI-IA — PARALELO
 // ═══════════════════════════════════════════════════════════
 function actualizarProveedor(nombre, color) {
     const el = document.getElementById('proveedorActivo');
@@ -534,78 +667,49 @@ async function llamarIAParalelo(messages, maxTokens = 3000) {
     const promesas = [];
     for (const prov of IA_PROVEEDORES) {
         for (const modelo of prov.modelos) {
-            promesas.push(
-                (async () => {
-                    const t0 = Date.now();
-                    try {
-                        const headers = { 'Content-Type': 'application/json', 'Authorization': `Bearer ${prov.key}` };
-                        if (prov.extraHeaders) Object.assign(headers, prov.extraHeaders);
-                        
-                        let body, url = prov.url;
-                        if (prov.tipo === 'google') {
-                            url = `https://generativelanguage.googleapis.com/v1beta/models/${modelo}:generateContent?key=${prov.key}`;
-                            body = { contents: messages.map(m => ({ role: m.role === 'assistant' ? 'model' : m.role, parts: [{ text: m.content }] })), generationConfig: { maxOutputTokens: maxTokens, temperature: 0.7 } };
-                        } else {
-                            body = { model: modelo, messages, temperature: 0.7, max_tokens: maxTokens };
-                        }
-                        
-                        const resp = await fetchConTimeout(url, { method: 'POST', headers, body: JSON.stringify(body) }, TIMEOUT_IA);
-                        const dur = ((Date.now() - t0) / 1000).toFixed(1);
-                        
-                        if ([401, 403, 429].includes(resp.status)) {
-                            const errTxt = resp.status === 429 ? 'rate limit' : resp.status === 401 ? 'key inválida' : `HTTP ${resp.status}`;
-                            Diagnostico.log(`${prov.nombre}/${modelo}: ${errTxt} (${dur}s)`, 'error');
-                            iaFailsCount++;
-                            throw new Error(`${prov.nombre}/${modelo}: ${errTxt}`);
-                        }
-                        if (!resp.ok) {
-                            Diagnostico.log(`${prov.nombre}/${modelo}: HTTP ${resp.status} (${dur}s)`, 'error');
-                            iaFailsCount++;
-                            throw new Error(`${prov.nombre}/${modelo}: HTTP ${resp.status}`);
-                        }
-                        
-                        const data = await resp.json();
-                        let texto = '';
-                        if (prov.tipo === 'google') {
-                            texto = data.candidates?.[0]?.content?.parts?.[0]?.text || '';
-                        } else {
-                            texto = data.choices?.[0]?.message?.content || '';
-                        }
-                        
-                        if (texto.length < 50) {
-                            Diagnostico.log(`${prov.nombre}/${modelo}: respuesta corta (${texto.length} chars)`, 'warn');
-                            iaFailsCount++;
-                            throw new Error(`${prov.nombre}/${modelo}: respuesta corta`);
-                        }
-                        
-                        Diagnostico.log(`${prov.nombre}/${modelo}: ✅ ${texto.length} chars en ${dur}s`, 'ok');
-                        iaOkCount++;
-                        return { texto, proveedor: prov.nombre, modelo };
-                    } catch (e) {
-                        if (e.name === 'AbortError') {
-                            Diagnostico.log(`${prov.nombre}/${modelo}: Timeout ${TIMEOUT_IA/1000}s`, 'error');
-                            iaFailsCount++;
-                        }
-                        throw e;
+            promesas.push((async () => {
+                const t0 = Date.now();
+                try {
+                    const headers = { 'Content-Type': 'application/json', 'Authorization': `Bearer ${prov.key}` };
+                    if (prov.extraHeaders) Object.assign(headers, prov.extraHeaders);
+                    let body, url = prov.url;
+                    if (prov.tipo === 'google') {
+                        url = `https://generativelanguage.googleapis.com/v1beta/models/${modelo}:generateContent?key=${prov.key}`;
+                        body = { contents: messages.map(m => ({ role: m.role === 'assistant' ? 'model' : m.role, parts: [{ text: m.content }] })), generationConfig: { maxOutputTokens: maxTokens, temperature: 0.7 } };
+                    } else {
+                        body = { model: modelo, messages, temperature: 0.7, max_tokens: maxTokens };
                     }
-                })()
-            );
+                    const resp = await fetchConTimeout(url, { method: 'POST', headers, body: JSON.stringify(body) }, TIMEOUT_IA);
+                    const dur = ((Date.now() - t0) / 1000).toFixed(1);
+                    if ([401, 403, 429].includes(resp.status)) {
+                        Diagnostico.log(`${prov.nombre}/${modelo}: HTTP ${resp.status} (${dur}s)`, 'error');
+                        iaFailsCount++;
+                        throw new Error(`${prov.nombre}/${modelo}: HTTP ${resp.status}`);
+                    }
+                    if (!resp.ok) { Diagnostico.log(`${prov.nombre}/${modelo}: HTTP ${resp.status} (${dur}s)`, 'error'); iaFailsCount++; throw new Error(`${prov.nombre}/${modelo}`); }
+                    const data = await resp.json();
+                    let texto = prov.tipo === 'google' ? (data.candidates?.[0]?.content?.parts?.[0]?.text || '') : (data.choices?.[0]?.message?.content || '');
+                    if (texto.length < 50) { Diagnostico.log(`${prov.nombre}/${modelo}: respuesta corta`, 'warn'); iaFailsCount++; throw new Error(`${prov.nombre}/${modelo}: corta`); }
+                    Diagnostico.log(`${prov.nombre}/${modelo}: ✅ ${texto.length} chars en ${dur}s`, 'ok');
+                    iaOkCount++;
+                    return { texto, proveedor: prov.nombre, modelo };
+                } catch (e) { if (e.name === 'AbortError') { Diagnostico.log(`${prov.nombre}/${modelo}: Timeout`, 'error'); iaFailsCount++; } throw e; }
+            })());
         }
     }
-    
-    Diagnostico.log(`Total: ${promesas.length} combinaciones proveedor×modelo`, 'info');
     
     try {
         const resultado = await Promise.any(promesas);
         proveedorActual = resultado.proveedor;
-        actualizarProveedor(resultado.proveedor, resultado.proveedor === 'Google' ? '#4285F4' : resultado.proveedor === 'OpenRouter' ? '#10b981' : '#f97316');
+        actualizarProveedor(resultado.proveedor, resultado.proveedor === 'Google' ? '#4285F4' : '#10b981');
         document.getElementById('multiiaStatus').textContent = `✅ ${resultado.proveedor}`;
         Diagnostico.log(`🏆 GANADOR: ${resultado.proveedor} (${resultado.modelo})`, 'ok');
         return resultado;
     } catch (e) {
         Diagnostico.log('❌ Todos los modelos y proveedores fallaron', 'error');
         actualizarProveedor(null);
-        document.getElementById('multiiaStatus').textContent = '❌ Todos fallaron';
+        document.getElementById('multiiaStatus').textContent = '🧠 Fallback IA';
+        document.getElementById('multiiaStatus').style.color = '#10b981';
         throw new Error('Todos los proveedores IA fallaron');
     }
 }
@@ -637,7 +741,7 @@ const agentReach = {
 };
 
 // ═══════════════════════════════════════════════════════════
-// 📻 RADIO BROWSER API
+// 📻 RADIO BROWSER
 // ═══════════════════════════════════════════════════════════
 class RadioBrowserAPI {
     constructor() { this.baseUrl = 'https://de1.api.radio-browser.info/json'; this.cache = new Map(); this.totalEmisoras = 0; }
@@ -687,7 +791,7 @@ class RadioBrowserAPI {
 }
 
 // ═══════════════════════════════════════════════════════════
-// 🎵 AUDIUS API
+// 🎵 AUDIUS
 // ═══════════════════════════════════════════════════════════
 class AudiusAPI {
     constructor() { this.baseUrl = 'https://discoveryprovider.audius.co/v1'; this.appName = 'RadioIAPro'; this.totalCanciones = 0; }
@@ -729,7 +833,7 @@ class AudiusAPI {
 }
 
 // ═══════════════════════════════════════════════════════════
-// 📰 GNEWS API
+// 📰 GNEWS
 // ═══════════════════════════════════════════════════════════
 class GNewsAPI {
     constructor() { this.totalNoticias = 0; }
@@ -773,7 +877,7 @@ class GNewsAPI {
 }
 
 // ═══════════════════════════════════════════════════════════
-// 🌤️ OPEN-METEO API
+// 🌤️ OPEN-METEO
 // ═══════════════════════════════════════════════════════════
 class OpenMeteoAPI {
     async obtenerClima(ciudad = 'Vaduz', lat = 47.1410, lon = 9.5209) {
@@ -802,7 +906,7 @@ class OpenMeteoAPI {
 }
 
 // ═══════════════════════════════════════════════════════════
-// 🎧 iTUNES PODCASTS API
+// 🎧 iTUNES PODCASTS
 // ═══════════════════════════════════════════════════════════
 class PodcastAPI {
     constructor() { this.totalPodcasts = 0; }
@@ -840,9 +944,6 @@ class PodcastAPI {
     }
 }
 
-// ═══════════════════════════════════════════════════════════
-// INSTANCIAS GLOBALES
-// ═══════════════════════════════════════════════════════════
 const radioBrowser = new RadioBrowserAPI();
 const audiusAPI = new AudiusAPI();
 const gnewsAPI = new GNewsAPI();
@@ -857,13 +958,15 @@ class Core403M {
         this.consultas = 0;
         this.temas = {};
         this.evoluciones = 0;
-        this.agentes = { analizador: true, optimizador: true, predictor: true, evolucionador: true };
+        this.agentes = { analizador: true, optimizador: true, predictor: true, evolucionador: true, fallback: true };
         this.cargar();
         this.iniciarAgentes();
     }
     iniciarAgentes() {
-        document.getElementById('coreStatus').textContent = '✅ 4 agentes activos';
+        document.getElementById('coreStatus').textContent = '✅ 5 agentes activos';
+        document.getElementById('coreAgentes').textContent = Object.keys(this.agentes).length;
         setInterval(() => { this.evoluciones++; document.getElementById('coreEvoluciones').textContent = this.evoluciones; this.guardar(); }, 60000);
+        setInterval(() => FallbackIA.actualizarUI(), 15000);
     }
     registrar(t) {
         this.consultas++;
@@ -872,8 +975,8 @@ class Core403M {
         document.getElementById('coreTemas').textContent = Object.keys(this.temas).length;
         this.guardar();
     }
-    guardar() { try { localStorage.setItem('core403m_radio_v2', JSON.stringify({ consultas: this.consultas, temas: this.temas, evoluciones: this.evoluciones })); } catch (e) {} }
-    cargar() { try { const d = JSON.parse(localStorage.getItem('core403m_radio_v2') || '{}'); this.consultas = d.consultas || 0; this.temas = d.temas || {}; this.evoluciones = d.evoluciones || 0; document.getElementById('coreConsultas').textContent = this.consultas; document.getElementById('coreTemas').textContent = Object.keys(this.temas).length; document.getElementById('coreEvoluciones').textContent = this.evoluciones; } catch (e) {} }
+    guardar() { try { localStorage.setItem('core403m_radio_v3', JSON.stringify({ consultas: this.consultas, temas: this.temas, evoluciones: this.evoluciones })); } catch (e) {} }
+    cargar() { try { const d = JSON.parse(localStorage.getItem('core403m_radio_v3') || '{}'); this.consultas = d.consultas || 0; this.temas = d.temas || {}; this.evoluciones = d.evoluciones || 0; document.getElementById('coreConsultas').textContent = this.consultas; document.getElementById('coreTemas').textContent = Object.keys(this.temas).length; document.getElementById('coreEvoluciones').textContent = this.evoluciones; } catch (e) {} }
 }
 const core403M = new Core403M();
 
@@ -937,9 +1040,9 @@ async function hablar(texto) {
 document.getElementById('activarVozBtn').addEventListener('click', activarVoz);
 
 // ═══════════════════════════════════════════════════════════
-// 🧠 FALLBACK INTELIGENTE — COMPOSICIÓN CON DATOS REALES
+// 🧠 FALLBACK INTELIGENTE — COMPOSICIÓN CON DATOS REALES + REHUMANIZACIÓN
 // ═══════════════════════════════════════════════════════════
-function generarFallbackRadioInteligente(prompt, datos = {}) {
+async function generarFallbackRadioInteligente(prompt, datos = {}) {
     const { emisoras = [], canciones = [], noticias = [], podcasts = [], clima = null } = datos;
     const fuentesActivas = [];
     if (emisoras.length) fuentesActivas.push('Radio Browser');
@@ -1014,17 +1117,14 @@ function generarFallbackRadioInteligente(prompt, datos = {}) {
         analisis += `  📍 ${clima.ciudad} · 🕐 ${clima.hora}\n\n`;
     }
     
-    // CONTEXTO
     analisis += `Reflexión: Este sistema combina ${fuentesActivas.length} fuentes de datos en tiempo real. `;
     analisis += `La radio moderna no solo emite música: descubre, informa, contextualiza y conecta. `;
     analisis += `Ecuador y el mundo se encuentran a un clic de distancia.\n\n`;
     
-    // DESPEDIDA
     analisis += `Despedida: Gracias por acompañarnos en Radio IA Pro. `;
     analisis += `Recuerda que puedes pedirme cualquier emisora, canción, noticia o podcast. `;
     analisis += `¡Hasta la próxima emisión! 🎙️\n\n`;
     
-    // FICHA
     analisis += `─────────────────────────────────────\n`;
     analisis += `📊 FICHA DE DATOS REALES:\n`;
     analisis += `📻 Emisoras: ${emisoras.length}\n`;
@@ -1036,21 +1136,32 @@ function generarFallbackRadioInteligente(prompt, datos = {}) {
     analisis += `🤖 Proveedores IA probados: ${IA_PROVEEDORES.length}\n`;
     analisis += `⚡ Modelos free intentados: ${IA_PROVEEDORES.reduce((a, p) => a + p.modelos.length, 0)}\n`;
     analisis += `─────────────────────────────────────\n`;
-    analisis += `⚠️ MODO FALLBACK INTELIGENTE\n`;
+    analisis += `⚠️ MODO FALLBACK IA INTELIGENTE\n`;
     analisis += `Los proveedores de IA no respondieron. Este guion fue compuesto `;
-    analisis += `automáticamente con datos reales de las APIs, sin IA generativa.\n`;
+    analisis += `con datos reales de las APIs y REHUMANIZADO con:\n`;
+    analisis += `  🦀 WASM Rust (reglas locales)\n`;
+    analisis += `  💡 Datamuse (sinónimos)\n`;
+    analisis += `  📖 Wordnik (definiciones)\n`;
+    analisis += `  ✏️ LanguageTool (corrección gramatical)\n`;
     analisis += `🔄 Reintenta para obtener respuesta IA.\n`;
     analisis += `─────────────────────────────────────`;
     
-    return analisis;
+    // ═══ REHUMANIZACIÓN CON FALLBACK IA ═══
+    try {
+        const textoRehumanizado = await FallbackIA.rehumanizarTexto(analisis, true);
+        Diagnostico.log(`🧠 Fallback radiofónico rehumanizado: ${analisis.length} → ${textoRehumanizado.length} chars`, 'ok');
+        return textoRehumanizado;
+    } catch(e) {
+        console.error('❌ Error rehumanización fallback:', e);
+        return analisis;
+    }
 }
 
 // ═══════════════════════════════════════════════════════════
-// 🧠 LLAMADA IA CON CONTEXTO ENRIQUECIDO
+// 🧠 LLAMADA IA CON CONTEXTO + FALLBACK IA
 // ═══════════════════════════════════════════════════════════
 async function llamarIAConContexto(prompt, temaBusqueda = '') {
     try {
-        // 1. Recopilar datos de todas las APIs en paralelo
         document.getElementById('faseInfo').textContent = '📻 Recopilando datos de APIs…';
         
         const [radioResult, audiusResult, gnewsResult, podcastResult, climaResult, arResult] = await Promise.allSettled([
@@ -1070,7 +1181,6 @@ async function llamarIAConContexto(prompt, temaBusqueda = '') {
             clima: climaResult.value || null
         };
         
-        // 2. Construir contexto
         let contexto = '';
         if (datos.emisoras.length) contexto += `\n📻 EMISORAS RADIO BROWSER:\n${datos.emisoras.map(e => `• ${e.nombre} (${e.pais})`).join('\n')}\n`;
         if (datos.canciones.length) contexto += `\n🎵 AUDIUS:\n${datos.canciones.map(c => `• "${c.titulo}" - ${c.artista}`).join('\n')}\n`;
@@ -1078,7 +1188,6 @@ async function llamarIAConContexto(prompt, temaBusqueda = '') {
         if (datos.podcasts.length) contexto += `\n🎧 PODCASTS:\n${datos.podcasts.map(p => `• ${p.titulo} - ${p.artista}`).join('\n')}\n`;
         if (datos.clima) contexto += `\n🌤️ CLIMA: ${datos.clima.descripcion} ${datos.clima.temperatura}°C en ${datos.clima.ciudad}\n`;
         
-        // 3. WASM Rust procesa contexto
         let infoWASM = null;
         if (rustWASM.cargado) {
             try {
@@ -1091,7 +1200,6 @@ async function llamarIAConContexto(prompt, temaBusqueda = '') {
             } catch (e) {}
         }
         
-        // 4. Prompt enriquecido
         let promptEnriquecido = prompt;
         if (infoWASM) {
             promptEnriquecido += `\n\n📚 CONTEXTO PROCESADO CON WASM RUST:\n`;
@@ -1110,7 +1218,6 @@ async function llamarIAConContexto(prompt, temaBusqueda = '') {
         }
         
         document.getElementById('faseInfo').textContent = '🤖 Consultando Multi-IA…';
-        console.log(`⚡ [1 LLAMADA] Multi-IA · modo ${modoActual}`);
         actualizarProgress(30);
         
         const r = await llamarIAParalelo([
@@ -1119,7 +1226,7 @@ async function llamarIAConContexto(prompt, temaBusqueda = '') {
         ], maxTokens);
         
         actualizarProgress(80);
-        let textoLimpio = r.texto.replace(/\*\*(.*?)\*\*/g, '$1').replace(/\*(.*?)\*/g, '$1').replace(/#{1,6}\s*/g, '').trim();
+        let textoLimpio = rustWASM.cleanText(r.texto);
         core403M.registrar(temaBusqueda || 'consulta');
         if (rustWASM.cargado) rustWASM.cache(`radio_${Date.now()}`, textoLimpio.substring(0, 3000));
         
@@ -1127,10 +1234,9 @@ async function llamarIAConContexto(prompt, temaBusqueda = '') {
     } catch (e) {
         console.error('❌ Error Multi-IA:', e);
         Diagnostico.log(`Multi-IA falló: ${e.message}`, 'error');
-        Diagnostico.log('🧠 Activando FALLBACK INTELIGENTE…', 'warn');
+        Diagnostico.log('🧠 Activando FALLBACK IA INTELIGENTE…', 'warn');
         
-        // Recopilar datos para fallback
-        document.getElementById('faseInfo').textContent = '🧠 Componiendo con datos reales…';
+        document.getElementById('faseInfo').textContent = '🧠 Fallback IA: rehumanizando con Datamuse + LanguageTool…';
         let datosFallback = { emisoras: [], canciones: [], noticias: [], podcasts: [], clima: null };
         try {
             const [r, a, g, p, c] = await Promise.allSettled([
@@ -1149,19 +1255,20 @@ async function llamarIAConContexto(prompt, temaBusqueda = '') {
             };
         } catch (e2) {}
         
-        const fallback = generarFallbackRadioInteligente(prompt, datosFallback);
-        return { texto: fallback, fueIA: false, proveedor: 'Fallback Inteligente', datos: datosFallback };
+        const fallback = await generarFallbackRadioInteligente(prompt, datosFallback);
+        return { texto: fallback, fueIA: false, proveedor: 'Fallback IA (Datamuse + LanguageTool)', datos: datosFallback };
     }
 }
 
 // ═══════════════════════════════════════════════════════════
-// 💬 CHAT
+// 💬 CHAT CON REHUMANIZACIÓN
 // ═══════════════════════════════════════════════════════════
-function addMessage(text, isUser) {
+function addMessage(text, isUser, isFallback = false) {
     const d = document.createElement('div');
     d.className = `message ${isUser ? 'user-message' : 'ia-message'}`;
     const b = document.createElement('div');
     b.className = 'message-bubble';
+    if (isFallback) b.classList.add('fallback');
     b.textContent = text;
     d.appendChild(b);
     chatArea.appendChild(d);
@@ -1170,7 +1277,7 @@ function addMessage(text, isUser) {
 function showTyping() {
     const d = document.createElement('div');
     d.className = 'message ia-message'; d.id = '_t';
-    d.innerHTML = '<div class="message-bubble"><span class="loading-spinner"></span> 🤖 Multi-IA + Core 403M procesando…</div>';
+    d.innerHTML = '<div class="message-bubble"><span class="loading-spinner"></span> 🤖 Multi-IA + Core 403M + Fallback IA procesando…</div>';
     chatArea.appendChild(d);
 }
 function removeTyping() { const t = document.getElementById('_t'); if (t) t.remove(); }
@@ -1194,12 +1301,13 @@ document.getElementById('sendChatBtn').addEventListener('click', async () => {
             addMessage(resultado.texto, false);
             showToast(`✅ ${resultado.proveedor} · ${resultado.texto.length} chars`);
         } else {
-            addMessage('🧠 [Modo Fallback · ' + resultado.datos.emisoras.length + ' emisoras + ' + resultado.datos.canciones.length + ' canciones + ' + resultado.datos.noticias.length + ' noticias]\n\n' + resultado.texto, false);
-            showToast(`🧠 Fallback · composición con datos reales`, true);
+            addMessage(resultado.texto, false, true);
+            showToast(`🧠 Fallback IA · rehumanizado con 3 APIs`, true);
         }
         ultimoAnalisis = resultado.texto;
         contadorPreguntas++;
         document.getElementById('metricPreguntas').textContent = contadorPreguntas;
+        FallbackIA.actualizarUI();
         if (vozActivada) await hablar(resultado.texto.substring(0, 300));
     } else {
         addMessage('⚠️ Error al procesar.', false);
@@ -1283,9 +1391,9 @@ document.getElementById('btnDiagnostico').onclick = () => {
 
 document.getElementById('btnRustStatus').onclick = () => {
     const s = rustWASM.getStats();
-    mostrarModal('🦀 WASM RUST REAL',
+    mostrarModal('🦀 WASM RUST REAL (40 func)',
         `Estado: ${rustWASM.cargado ? '✅ REAL (./pkg/)' : '⚠️ Fallback JS'}\n` +
-        `📊 Funciones: ${s.funciones}\n⚡ Optimizaciones: ${s.optimizaciones}\n` +
+        `📊 Funciones: ${s.funciones}/40\n⚡ Optimizaciones: ${s.optimizaciones}\n` +
         `⏱️ Tiempo: ${Math.round(s.tiempo)}ms\n📦 Caché: ${rustWASM.getCacheSize()}`
     );
 };
@@ -1298,7 +1406,7 @@ document.getElementById('btnRustTest').onclick = () => {
     const autores = rustWASM.autores(texto);
     const idioma = rustWASM.idioma(texto);
     const t1 = performance.now();
-    mostrarModal('⚡ TEST WASM RUST',
+    mostrarModal('⚡ TEST WASM RUST (40 func)',
         `📝 "${texto.substring(0, 60)}…"\n\n📊 Palabras: ${stats.palabras}\n🔄 Únicas: ${stats.unicas}\n🌐 Idioma: ${idioma}\n\n` +
         `🏷️ Keywords: ${keywords.map(k => `${k.palabra} (${k.frecuencia})`).join(', ') || 'N/A'}\n\n` +
         `👤 Autores: ${autores.join(', ') || 'N/A'}\n\n⚡ Tiempo: ${(t1 - t0).toFixed(2)}ms`
@@ -1319,19 +1427,20 @@ document.getElementById('btnMultiIA').onclick = () => {
 
 document.getElementById('btnCoreStatus').onclick = () => {
     mostrarModal('🧬 CORE 403M',
-        `Estado: ✅ 4 agentes activos\n📡 Consultas: ${core403M.consultas}\n📚 Temas: ${Object.keys(core403M.temas).length}\n🔄 Evoluciones: ${core403M.evoluciones}\n\n🤖 Agentes en 2do plano:\n• Analizador · Optimizador\n• Predictor · Evolucionador`
+        `Estado: ✅ 5 agentes activos\n📡 Consultas: ${core403M.consultas}\n📚 Temas: ${Object.keys(core403M.temas).length}\n🔄 Evoluciones: ${core403M.evoluciones}\n\n🤖 Agentes:\n• Analizador · Optimizador\n• Predictor · Evolucionador · Fallback IA`
     );
 };
 
 document.getElementById('btnDecisionStatus').onclick = () => {
     mostrarModal('🧠 403M DECIDE',
-        `🦀 WASM Rust: ${rustWASM.cargado ? '✅ REAL' : '⚠️ Fallback'}\n🔄 Multi-IA: ${proveedorActual || 'En espera'}\n🧬 Core 403M: ${core403M.consultas} consultas\n🔌 Agent-Reach: ${agentReach.stats.total} resultados\n📻 Emisoras: ${radioBrowser.totalEmisoras}\n🎵 Canciones: ${audiusAPI.totalCanciones}\n📰 Noticias: ${gnewsAPI.totalNoticias}\n🎧 Podcasts: ${podcastAPI.totalPodcasts}\n\n📌 Modo: ${modoActual}`
+        `🦀 WASM Rust: ${rustWASM.cargado ? '✅ REAL (40 func)' : '⚠️ Fallback'}\n🔄 Multi-IA: ${proveedorActual || 'En espera'}\n🧠 Fallback IA: ✅ Activo\n🧬 Core 403M: ${core403M.consultas} consultas\n🔌 Agent-Reach: ${agentReach.stats.total} resultados\n📻 Emisoras: ${radioBrowser.totalEmisoras}\n🎵 Canciones: ${audiusAPI.totalCanciones}\n📰 Noticias: ${gnewsAPI.totalNoticias}\n🎧 Podcasts: ${podcastAPI.totalPodcasts}\n\n📌 Modo: ${modoActual}`
     );
 };
 
 document.getElementById('btnMemoriaStatus').onclick = () => {
-    mostrarModal('🧠 MEMORIA WASM',
-        `📊 Consultas: ${core403M.consultas}\n📚 Temas: ${Object.keys(core403M.temas).length}\n🔄 Evoluciones: ${core403M.evoluciones}\n📦 Caché WASM: ${rustWASM.getCacheSize()}`
+    const fb = FallbackIA.getStats();
+    mostrarModal('🧠 MEMORIA WASM + FALLBACK',
+        `📊 Consultas: ${core403M.consultas}\n📚 Temas: ${Object.keys(core403M.temas).length}\n🔄 Evoluciones: ${core403M.evoluciones}\n📦 Caché WASM: ${rustWASM.getCacheSize()}\n\n🧠 Fallback IA:\n• Rehumanizaciones: ${fb.rehumanizaciones}\n• Sinónimos: ${fb.sinonimos}\n• Correcciones: ${fb.correcciones}`
     );
 };
 
@@ -1347,6 +1456,39 @@ document.getElementById('btnAgentReach').onclick = async () => {
     mostrarModal('🔌 AGENT-REACH', html || 'Sin resultados');
 };
 
+document.getElementById('btnFallbackStatus').onclick = () => {
+    const s = FallbackIA.getStats();
+    mostrarModal('🧠 FALLBACK IA (Datamuse + Wordnik + LanguageTool)',
+        `Estado: ✅ Activo\n\n` +
+        `💡 Datamuse: ${s.datamuse} consultas\n   → Sinónimos aplicados: ${s.sinonimos}\n\n` +
+        `📖 Wordnik: ${s.wordnik} consultas\n   → Definiciones obtenidas\n\n` +
+        `✏️ LanguageTool: ${s.languagetool} consultas\n   → Correcciones aplicadas: ${s.correcciones}\n\n` +
+        `🔄 Rehumanizaciones completas: ${s.rehumanizaciones}\n` +
+        `📦 Caché Fallback: ${s.cacheSize} entradas\n\n` +
+        `⚙️ Cascada: 🦀 WASM Rust → 💡 Datamuse → 📖 Wordnik → ✏️ LanguageTool\n\n` +
+        `🎙️ Contexto: Guion radiofónico con locutora IA`
+    );
+};
+
+document.getElementById('btnFallbackTest').onclick = async () => {
+    showToast('🧠 Probando Fallback IA...');
+    const textoTest = 'La radio es fundamental. La radio conecta personas. La radio informa al mundo. Además, la radio entretiene. Por otro lado, la radio educa. Cabe destacar que la radio es importante.';
+    const rehumanizado = await FallbackIA.rehumanizarTexto(textoTest, true);
+    const statsOrig = rustWASM.contarPalabras(textoTest);
+    const statsReh = rustWASM.contarPalabras(rehumanizado);
+    let info = `📝 ORIGINAL:\n${textoTest}\n\n`;
+    info += `✨ REHUMANIZADO:\n${rehumanizado}\n\n`;
+    info += `📊 Estadísticas:\n`;
+    info += `Palabras: ${statsOrig.palabras} → ${statsReh.palabras}\n`;
+    info += `Únicas: ${statsOrig.unicas} → ${statsReh.unicas}\n\n`;
+    info += `🧠 Fallback IA aplicado:\n`;
+    info += `💡 Datamuse: ${FallbackIA.stats.datamuse}\n`;
+    info += `📖 Wordnik: ${FallbackIA.stats.wordnik}\n`;
+    info += `✏️ LanguageTool: ${FallbackIA.stats.languagetool}\n`;
+    info += `🔄 Rehumanizaciones: ${FallbackIA.stats.rehumanizaciones}`;
+    mostrarModal('💡 Test Fallback IA', info);
+};
+
 document.getElementById('btn12Fuentes').onclick = () => {
     mostrarModal('🔬 12 FUENTES',
         `12 fuentes académicas integradas:\n\n📚 Semantic Scholar\n📐 arXiv\n📄 Crossref\n🔓 OpenAlex\n📚 CORE\n🏛️ Internet Archive\n🌐 Wikipedia\n📊 Wikidata\n🔬 PubMed\n📖 DOAJ\n📚 Open Library\n💻 Hacker News`
@@ -1355,38 +1497,42 @@ document.getElementById('btn12Fuentes').onclick = () => {
 
 document.getElementById('btnFuentesIlimitadas').onclick = () => {
     mostrarModal('♾️ FUENTES ILIMITADAS',
-        `100+ fuentes totales:\n\n📚 12 fuentes académicas\n➕ 88 fuentes adicionales\n📻 Radio Browser (100.000+ emisoras)\n🎵 Audius (música descentralizada)\n📰 GNews (noticias mundiales)\n🌤️ Open-Meteo (clima)\n🎧 iTunes Podcasts`
+        `100+ fuentes totales:\n\n📚 12 fuentes académicas\n➕ 88 fuentes adicionales\n📻 Radio Browser (100.000+ emisoras)\n🎵 Audius (música descentralizada)\n📰 GNews (noticias mundiales)\n🌤️ Open-Meteo (clima)\n🎧 iTunes Podcasts\n🧠 Fallback IA (Datamuse + Wordnik + LanguageTool)`
     );
 };
 
 document.getElementById('btnWasmExtremo').onclick = () => {
     const s = rustWASM.getStats();
-    mostrarModal('⚡ WASM RUST EXTREMO · 50x',
+    mostrarModal('⚡ WASM RUST EXTREMO · 50x · 40 FUNC',
         `Estado: ${rustWASM.cargado ? '✅ REAL (./pkg/)' : '⚠️ Fallback JS'}\n\n` +
-        `📊 Funciones: ${s.funciones}\n⚡ Optimizaciones: ${s.optimizaciones}\n⏱️ Tiempo: ${Math.round(s.tiempo)}ms\n📦 Caché: ${rustWASM.getCacheSize()}`
+        `📊 Funciones: ${s.funciones}/40\n⚡ Optimizaciones: ${s.optimizaciones}\n⏱️ Tiempo: ${Math.round(s.tiempo)}ms\n📦 Caché: ${rustWASM.getCacheSize()}`
     );
 };
 
 document.getElementById('btnAnalisisCompleto').onclick = () => {
     const s = rustWASM.getStats();
+    const fb = FallbackIA.getStats();
     mostrarModal('📊 ANÁLISIS COMPLETO',
-        `=== SISTEMA ===\n🦀 WASM Rust: ${rustWASM.cargado ? '✅ REAL' : '⚠️ Fallback'}\n` +
-        `📊 Funciones: ${s.funciones}\n⚡ Optimizaciones: ${s.optimizaciones}\n\n` +
+        `=== SISTEMA ===\n🦀 WASM Rust: ${rustWASM.cargado ? '✅ REAL (40 func)' : '⚠️ Fallback'}\n` +
+        `📊 Funciones: ${s.funciones}/40\n⚡ Optimizaciones: ${s.optimizaciones}\n\n` +
+        `🧠 FALLBACK IA:\n  • Datamuse: ${fb.datamuse}\n  • Wordnik: ${fb.wordnik}\n  • LanguageTool: ${fb.languagetool}\n  • Rehumanizaciones: ${fb.rehumanizaciones}\n  • Sinónimos: ${fb.sinonimos}\n  • Correcciones: ${fb.correcciones}\n\n` +
         `🧬 CORE 403M:\n  • Consultas: ${core403M.consultas}\n  • Evoluciones: ${core403M.evoluciones}\n\n` +
-        `🔌 AGENT-REACH:\n  • Total: ${agentReach.stats.total}\n\n` +
+        `🔌 AGENT-REACH: ${agentReach.stats.total}\n\n` +
         `📻 APIS:\n  • Emisoras: ${radioBrowser.totalEmisoras}\n  • Canciones: ${audiusAPI.totalCanciones}\n  • Noticias: ${gnewsAPI.totalNoticias}\n  • Podcasts: ${podcastAPI.totalPodcasts}\n  • Favoritas: ${emisorasFavoritas.length}`
     );
 };
 
 document.getElementById('btnEstadoSistema').onclick = () => {
     const s = rustWASM.getStats();
+    const fb = FallbackIA.getStats();
     mostrarModal('🔌 ESTADO DEL SISTEMA',
-        `🦀 WASM Rust: ${rustWASM.cargado ? '✅ REAL (./pkg/)' : '⚠️ Fallback JS'}\n` +
-        `🔄 Multi-IA: ${proveedorActual || 'En espera'}\n🧬 Core 403M: ${core403M.consultas} consultas\n` +
-        `🔌 Agent-Reach: ${agentReach.stats.total} resultados\n\n` +
+        `🦀 WASM Rust: ${rustWASM.cargado ? '✅ REAL (40 func)' : '⚠️ Fallback JS'}\n` +
+        `🔄 Multi-IA: ${proveedorActual || 'En espera'}\n🧠 Fallback IA: ✅ Datamuse + Wordnik + LanguageTool\n` +
+        `🧬 Core 403M: ${core403M.consultas} consultas\n🔌 Agent-Reach: ${agentReach.stats.total} resultados\n\n` +
         `📻 Radio Browser: ${radioBrowser.totalEmisoras} emisoras\n🎵 Audius: ${audiusAPI.totalCanciones} canciones\n` +
         `📰 GNews: ${gnewsAPI.totalNoticias} noticias\n🎧 Podcasts: ${podcastAPI.totalPodcasts} podcasts\n\n` +
-        `⚡ IA: OK ${iaOkCount} · ❌ Fallos ${iaFailsCount}\n🌐 6 idiomas · 12+ fuentes · ♾️ sin límites`
+        `⚡ IA: OK ${iaOkCount} · ❌ Fallos ${iaFailsCount}\n🧠 Fallback: ${fb.rehumanizaciones} rehumanizaciones\n` +
+        `🌐 6 idiomas · 12+ fuentes · ♾️ sin límites`
     );
 };
 
@@ -1409,8 +1555,9 @@ document.querySelectorAll('.modo-btn').forEach(btn => {
 // 🚀 INICIALIZACIÓN
 // ═══════════════════════════════════════════════════════════
 async function init() {
-    Diagnostico.log('🚀 Radio IA Pro iniciando…', 'info');
+    Diagnostico.log('🚀 Radio IA Pro REPOTENCIADA iniciando…', 'info');
     Diagnostico.log(`📊 ${IA_PROVEEDORES.length} proveedores IA · ${IA_PROVEEDORES.reduce((a, p) => a + p.modelos.length, 0)} modelos free`, 'info');
+    Diagnostico.log(`🧠 Fallback IA: Datamuse + Wordnik + LanguageTool`, 'info');
     
     await rustWASM.cargar();
     actualizarProgress(15);
@@ -1430,7 +1577,6 @@ async function init() {
     await podcastAPI.buscarPodcasts('radio', 5);
     actualizarProgress(95);
     
-    // Reproducir primera emisora
     const top = await radioBrowser.topEmisoras(1);
     if (top.total > 0) {
         const primera = top.emisoras[0];
@@ -1442,12 +1588,13 @@ async function init() {
         audio.play().catch(() => {});
     }
     
+    FallbackIA.actualizarUI();
     actualizarProgress(100);
     document.getElementById('faseInfo').textContent = '✅ Sistema listo';
     setTimeout(() => actualizarProgress(0), 2000);
     
-    showToast(`✅ ${rustWASM.cargado ? '🦀 WASM REAL' : '⚠️ Fallback'} · 🔄 9 IA · 📻 ${radioBrowser.totalEmisoras} · 🎵 ${audiusAPI.totalCanciones} · 📰 ${gnewsAPI.totalNoticias}`);
-    Diagnostico.log(`✅ SISTEMA LISTO · ${IA_PROVEEDORES.length} IA · APIs activas`, 'ok');
+    showToast(`✅ ${rustWASM.cargado ? '🦀 WASM REAL (40)' : '⚠️ Fallback'} · 🔄 9 IA · 🧠 Fallback IA · 📻 ${radioBrowser.totalEmisoras} · 🎵 ${audiusAPI.totalCanciones} · 📰 ${gnewsAPI.totalNoticias}`);
+    Diagnostico.log(`✅ SISTEMA LISTO · ${IA_PROVEEDORES.length} IA · Fallback IA · APIs activas`, 'ok');
 }
 init();
 
@@ -1460,6 +1607,7 @@ setInterval(() => {
     document.getElementById('ultraOptimizaciones').textContent = s.optimizaciones;
     document.getElementById('ultraTiempo').textContent = Math.round(s.tiempo) + 'ms';
     document.getElementById('wasmCacheSize').textContent = rustWASM.getCacheSize();
+    FallbackIA.actualizarUI();
 }, 30000);
 </script>
 
