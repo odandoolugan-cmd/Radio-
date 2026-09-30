@@ -1042,7 +1042,171 @@ document.getElementById('activarVozBtn').addEventListener('click', activarVoz);
 // ═══════════════════════════════════════════════════════════
 // 🧠 FALLBACK INTELIGENTE — COMPOSICIÓN CON DATOS REALES + REHUMANIZACIÓN
 // ═══════════════════════════════════════════════════════════
+// ============================================
+// 🧹 FALLBACK INTELIGENTE — Dedup + Filtro + Relevancia (Radio)
+// ============================================
+
+// Deduplicar emisoras
+function deduplicarEmisoras(emisoras) {
+    const vistos = new Set();
+    return emisoras.filter(e => {
+        const clave = (e.stationuuid || e.nombre || '').toLowerCase();
+        if (vistos.has(clave)) return false;
+        vistos.add(clave);
+        return true;
+    });
+}
+
+// Deduplicar canciones
+function deduplicarCanciones(canciones) {
+    const vistos = new Set();
+    return canciones.filter(c => {
+        const clave = (c.id || c.titulo || '').toLowerCase();
+        if (vistos.has(clave)) return false;
+        vistos.add(clave);
+        return true;
+    });
+}
+
+// Deduplicar noticias
+function deduplicarNoticias(noticias) {
+    const vistos = new Set();
+    return noticias.filter(n => {
+        const clave = (n.titulo || '').toLowerCase().trim();
+        if (vistos.has(clave) || clave === '') return false;
+        vistos.add(clave);
+        return true;
+    });
+}
+
+// Filtrar basura en todas las fuentes
+function filtrarBasuraRadio(datos) {
+    const limpio = { ...datos };
+    
+    // Emisoras: descartar offline o sin nombre
+    if (limpio.emisoras) {
+        limpio.emisoras = limpio.emisoras.filter(e => 
+            e.nombre && e.nombre.trim() !== '' && 
+            (e.lastcheckok === undefined || e.lastcheckok === 1)
+        );
+    }
+    
+    // Canciones: descartar sin título
+    if (limpio.canciones) {
+        limpio.canciones = limpio.canciones.filter(c => 
+            c.titulo && c.titulo.trim() !== ''
+        );
+    }
+    
+    // Noticias: descartar sin URL
+    if (limpio.noticias) {
+        limpio.noticias = limpio.noticias.filter(n => 
+            n.titulo && n.titulo.trim() !== '' && n.url
+        );
+    }
+    
+    return limpio;
+}
+
+// Calcular relevancia global
+function calcularRelevanciaRadio(datos) {
+    let score = 0;
+    let maxScore = 0;
+    
+    // Emisoras (30 pts)
+    maxScore += 30;
+    const numEmisoras = (datos.emisoras || []).length;
+    if (numEmisoras >= 10) score += 30;
+    else if (numEmisoras >= 5) score += 20;
+    else if (numEmisoras >= 1) score += 10;
+    
+    // Canciones (25 pts)
+    maxScore += 25;
+    const numCanciones = (datos.canciones || []).length;
+    if (numCanciones >= 10) score += 25;
+    else if (numCanciones >= 5) score += 18;
+    else if (numCanciones >= 1) score += 10;
+    
+    // Noticias (25 pts)
+    maxScore += 25;
+    const numNoticias = (datos.noticias || []).length;
+    if (numNoticias >= 8) score += 25;
+    else if (numNoticias >= 4) score += 18;
+    else if (numNoticias >= 1) score += 10;
+    
+    // Clima (10 pts)
+    maxScore += 10;
+    if (datos.clima) score += 10;
+    
+    // Podcasts (10 pts)
+    maxScore += 10;
+    if (datos.podcasts && datos.podcasts.length > 0) score += 10;
+    
+    return Math.round((score / maxScore) * 100);
+}
+
+// Resumen extendido
+function generarResumenExtendidoRadio(datos) {
+    let resumen = '';
+    
+    resumen += `📊 ANÁLISIS EXTENDIDO\n\n`;
+    
+    // Emisoras
+    if (datos.emisoras && datos.emisoras.length > 0) {
+        resumen += `📻 EMISORAS:\n`;
+        resumen += `  • Total: ${datos.emisoras.length}\n`;
+        const paises = [...new Set(datos.emisoras.map(e => e.pais).filter(Boolean))];
+        if (paises.length > 0) resumen += `  • Países: ${paises.slice(0, 5).join(', ')}\n`;
+        resumen += `\n`;
+    }
+    
+    // Canciones
+    if (datos.canciones && datos.canciones.length > 0) {
+        resumen += `🎵 CANCIONES:\n`;
+        resumen += `  • Total: ${datos.canciones.length}\n`;
+        const artistas = [...new Set(datos.canciones.map(c => c.artista).filter(Boolean))];
+        if (artistas.length > 0) resumen += `  • Artistas: ${artistas.slice(0, 5).join(', ')}\n`;
+        resumen += `\n`;
+    }
+    
+    // Noticias
+    if (datos.noticias && datos.noticias.length > 0) {
+        resumen += `📰 NOTICIAS:\n`;
+        resumen += `  • Total: ${datos.noticias.length}\n`;
+        const fuentes = [...new Set(datos.noticias.map(n => n.fuente).filter(Boolean))];
+        if (fuentes.length > 0) resumen += `  • Fuentes: ${fuentes.slice(0, 5).join(', ')}\n`;
+        resumen += `\n`;
+    }
+    
+    // Relevancia
+    const relevancia = calcularRelevanciaRadio(datos);
+    resumen += `📈 ÍNDICE DE RELEVANCIA: ${relevancia}%\n`;
+    if (relevancia > 70) resumen += `  ✅ Contenido abundante\n`;
+    else if (relevancia > 50) resumen += `  📈 Contenido moderado\n`;
+    else if (relevancia > 30) resumen += `  📊 Contenido limitado\n`;
+    else resumen += `  ⚠️ Datos escasos\n`;
+    
+    return resumen;
+}
+
+// ============================================
+// 🔬 FALLBACK RADIO
+// ============================================
+
 async function generarFallbackRadioInteligente(prompt, datos = {}) {
+    // 🔥 APLICAR FALLBACK INTELIGENTE
+    console.log('🧹 Aplicando fallback inteligente a Radio...');
+    
+    // Deduplicar cada fuente
+    if (datos.emisoras) datos.emisoras = deduplicarEmisoras(datos.emisoras);
+    if (datos.canciones) datos.canciones = deduplicarCanciones(datos.canciones);
+    if (datos.noticias) datos.noticias = deduplicarNoticias(datos.noticias);
+    
+    // Filtrar basura
+    datos = filtrarBasuraRadio(datos);
+    
+    console.log(`✅ Tras dedup + filtro: ${datos.emisoras?.length || 0} emisoras, ${datos.canciones?.length || 0} canciones, ${datos.noticias?.length || 0} noticias`);
+    
     const { emisoras = [], canciones = [], noticias = [], podcasts = [], clima = null } = datos;
     const fuentesActivas = [];
     if (emisoras.length) fuentesActivas.push('Radio Browser');
@@ -1135,6 +1299,8 @@ async function generarFallbackRadioInteligente(prompt, datos = {}) {
     analisis += `🔌 Fuentes activas: ${fuentesActivas.length} (${fuentesActivas.join(', ')})\n`;
     analisis += `🤖 Proveedores IA probados: ${IA_PROVEEDORES.length}\n`;
     analisis += `⚡ Modelos free intentados: ${IA_PROVEEDORES.reduce((a, p) => a + p.modelos.length, 0)}\n`;
+    analisis += `─────────────────────────────────────\n`;
+    analisis += generarResumenExtendidoRadio({ emisoras, canciones, noticias, podcasts, clima });
     analisis += `─────────────────────────────────────\n`;
     analisis += `⚠️ MODO FALLBACK IA INTELIGENTE\n`;
     analisis += `Los proveedores de IA no respondieron. Este guion fue compuesto `;
